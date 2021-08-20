@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="lodge_nav_menu_height">200dp</dimen>
+    <dimen name="corner_radius">12dp</dimen>
+</resources>

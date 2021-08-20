@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="lodges_location">
+        <item>Lodges</item>
+        <item>Odim</item>
+        <item>Beach</item>
+        <item>Odenigwe</item>
+        <item>HillTop</item>
+        <item>Green House</item>
+        <item>Beach</item>
+        <item>Onuiyi</item>
+        <item>Boys Quarters</item>
+        <item>Behind Flat</item>
+        <item>Eze-Opi</item>
+        <item>First Gate</item>
+    </string-array>
+
+    <string-array name="lodge_type">
+        <item>Single Room</item>
+        <item>Self Contain</item>
+        <item>Flat</item>
+    </string-array>
+
+    <string-array name="lodge_size">
+        <item>3.6m</item>
+        <item>3.0m</item>
+        <item>2.6m</item>
+        <item>2.0m</item>
+    </string-array>
+
+    <string-array name="campus_array">
+        <item>UNN</item>
+        <item>UNEC</item>
+    </string-array>
+
+    <string-array name="address_array">
+        <item>Odim</item>
+        <item>Beach</item>
+        <item>Odenigwe</item>
+        <item>HillTop</item>
+        <item>Green House</item>
+        <item>Beach</item>
+        <item>Onuiyi</item>
+        <item>Boys Quarters</item>
+        <item>Behind Flat</item>
+        <item>Eze-Opi</item>
+        <item>First Gate</item>
+    </string-array>
+
+    <string-array name="quality_level">
+        <item>Always</item>
+        <item>Often</item>
+        <item>Rare</item>
+    </string-array>
+
+    <string-array name="distance_level">
+        <item>Close</item>
+        <item>Far</item>
+        <item>Very Far</item>
+    </string-array>
+
+    <string-array name="surrounding">
+       <item>Calm</item>
+        <item>Quite</item>
+    </string-array>
+
+    <string-array name="lodge_view">
+        <item>Cover Image</item>
+        <item>Frontage</item>
+        <item>Interior</item>
+        <item>Exterior</item>
+        <item>Toilet</item>
+        <item>Kitchen</item>
+    </string-array>
+
+</resources>

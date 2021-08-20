@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "950964847463",
+    "project_id": "roarhousing",
+    "storage_bucket": "roarhousing.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950964847463:android:fabd2df048defcd643e5c2",
+        "android_client_info": {
+          "package_name": "com.beaconinc.roarhousing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "950964847463-tat9ipv8sb7joptv73bhr3j4gg8p74vq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beaconinc.roarhousing",
+            "certificate_hash": "d0e0620c3e76751f36424f6e77a038c486882cb6"
+          }
+        },
+        {
+          "client_id": "950964847463-m0nvpbsu3mvtublb9pd5pg75hf5jfr1k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXEqw7tQ370O55PtI5-gWcRHl0Ae9yk_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "950964847463-m0nvpbsu3mvtublb9pd5pg75hf5jfr1k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

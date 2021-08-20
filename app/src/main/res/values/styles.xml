@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ShapeAppearanceOverlay.App.dateDialog" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.App.date</item>
+    </style>
+
+  <!--  <style name="MyCustomTheme" parent="RaveAppTheme.NoActionBar">
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="OTPButtonStyle">@style/myOtpBtnStyle</item>
+    <item name="PayButtonStyle">@style/myBtnStyle</item>
+    <item name="PinButtonStyle">@style/myPinButtonStyle</item>
+    <item name="OTPHeaderStyle">@style/myOtpHeaderStyle</item>
+    <item name="TabLayoutStyle">@style/myTabLayoutStyle</item>
+    <item name="PinHeaderStyle">@style/myPinHeaderStyle</item>
+    <item name="PaymentTileStyle">@style/myPaymentTileStyle</item>
+    <item name="PaymentTileTextStyle">@style/myPaymentTileTextStyle</item>
+    <item name="PaymentTileDividerStyle">@style/myPaymentTileDividerStyle</item>
+</style>-->
+</resources>

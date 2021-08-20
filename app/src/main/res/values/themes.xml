@@ -1,0 +1,170 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.RoarHousing" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/black_700</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/purple_500</item>
+        <item name="colorSecondaryVariant">@color/purple_700</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorAccent">@color/black_300</item>
+        <item name="colorControlNormal">@color/black_500</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Widget.Roar.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:textColor">@color/black_700</item>
+        <item name="titleTextAppearance">@style/Widget.Toolbar.title</item>
+    </style>
+
+    <style name="Widget.Toolbar.title" parent="Widget.MaterialComponents.Button">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black_700</item>
+    </style>
+
+    <style name="spinnerTheme" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="strokeColor">@color/black_500</item>
+        <!--        <item name="endIconDrawable">@drawable/</item>-->
+    </style>
+
+    <style name="Widget.App.cardView" parent="Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+    </style>
+    
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+          <item name="cornerFamily">rounded</item>
+          <item name="cornerSizeTopRight">16dp</item>
+         <item name="cornerSizeTopLeft">16dp</item>
+    </style>
+
+    <style name="Widget.Roar.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintTextColor">@color/blue_500</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.TextInputLayout</item>
+    </style>
+
+    <style name="ThemeOverlay.TextInputLayout" parent="ThemeOverlay.MaterialComponents">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">12dp</item>
+        <item name="cornerSizeTopLeft">12dp</item>
+        <item name="colorPrimary">@color/blue_700</item>
+        <item name="colorOnSurface">@color/blue_500</item>
+    </style>
+
+    <style name="Widget.Roar.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/black_500</item>
+    </style>
+
+    <style name="Widget.App.arrowButton" parent="Widget.MaterialComponents.Button">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSizeTopRight">12dp</item>
+        <item name="cornerSizeBottomRight">12dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.cornerRadius" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.selectedCorner" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">18dp</item>
+        <item name="cornerSizeTopLeft">18dp</item>
+    </style>
+
+   <style name="ShapeAppearanceOverlay.App.curveSelectedCorner" parent="">
+       <item name="cornerFamily">rounded</item>
+       <item name="cornerSizeTopLeft">20dp</item>
+       <item name="cornerSizeTopRight">20dp</item>
+       <item name="cornerSizeBottomRight">20dp</item>
+   </style>
+
+    <style name="ShapeAppearanceOverlay.App.leftCurved" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">20dp</item>
+        <item name="cornerSizeTopRight">20dp</item>
+        <item name="cornerSizeBottomLeft">20dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.rightCurved" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">20dp</item>
+        <item name="cornerSizeTopRight">20dp</item>
+        <item name="cornerSizeBottomRight">20dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.bottomCurved" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomRight">20dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50dp</item>
+    </style>
+    <style name="ShapeAppearanceOverlay.App.circle100" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">70dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.available" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">10dp</item>
+        <item name="cornerSizeBottomRight">10dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.dialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomRight">10dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.general" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomRight">20dp</item>
+        <item name="cornerSizeTopRight">20dp</item>
+        <item name="cornerSizeTopLeft">20dp</item>
+    </style>
+
+    <style name="MaterialAlertDialog.App.date" parent="MaterialAlertDialog.MaterialComponents">
+        <item name="colorAccent">@color/blue_300</item>
+        <item name="shapeAppearance">@style/ShapeAppearanceOverlay.App.dialog</item>
+    </style>
+
+    <style name="MaterialAlertDialog.App" parent="MaterialAlertDialog.MaterialComponents">
+        <item name="shapeAppearance">@style/ShapeAppearanceOverlay.App.general</item>
+    </style>
+<!--Material dialog styling -->
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">@color/blue_300</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
+    </style>
+<!--End of Material dialog styling-->
+
+
+    <style name="Widget.App.filterChip" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="android:textSize">15sp</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:elevation">5dp</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.chipTheme</item>
+    </style>
+
+    <style name="ThemeOverlay.chipTheme" parent="">
+        <item name="colorPrimary">@color/blue_300</item>
+        <item name="colorSurface">@color/white</item>
+    </style>
+
+    <style name="ThemeOverlay.progressBar" parent="">
+        <item name="colorAccent">@color/blue_300</item>
+        <item name="colorSurface">@color/white</item>
+    </style>
+
+</resources>

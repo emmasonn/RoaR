@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/luxBtn"
+        style="@style/Widget.Roar.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Classic Lodge" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cheapBtn"
+        style="@style/Widget.Roar.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Simple Lodge" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/watchListBtn"
+        style="@style/Widget.Roar.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WatchList" />
+
+    <View
+        android:layout_width="56dp"
+        android:layout_height="1dp"
+        android:layout_margin="16dp"
+        android:background="@color/blue_300" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/myAccountBtn"
+        style="@style/Widget.Roar.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Account" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/settingsBtn"
+        style="@style/Widget.Roar.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/aboutUs"
+        style="@style/Widget.Roar.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About Us" />
+</merge>
