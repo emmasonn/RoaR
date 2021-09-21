@@ -16,6 +16,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.load
@@ -24,9 +25,12 @@ import com.beaconinc.roarhousing.cloudModel.FirebaseUser
 import com.beaconinc.roarhousing.util.MB
 import com.beaconinc.roarhousing.util.MB_THRESHOLD
 import com.beaconinc.roarhousing.util.Memory_Access_code
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.Dispatchers
@@ -46,20 +50,18 @@ class ManageAccount : Fragment() {
     private lateinit var fireStore: FirebaseFirestore
     private lateinit var storage: FirebaseStorage
     private lateinit var progressBar: ProgressBar
-    private lateinit var clientId: String
+    private lateinit var registration: ListenerRegistration
 
-
-    private val client: FirebaseUser? by lazy {
-        arguments?.get("Client") as FirebaseUser?
+    private val client: FirebaseUser by lazy {
+        arguments?.get("Client") as FirebaseUser
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         firebaseAuth = FirebaseAuth.getInstance()
         storage = FirebaseStorage.getInstance()
-        clientId = firebaseAuth.currentUser?.uid!!
         fireStore = FirebaseFirestore.getInstance()
-        clientDocument = fireStore.collection("clients").document(clientId)
+        clientDocument = fireStore.collection("clients").document(client.clientId!!)
     }
 
     override fun onCreateView(
@@ -71,26 +73,38 @@ class ManageAccount : Fragment() {
         clientImage = view.findViewById(R.id.clientImage)
         fullName = view.findViewById(R.id.fullName)
         val changeImage = view.findViewById<ImageView>(R.id.changeIcon)
-        val changeNumber = view.findViewById<ConstraintLayout>(R.id.changeNumber)
+        val changePassword = view.findViewById<ConstraintLayout>(R.id.changePassword)
         val changeName = view.findViewById<ConstraintLayout>(R.id.changeName)
+        val changePhone = view.findViewById<ConstraintLayout>(R.id.changeNumber)
         phoneNumber = view.findViewById<TextView>(R.id.phoneNumber)
         progressBar = view.findViewById(R.id.progressBar)
+        val backBtn = view.findViewById<ImageView>(R.id.aBackBtn)
 
         //load the current data from bundle
-        fullName.text = client?.clientName
-        clientImage.load(client?.clientUrl)
-        phoneNumber.text = client?.clientPhone
+        fullName.text = client.clientName
+        clientImage.load(client.clientUrl)
+        phoneNumber.text = client.clientPhone
+
+        backBtn.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        changePhone.setOnClickListener {
+            editPhoneDialog(client)
+        }
 
         changeImage.setOnClickListener {
             openStorageIntent()
         }
 
-        changeNumber.setOnClickListener {
-
+        changePassword.setOnClickListener {
+            val action = R.id.action_manageAccount_to_changePassword
+            val bundle = bundleOf("Client" to client)
+            findNavController().navigate(action, bundle)
         }
 
         changeName.setOnClickListener {
-
+                editNameDialog(client)
         }
 
         return view
@@ -98,7 +112,12 @@ class ManageAccount : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        fetchUser()
+        registerChangeListener()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        registration.remove()
     }
 
     @SuppressLint("QueryPermissionsNeeded")
@@ -170,7 +189,7 @@ class ManageAccount : Fragment() {
 
         val storageRef: StorageReference =
             storage.reference.child(
-                "images/${client?.clientName}/profile/${clientId}/"
+                "images/${client.clientName}/profile/${client.clientId}/"
             )
         //var imageUri: String? = null
         imageByte?.let { imageByteArray ->
@@ -206,13 +225,10 @@ class ManageAccount : Fragment() {
         }
     }
 
-    fun changeFullName() {
-
-    }
-
-    private fun fetchUser() {
-        clientDocument.get().addOnSuccessListener {
-            it.toObject(FirebaseUser::class.java).also { client ->
+    private fun registerChangeListener() {
+        registration = clientDocument.addSnapshotListener { value, _ ->
+            value?.toObject(FirebaseUser::class.java).also { client ->
+                arguments = bundleOf("Client" to client)
                 fullName.text = client?.clientName
                 clientImage.load(client?.clientUrl)
                 phoneNumber.text = client?.clientPhone
@@ -220,4 +236,61 @@ class ManageAccount : Fragment() {
         }
     }
 
+    @SuppressLint("InflateParams")
+    private fun editPhoneDialog(client: FirebaseUser) {
+        val documentReference = fireStore.collection("clients").document(client.clientId!!)
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            val inflater = LayoutInflater.from(requireContext())
+            val view = inflater.inflate(R.layout.edit_room_dialog,null)
+            val roomField = view.findViewById<TextInputEditText>(R.id.roomNumber)
+            roomField.hint = "New Phone Number"
+            roomField.setText(client.clientPhone.toString())
+
+            setPositiveButton("Submit") { _, _ ->
+                val number = roomField.text.toString()
+                documentReference.update("clientPhone", number)
+                    .addOnSuccessListener {
+                        Toast.makeText(requireContext(),"Update is Successfully",
+                            Toast.LENGTH_SHORT).show()
+                    }.addOnFailureListener {
+                        Toast.makeText(requireContext(),"Failed to Update",
+                            Toast.LENGTH_SHORT).show()
+                    }
+            }
+            setNegativeButton("Cancel") { dialog,_ ->
+                dialog.dismiss()
+            }
+            setView(view)
+            show()
+        }
+    }
+
+    @SuppressLint("InflateParams")
+    private fun editNameDialog(client: FirebaseUser) {
+        val documentReference = fireStore.collection("clients").document(client.clientId!!)
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            val inflater = LayoutInflater.from(requireContext())
+            val view = inflater.inflate(R.layout.edit_room_dialog,null)
+            val roomField = view.findViewById<TextInputEditText>(R.id.roomNumber)
+            roomField.hint = "New Name"
+            roomField.setText(client.clientName.toString())
+
+            setPositiveButton("Submit") { _, _ ->
+                val fullName = roomField.text.toString()
+                documentReference.update("clientName", fullName)
+                    .addOnSuccessListener {
+                        Toast.makeText(requireContext(),"Update is Successfully",
+                            Toast.LENGTH_SHORT).show()
+                    }.addOnFailureListener {
+                        Toast.makeText(requireContext(),"Failed to Update",
+                            Toast.LENGTH_SHORT).show()
+                    }
+            }
+            setNegativeButton("Cancel") { dialog,_ ->
+                dialog.dismiss()
+            }
+            setView(view)
+            show()
+        }
+    }
 }

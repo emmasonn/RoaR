@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:scrollbars="none">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:singleLine="true"
+                app:singleSelection="true" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </HorizontalScrollView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/luxBtn"
         style="@style/Widget.Roar.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Classic Lodge" />
 
     <com.google.android.material.button.MaterialButton
@@ -17,24 +44,47 @@
         android:text="Simple Lodge" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/watchListBtn"
+        android:id="@+id/favBtn"
         style="@style/Widget.Roar.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="WatchList" />
-
-    <View
-        android:layout_width="56dp"
-        android:layout_height="1dp"
-        android:layout_margin="16dp"
-        android:background="@color/blue_300" />
+        android:text="Favorite Lodge" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/myAccountBtn"
+        android:id="@+id/accommodationBtn"
         style="@style/Widget.Roar.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My Account" />
+        android:text="Looking for accommodation" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/propertyBtn"
+            style="@style/Widget.Roar.Button.TextButton"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="Store"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/propertyItems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Items"
+            android:textColor="@color/yellow_500"
+            android:textSize="15sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/propertyBtn"
+            app:layout_constraintStart_toEndOf="@+id/propertyBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/settingsBtn"
@@ -48,5 +98,23 @@
         style="@style/Widget.Roar.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="About Us" />
+        android:text="About us" />
+
+    <View
+        android:layout_width="56dp"
+        android:layout_height="1dp"
+        android:layout_margin="16dp"
+        android:background="@color/blue_300" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/accountBtn"
+        style="@style/Widget.Roar.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Account"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </merge>

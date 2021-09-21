@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:id="@+id/exitProfile"
+        android:title="Back"
+        android:icon="@drawable/ic_back"
+        />
+
+    <group android:menuCategory="container">
+
+    <item android:title="Business"
+         android:id="@+id/businessFragment"
+         />
+    <item android:id="@+id/realtorFragment"
+        android:title="Realtors"
+        />
+
+    <item android:title="Admins"
+          android:id="@+id/adminsFragment"
+        />
+
+    <item android:id="@+id/setUpFragment"
+        android:title="Add Account"
+        />
+
+    <item android:title="ManageAccount"
+          android:id="@+id/manageAccount"
+        />
+
+    <item android:id="@+id/signOut"
+        android:title="Sign out"
+        />
+    </group>
+
+</menu>

@@ -18,7 +18,7 @@ import com.beaconinc.roarhousing.R
 class NavigationIconClickListener @JvmOverloads internal constructor(
     private val context: Context, private val sheet: View, private val interpolator: Interpolator? = null,
     private val openIcon: Drawable? = null, private val closeIcon: Drawable? = null,
-    private val backDropVisibility: () -> Unit ) : View.OnClickListener {
+    ) : View.OnClickListener {
 
     private val animatorSet = AnimatorSet()
     private val height: Int
@@ -32,7 +32,6 @@ class NavigationIconClickListener @JvmOverloads internal constructor(
 
     override fun onClick(view: View) {
         backdropShown = !backdropShown
-        backDropVisibility()
         // Cancel the existing animations
         animatorSet.removeAllListeners()
         animatorSet.end()

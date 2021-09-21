@@ -22,7 +22,7 @@ class UploadPhotosAdapter(private val clickListener: ClickListener) :
 
     override fun onBindViewHolder(holder: UploadPhotosViewHolder, position: Int) {
         val item  = getItem(position)
-        holder.bind(item,clickListener)
+        holder.bind(item, clickListener)
     }
 
 

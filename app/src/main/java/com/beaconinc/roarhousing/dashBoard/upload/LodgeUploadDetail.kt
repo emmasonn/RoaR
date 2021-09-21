@@ -1,19 +1,18 @@
 package com.beaconinc.roarhousing.dashBoard.upload
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.FrameLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.beaconinc.roarhousing.MainActivity
 import com.beaconinc.roarhousing.home.HomeFragment
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodge
@@ -36,7 +35,6 @@ class LodgeUploadDetail : Fragment() {
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var firebase: FirebaseFirestore
-    private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var lodgeCollection: CollectionReference
     private lateinit var lodgeName: TextInputEditText
     private lateinit var initialPay: TextInputEditText
@@ -53,9 +51,12 @@ class LodgeUploadDetail : Fragment() {
     private lateinit var surrounding: TextInputLayout
     private lateinit var water: TextInputLayout
     private lateinit var clientDocument: DocumentReference
+    private lateinit var sharedPref: SharedPreferences
     private var documentId: String? = null
     private var nameOfLodge: String? = null
     private lateinit var parentView: ConstraintLayout
+    private lateinit var landLordPhone: TextInputEditText
+    private lateinit var landLordName: TextInputEditText
 
     private val lodge: FirebaseLodge? by lazy {
         arguments?.get("Lodge") as FirebaseLodge?
@@ -64,11 +65,11 @@ class LodgeUploadDetail : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         firebase = Firebase.firestore
-        firebaseAuth = FirebaseAuth.getInstance()
-        val clientId = firebaseAuth.currentUser?.uid!!
+        sharedPref = (activity as MainActivity).sharedPref
+        val clientId = sharedPref.getString("user_id", "")
 
         lodgeCollection = firebase.collection("lodges")
-        clientDocument = firebase.collection("clients").document(clientId)
+        clientDocument = firebase.collection("clients").document(clientId!!)
 
         documentId = if(lodge == null) {
             lodgeCollection.document().id
@@ -97,9 +98,11 @@ class LodgeUploadDetail : Fragment() {
         distanceAway = view.findViewById<TextInputLayout>(R.id.distanceSpinner)
         address = view.findViewById<TextInputLayout>(R.id.addressSpinner)
         val nextBtn = view.findViewById<MaterialButton>(R.id.nextBtn)
-        val uploadBtn = view.findViewById<MaterialButton>(R.id.lodgeImageBtn)
         campus = view.findViewById(R.id.campusSpinner)
         parentView = view.findViewById(R.id.parentView)
+        val uploadBack = view.findViewById<ImageView>(R.id.uploadBack)
+        landLordName = view.findViewById(R.id.houseOwner)
+        landLordPhone = view.findViewById(R.id.housePhone)
 
         nextBtn.setOnClickListener {
             //submitDetails()
@@ -109,17 +112,12 @@ class LodgeUploadDetail : Fragment() {
             }
         }
 
-        lodgeDesc.setOnFocusChangeListener { _, _ ->
-            showDescTemplate()
+        uploadBack.setOnClickListener {
+            findNavController().popBackStack()
         }
 
-        uploadBtn.setOnClickListener {
-            if(nameOfLodge != null || lodge?.lodgeName != null) {
-                val bundle = bundleOf("uid" to documentId, "lodgeName" to lodgeName)
-                findNavController().navigate(R.id.lodgeImageUpload, bundle)
-            }else {
-                Toast.makeText(requireContext(),"Lodge is not yet Saved", Toast.LENGTH_SHORT).show()
-            }
+        lodgeDesc.setOnFocusChangeListener { _, _ ->
+            showDescTemplate()
         }
 
         val campusAdapter = ArrayAdapter.createFromResource(
@@ -177,8 +175,8 @@ class LodgeUploadDetail : Fragment() {
         return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         updateFields()
     }
 
@@ -193,6 +191,8 @@ class LodgeUploadDetail : Fragment() {
         initialPay.setText(lodge?.subPayment)
         subPay.setText(lodge?.subPayment)
         lodgeDesc.setText(lodge?.description)
+        landLordName.setText(lodge?.ownerName)
+        landLordPhone.setText(lodge?.ownerPhone)
     }
 
     private fun submitDetails() {
@@ -210,13 +210,15 @@ class LodgeUploadDetail : Fragment() {
         val size = lodgeSize.editText?.text.toString()
         val availableRooms = availableRoom.text.toString()
         val campus = campus.editText?.text.toString()
+        val ownerName = landLordName.text.toString()
+        val ownerPhone = landLordPhone.text.toString()
 
         //validate the forms
         //val form = listOf<TextInputLayout>(addre)
         //val documentId = lodgeCollection.document().id
         nameOfLodge = lodgeName
 
-        val lodges = FirebaseLodge(
+        val lodge = FirebaseLodge(
             lodgeId = documentId,
             lodgeName = lodgeName,
             location = address,
@@ -231,12 +233,15 @@ class LodgeUploadDetail : Fragment() {
             network = network,
             subPayment = subPay,
             initialPayment = initialPay,
-            distance = distance
+            distance = distance,
+            ownerName = ownerName,
+            ownerPhone = ownerPhone
+
         )
 
         clientDocument.get().addOnSuccessListener {
             it.toObject(FirebaseUser::class.java).also {
-                lodges.apply {
+                lodge.apply {
                     agentUrl = it?.clientUrl
                     agentId = it?.clientId
                     agentName = it?.clientName
@@ -244,7 +249,7 @@ class LodgeUploadDetail : Fragment() {
                 }
             }
 
-            lodgeCollection.document(documentId!!).set(lodges)
+            lodgeCollection.document(documentId!!).set(lodge)
                 .addOnSuccessListener {
                     Toast.makeText(
                         requireContext(),
@@ -252,8 +257,8 @@ class LodgeUploadDetail : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                     lifecycleScope.launch(Dispatchers.Main) {
-                        val action = R.id.action_lodgeDetailUpload_to_lodgeImageUpload
-                        val bundle = bundleOf("uid" to documentId, "lodgeName" to lodgeName)
+                        val action = R.id.action_lodgeDetailUpload_to_editLodgePager
+                        val bundle = bundleOf("Lodge" to lodge)
                         findNavController().navigate(action, bundle)
                     }
                 }.addOnFailureListener { ex ->

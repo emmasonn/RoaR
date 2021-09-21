@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PaymentFragment">
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout8"
@@ -32,58 +32,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="Complete Booking"
+            android:text="Payment"
             android:textAppearance="@style/Widget.Toolbar.title"
             android:textColor="@color/black_700"
-            android:textSize="19sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/pagerBack"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:elevation="0dp"
-        app:cardBackgroundColor="@color/green_100"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout8"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.curveSelectedCorner">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:lineSpacingExtra="4dp"
-                android:text="To Complete Booking a mobility fee of #1000 is required."
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <TextView
+       <TextView
         android:id="@+id/textView29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
         android:text="How would you \nLike to Pay?"
+           android:layout_marginTop="90dp"
         android:textSize="29sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView3" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout8" />
 
     <View
         android:id="@+id/view11"
@@ -96,8 +63,8 @@
 
     <ImageView
         android:id="@+id/imageView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:layout_marginStart="20dp"
         android:src="@drawable/ic_lock"
         app:layout_constraintBottom_toBottomOf="@+id/textView31"
@@ -111,8 +78,12 @@
         android:layout_marginBottom="20dp"
         android:text="Secured by flutterwave"
         android:textAllCaps="true"
-        app:layout_constraintBottom_toTopOf="@+id/payViaAccount"
-        app:layout_constraintStart_toEndOf="@+id/imageView16" />
+        android:textColor="@color/black_500"
+        android:layout_marginTop="20dp"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView16"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout8"
+        />
 
     <ImageView
         android:layout_width="20dp"
@@ -129,7 +100,7 @@
         android:layout_marginBottom="1dp"
         app:cardElevation="0dp"
         app:cardCornerRadius="0dp"
-        app:cardBackgroundColor="@color/yellow_200"
+        app:cardBackgroundColor="@color/yellow_500"
         app:layout_constraintBottom_toTopOf="@+id/payViaCard"
         app:layout_constraintEnd_toEndOf="@+id/payViaCard"
         app:layout_constraintStart_toStartOf="@+id/payViaCard"
@@ -145,7 +116,8 @@
                 android:layout_height="wrap_content"
                 android:text="Pay with"
                 android:layout_marginStart="20dp"
-                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -154,8 +126,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Account"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 android:layout_marginStart="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView30"
                 app:layout_constraintStart_toEndOf="@+id/textView30"
@@ -170,7 +143,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/black_200" />
+                app:tint="@color/white" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -180,7 +153,7 @@
         android:layout_height="50dp"
         app:cardElevation="0dp"
         app:cardCornerRadius="0dp"
-        app:cardBackgroundColor="@color/yellow_200"
+        app:cardBackgroundColor="@color/yellow_500"
         android:layout_marginBottom="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -198,6 +171,7 @@
                 android:text="Pay with"
                 android:layout_marginStart="20dp"
                 android:textSize="18sp"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -208,6 +182,7 @@
                 android:text="Card"
                 android:textSize="20dp"
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 android:layout_marginStart="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView0"
                 app:layout_constraintStart_toEndOf="@+id/textView0"
@@ -222,7 +197,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/black_200" />
+                app:tint="@color/white" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 

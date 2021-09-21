@@ -16,10 +16,15 @@ import com.google.android.material.button.MaterialButton
 
 
 class LodgesAdapter (private val clickListener
- :LodgeClickListener) : ListAdapter<FirebaseLodge, LodgesViewHolder>(diffUtil) {
+ :LodgeClickListener, private val fav: Boolean? = null) : ListAdapter<FirebaseLodge, LodgesViewHolder>(diffUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LodgesViewHolder {
+
         val inflater = LayoutInflater.from(parent.context)
-        return LodgesViewHolder(inflater.inflate(R.layout.item_lodges_layout,parent,false))
+        return if(fav!=null && fav) {
+            LodgesViewHolder(inflater.inflate(R.layout.item_favorite_layout,parent,false))
+        }else {
+            LodgesViewHolder(inflater.inflate(R.layout.item_lodges_layout,parent,false))
+        }
     }
 
     override fun onBindViewHolder(holder: LodgesViewHolder, position: Int) {
@@ -33,16 +38,31 @@ class LodgesAdapter (private val clickListener
            private val lodgeImage = itemView.findViewById<ImageView>(R.id.viewFlipper)
            private val initialPrice = itemView.findViewById<TextView>(R.id.lodgePrice)
            private val lodgeName = itemView.findViewById<TextView>(R.id.lodgeTitle)
+           private val location = itemView.findViewById<TextView>(R.id.location)
            private val exploreBtn =  itemView.findViewById<MaterialButton>(R.id.exploreBtn)
            private val available = itemView.findViewById<TextView>(R.id.availableRoom)
+           private val campus = itemView.findViewById<TextView>(R.id.campus)
+           private val favBtn = itemView.findViewById<ImageView>(R.id.favBtn)
 
           private val resource = itemView.resources
 
             fun bind(data: FirebaseLodge,listener: LodgeClickListener) {
+                lodgeImage.load(data.coverImage)
+
                 initialPrice.text = resource.getString(R.string.format_price, data.subPayment)
                 lodgeName.text = data.lodgeName
-                available.text = data.availableRoom.toString()
-                lodgeImage.load(data.coverImage)
+                location.text = data.location
+                campus.text = data.campus
+                if(data.availableRoom == null) {
+                    available.text = "0"
+                }else {
+                    available.text = data.availableRoom.toString()
+                }
+
+                favBtn?.setOnClickListener {
+                    listener.favClick(data.lodgeId!!)
+                }
+
                 exploreBtn.setOnClickListener {
                     listener.clickAction(data)
                 }
@@ -67,7 +87,8 @@ class LodgesAdapter (private val clickListener
 }
 
 class LodgeClickListener(
-    val listener: (lodge: FirebaseLodge) -> Unit
+    val listener: (lodge: FirebaseLodge) -> Unit,
+    val favClick: (id: String) -> Unit
 ) {
     fun clickAction(lodge: FirebaseLodge) = listener(lodge)
 }

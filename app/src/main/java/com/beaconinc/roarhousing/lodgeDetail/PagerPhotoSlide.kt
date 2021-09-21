@@ -11,19 +11,21 @@ import android.widget.Toast
 import coil.load
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodgePhoto
+import com.beaconinc.roarhousing.cloudModel.FirebasePhotoAd
+import com.google.android.ads.nativetemplates.TemplateView
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.nativead.NativeAd
 
 private const val PHOTO = "param"
 
 
 class PagerPhotoSlide : Fragment() {
-    private var lodgePhoto: FirebaseLodgePhoto? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            lodgePhoto = it.get(PHOTO) as FirebaseLodgePhoto
-        }
-    }
+    private lateinit var adPhoto: FirebasePhotoAd
+    private lateinit var adImageView: ImageView
+    private lateinit var mediumNativeAdView: TemplateView
+    private lateinit var nativeAd: NativeAd
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,25 +33,26 @@ class PagerPhotoSlide : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_pager_photo_slide, container, false)
-        val lodgeImageView = view.findViewById<ImageView>(R.id.photoItem)
-        val viewType = view.findViewById<TextView>(R.id.viewType)
-        viewType.text = lodgePhoto?.photoTitle
+        adImageView = view.findViewById<ImageView>(R.id.photoItem)
+        mediumNativeAdView = view.findViewById(R.id.pagerMediumAd)
 
         Toast.makeText(requireContext(),
-            "imgUrl: ${lodgePhoto?.photoUrl}",Toast.LENGTH_SHORT).show()
+            "imgUrl: ${adPhoto.adUrl}",Toast.LENGTH_SHORT).show()
+        adImageView.load(adPhoto.adUrl)
 
-        lodgeImageView.load(lodgePhoto?.photoUrl)
-
+        mediumNativeAdView.setNativeAd(nativeAd)
+        if(isDetached) {
+            nativeAd.destroy()
+        }
         return view
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(param: FirebaseLodgePhoto) =
+        fun newInstance(photoAd: FirebasePhotoAd, _nativeAd: NativeAd) =
             PagerPhotoSlide().apply {
-                arguments = Bundle().apply {
-                    putParcelable(PHOTO, param)
-                }
+                adPhoto = photoAd
+                nativeAd = _nativeAd
             }
     }
 }

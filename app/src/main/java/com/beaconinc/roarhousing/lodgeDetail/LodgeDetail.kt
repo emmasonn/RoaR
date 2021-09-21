@@ -1,33 +1,43 @@
 package com.beaconinc.roarhousing.lodgeDetail
 
-import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.*
+import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.beaconinc.roarhousing.MainActivity
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodge
 import com.beaconinc.roarhousing.databinding.FragmentLodgeDetailBinding
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodgePhoto
-import com.beaconinc.roarhousing.cloudModel.FirebaseNotifier
+import com.beaconinc.roarhousing.database.FavModel
+import com.beaconinc.roarhousing.database.FavModelDao
 import com.beaconinc.roarhousing.listAdapters.ClickListener
+import com.beaconinc.roarhousing.listAdapters.LodgeClickListener
+import com.beaconinc.roarhousing.listAdapters.LodgesAdapter
 import com.beaconinc.roarhousing.listAdapters.PhotosAdapter
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textfield.TextInputEditText
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LodgeDetail : Fragment() {
@@ -35,21 +45,36 @@ class LodgeDetail : Fragment() {
     private val lodgeData: FirebaseLodge by lazy {
         arguments?.get("Lodge") as FirebaseLodge
     }
+
+    private lateinit var favModelDao: FavModelDao
+
     private lateinit var fireStore: FirebaseFirestore
     private lateinit var photosReference: CollectionReference
-    private lateinit var photoImageView: ImageView
     private lateinit var photosAdapter: PhotosAdapter
     private lateinit var clientDocumentRef: DocumentReference
     private lateinit var progressBar: ProgressBar
+    private lateinit var lodgeCollection: CollectionReference
+    private lateinit var lodgesAdapter: LodgesAdapter
+    private lateinit var photoListRecycler: RecyclerView
+    private lateinit var binding: FragmentLodgeDetailBinding
+    private lateinit var lodgeRef: DocumentReference
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        setUpNativeAd()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        favModelDao = (activity as MainActivity).db.favModelDao()
         fireStore = FirebaseFirestore.getInstance()
         photosReference = fireStore.collection("lodges")
             .document(lodgeData.lodgeId!!).collection("lodgePhotos")
-
+        lodgeCollection = fireStore.collection("lodges")
         //replace lodgeId with agentId when it is not null
+        lodgeRef = lodgeCollection.document(lodgeData.lodgeId!!)
         clientDocumentRef = fireStore.collection("clients").document(lodgeData.agentId!!)
     }
 
@@ -58,112 +83,191 @@ class LodgeDetail : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        val binding = FragmentLodgeDetailBinding.inflate(inflater, container, false)
+        binding = FragmentLodgeDetailBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.lodgeDetail = lodgeData
-        photoImageView = binding.imageSlide
         progressBar = binding.progressBar
-        val photoListRecycler = binding.listPhotos
+        photoListRecycler = binding.listPhotos
+        val favIcon = binding.favoriteBtn
 
-        binding.bookBtn.setOnClickListener {
-            showDateDialog()
+        lodgesAdapter = LodgesAdapter(LodgeClickListener ({
+            val bundle = bundleOf("Lodge" to it)
+            findNavController().navigate(R.id.lodgeDetail, bundle)
+        },{}),false)
+
+        favIcon.setOnClickListener {
+            lifecycleScope.launch {
+                favIcon.visibility = View.GONE
+                storeFavId(favModelDao.getFavOnce())
+            }
         }
 
-        binding.imageSlide.load(lodgeData.coverImage)
+        favModelDao.getFavString().observe(viewLifecycleOwner, Observer { favIds ->
+            val currentId = lodgeData.lodgeId
+            val oldIds: List<String> = favIds.map { it.id }
+
+            if (oldIds.contains(currentId)) {
+                favIcon.setImageResource(R.drawable.ic_fav_red)
+            }else {
+                favIcon.setImageResource(R.drawable.ic_fav_outline)
+            }
+            favIcon.visibility = View.VISIBLE
+        })
+
+        binding.othersRecycler.adapter = lodgesAdapter
+        binding.bookBtn.setOnClickListener {
+            showBottomSheet(lodgeData)
+        }
+
+        binding.imageSlide.load(lodgeData.coverImage) {
+            crossfade(true)
+        }
+
         binding.agentImageCover.load(lodgeData.agentUrl)
 
         binding.backBtn.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        photosAdapter = PhotosAdapter(ClickListener( listener = { photo ->
-            photosAdapter.notifyDataSetChanged()
-
-            photoImageView.load(photo.photoUrl){
-                crossfade(true)
-            }
+        photosAdapter = PhotosAdapter(ClickListener(listener = { photo ->
+            val bundle = bundleOf("picture" to photo)
+            findNavController().navigate(R.id.viewLodge, bundle)
         }))
-
         photoListRecycler.adapter = photosAdapter
+        fetchLodgeAndPhotos()
+
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
+    private fun fetchLodgeAndPhotos() {
+        showProgress()
         photosReference.get().addOnSuccessListener { photosSnap ->
             photosSnap.documents.mapNotNull {
                 it.toObject(FirebaseLodgePhoto::class.java)
             }.also { photos ->
+                if (photos.size <= 3) {
+                    photoListRecycler.layoutManager = LinearLayoutManager(
+                        requireContext(), LinearLayoutManager.HORIZONTAL, false
+                    )
+                } else {
+                    photoListRecycler.layoutManager = GridLayoutManager(
+                        requireContext(),
+                        2, GridLayoutManager.HORIZONTAL, false
+                    )
+                }
                 photosAdapter.submitList(photos)
+                hideProgress()
+            }
+        }
+
+
+        lodgeCollection.get().addOnSuccessListener { values ->
+            values.documents.mapNotNull {
+                it.toObject(FirebaseLodge::class.java)
+            }.also { lodges ->
+                lodgesAdapter.submitList(lodges)
             }
         }
     }
 
-  @SuppressLint("InflateParams")
-  private fun showDateDialog() {
-      val visitId = photosReference.document().id
-      val visitRef = clientDocumentRef.collection("visits").document(visitId)
+    private suspend fun storeFavId( favModels: List<FavModel>) {
+        val currentID = lodgeData.lodgeId
+        val oldIDS: List<String> = favModels.map { it.id }
+        val favModel = FavModel(currentID!!)
 
-       MaterialAlertDialogBuilder(requireContext(),
-           R.style.ShapeAppearanceOverlay_App_dateDialog ).apply {
-           val inflater = LayoutInflater.from(requireContext())
-           val view = inflater.inflate(R.layout.date_picker_layout,null)
-           val datePicker = view.findViewById<DatePicker>(R.id.datePicker)
-           val name = view.findViewById<TextInputEditText>(R.id.clientName)
-           val phone = view.findViewById<TextInputEditText>(R.id.clientPhone)
+        if (oldIDS.contains(currentID)) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                favModelDao.delete(favModel)
+            }
+        } else {
+            lifecycleScope.launch(Dispatchers.IO) {
+                favModelDao.insert(favModel)
+            }
+        }
+    }
 
-           setPositiveButton("Submit") { _ , _ ->
+    private fun setUpNativeAd() {
+        val adLoader = AdLoader.Builder(requireContext(),"ca-app-pub-3940256099942544/2247696110")
+            .forNativeAd { ad: NativeAd ->
+                lifecycleScope.launchWhenCreated {
+                    val firstAd = binding.firstSmallNativeAd
+                    val smallNativeView = binding.adNativeSmall
+                    val mediumNativeView = binding.adNativeMedium
+                    firstAd.setNativeAd(ad)
+                    smallNativeView.setNativeAd(ad)
+                    mediumNativeView.setNativeAd(ad)
+                    showNativeAds()
+                    if(this@LodgeDetail.isDetached) {
+                        ad.destroy()
+                        return@launchWhenCreated
+                    }
+                }
+            }.build()
 
-               val day = datePicker.dayOfMonth
-               val month = datePicker.month
-               val year = datePicker.year
-               val clientName = name.text.toString()
-               val clientPhone = phone.text.toString()
-               val date = "$day/$month/$year"
+         adLoader.loadAds(AdRequest.Builder().build(),5)
+    }
 
-               if (clientName.isBlank() || clientPhone.isBlank()) {
-                   Toast.makeText(requireContext(),
-                       "Name or PhoneNumber should be blank",Toast.LENGTH_LONG).show()
-               }
-               else {
-                   progressBar.visibility = View.VISIBLE
 
-                   val visitData = FirebaseNotifier(
-                       notifierId = visitId,
-                       lodgeCover = lodgeData.coverImage,
-                       lodgeName = lodgeData.lodgeName,
-                       campus = lodgeData.campus,
-                       lodgeLocation = lodgeData.location,
-                       clientName = clientName,
-                       clientPhone = clientPhone,
-                       visitDate = date
-                   )
+    private fun showNativeAds() {
+        binding.firstSmallNativeAd.visibility = View.VISIBLE
+        binding.adNativeSmall.visibility = View.VISIBLE
+        binding.adNativeMedium.visibility = View.VISIBLE
+    }
 
-                   visitRef.set(visitData).addOnSuccessListener {
-                       Toast.makeText(requireContext(),
-                           "Booking send Successfully",Toast.LENGTH_SHORT).show()
-                       lifecycleScope.launch {
-                           clientDocumentRef.update("visitCounter",FieldValue.increment(1))
-                           progressBar.visibility=View.GONE
-                       }
-                   }.addOnFailureListener {
-                       Toast.makeText(requireContext(),
-                           "Booking Failed, No Internet",Toast.LENGTH_SHORT).show()
-                       lifecycleScope.launch {
-                           progressBar.visibility=View.GONE
-                       }
-                   }
-               }
-           }
-           setNegativeButton("Close") { dialog, _ ->
-               findNavController().navigate(R.id.paymentFragment)
-           }
-           setView(view)
-           show()
-       }
-   }
+    private fun showProgress() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgress() {
+        lifecycleScope.launch {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun showBottomSheet(lodge: FirebaseLodge) {
+        val bottomSheetLayout = BottomSheetDialog(requireContext()).apply {
+            setContentView(R.layout.realtor_bottom_dialog)
+            val coverImage = this.findViewById<ImageView>(R.id.lodgeImage)
+            val aboutMe = this.findViewById<TextView>(R.id.aboutMe)
+            val agentImage = this.findViewById<ImageView>(R.id.agentImage)
+            val lodgeName = this.findViewById<TextView>(R.id.lodgeName)
+
+            coverImage?.load(lodge.coverImage)
+            agentImage?.load(lodge.agentUrl)
+            lodgeName?.text = lodge.lodgeName
+            aboutMe?.text = lodge.aboutRealtor
+        }
+
+        val whatsAppBtn = bottomSheetLayout.findViewById<MaterialCardView>(R.id.whatsAppBtn)
+        val callBtn = bottomSheetLayout.findViewById<MaterialButton>(R.id.callBtn)
+
+        callBtn?.setOnClickListener {
+            dialPhoneNumber(lodge.agentPhone)
+        }
+
+        whatsAppBtn?.setOnClickListener {
+            chatWhatsApp(lodge.agentPhone)
+        }
+        bottomSheetLayout.show()
+    }
+
+    private fun chatWhatsApp(pNumber: String?) {
+        val uri = "https://api.whatsapp.com/send?$pNumber"
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(uri)
+        startActivity(intent)
+    }
+
+    private fun dialPhoneNumber(phoneNumber: String?) {
+        val intent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phoneNumber") //or use Uri.fromParts()
+        }
+        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(intent)
+        }
+    }
+
 }
-
 //class PhotosPager(private val photos: List<FirebaseLodgePhoto>, fragment: Fragment):
 //        FragmentStateAdapter(fragment) {
 //        override fun getItemCount(): Int  = photos.size
@@ -171,5 +275,4 @@ class LodgeDetail : Fragment() {
 //        override fun createFragment(position: Int): Fragment =
 //            PagerPhotoSlide.newInstance(photos[position])
 //    }
-
 

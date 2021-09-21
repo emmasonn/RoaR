@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:id="@+id/drawerNav"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".admin.AdminNavFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/coordinator_Layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout12"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/adminMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="8dp"
+                android:elevation="10dp"
+                android:src="@drawable/ic_menu"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                android:text="Admin Profile"
+                android:textAppearance="@style/Widget.Toolbar.title"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/adminMenu"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profilePics"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:background="@drawable/ic_person"
+            android:padding="1dp"
+            app:layout_constraintVertical_bias="0.5"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle100"
+            app:strokeColor="?attr/colorControlNormal"
+            app:strokeWidth="1dp"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/textView46"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:background="@drawable/green_background"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="Admin"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/profilePics"
+            app:layout_constraintEnd_toEndOf="@+id/profilePics"
+            app:layout_constraintStart_toStartOf="@+id/profilePics" />
+
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="30dp"
+            android:textAppearance="@style/Widget.Toolbar.title"
+            app:layout_constraintBottom_toTopOf="@+id/fullName"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Welcome" />
+
+        <TextView
+            android:id="@+id/fullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Widget.Toolbar.title"
+            android:textSize="25sp"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/blue_500"
+            app:layout_constraintBottom_toTopOf="@+id/profilePics"
+            app:layout_constraintStart_toStartOf="@+id/welcome"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Ajiero Blaze" />
+
+        <ImageView
+            android:id="@+id/imageView23"
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_outline_phone"
+            app:layout_constraintBottom_toBottomOf="@+id/phoneNumber"
+            app:layout_constraintStart_toStartOf="@+id/fullName"
+            app:layout_constraintTop_toTopOf="@+id/phoneNumber"
+            app:tint="?attr/colorOnPrimary" />
+
+        <TextView
+            android:id="@+id/phoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Widget.Roar.textHeadline"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView23"
+            app:layout_constraintTop_toBottomOf="@+id/fullName"
+            tools:text="070405730247" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:itemTextColor="@color/nav_drawer_selector"
+            app:itemTextAppearance="@style/Widget.Roar.textHeadline"
+            app:menu="@menu/admin_navigation_menu"
+            />
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

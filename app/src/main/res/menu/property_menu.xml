@@ -5,7 +5,6 @@
     <item android:id="@+id/uploadProperty"
          android:title="Upload"
         android:icon="@drawable/ic_upload"
-        android:iconTint="@color/black_500"
         app:showAsAction="ifRoom"
         />
 </menu>

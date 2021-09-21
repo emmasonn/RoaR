@@ -6,84 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".dashBoard.upload.LodgeUploadImage">
 
-    <TextView
-        android:id="@+id/lodgeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="@color/blue_300"
-        app:layout_constraintBottom_toBottomOf="@+id/finishBtn"
-        app:layout_constraintEnd_toEndOf="@+id/materialCardView2"
-        app:layout_constraintStart_toStartOf="@+id/materialCardView2"
-        app:layout_constraintTop_toTopOf="@+id/finishBtn"
-        tools:text="It is Finished" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Upload Lodge Picture"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/materialCardView2"
-        app:layout_constraintStart_toStartOf="@+id/materialCardView2"
-        app:layout_constraintTop_toBottomOf="@+id/lodgeTitle" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/finishBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        app:cornerRadius="8dp"
-        app:backgroundTint="@color/blue_300"
-        android:textColor="@color/white"
-        android:text="Finish"
-        android:textAllCaps="false"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/selectedImage"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:scaleType="centerCrop"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/ic_add_photo"
+        android:background="@drawable/blue_card_outline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView2"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="20dp"
-        app:cardCornerRadius="5dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/viewSpinner"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/selectedImage"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_add_photo"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.238"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius"
+        tools:ignore="ContentDescription" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/viewSpinner"
         style="@style/spinnerTheme"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/materialCardView2"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:theme="@style/ThemeOverlay.TextInputLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/selectedImage"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/materialCardView2"
-        app:layout_constraintTop_toTopOf="@+id/materialCardView2">
+        app:layout_constraintStart_toStartOf="@+id/selectedImage"
+        >
+
         <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,66 +46,43 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/browseBtn"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Browse"
-        android:textColor="@color/blue_300"
-        app:layout_constraintEnd_toStartOf="@+id/myAccountBtn"
+        android:layout_height="50dp"
+        android:text="Select picture"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/blue_500"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/saveImage"
         app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView2"
-        app:strokeColor="@color/blue_300"
-        app:strokeWidth="1dp" />
+        app:layout_constraintTop_toBottomOf="@+id/selectedImage"
+        />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/myAccountBtn"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:id="@+id/saveImage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="upload"
-        android:textColor="@color/blue_300"
+        android:layout_height="50dp"
+        android:text="Save"
+        app:cornerRadius="8dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/blue_500"
+        app:layout_constraintBottom_toBottomOf="@+id/browseBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/browseBtn"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView2"
-        app:strokeColor="@color/blue_300"
-        app:strokeWidth="1dp" />
+        app:layout_constraintTop_toTopOf="@+id/browseBtn"
+/>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/white_300"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/browseBtn">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/uploaded"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="30dp"
-            android:clipToPadding="false"
-            android:scrollbars="vertical"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/browseBtn"
-            tools:listitem="@layout/layout_lodge_image" />
-    </androidx.cardview.widget.CardView>
-
-<!--    <ProgressBar-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="30dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:elevation="60dp"-->
-<!--        android:progressDrawable="@drawable/ic_forward"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        android:progressTint="@color/green_700"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:elevation="60dp"
+        android:visibility="gone"
+        android:progressDrawable="@drawable/ic_forward"
+        app:layout_constraintBottom_toBottomOf="@+id/saveImage"
+        app:layout_constraintEnd_toEndOf="@+id/saveImage"
+        app:layout_constraintStart_toStartOf="@+id/saveImage"
+        app:layout_constraintTop_toTopOf="@+id/saveImage" />
 </androidx.constraintlayout.widget.ConstraintLayout>

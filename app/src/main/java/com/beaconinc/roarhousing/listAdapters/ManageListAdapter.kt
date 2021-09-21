@@ -12,9 +12,9 @@ import coil.load
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodge
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 
-class ManageListAdapter (private val lodgeClickListener:
-                         LodgeClickListener): ListAdapter<FirebaseLodge, ManageListAdapter.ManageViewHolder>(diffUtil) {
+class ManageListAdapter (private val manageAdapterListener: ManageAdapterListener): ListAdapter<FirebaseLodge, ManageListAdapter.ManageViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManageViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -23,7 +23,7 @@ class ManageListAdapter (private val lodgeClickListener:
 
     override fun onBindViewHolder(holder: ManageViewHolder, position: Int) {
         val data = getItem(position)
-        holder.bind(data, lodgeClickListener)
+        holder.bind(data, manageAdapterListener)
     }
 
     class ManageViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -34,18 +34,42 @@ class ManageListAdapter (private val lodgeClickListener:
         private val location = itemView.findViewById<TextView>(R.id.lodgeLocation)
         private val campus = itemView.findViewById<TextView>(R.id.campus)
         private val availableRoom = itemView.findViewById<TextView>(R.id.availNumber)
+        private val ownerName = itemView.findViewById<TextView>(R.id.ownerName)
+        private val ownerPhone = itemView.findViewById<TextView>(R.id.ownerPhone)
+        private val updatePhone = itemView.findViewById<MaterialButton>(R.id.updateRoomBtn)
+        private val notActive = itemView.findViewById<MaterialCardView>(R.id.notActive)
+        private val onLine = itemView.findViewById<MaterialButton>(R.id.online)
 
-        fun bind(data: FirebaseLodge, listener: LodgeClickListener) {
+        fun bind(data: FirebaseLodge, listener: ManageAdapterListener) {
+            imageView.load(data.coverImage)
+
             lodgeTitle.text = data.lodgeName
             location.text = data.location
             campus.text = data.campus
+            ownerName.text = data.ownerName
+            ownerPhone.text = data.ownerPhone
             availableRoom.text = data.availableRoom.toString()
-            //expire.text = data.date.toString()
+
+            if(data.certified!=null && data.certified == true) {
+                onLine.visibility = View.VISIBLE
+                notActive.visibility = View.GONE
+            }else {
+                onLine.visibility = View.GONE
+                notActive.visibility = View.VISIBLE
+            }
+
+            itemView.setOnLongClickListener {
+                listener.otherAction(data)
+                true
+            }
 
             viewBtn.setOnClickListener {
-                listener.clickAction(data)
+                listener.updateDetail(data)
             }
-            imageView.load(data.coverImage)
+
+            updatePhone.setOnClickListener {
+                listener.updateRoom(data)
+            }
         }
     }
 
@@ -63,4 +87,14 @@ class ManageListAdapter (private val lodgeClickListener:
             }
         }
     }
+}
+
+class ManageAdapterListener (
+    val listener: (lodge: FirebaseLodge) -> Unit,
+    val roomListener: (lodge: FirebaseLodge) -> Unit,
+    val otherListener:(lodge: FirebaseLodge) -> Unit
+    ) {
+    fun updateDetail(lodge: FirebaseLodge) = listener(lodge)
+    fun updateRoom(lodge: FirebaseLodge) = roomListener(lodge)
+    fun otherAction(lodge:FirebaseLodge) = otherListener(lodge)
 }

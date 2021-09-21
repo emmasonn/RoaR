@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/agentImageCover"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:padding="3dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="5dp"
+                android:scaleType="centerCrop"
+                app:strokeColor="@color/blue_500"
+                app:strokeWidth="1dp"
+                android:src="@drawable/rain"
+                app:layout_constraintBottom_toTopOf="@+id/viewAccount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle50"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/brandTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="?attr/colorOnPrimary"
+                android:textAlignment="textStart"
+                android:textAppearance="@style/Widget.Toolbar.title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/agentImageCover"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Stanbic Lodges"
+                />
+
+            <ImageView
+                android:id="@+id/notifyBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_notify"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?attr/colorOnPrimary"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/notifyCount"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/yellow_background"
+                android:elevation="10dp"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:text="14"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/notifyBtn"
+                app:layout_constraintEnd_toEndOf="@+id/notifyBtn"
+                tools:text="16" />
+
+            <TextView
+                android:id="@+id/fullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Marcel Ugochukwu"
+                android:textAppearance="@style/Widget.Roar.textHeadline"
+                android:textSize="16sp"
+                app:layout_constraintVertical_bias="0.3"
+                app:layout_constraintBottom_toBottomOf="@+id/agentImageCover"
+                app:layout_constraintStart_toStartOf="@+id/brandTitle"
+                app:layout_constraintTop_toBottomOf="@+id/brandTitle" />
+
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Sub:"
+                app:layout_constraintBottom_toBottomOf="@+id/textView42"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView42" />
+
+            <TextView
+                android:id="@+id/textView42"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Default"
+                android:layout_marginBottom="10dp"
+                android:textAppearance="@style/Widget.Toolbar.title"
+                android:textColor="@color/green_700"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView37"
+/>
+            <TextView
+                android:id="@+id/phoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="07060461403"
+                android:textAppearance="@style/Widget.Toolbar.title"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/fullName"
+                app:layout_constraintTop_toBottomOf="@+id/fullName" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/viewAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="View"
+                app:cornerRadius="10dp"
+                app:icon="@drawable/ic_forward"
+                app:backgroundTint="@color/blue_100"
+                app:iconGravity="end"
+                app:iconSize="15dp"
+                app:iconTint="@color/white"
+                android:textAppearance="@style/Widget.Toolbar.title"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <View
+        android:id="@+id/view10"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="?attr/colorSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

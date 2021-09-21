@@ -10,10 +10,10 @@
         <item>Green House</item>
         <item>Beach</item>
         <item>Onuiyi</item>
-        <item>Boys Quarters</item>
-        <item>Behind Flat</item>
+        <item>Boys-Quarters</item>
+        <item>Behind-Flat</item>
         <item>Eze-Opi</item>
-        <item>First Gate</item>
+        <item>First-Gate</item>
     </string-array>
 
     <string-array name="lodge_type">
@@ -34,18 +34,55 @@
         <item>UNEC</item>
     </string-array>
 
+    <string-array name="empty_list" />
+
+    <string-array name="super_account_array">
+        <item>Realtor</item>
+        <item>Business</item>
+        <item>Admin</item>
+        <item>Super Admin</item>
+    </string-array>
+
+    <string-array name="admin_account_array">
+        <item>Realtor</item>
+        <item>Business</item>
+    </string-array>
+
     <string-array name="address_array">
-        <item>Odim</item>
         <item>Beach</item>
-        <item>Odenigwe</item>
-        <item>HillTop</item>
-        <item>Green House</item>
-        <item>Beach</item>
-        <item>Onuiyi</item>
-        <item>Boys Quarters</item>
-        <item>Behind Flat</item>
+        <item>Ebeno-Lane</item>
+        <item>Behind-Flat</item>
+        <item>Boys-Quarters</item>
+        <item>Corridor-Layout</item>
+        <item>College-Road</item>
         <item>Eze-Opi</item>
-        <item>First Gate</item>
+        <item>First-Gate</item>
+        <item>HillTop</item>
+        <item>Green-House</item>
+        <item>Maryland</item>
+        <item>Monarch</item>
+        <item>Odim</item>
+        <item>Odenigwe</item>
+        <item>Onuiyi</item>
+        <item>Romalinda-Extension</item>
+        <item>Obiagu</item>
+        <item>Onuasata</item>
+        <item>Uwani</item>
+        <item>Unec gate</item>
+    </string-array>
+
+    <string-array name="unec_campus">
+        <item>Lodges</item>
+        <item>Corridor-Layout</item>
+        <item>College-Road</item>
+        <item>Maryland</item>
+        <item>Monarch</item>
+        <item>Romalinda-Extension</item>
+        <item>Obiagu</item>
+        <item>Onuasata</item>
+        <item>Ebeno-Lane</item>
+        <item>Uwani</item>
+        <item>Unec-Gate</item>
     </string-array>
 
     <string-array name="quality_level">
@@ -61,7 +98,7 @@
     </string-array>
 
     <string-array name="surrounding">
-       <item>Calm</item>
+        <item>Calm</item>
         <item>Quite</item>
     </string-array>
 
@@ -72,6 +109,21 @@
         <item>Exterior</item>
         <item>Toilet</item>
         <item>Kitchen</item>
+    </string-array>
+
+    <string-array name="product_type">
+        <item>House Property</item>
+        <item>Accessory</item>
+        <item>Jewellery</item>
+        <item>Stationary</item>
+    </string-array>
+
+    <string-array name="product_type_filter">
+        <item>Store</item>
+        <item>House properties</item>
+        <item>Accessories</item>
+        <item>Jewelleries</item>
+        <item>Stationary</item>
     </string-array>
 
 </resources>

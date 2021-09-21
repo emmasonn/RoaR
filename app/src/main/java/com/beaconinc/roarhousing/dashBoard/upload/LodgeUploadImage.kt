@@ -13,13 +13,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
-import com.beaconinc.roarhousing.home.HomeFragment
+import coil.clear
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodgePhoto
-import com.beaconinc.roarhousing.listAdapters.ClickListener
-import com.beaconinc.roarhousing.listAdapters.UploadPhotosAdapter
 import com.beaconinc.roarhousing.util.MB
 import com.beaconinc.roarhousing.util.MB_THRESHOLD
 import com.beaconinc.roarhousing.util.Memory_Access_code
@@ -28,11 +24,11 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.protobuf.MapEntryLite
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
@@ -46,30 +42,21 @@ class LodgeUploadImage : Fragment() {
     private lateinit var fireStore: FirebaseFirestore
     private lateinit var lodgePhotos: CollectionReference
     private lateinit var storage: FirebaseStorage
-    private lateinit var registration: ListenerRegistration
-    private lateinit var homeFragment: HomeFragment //composition
+    private lateinit var pagerObject: EditLodgePager//composition
     private lateinit var lodgeDocument: DocumentReference
-
-    private val lodgesId: String by lazy {
-        arguments?.get("uid") as String
-    }
-
-    private val lodgeName: String by lazy {
-        arguments?.get("lodgeName") as String
-    }
+    private lateinit var browseImageBtn: MaterialButton
+    private lateinit var saveImageBtn: MaterialButton
+    private lateinit var progressBar: ProgressBar
 
     private var lodgeImage: Bitmap? = null
     private var lodgeView: String? = null
     private lateinit var lodgeType: TextInputLayout
-    private lateinit var uploadPhotosAdapter: UploadPhotosAdapter
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fireStore = Firebase.firestore
         storage = FirebaseStorage.getInstance()
-        lodgeDocument = fireStore.collection("lodges").document(lodgesId)
+        lodgeDocument = fireStore.collection("lodges").document(pagerObject.lodgesData.lodgeId!!)
         lodgePhotos = lodgeDocument.collection("lodgePhotos")
     }
 
@@ -79,67 +66,36 @@ class LodgeUploadImage : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_upload_image, container, false)
         selectedImage = view.findViewById<ImageView>(R.id.selectedImage)
-        val browseBtn = view.findViewById<MaterialButton>(R.id.browseBtn)
-        val uploadBtn = view.findViewById<MaterialButton>(R.id.myAccountBtn)
-        val lodgeTitle = view.findViewById<TextView>(R.id.lodgeTitle)
-        val uploadRecycler = view.findViewById<RecyclerView>(R.id.uploaded)
+        browseImageBtn = view.findViewById<MaterialButton>(R.id.browseBtn)
+        saveImageBtn = view.findViewById<MaterialButton>(R.id.saveImage)
         lodgeType = view.findViewById<TextInputLayout>(R.id.viewSpinner)
-        val finishBtn = view.findViewById<MaterialButton>(R.id.finishBtn)
-        lodgeTitle.text = lodgeName
-
+         progressBar = view.findViewById(R.id.progressBar)
         val viewAdapter = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.lodge_view,
             android.R.layout.simple_spinner_dropdown_item
         )
-
         (lodgeType.editText as AutoCompleteTextView).setAdapter(viewAdapter)
 
-        finishBtn.setOnClickListener {
-            findNavController().popBackStack(R.id.manageLodge,false)
-        }
 
-        browseBtn.setOnClickListener {
+        browseImageBtn.setOnClickListener {
             openStorageIntent()
         }
 
-        uploadBtn.setOnClickListener {
+        saveImageBtn.setOnClickListener {
             lodgeView = lodgeType.editText?.text.toString()
 
             lifecycleScope.launch(Dispatchers.Main){
                 if(lodgeView!!.isNotBlank()) {
+                    Timber.i(("view: $lodgeView"))
+                    showLoadingBar()
                     processLodgeImage(lodgeImage!!)
                 }else {
                     lodgeType.error = "select a view"
                 }
             }
         }
-
-        uploadPhotosAdapter = UploadPhotosAdapter(ClickListener ({
-            lodgePhotos.document(it.photoId!!).delete().addOnCompleteListener {
-                Toast.makeText(requireContext(),
-                    "Photo has Deleted successfully",Toast.LENGTH_SHORT).show()
-            }
-           }))
-
-        uploadRecycler.adapter = uploadPhotosAdapter
         return view
-    }
-
-    override fun onStart() {
-        super.onStart()
-        registration = lodgePhotos.addSnapshotListener { snapshot, _ ->
-           snapshot?.documents?.mapNotNull {
-               it.toObject(FirebaseLodgePhoto::class.java)
-           }.also {
-               uploadPhotosAdapter.submitList(it)
-           }
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        registration.remove()
     }
 
     //Note no request  for Memory permission is defined here
@@ -209,7 +165,7 @@ class LodgeUploadImage : Fragment() {
         Timber.i("Storing image on Storage")
         val storageRef: StorageReference =
             storage.reference.child(
-                "images/${lodgeName}/${uid}/"
+                "images/Realtor/${pagerObject.lodgesData.lodgeName!!}/${uid}/"
             )
         //var imageUri: String? = null
         imageByte?.let { imageByteArray ->
@@ -231,7 +187,6 @@ class LodgeUploadImage : Fragment() {
                             Toast.makeText(requireContext(),"Cover Image Uploaded",Toast.LENGTH_SHORT).show()
                         }
                     }
-
                     val lodgePhoto = FirebaseLodgePhoto(
                         photoId = uid,
                         photoUrl = imageUri,
@@ -239,21 +194,38 @@ class LodgeUploadImage : Fragment() {
                     )
                     lodgePhotos.document(uid).set(lodgePhoto).addOnSuccessListener {
                         Toast.makeText(requireContext(),
-                            "Upload Success",Toast.LENGTH_SHORT).show()
+                            "Picture has uploaded",Toast.LENGTH_SHORT).show()
+                             hideLoadingBar()
+                             pagerObject.moveBackward()
                     }.addOnFailureListener {
                         Toast.makeText(requireContext(),
                         "Upload Failed",Toast.LENGTH_SHORT).show()
                     }
+                    selectedImage.clear()
+
                 }
             }//end complete listener
         }
     }
 
-    companion object {
+    private fun showLoadingBar() {
+        browseImageBtn.alpha = 0.1f
+        saveImageBtn.alpha = 0.1f
+        progressBar.visibility = View.VISIBLE
+    }
 
-        fun newInstance(_homeFragment: HomeFragment) =
+    private fun hideLoadingBar() {
+          lifecycleScope.launch {
+              browseImageBtn.alpha = 1f
+              saveImageBtn.alpha = 1f
+              progressBar.visibility = View.GONE
+          }
+    }
+
+    companion object {
+        fun newInstance(_editLodgePager: EditLodgePager) =
             LodgeUploadImage().apply {
-                homeFragment = _homeFragment
+                pagerObject = _editLodgePager
             }
     }
 

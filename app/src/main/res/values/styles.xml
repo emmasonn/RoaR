@@ -4,6 +4,7 @@
         <item name="alertDialogStyle">@style/MaterialAlertDialog.App.date</item>
     </style>
 
+
   <!--  <style name="MyCustomTheme" parent="RaveAppTheme.NoActionBar">
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

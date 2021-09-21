@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ViaAccount">
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout9"
@@ -18,24 +18,12 @@
             android:id="@+id/textView30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pay with"
-            android:textSize="18sp"
+            android:text="Pay with Account"
+            android:textAppearance="@style/Widget.Toolbar.title"
             android:layout_marginStart="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView14"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView32"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="Account"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/textView30"
-            app:layout_constraintStart_toEndOf="@+id/textView30"
-            app:layout_constraintTop_toTopOf="@+id/textView30" />
 
         <ImageView
             android:id="@+id/imageView14"
@@ -50,7 +38,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
+        android:id="@+id/phoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -69,13 +57,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout3"
+        android:id="@+id/accountNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+        app:layout_constraintEnd_toEndOf="@+id/phoneNumber"
+        app:layout_constraintStart_toStartOf="@+id/phoneNumber"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber">
 
         <EditText
             android:layout_width="match_parent"
@@ -87,14 +75,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout6"
+        android:id="@+id/bankSpinner"
         style="@style/spinnerTheme"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+        app:layout_constraintEnd_toEndOf="@+id/phoneNumber"
+        app:layout_constraintStart_toStartOf="@+id/phoneNumber"
+        app:layout_constraintTop_toBottomOf="@+id/accountNumber">
 
         <AutoCompleteTextView
             android:layout_width="match_parent"
@@ -109,11 +97,11 @@
         android:layout_marginTop="30dp"
         android:text="Amount:"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout6"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
+        app:layout_constraintStart_toStartOf="@+id/bankSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/bankSpinner" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="₦1000"
@@ -126,6 +114,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView26" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/payBtn"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:backgroundTint="@color/yellow_500"
@@ -133,8 +122,8 @@
         android:textSize="18sp"
         android:layout_marginTop="30dp"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout6"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout6"
+        app:layout_constraintEnd_toEndOf="@+id/bankSpinner"
+        app:layout_constraintStart_toStartOf="@+id/bankSpinner"
         app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

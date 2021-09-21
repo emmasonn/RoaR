@@ -6,26 +6,43 @@
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/black_700</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/purple_500</item>
-        <item name="colorSecondaryVariant">@color/purple_700</item>
-        <item name="colorOnSecondary">@color/white</item>
-        <item name="colorAccent">@color/black_300</item>
-        <item name="colorControlNormal">@color/black_500</item>
+        <item name="colorSecondary">@color/black_500</item>
+        <item name="colorSecondaryVariant">@color/black_50</item>
+        <item name="colorOnSecondary">@color/black_50</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorAccent">@color/blue_300</item>
+        <item name="colorControlNormal">@color/blue_500</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+<!--        <item name="android:windowBackground">@color/white</item>-->
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:statusBarColor" tools:targetApi="N">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
 
     <style name="Widget.Roar.Toolbar" parent="Widget.AppCompat.Toolbar">
-        <item name="android:textColor">@color/black_700</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="titleTextAppearance">@style/Widget.Toolbar.title</item>
     </style>
 
-    <style name="Widget.Toolbar.title" parent="Widget.MaterialComponents.Button">
-        <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/black_700</item>
+    <style name="Widget.Toolbar.title" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
+
+    <style name="Widget.Toolbar.headlineLight" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+
+    <style name="Widget.Roar.textHeadline" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
 
     <style name="spinnerTheme" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
         <item name="strokeColor">@color/black_500</item>
@@ -56,7 +73,7 @@
     </style>
 
     <style name="Widget.Roar.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">@color/black_500</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
     <style name="Widget.App.arrowButton" parent="Widget.MaterialComponents.Button">
@@ -67,7 +84,7 @@
 
     <style name="ShapeAppearanceOverlay.App.cornerRadius" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">12dp</item>
+        <item name="cornerSize">8dp</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.App.selectedCorner" parent="">
@@ -113,6 +130,11 @@
         <item name="cornerSize">70dp</item>
     </style>
 
+    <style name="ShapeAppearanceOverlay.App.circle50" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">30dp</item>
+    </style>
+
     <style name="ShapeAppearanceOverlay.App.available" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">10dp</item>
@@ -143,12 +165,14 @@
     </style>
 <!--Material dialog styling -->
     <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <item name="colorPrimary">@color/blue_300</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorAccent">@color/blue_500</item>
+        <item name="colorOnPrimary">@color/blue_500</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.Roar.textHeadline</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.Roar.textHeadline</item>
         <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
     </style>
 <!--End of Material dialog styling-->
-
 
     <style name="Widget.App.filterChip" parent="Widget.MaterialComponents.Chip.Filter">
         <item name="android:textSize">15sp</item>

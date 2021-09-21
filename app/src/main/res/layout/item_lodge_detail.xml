@@ -15,240 +15,393 @@
         android:layout_height="match_parent"
         tools:context=".ManageFragmentPager">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/materialToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:elevation="0dp"
-            app:contentInsetStart="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    android:id="@+id/pagerBack"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginVertical="10dp"
-                    android:layout_marginStart="16dp"
-                    android:src="@drawable/ic_back"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/black_500"
-                    tools:ignore="ContentDescription" />
-
-                <ImageView
-                    android:id="@+id/deleteBtn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_margin="18sp"
-                    android:background="@color/black_50"
-                    android:elevation="10dp"
-                    android:src="@drawable/ic_delete"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/red_700"
-                    tools:ignore="ContentDescription" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.appbar.MaterialToolbar>
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageView11"
-            android:layout_width="0dp"
-            android:layout_height="300dp"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialToolbar"
-            tools:ignore="ContentDescription"
-            tools:src="@drawable/rain" />
-
         <androidx.core.widget.NestedScrollView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView11">
+            app:layout_constraintTop_toTopOf="parent"
+            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView11">
-
-                <ImageView
-                    android:id="@+id/imageView9"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="26dp"
-                    android:background="@color/green_100"
-                    android:src="@drawable/ic_home"
-                    app:layout_constraintBottom_toBottomOf="@+id/lodgeTitle"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/lodgeTitle"
-                    tools:ignore="ContentDescription" />
+                android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/lodgeTitle"
+                    android:id="@+id/textView17"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="16dp"
-                    android:text="It is Well Lodges"
-                    android:textColor="@color/black_700"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toEndOf="@+id/imageView9"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="50dp"
+                    android:text="Manage Lodge"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageView10"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="36dp"
-                    android:src="@drawable/ic_locate"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView9"
-                    app:tint="@color/yellow_300"
+                    android:id="@+id/manageBackBtn"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/ic_nav_close"
+                    app:layout_constraintBottom_toTopOf="@+id/textView17"
+                    app:layout_constraintEnd_toEndOf="parent"
                     tools:ignore="ContentDescription" />
 
-                <TextView
-                    android:id="@+id/textView12"
+                <ProgressBar
+                    android:id="@+id/progressBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Place"
-                    android:textSize="17sp"
-                    app:layout_constraintStart_toEndOf="@+id/imageView10"
-                    app:layout_constraintTop_toTopOf="@+id/imageView10" />
+                    android:layout_marginTop="50dp"
+                    android:elevation="40dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/managePhotoRecycler"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/managePhotoRecycler" />
 
-                <TextView
-                    android:id="@+id/lodgeAddress"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="19dp"
-                    android:text="Green house"
-                    android:textColor="@color/black_700"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toStartOf="@+id/view8"
-                    app:layout_constraintStart_toStartOf="@+id/textView12"
-                    app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
-                <View
-                    android:id="@+id/view8"
-                    android:layout_width="1dp"
-                    android:layout_height="0dp"
-                    android:layout_marginEnd="15dp"
-                    android:background="@color/blue_300"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView10"
-                    app:layout_constraintEnd_toStartOf="@+id/houseRent"
-                    app:layout_constraintTop_toTopOf="@+id/imageView10"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/ren"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:text="House Rent"
-                    android:textSize="17sp"
-                    app:layout_constraintEnd_toStartOf="@+id/view9"
-                    app:layout_constraintTop_toTopOf="@+id/textView12" />
-
-                <TextView
-                    android:id="@+id/houseRent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="#300000"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/black_700"
-                    android:textSize="19sp"
-                    app:layout_constraintEnd_toEndOf="@+id/ren"
-                    app:layout_constraintStart_toStartOf="@+id/ren"
-                    app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
-                <View
-                    android:id="@+id/view9"
-                    android:layout_width="1dp"
-                    android:layout_height="0dp"
-                    android:layout_marginEnd="15dp"
-                    android:background="@color/blue_300"
-                    app:layout_constraintBottom_toBottomOf="@+id/view8"
-                    app:layout_constraintEnd_toStartOf="@+id/initial"
-                    app:layout_constraintTop_toTopOf="@+id/view8" />
-
-                <TextView
-                    android:id="@+id/initial"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="29dp"
-                    android:text="Initial fee"
-                    android:textSize="17sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView12" />
-
-                <TextView
-                    android:id="@+id/initialPayment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="#20000"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/black_700"
-                    android:textSize="19sp"
-                    app:layout_constraintEnd_toEndOf="@+id/initial"
-                    app:layout_constraintStart_toStartOf="@+id/initial"
-                    app:layout_constraintTop_toBottomOf="@+id/initial" />
-
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="261dp"
-                    android:layout_height="wrap_content"
-                    android:text="Stop people from Seeing"
-                    android:textAlignment="center"
-                    android:textSize="17sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/materialButton"
-                    app:layout_constraintStart_toStartOf="@+id/imageView10"
-                    app:layout_constraintTop_toTopOf="@+id/materialButton" />
-
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/materialButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/managePhotoRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
                     android:layout_marginTop="20dp"
-                    android:backgroundTint="@color/blue_300"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
+                    android:gravity="center_vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="horizontal"
+                    android:elevation="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView16"
-                    app:layout_constraintTop_toBottomOf="@+id/lodgeAddress" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView17"
+                    tools:listitem="@layout/item_manage_lodge_photo"
+                    />
 
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="0dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:text="Continue with edit"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    app:backgroundTint="@color/blue_300"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+                    app:layout_constraintTop_toBottomOf="@+id/managePhotoRecycler">
 
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/campusSpinner"
+                        style="@style/spinnerTheme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:theme="@style/ThemeOverlay.TextInputLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textInputLayout0">
+
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Campus"
+                            android:text="@{lodge.campus}"
+                            android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/addressSpinner"
+                        style="@style/spinnerTheme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:theme="@style/ThemeOverlay.TextInputLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/campusSpinner">
+
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{lodge.location}"
+                            android:hint="Lodge Location"
+                            android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/type"
+                        style="@style/spinnerTheme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:theme="@style/ThemeOverlay.TextInputLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/addressSpinner">
+
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="House Type"
+                            android:text="@{lodge.type}"
+                            android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/size"
+                        style="@style/spinnerTheme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:theme="@style/ThemeOverlay.TextInputLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/type">
+
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="House Size"
+                            android:text="@{lodge.size}"
+                            android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/available"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:theme="@style/ThemeOverlay.TextInputLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/size">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/availableRm"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Available Rooms"
+                            android:text="@{lodge.availableRoom.toString()}"
+                            android:inputType="number" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout0"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:theme="@style/ThemeOverlay.TextInputLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/lodgeTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@{lodge.lodgeName}"
+                            android:hint="Lodge Name" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/initialParentView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:theme="@style/ThemeOverlay.TextInputLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/available">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/initialPay"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@{lodge.initialPayment}"
+                            android:hint="@string/initial_payment"
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/houseRentParent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:theme="@style/ThemeOverlay.TextInputLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/initialParentView">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/subPay"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="House Rent"
+                            android:text="@{lodge.subPayment}"
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:theme="@style/ThemeOverlay.TextInputLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/houseRentParent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/description"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@{lodge.description}"
+                            android:hint="Lodge Description"
+                            android:inputType="textMultiLine" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/wSpinner"
+                        style="@style/spinnerTheme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:theme="@style/ThemeOverlay.TextInputLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
+
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Water"
+                            android:text="@{lodge.water}"
+                            android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/lightSpinner"
+                        style="@style/spinnerTheme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:theme="@style/ThemeOverlay.TextInputLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/wSpinner">
+
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="light"
+                            android:text="@{lodge.light}"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/netWorkSpinner"
+                        style="@style/spinnerTheme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:theme="@style/ThemeOverlay.TextInputLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/lightSpinner">
+
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Network"
+                            android:text="@{lodge.network}"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/surroundingSpinner"
+                        style="@style/spinnerTheme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:theme="@style/ThemeOverlay.TextInputLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/netWorkSpinner">
+
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Surrounding"
+                            android:text="@{lodge.surrounding}"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/distanceSpinner"
+                        style="@style/spinnerTheme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:theme="@style/ThemeOverlay.TextInputLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/surroundingSpinner">
+
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Distance"
+                            android:text="@{lodge.distance}"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/updateBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="Update lodge data"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        app:backgroundTint="@color/blue_300"
+                        app:cornerRadius="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/distanceSpinner" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

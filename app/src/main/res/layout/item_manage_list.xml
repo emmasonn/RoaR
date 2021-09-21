@@ -7,13 +7,16 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView11"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="220dp"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
-        app:cardElevation="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        app:strokeWidth="0.5dp"
+        app:strokeColor="@color/white_300"
+        app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,148 +24,275 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:elevation="10dp"
-            android:background="@color/black_500"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/green_100"
-                app:cardElevation="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/constraintLayout5"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.dialog">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="Available Rooms:"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/availNumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="10"
-                        android:textColor="@color/yellow_200"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_margin="10dp"
-                android:background="@color/green_300"
-                android:elevation="10dp"
-                android:src="@drawable/ic_home"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialCardView5" />
-
-            <View
-                android:id="@+id/view3"
-                android:layout_width="2dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="5dp"
-                android:elevation="10dp"
-                android:background="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/lodgeLocation"
-                app:layout_constraintStart_toEndOf="@+id/lodgeLocation"
-                app:layout_constraintTop_toTopOf="@+id/lodgeLocation" />
-
-            <ImageView
-                android:id="@+id/imageView13"
-                android:layout_width="15dp"
-                android:layout_height="25dp"
-                android:elevation="10dp"
-                android:src="@drawable/ic_locate"
-                app:layout_constraintStart_toStartOf="@+id/imageView6"
-                app:layout_constraintTop_toBottomOf="@+id/lodgeTitle" />
-
-            <TextView
-                android:id="@+id/campus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:elevation="10dp"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/lodgeLocation"
-                app:layout_constraintStart_toEndOf="@+id/view3"
-                app:layout_constraintTop_toTopOf="@+id/lodgeLocation"
-                tools:text="UNN" />
-
-            <TextView
-                android:id="@+id/lodgeLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:elevation="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView13"
-                app:layout_constraintStart_toEndOf="@+id/imageView13"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6"
-                tools:text="Odenigwe" />
-
-            <TextView
-                android:id="@+id/lodgeTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:elevation="10dp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView6"
-                app:layout_constraintStart_toEndOf="@+id/imageView6"
-                app:layout_constraintTop_toTopOf="@+id/imageView6"
-                tools:text="Exclusive Boutique" />
+            android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/lodgeCover"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="0dp"
                 android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription"
                 tools:src="@drawable/laptop" />
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/materialCardView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:background="@color/black_500"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/materialCardView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/yellow_500"
+                        app:cardCornerRadius="0dp"
+                        app:cardElevation="20dp"
+                        android:layout_margin="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.dialog">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textView23"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Available\n Rooms"
+                                android:textColor="@color/white"
+                                android:layout_margin="5dp"
+                                android:textSize="12sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/availNumber"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:text="10"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="24sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_margin="10dp"
+                        android:elevation="10dp"
+                        android:src="@drawable/ic_home"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/online"
+                        app:tint="@color/yellow_200"
+                        tools:ignore="ContentDescription" />
+
+                    <View
+                        android:id="@+id/view3"
+                        android:layout_width="2dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@color/white_300"
+                        android:elevation="10dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/lodgeLocation"
+                        app:layout_constraintStart_toEndOf="@+id/lodgeLocation"
+                        app:layout_constraintTop_toTopOf="@+id/lodgeLocation" />
+
+                    <ImageView
+                        android:id="@+id/imageView13"
+                        android:layout_width="15dp"
+                        android:layout_height="25dp"
+                        android:elevation="10dp"
+                        android:src="@drawable/ic_locate"
+                        app:layout_constraintStart_toStartOf="@+id/imageView6"
+                        app:layout_constraintTop_toBottomOf="@+id/lodgeTitle"
+                        tools:ignore="ContentDescription"
+                        app:tint="@color/yellow_200" />
+
+                    <TextView
+                        android:id="@+id/campus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:elevation="10dp"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/lodgeLocation"
+                        app:layout_constraintStart_toEndOf="@+id/view3"
+                        app:layout_constraintTop_toTopOf="@+id/lodgeLocation"
+                        tools:text="UNN" />
+
+                    <TextView
+                        android:id="@+id/lodgeLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:elevation="10dp"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+                        app:layout_constraintStart_toEndOf="@+id/imageView13"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+                        tools:text="Odenigwe" />
+
+                    <TextView
+                        android:id="@+id/lodgeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:elevation="10dp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                        app:layout_constraintStart_toEndOf="@+id/imageView6"
+                        app:layout_constraintTop_toTopOf="@+id/imageView6"
+                        tools:text="Exclusive Boutique" />
+
+                    <TextView
+                        android:id="@+id/textView36"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:elevation="10dp"
+                        android:layout_margin="3dp"
+                        android:text="LandLord:"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/imageView6"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+
+                    <TextView
+                        android:id="@+id/ownerName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:elevation="10dp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView36"
+                        app:layout_constraintStart_toEndOf="@+id/textView36"
+                        app:layout_constraintTop_toTopOf="@+id/textView36"
+                        tools:text="Mr Igwe Ezema" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/online"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="Online"
+                        android:visibility="gone"
+                        android:textAllCaps="false"
+                        android:textColor="@color/green_700"
+                        android:textAppearance="@style/Widget.Toolbar.title"
+                        android:textSize="12sp"
+                        app:cornerRadius="0dp"
+                        app:icon="@drawable/ic_green_dot"
+                        app:iconSize="5dp"
+                        app:iconTint="@color/green_700"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/notActive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="20dp"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="@color/red_700"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/constraintLayout">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10sp"
+                            android:textAppearance="@style/Widget.Roar.textHeadline"
+                            android:textColor="@color/white"
+                            android:text="This lodge is been reviewed by the admin."
+                            />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/ownerPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:elevation="10dp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/ownerName"
+                        app:layout_constraintStart_toEndOf="@+id/ownerName"
+                        app:layout_constraintTop_toTopOf="@+id/ownerName"
+                        tools:text="(07043324532)" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/viewBtn"
                 style="@style/Widget.App.arrowButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="Update"
-                app:icon="@drawable/ic_edit"
-                app:iconTint="@color/white"
-                app:iconSize="18dp"
-                app:elevation="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Update detail"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                app:backgroundTint="@color/yellow_300"
+                app:backgroundTint="@color/blue_100"
                 app:cornerRadius="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/lodgeCover"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:elevation="10dp"
+                app:icon="@drawable/ic_edit"
+                app:iconSize="18dp"
+                app:iconTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView10" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/updateRoomBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="Update rooms"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/blue_100"
+                app:cornerRadius="10dp"
+                app:elevation="10dp"
+                app:icon="@drawable/ic_edit"
+                app:iconTint="@color/white"
+                app:iconSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/viewBtn"
+                app:layout_constraintEnd_toStartOf="@+id/viewBtn"
+                app:layout_constraintTop_toTopOf="@+id/viewBtn" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,21 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <TextView
+        android:id="@+id/postDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/yellow_500"
+        android:elevation="20dp"
+        android:padding="4dp"
+        android:text="New"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="3dp"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/notifyCard" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/notifyCard"
         android:layout_width="0dp"
@@ -46,7 +61,7 @@
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_margin="10dp"
-                    android:background="@color/green_300"
+                    android:background="@color/green_700"
                     android:elevation="10dp"
                     android:src="@drawable/ic_home"
                     app:layout_constraintStart_toStartOf="parent"
@@ -107,29 +122,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription"
-                    tools:src="@drawable/rain" />
-
-                <TextView
-                    android:id="@+id/postDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/green_700"
-                    android:elevation="10dp"
-                    android:layout_marginTop="5dp"
-                    android:padding="4dp"
-                    android:text="Today"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    tools:src="@drawable/laptop" />
 
                 <View
                     android:id="@+id/view3"
                     android:layout_width="2dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginTop="2dp"
                     android:elevation="10dp"
-                    android:background="@color/white"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/white_300"
                     app:layout_constraintBottom_toBottomOf="@+id/lodgeLocation"
                     app:layout_constraintStart_toEndOf="@+id/lodgeLocation"
                     app:layout_constraintTop_toTopOf="@+id/lodgeLocation" />
@@ -143,8 +146,9 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
-                android:textColor="@color/blue_700"
+                android:textColor="@color/black_700"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 android:layout_marginBottom="30dp"
                 app:layout_constraintBottom_toTopOf="@+id/chatBtn"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -168,42 +172,47 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:text="21/08/2020"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/textView27"
                 app:layout_constraintStart_toEndOf="@+id/textView27"
                 app:layout_constraintTop_toTopOf="@+id/textView27"
-                tools:text="21/01/2021" />
+                />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/chatBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:text="Chat on WhatApp"
                 android:textAllCaps="false"
-                android:layout_margin="5dp"
+                android:layout_marginStart="10dp"
                 android:textColor="@color/white"
                 app:cardBackgroundColor="@color/green_700"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 >
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="8dp"
-                    >
+                    android:padding="8dp">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_whats_app"
-                        />
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_whats_app" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Chat on WhatsApp"
                         android:layout_marginStart="5dp"
-                        android:textSize="18sp"
+                        android:text="Chat on WhatsApp"
+                        android:layout_gravity="center_vertical"
                         android:textColor="@color/white"
-                        />
+                        android:textSize="15sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -211,22 +220,22 @@
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:text="Scheduled Day"
+                android:text="Visit Date"
+                android:layout_marginStart="5dp"
                 app:layout_constraintBottom_toTopOf="@+id/visitDay"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView27" />
+                app:layout_constraintStart_toStartOf="@+id/textView27" />
 
             <TextView
                 android:id="@+id/visitDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:textColor="@color/black_700"
                 android:textSize="15sp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textView9"
-                app:layout_constraintStart_toStartOf="@+id/textView9"
+                app:layout_constraintStart_toStartOf="parent"
                 tools:text="21-01-2021" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

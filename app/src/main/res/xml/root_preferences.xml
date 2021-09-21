@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ListPreference
+        app:defaultValue="UNN"
+        app:entries="@array/campus_array"
+        app:entryValues="@array/campus_array"
+        app:key="campus"
+        app:title="Switch Campus"
+        app:allowDividerBelow="true"
+        app:useSimpleSummaryProvider="true"
+        />
+
+    <MultiSelectListPreference
+        app:defaultValue="@array/empty_list"
+        app:entries ="@array/address_array"
+        app:entryValues="@array/address_array"
+        app:key="notify_topics"
+        app:title="Choose interested areas"
+        app:summary="Roar notifies you on vacant lodges"
+        app:allowDividerBelow="true"
+        app:positiveButtonText="Save"
+        android:positiveButtonText="Save"
+        app:negativeButtonText="Close"
+        />
+
+    <SwitchPreferenceCompat
+        app:key="product_update"
+        app:summaryOff="Off"
+        app:summaryOn="On"
+        app:allowDividerBelow="true"
+        app:title="Turn on Property Notification"
+        />
+
+    <SwitchPreferenceCompat
+        app:key="sound_update"
+        app:summaryOff="Off"
+        app:summaryOn="On"
+        app:allowDividerBelow="true"
+        app:title="Turn Notification Sound" />
+
+    <SwitchPreferenceCompat
+        app:key="dark_theme"
+        app:summary="Reduce glare and improve night viewing"
+        app:title="Dark Theme"
+        app:allowDividerBelow="true"
+        />
+
+    <PreferenceCategory>
+        <Preference
+            app:title="RoaR2021"
+            app:summary="version1.0.0"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>

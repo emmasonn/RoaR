@@ -1,10 +1,75 @@
 <resources>
-    <string name="app_name">Roar Housing</string>
+    <string name="app_name">RoaR</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="initial_payment"><![CDATA[Initial Payment( including other fees)]]></string>
     <string name="verify_number">Verify\t %s</string>
     <string name="notifyText">%s\thas booked to visit the above lodge</string>
+    <string name="remaining_day">%s days left</string>
     <string name="format_price">₦%s</string>
+    <string name="lodge_listing">Lodge listing by %s</string>
     <string name="choice_title">%s \tLodge</string>
+
+    <!--notification strings-->
+    <string name="visit_notification_channel_id">visit booked</string>
+    <string name="availability_channel_id">available</string>
+    <string name="availability_title">Lodge Notice!!!</string>
+
+    <!--lodges notification_string-->
+    <string name="lodge_notification_title">VACANT ROOM!!</string>
+    <string name="lodges_notification_channel_id">LODGES_CHANNEL</string>
+    <string name="lodges_notification_channel_name">LODGES UPDATE</string>
+
+    <!--products notification string-->
+    <string name="product_notification_channel_id">PRODUCTS_CHANNEL</string>
+    <string name="product_notification_channel_name">PRODUCTS UPDATE</string>
+
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="swipe_right"><![CDATA[< Swipe right to upload lodge pictures >]]></string>
+
+
+    <!--Business subscription plan-->
+    <string name="business_default_price">Free</string>
+    <string name="business_default">Default</string>
+    <string name="business_default_slot">1</string>
+
+    <!--Business personal plan-->
+    <string name="business_personal_slot">10</string>
+    <string name="business_personal_price">₦750</string>
+    <string name="business_personal">Personal</string>
+
+    <!--Business professional plan-->
+    <string name="business_pro_slot">20</string>
+    <string name="business_pro_price">₦750</string>
+    <string name="business_pro">Professional</string>
+
+
+    <!--Estate subscription plan-->
+    <string name="estate_default_slot">1</string>
+    <string name="estate_default_price">Free</string>
+    <string name="estate_default">Default</string>
+    <!--Personal-->
+    <string name="estate_personal_slot">10</string>
+    <string name="estate_personal_price">₦750</string>
+    <!--Professional-->
+    <string name="estate_personal">Personal</string>
+    <string name="estate_pro_slot">20</string>
+    <string name="estate_pro_price">₦750</string>
+    <string name="estate_pro">Professional</string>
+
+
 </resources>

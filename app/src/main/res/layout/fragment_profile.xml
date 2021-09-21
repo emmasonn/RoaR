@@ -25,15 +25,14 @@
 
             <ImageView
                 android:id="@+id/pagerBack"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
-                android:layout_marginStart="16dp"
-                android:src="@drawable/ic_back"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_backward"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/black_500"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -42,36 +41,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:text="Profile"
-                android:textColor="@color/black_700"
-                android:textSize="19sp"
+                android:textAppearance="@style/Widget.Toolbar.title"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/pagerBack"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/notifyCount"
-                android:layout_width="wrap_content"
+                android:layout_width="25dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/yellow_background"
                 android:elevation="10dp"
-                android:textColor="@color/yellow_500"
+                android:textColor="@color/white"
+                android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/notifyBtn"
+                android:visibility="gone"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/notifyBtn"
                 app:layout_constraintEnd_toEndOf="@+id/notifyBtn"
-                app:layout_constraintStart_toEndOf="@+id/notifyBtn"
-                app:layout_constraintTop_toTopOf="@+id/notifyBtn"
-                tools:text="1" />
-
-            <ImageView
-                android:id="@+id/notifyBtn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="30dp"
-                android:src="@drawable/ic_notify"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
+                tools:text="16" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.MaterialToolbar>
@@ -87,8 +76,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -100,10 +87,11 @@
                     android:id="@+id/profilePics"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginStart="16dp"
                     android:background="@drawable/ic_person"
+                    android:padding="1dp"
                     android:scaleType="centerCrop"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle"
@@ -112,231 +100,259 @@
                     tools:ignore="ContentDescription" />
 
                 <TextView
+                    android:id="@+id/textView52"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/green_background"
+                    android:padding="3dp"
+                    android:text="Real Estate"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/profilePics"
+                    app:layout_constraintEnd_toEndOf="@+id/profilePics"
+                    app:layout_constraintStart_toStartOf="@+id/profilePics"
+                    app:layout_constraintTop_toBottomOf="@+id/profilePics" />
+
+                <TextView
                     android:id="@+id/fullName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="20dp"
-                    android:textColor="@color/black_700"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/profilePics"
-                    app:layout_constraintStart_toStartOf="@+id/profilePics"
-                    app:layout_constraintTop_toBottomOf="@+id/profilePics"
-                    tools:text="Nnamani Emmanuel"
-                    />
+                    android:layout_marginStart="15dp"
+                    android:textAppearance="@style/Widget.Toolbar.title"
+                    app:layout_constraintBottom_toBottomOf="@+id/profilePics"
+                    app:layout_constraintStart_toEndOf="@+id/profilePics"
+                    app:layout_constraintTop_toTopOf="@+id/profilePics"
+                    app:layout_constraintVertical_bias="0.3"
+                    tools:text="Nnamani Emmanuel" />
+
+                <ImageView
+                    android:id="@+id/imageView23"
+                    android:layout_width="20dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_outline_phone"
+                    app:layout_constraintBottom_toBottomOf="@+id/phoneNumber"
+                    app:layout_constraintStart_toStartOf="@+id/fullName"
+                    app:layout_constraintTop_toTopOf="@+id/phoneNumber"
+                    app:tint="?attr/colorOnPrimary" />
+
+                <TextView
+                    android:id="@+id/phoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textAppearance="@style/Widget.Roar.textHeadline"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@+id/imageView23"
+                    app:layout_constraintTop_toBottomOf="@+id/fullName"
+                    tools:text="070405730247" />
 
                 <View
                     android:id="@+id/view10"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@color/black_100"
+                    android:layout_marginTop="30dp"
+                    android:background="?attr/colorOnSecondary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/profilePics"
+                    app:layout_constraintVertical_bias="0.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/accountBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="20dp">
 
                 <ImageView
                     android:id="@+id/account"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"
-                    android:src="@drawable/ic_round_person"
-                    app:tint="@color/blue_300"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/ic_account"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     tools:ignore="ContentDescription" />
 
                 <TextView
+                    android:id="@+id/textView16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginStart="40dp"
                     android:layout_toEndOf="@+id/account"
                     android:text="Account"
-                    android:textColor="@color/black_700"
-                    android:textSize="15sp" />
+                    android:textAppearance="@style/Widget.Roar.textHeadline"
+                    app:layout_constraintBottom_toBottomOf="@+id/account"
+                    app:layout_constraintStart_toEndOf="@+id/account"
+                    app:layout_constraintTop_toTopOf="@+id/account" />
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="14dp"
-                    android:src="@drawable/ic_forward"
-                    android:textAlignment="viewEnd"
-                    app:tint="@color/blue_100"
-                    tools:ignore="ContentDescription" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@color/black_100" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/sellBtn"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/careerBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp">
-
-                <ImageView
-                    android:id="@+id/manage"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"
-                    android:src="@drawable/ic_sell_tag"
-                    app:tint="@color/blue_300"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_toEndOf="@+id/manage"
-                    android:text="Sell Your Property"
-                    android:textColor="@color/black_700"
-                    android:textSize="15sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="14dp"
-                    android:src="@drawable/ic_forward"
-                    android:textAlignment="viewEnd"
-                    app:tint="@color/blue_100"
-                    tools:ignore="ContentDescription" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@color/black_100" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/agentBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="10dp">
 
                 <ImageView
                     android:id="@+id/setting"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:src="@drawable/ic_career"
-                    app:tint="@color/blue_300"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginStart="40dp"
                     android:layout_toEndOf="@+id/setting"
-                    android:text="Career (Agents only)"
-                    android:textColor="@color/black_700"
-                    android:textSize="15sp" />
+                    android:text="Career"
+                    android:textAppearance="@style/Widget.Roar.textHeadline"
+                    app:layout_constraintBottom_toBottomOf="@+id/setting"
+                    app:layout_constraintStart_toEndOf="@+id/setting"
+                    app:layout_constraintTop_toTopOf="@+id/setting" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/terms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="14dp"
-                    android:src="@drawable/ic_forward"
-                    android:textAlignment="viewEnd"
-                    app:tint="@color/blue_100"
+                    android:id="@+id/manage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/ic_terms_condition"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     tools:ignore="ContentDescription" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@color/black_100" />
-            </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/manage"
+                    android:text="Terms and condition"
+                    android:textAppearance="@style/Widget.Roar.textHeadline"
+                    android:layout_marginStart="40dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/manage"
+                    app:layout_constraintStart_toEndOf="@+id/manage"
+                    app:layout_constraintTop_toTopOf="@+id/manage" />
 
-            <RelativeLayout
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/subscriptionBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/subscription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/ic_payment"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/subscribe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_toEndOf="@+id/subscription"
+                android:text="Subscription"
+                android:textAppearance="@style/Widget.Roar.textHeadline"
+                app:layout_constraintBottom_toBottomOf="@+id/subscription"
+                app:layout_constraintStart_toEndOf="@+id/subscription"
+                app:layout_constraintTop_toTopOf="@+id/subscription" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="?attr/colorOnSecondary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/subscription" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/signOutBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="10dp">
 
                 <ImageView
                     android:id="@+id/signOut"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/ic_sign_out"
-                    app:tint="@color/blue_300"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="3dp"
                     android:layout_toEndOf="@+id/signOut"
                     android:text="Sign Out"
-                    android:textColor="@color/black_700"
-                    android:textSize="15sp" />
+                    android:layout_marginStart="40dp"
+                    android:textAppearance="@style/Widget.Roar.textHeadline"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/signOut"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="14dp"
-                    android:src="@drawable/ic_forward"
-                    android:textAlignment="viewEnd"
-                    app:tint="@color/blue_100"
-                    tools:ignore="ContentDescription" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@color/black_100" />
-            </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/progressBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white_300"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ProgressBar
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 

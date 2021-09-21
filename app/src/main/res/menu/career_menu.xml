@@ -3,12 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/uploadCareer"
         android:icon="@drawable/ic_upload"
-        android:iconTint="@color/black_500"
-        android:title="Upload"
-        app:showAsAction="ifRoom"
+        android:iconTint="@color/black_700"
+        android:title="Upload lodge"
+        app:showAsAction="never"
         />
-    <item android:id="@+id/transaction"
-        android:title="Transaction History"
+    <item android:id="@+id/notifyBtn"
+        android:title="Notification"
+        app:showAsAction="never"
+        />
+    <item android:id="@+id/callAdmin"
+        android:title="Contact admin"
         app:showAsAction="never"
         />
 </menu>

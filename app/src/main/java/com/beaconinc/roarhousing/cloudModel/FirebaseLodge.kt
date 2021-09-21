@@ -13,8 +13,14 @@ import java.util.*
     var lodgeId: String? = null,
     var agentId: String? = null,
     var agentName: String? = null,
+    var brandName: String? = null,
     var agentUrl: String? = null,
+    var agentPhone: String? = null,
     var lodgeName: String? = null,
+    var aboutRealtor: String? = null,
+    var certified: Boolean? = null,
+    var slots: Int? = null,
+    var visitCounter: Long? = null,
     var coverImage: String? = null,
     var location: String? = null,
     var campus: String? = null,
@@ -28,6 +34,8 @@ import java.util.*
     var light: String? = null,
     var network: String? = null,
     var surrounding: String? = null,
+    var ownerName: String? = null,
+    var ownerPhone: String? = null,
     var distance: String? = null,
     @ServerTimestamp var date: Date? = null
 ): Parcelable

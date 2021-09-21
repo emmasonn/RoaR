@@ -12,23 +12,28 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import coil.load
+import androidx.recyclerview.widget.RecyclerView
 import com.beaconinc.roarhousing.MainActivity
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseUser
+import com.beaconinc.roarhousing.listAdapters.AdminListAdapter
+import com.beaconinc.roarhousing.listAdapters.AdminListAdapter.AdminClickListener
 import com.beaconinc.roarhousing.util.MB
 import com.beaconinc.roarhousing.util.MB_THRESHOLD
 import com.beaconinc.roarhousing.util.Memory_Access_code
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.Dispatchers
@@ -43,26 +48,37 @@ class SetUpFragment : Fragment() {
 
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var clientDocument: DocumentReference
+    private lateinit var clientCollection: CollectionReference
     private lateinit var fireStore: FirebaseFirestore
     private lateinit var clientImageView: ImageView
     private lateinit var fullNameView: TextInputEditText
     private lateinit var storage: FirebaseStorage
     private var profileBitmap: Bitmap? = null
     private lateinit var sharedPref: SharedPreferences
+    private lateinit var phoneTextView: TextInputEditText
+    private lateinit var password: TextInputEditText
+    private lateinit var brandName: TextInputEditText
+    private lateinit var accountSpinner: TextInputLayout
+    private lateinit var campusSpinner: TextInputLayout
+    private lateinit var clientId: String
+    private lateinit var saveBtn: MaterialButton
+    private lateinit var progressBar: ProgressBar
+    private lateinit var adminsRef: Query
+    private lateinit var bottomSheetLayout: BottomSheetDialog
+    private lateinit var admin: FirebaseUser
 
-
-    private val phoneNumber: String? by lazy {
-        arguments?.get("phone") as String
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         firebaseAuth = FirebaseAuth.getInstance()
         storage = FirebaseStorage.getInstance()
         sharedPref = (activity as MainActivity).sharedPref
-        val clientId = firebaseAuth.currentUser?.uid!!
         fireStore = FirebaseFirestore.getInstance()
-        clientDocument = fireStore.collection("clients").document(clientId)
+        clientCollection = fireStore.collection("clients")
+        clientId = clientCollection.document().id
+        Timber.i("Client New id: $clientId")
+        clientDocument = clientCollection.document(clientId)
+        adminsRef = clientCollection.whereEqualTo("accountType","Admin")
     }
 
     override fun onCreateView(
@@ -73,44 +89,60 @@ class SetUpFragment : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_set_up, container, false)
         clientImageView = view.findViewById(R.id.clientImage)
         fullNameView = view.findViewById(R.id.fullName)
-        val saveBtn = view.findViewById<MaterialButton>(R.id.saveBtn)
+        saveBtn = view.findViewById<MaterialButton>(R.id.saveBtn)
         val brownBtn = view.findViewById<ConstraintLayout>(R.id.browseImageBtn)
+        campusSpinner = view.findViewById<TextInputLayout>(R.id.campusView)
+        accountSpinner = view.findViewById<TextInputLayout>(R.id.account)
+        phoneTextView = view.findViewById<TextInputEditText>(R.id.phoneNumber)
+        password = view.findViewById<TextInputEditText>(R.id.password)
+        brandName =view.findViewById(R.id.brandName)
+        progressBar = view.findViewById(R.id.progressBar)
+        val backBtn = view.findViewById<ImageView>(R.id.setUpBack)
+
+        backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         saveBtn.setOnClickListener {
-
-            val name = fullNameView.text.toString()
-
             if (profileBitmap !=null  ) {
-                lifecycleScope.launch {
-                  processProfileImage(profileBitmap!!)
-                }
-            }else if(name.isNotBlank()) {
-                verifyStateToNull()
-                val action = R.id.action_setUpFragment_to_profileFragment
-                findNavController().navigate(action)
+                selectAdminBottomSheet()
+            }else {
+                Toast.makeText(requireContext(),"Please Select Profile Image First", Toast.LENGTH_SHORT).show()
             }
         }
+
+
 
         brownBtn.setOnClickListener {
              openStorageIntent()
         }
 
-        return view
-    }
+        val campusAdapter = ArrayAdapter.createFromResource (
+            requireContext(),
+            R.array.campus_array,
+            android.R.layout.simple_spinner_dropdown_item
+        )
 
+        val accountType = sharedPref.getString("accountType","")
 
-    override fun onStart() {
-        super.onStart()
-        fetchUser()
-    }
+        var accountAdapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.admin_account_array,
+            android.R.layout.simple_spinner_dropdown_item
+        )
 
-    private fun fetchUser() {
-        clientDocument.get().addOnSuccessListener {
-            it.toObject(FirebaseUser::class.java).also { client ->
-                fullNameView.setText(client?.clientName)
-                clientImageView.load(client?.clientUrl)
-            }
+        if(accountType == "Super Admin") {
+            accountAdapter = ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.super_account_array,
+                android.R.layout.simple_spinner_dropdown_item
+            )
         }
+
+        (campusSpinner.editText as AutoCompleteTextView).setAdapter(campusAdapter)
+        (accountSpinner.editText as AutoCompleteTextView).setAdapter(accountAdapter)
+
+        return view
     }
 
     @SuppressLint("QueryPermissionsNeeded")
@@ -135,7 +167,7 @@ class SetUpFragment : Fragment() {
     }
 
     private suspend fun processProfileImage(imageBitmap: Bitmap) {
-        Timber.i("Processing Image")
+        showProgress()
         withContext(Dispatchers.IO) {
             val compressedImage = startCompressing(imageBitmap)
             startUploadingProfileImage(compressedImage)
@@ -159,13 +191,6 @@ class SetUpFragment : Fragment() {
                 }
             }
             bytes
-        }
-    }
-
-    private fun verifyStateToNull() {
-        with(sharedPref.edit()) {
-            putString("VERIFY_ID", null)
-            apply()
         }
     }
 
@@ -201,28 +226,91 @@ class SetUpFragment : Fragment() {
             }.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val imageUri = task.result.toString()
-                    val fullName = fullNameView.text.toString()
-                    val userId = firebaseAuth.currentUser?.uid
-
-                    val client = FirebaseUser (
-                        clientId = userId,
-                        clientUrl = imageUri,
-                        clientPhone = phoneNumber,
-                        clientName = fullName,
-                        accountType = "client"
-                    )
-
-                    clientDocument.set(client).addOnSuccessListener {
-                       lifecycleScope.launch {
-                           val action = R.id.action_setUpFragment_to_profileFragment
-                           findNavController().navigate(action)
-                       }
-                    }.addOnFailureListener {
-                        Toast.makeText(requireContext(),
-                            "Check your Internet Connection: $it", Toast.LENGTH_SHORT).show()
-                    }
+                    saveDetails(imageUri)
                 }
             }//end complete listener
+        }
+    }
+
+    private fun finishSetUp(firebaseUser: FirebaseUser?) {
+            firebaseUser?.let {
+                lifecycleScope.launch {
+                    processProfileImage(profileBitmap!!)
+                }
+            }
+    }
+
+    private fun saveDetails(image: String) {
+        val fullName = fullNameView.text.toString()
+        val phoneNumber = phoneTextView.text.toString()
+        val password = password.text.toString()
+        val campus = campusSpinner.editText?.text.toString()
+        val accountType = accountSpinner.editText?.text.toString()
+        val brandName = brandName.text.toString()
+
+        val client = FirebaseUser (
+            clientId = clientId,
+            clientPhone = phoneNumber,
+            clientName = fullName,
+            clientUrl = image,
+            accountType = accountType,
+            password = password,
+            campus = campus,
+            brandName = brandName,
+            adminId = admin.clientId
+        )
+
+        clientDocument.set(client).addOnSuccessListener {
+            lifecycleScope.launch {
+                Toast.makeText(requireContext(),
+                    "User Created", Toast.LENGTH_SHORT).show()
+                findNavController().navigateUp()
+            }
+        }.addOnFailureListener {
+            hideProgress()
+            Toast.makeText(requireContext(),
+                "Check your Internet Connection: $it", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+   private fun selectAdminBottomSheet() {
+        bottomSheetLayout = BottomSheetDialog(requireContext()).apply {
+            setContentView(R.layout.admin_bottom_sheet)
+            val progressBar = this.findViewById<ProgressBar>(R.id.progressBar)
+            val adminRecycler = this.findViewById<RecyclerView>(R.id.adminRecyclerView)
+            progressBar?.visibility = View.VISIBLE
+
+            val adminListAdapter = AdminListAdapter(AdminClickListener { adminUser ->
+                  bottomSheetLayout.dismiss()
+                  admin = adminUser
+                  finishSetUp(adminUser)
+            })
+            adminRecycler?.adapter = adminListAdapter
+
+            adminsRef.get().addOnSuccessListener { snapShots ->
+                snapShots.documents.mapNotNull {
+                    it.toObject(FirebaseUser::class.java)
+                }.also {
+                    adminListAdapter.submitList(it)
+                    lifecycleScope.launch {
+                        progressBar?.visibility = View.GONE
+                    }
+                }
+            }
+        }
+        bottomSheetLayout.show()
+    }
+
+    private fun showProgress() {
+        progressBar.visibility = View.VISIBLE
+        saveBtn.alpha = 0.1f
+    }
+
+    private fun hideProgress() {
+        lifecycleScope.launch {
+            progressBar.visibility = View.GONE
+            saveBtn.alpha = 1f
         }
     }
 

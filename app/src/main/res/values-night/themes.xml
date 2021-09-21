@@ -1,16 +1,38 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.RoarHousing" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.RoarHousing" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/black_500</item>
+        <item name="colorPrimary">@color/black_700</item>
         <item name="colorPrimaryVariant">@color/black_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/purple_500</item>
-        <item name="colorSecondaryVariant">@color/purple_700</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondary">@color/white_300</item>
+        <item name="colorSecondaryVariant">@color/blue_300</item>
+        <item name="colorOnSecondary">@color/white_300</item>
+
+        <item name="colorSurface">@color/black_700</item>
+        <item name="colorOnSurface">@color/white_300</item>
+        <item name="colorAccent">@color/blue_300</item>
+        <item name="colorControlNormal">@color/blue_300</item>
+
+        <item name="android:windowBackground">@color/black_700</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialDarkAlertDialog</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="MaterialAlertDialog.App" parent="MaterialAlertDialog.MaterialComponents">
+        <item name="shapeAppearance">@style/ShapeAppearanceOverlay.App.general</item>
+    </style>
+    <!--Material dialog styling -->
+    <style name="ThemeOverlay.App.MaterialDarkAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorAccent">@color/blue_500</item>
+        <item name="colorPrimary">@color/blue_500</item>
+<!--        <item name="buttonBarPositiveButtonStyle">@style/Widget.Roar.textHeadline</item>-->
+<!--        <item name="buttonBarNegativeButtonStyle">@style/Widget.Roar.textHeadline</item>-->
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
+    </style>
+
 </resources>
