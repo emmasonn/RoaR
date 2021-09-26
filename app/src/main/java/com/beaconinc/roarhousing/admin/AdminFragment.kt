@@ -128,7 +128,6 @@ class AdminFragment : Fragment() {
                 binding.profilePics.load(firebaseUser.clientUrl)
                 binding.fullName.text = firebaseUser.clientName
                 binding.phoneNumber.text = firebaseUser.clientPhone
-
             }
         }
     }
@@ -146,7 +145,7 @@ class AdminFragment : Fragment() {
             setPositiveButton("Okay") { dialog , _ ->
                 dialog.dismiss()
                 userLogged(false)
-                findNavController().navigateUp()
+                findNavController().popBackStack(R.id.becomeAgent,false)
             }
             setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()

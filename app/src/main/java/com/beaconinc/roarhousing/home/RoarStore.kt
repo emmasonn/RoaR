@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -30,6 +31,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class RoarStore : Fragment() {
 
@@ -41,6 +43,8 @@ class RoarStore : Fragment() {
     private lateinit var spinnerCallBack: AdapterView.OnItemSelectedListener
     private lateinit var titleText: TextView
     private lateinit var propertyRecycler: RecyclerView
+
+    private val argsNav: RoarStoreArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +69,10 @@ class RoarStore : Fragment() {
         titleText = view.findViewById(R.id.titleText)
         val filterSpinner = view.findViewById<Spinner>(R.id.filterSpinner)
         progressBar = view.findViewById(R.id.progressBar)
+
+        argsNav.propertyId?.let {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }?: Timber.i("productId: ${argsNav.propertyId}")
 
         showProgress()
         backBtn.setOnClickListener {
@@ -147,45 +155,73 @@ class RoarStore : Fragment() {
         }
     }
 
-    @SuppressLint("InflateParams")
-    private fun showMore(data: FirebaseProperty) {
-        MaterialAlertDialogBuilder(requireContext()).apply {
-            val inflater = LayoutInflater.from(requireContext())
-            val view = inflater.inflate(R.layout.dialog_whats_app, null)
-            val whatAppBtn = view.findViewById<MaterialCardView>(R.id.chatBtn)
-            val desc = view.findViewById<TextView>(R.id.propertyDesc)
-            desc.text = data.propertyDesc
-            whatAppBtn.setOnClickListener {
-            }
-            setView(view)
-            show()
-        }
-    }
-
     private fun showBottomSheet(property: FirebaseProperty) {
         val bottomSheetLayout = BottomSheetDialog(requireContext()).apply {
             setContentView(R.layout.layout_person_sheet)
-            val personImage = this.findViewById<ImageView>(R.id.personImage)
+            val sellerImage = this.findViewById<ImageView>(R.id.brandImage)
+            val productImage = this.findViewById<ImageView>(R.id.productImage)
+            val productName = this.findViewById<TextView>(R.id.productName)
+            val productPrice = this.findViewById<TextView>(R.id.productPrice)
             val brandName = this.findViewById<TextView>(R.id.brandName)
-            val aboutMe = this.findViewById<TextView>(R.id.aboutMe)
+            val aboutProduct = this.findViewById<TextView>(R.id.productDesc)
 
-            personImage?.load(property.sellerUrl)
+
+            sellerImage?.load(property.sellerUrl)
+            productImage?.load(property.firstImage)
+            productName?.text = property.propertyTitle
+            productPrice?.text = getString(R.string.format_price,property.propertyPrice)
             brandName?.text = property.sellerName
-            aboutMe?.text = property.propertyTitle
+            aboutProduct?.text = property.propertyDesc
         }
         val whatsAppBtn = bottomSheetLayout.findViewById<MaterialCardView>(R.id.whatsAppBtn)
-        val option = bottomSheetLayout.findViewById<MaterialButton>(R.id.callBtn)
+        val share = bottomSheetLayout.findViewById<MaterialButton>(R.id.shareBtn)
+        val callBtn = bottomSheetLayout.findViewById<MaterialButton>(R.id.callBtn)
 
-        option?.setOnClickListener { view ->
-            onCreateMenuLayout(view)
+
+        share?.setOnClickListener {
+            share(property)
         }
 
         whatsAppBtn?.setOnClickListener {
             chatWhatsApp(property.sellerNumber)
         }
 
+        callBtn?.setOnClickListener {
+            dialPhoneNumber(property.sellerNumber)
+        }
+
         bottomSheetLayout.show()
     }
+
+
+    private fun share(product: FirebaseProperty) {
+            val message =
+            "Hi, check out this ${product.propertyTitle} on Roar App \n"+
+                    "https://roar.com/property/${product.id}"
+
+            val intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, message)
+                type="text/plain"
+            }
+
+            try {
+                startActivity(intent)
+            }catch (ex: android.content.ActivityNotFoundException){
+                Toast.makeText(requireContext(),"WhatsApp is not Found",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    private fun dialPhoneNumber(phoneNumber: String?) {
+        val intent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phoneNumber") //or use Uri.fromParts()
+        }
+        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(intent)
+        }
+    }
+
 
     private fun onCreateMenuLayout(view: View) {
         val popUpMenu = PopupMenu(requireContext(), view)
@@ -225,9 +261,14 @@ class RoarStore : Fragment() {
     }
 
     private fun chatWhatsApp(pNumber: String?) {
-        val uri = "https://api.whatsapp.com/send?$pNumber"
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(uri)
+
+        val uri =
+            "https://api.whatsapp.com/send?phone=+234$pNumber"
+
+        val intent = Intent().apply {
+            action = Intent.ACTION_VIEW
+            data = Uri.parse(uri)
+        }
         startActivity(intent)
     }
 

@@ -7,7 +7,7 @@
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/black_700</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/black_500</item>
+        <item name="colorSecondary">@color/blue_300</item>
         <item name="colorSecondaryVariant">@color/black_100</item>
         <item name="colorOnSecondary">@color/black_500</item>
         <item name="colorSurface">@color/white</item>
@@ -15,6 +15,9 @@
         <item name="colorControlNormal">@color/blue_300</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
         <item name="alertDialogTheme">@style/DialogStyle</item>
+
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="font">@font/montserrat_regular</item>
         <!-- Status bar color. -->
         <item name="android:windowBackground">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
@@ -22,13 +25,13 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="DialogStyle" parent="android:Theme.Material.Dialog">
+    <style name="DialogStyle" parent="android:Theme.Material.Dialog.Alert">
         <item name="android:colorBackground">@color/white</item>
         <item name="android:textColorPrimary">@color/blue_500</item>
         <item name="android:colorControlNormal">@color/blue_500</item>
         <item name="android:colorAccent">@color/blue_500</item>
-        <item name="colorPrimary">@color/blue_500</item>
-        <item name="colorOnPrimary">@color/blue_500</item>
+        <item name="android:colorPrimary">?attr/colorOnPrimary</item>
+        <item name="android:colorPrimaryDark">@color/blue_500</item>
         <item name="buttonBarPositiveButtonStyle">@style/ButtonStyle</item>
         <item name="buttonBarNegativeButtonStyle">@style/ButtonStyle</item>
     </style>

@@ -18,6 +18,7 @@ class MediumAdViewHolder (val itemView: View): RecyclerView.ViewHolder(itemView)
         data.observe(lifecycleOwner, Observer {
             CoroutineScope(Dispatchers.Main).launch {
                 mediumAdView.setNativeAd(it)
+                mediumAdView.visibility = View.VISIBLE
             }
         })
     }

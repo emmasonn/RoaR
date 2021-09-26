@@ -53,9 +53,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="25 litres Gallon"
+                android:textAppearance="@style/Widget.Roar.textHeadline"
+                android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toTopOf="@+id/propertyPrice"
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout7"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout7" />
@@ -67,8 +68,8 @@
                 android:layout_marginBottom="5dp"
                 android:text="₦500"
                 android:textColor="@color/yellow_200"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:textAppearance="@style/Widget.Roar.textHeadline"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/propertyImage"
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout7"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout7" />

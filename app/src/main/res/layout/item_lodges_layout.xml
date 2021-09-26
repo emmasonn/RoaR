@@ -13,16 +13,16 @@
         app:strokeWidth="0.5dp"
         app:strokeColor="@color/white_300"
         android:layout_marginTop="5dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         >
         <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/white"
+            app:cardBackgroundColor="@color/yellow_200"
             app:cardElevation="20dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,15 +31,15 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView58"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
-                    android:text="Vacant\n rooms"
+                    android:text="Vacant\nRooms"
+                    android:textAppearance="@style/Widget.Roar.textHeadline"
                     android:textColor="@color/black_700"
                     app:layout_constraintEnd_toEndOf="@+id/availableRoom"
                     app:layout_constraintStart_toStartOf="@+id/availableRoom"
@@ -51,7 +51,9 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/blue_700"
                     android:textSize="22sp"
+                    android:textStyle="bold"
                     android:textAppearance="@style/Widget.Toolbar.title"
+                    android:fontFamily="@font/montserrat_bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -59,15 +61,15 @@
                     tools:text="20" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/viewFlipper"
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="190dp"
                 android:scaleType="centerCrop"
-                android:elevation="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +81,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout5"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +91,7 @@
                     android:id="@+id/lodgePrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textAppearance="@style/Widget.Toolbar.title"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/lodgeTitle"
@@ -98,11 +100,11 @@
 
                 <TextView
                     android:id="@+id/lodgeTitle"
-                    android:layout_width="179dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
                     android:text="Ultimate Lodge, Self Con."
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textAppearance="@style/Widget.Roar.textHeadline"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                     app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -112,7 +114,7 @@
                     android:id="@+id/imageView1"
                     android:layout_width="14dp"
                     android:layout_height="14dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="10dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_locate"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -126,7 +128,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
                     android:textColor="@color/blue_300"
-                    android:textSize="12sp"
+                    android:textAppearance="@style/Widget.Roar.textHeadline"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView1"
                     app:layout_constraintStart_toEndOf="@+id/imageView1"
@@ -170,7 +173,8 @@
                         android:layout_height="wrap_content"
                         android:elevation="10dp"
                         android:textColor="@color/green_700"
-                        android:textSize="12sp"
+                        android:textAppearance="@style/Widget.Roar.textHeadline"
+                        android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView18"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/imageView18"
@@ -184,6 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:text="Explore"
+                    android:fontFamily="@font/montserrat_medium"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     app:backgroundTint="@color/blue_500"

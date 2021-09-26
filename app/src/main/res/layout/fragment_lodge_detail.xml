@@ -191,7 +191,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/yellow_200"
                 app:cardElevation="20dp"
                 android:layout_margin="5dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -208,6 +208,7 @@
                         android:layout_height="wrap_content"
                         android:text="Vacant\nRooms"
                         android:layout_margin="3dp"
+                        android:textStyle="bold"
                         android:textColor="@color/black_700"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -219,7 +220,8 @@
                         android:layout_margin="3dp"
                         android:text="@{lodgeDetail.availableRoom.toString()}"
                         android:textAppearance="@style/Widget.Toolbar.title"
-                        android:textColor="@color/blue_300"
+                        android:textColor="@color/blue_700"
+                        android:fontFamily="@font/montserrat_bold"
                         android:textSize="25sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/textView57"
@@ -586,19 +588,22 @@
                                 app:layout_constraintTop_toBottomOf="@+id/tableLayout">
 
                                 <TextView
-                                    android:id="@+id/textView33"
+                                    android:id="@+id/brandName"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_margin="5dp"
                                     android:elevation="10dp"
-                                    android:text="PIPPINHALL"
+                                    android:text="@{lodgeDetail.brandName}"
                                     android:textAlignment="center"
                                     android:textAppearance="@style/Widget.Toolbar.title"
+                                    android:fontFamily="@font/montserrat_bold"
                                     android:textColor="@color/blue_500"
                                     android:textSize="20sp"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toEndOf="@+id/agentImageCover"
-                                    app:layout_constraintTop_toTopOf="@+id/agentImageCover" />
+                                    app:layout_constraintTop_toTopOf="@+id/agentImageCover"
+                                    tools:text="PIPPINHALL"
+                                    />
 
                                 <TextView
                                     android:id="@+id/textView7"
@@ -608,9 +613,9 @@
                                     android:text="Realtor"
                                     android:textAppearance="@style/Widget.Toolbar.title"
                                     android:textSize="14sp"
-                                    app:layout_constraintEnd_toEndOf="@+id/textView33"
-                                    app:layout_constraintStart_toStartOf="@+id/textView33"
-                                    app:layout_constraintTop_toBottomOf="@+id/textView33" />
+                                    app:layout_constraintEnd_toEndOf="@+id/brandName"
+                                    app:layout_constraintStart_toStartOf="@+id/brandName"
+                                    app:layout_constraintTop_toBottomOf="@+id/brandName" />
 
                                 <com.google.android.material.imageview.ShapeableImageView
                                     android:id="@+id/agentImageCover"

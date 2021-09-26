@@ -1,5 +1,6 @@
 package com.beaconinc.roarhousing.home
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,6 +22,10 @@ import com.beaconinc.roarhousing.database.FavModel
 import com.beaconinc.roarhousing.database.FavModelDao
 import com.beaconinc.roarhousing.listAdapters.LodgeClickListener
 import com.beaconinc.roarhousing.listAdapters.LodgesAdapter
+import com.beaconinc.roarhousing.listAdapters.NewListAdapter
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.nativead.NativeAd
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
@@ -34,12 +39,17 @@ class FavoriteFragment : Fragment() {
     private lateinit var progressBar: ProgressBar
     private lateinit var favModelDao: FavModelDao
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fireStore = FirebaseFirestore.getInstance()
         favModelDao = (activity as MainActivity).db.favModelDao()
         lodgesQuery = fireStore.collection("lodges")
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        smallAdvertNativeAd()
+        mediumAdvertNativeAd()
     }
 
     override fun onCreateView(
@@ -50,18 +60,17 @@ class FavoriteFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_favorite, container, false)
         progressBar = view.findViewById(R.id.progressBar)
         val favBack = view.findViewById<ImageView>(R.id.favBackBtn)
-
         val lodgeRecycler = view.findViewById<RecyclerView>(R.id.lodgeList)
 
-        lodgesAdapter = LodgesAdapter(LodgeClickListener( {
+        lodgesAdapter = LodgesAdapter(LodgeClickListener({
             val bundle = bundleOf("Lodge" to it)
             findNavController().navigate(R.id.lodgeDetail, bundle)
-        },{ id ->
+        }, { id ->
             lifecycleScope.launch {
                 favModelDao.delete(FavModel(id))
                 fetchFavId(favModelDao.getFavOnce())
             }
-        }), true)
+        }), this, true)
 
         favBack.setOnClickListener {
             findNavController().popBackStack()
@@ -77,24 +86,61 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun fetchFavId(favorites: List<FavModel>) {
-        favorites.map{it.id}.also { ids ->
+
+        favorites.map { it.id }.also { ids ->
             if (ids.isNotEmpty()) {
                 lodgesQuery.whereIn("lodgeId", ids).get().addOnSuccessListener { snapShot ->
                     snapShot.documents.mapNotNull { shot ->
                         shot.toObject(FirebaseLodge::class.java)
                     }.also { lodges ->
-                        lodgesAdapter.submitList(lodges)
+                        lodgesAdapter.addLodgeAndProperty(lodges,false)
                         hideProgress()
                     }
                 }
-                    }else {
-                            hideProgress()
-                         Toast.makeText(requireContext(),
-                             "No Favorite Lodge Empty",Toast.LENGTH_SHORT).show()
-                    }
+            } else {
+                hideProgress()
+                lodgesAdapter.notifyDataSetChanged()
+                lodgesAdapter.addLodgeAndProperty(emptyList(),false)
+
+                Toast.makeText(
+                    requireContext(),
+                    "No Favorite Lodge Empty", Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
+    private fun smallAdvertNativeAd() {
+        val adLoader = AdLoader.Builder(requireContext(), "ca-app-pub-3940256099942544/2247696110")
+            .forNativeAd { ad: NativeAd ->
+                run {
+                    lifecycleScope.launchWhenStarted {
+                        lodgesAdapter.postAd1(ad)
+                    }
+                    if (this.isDetached) {
+                        ad.destroy()
+                        return@forNativeAd
+                    }
+                }
+            }.build()
+        adLoader.loadAds(AdRequest.Builder().build(), 5)
+    }
+
+    private fun mediumAdvertNativeAd() {
+        val adLoader = AdLoader.Builder(requireContext(), "ca-app-pub-3940256099942544/2247696110")
+            .forNativeAd { ad: NativeAd ->
+                run {
+                    lifecycleScope.launchWhenStarted {
+                        lodgesAdapter.postAd2(ad)
+                    }
+                    if (this.isDetached) {
+                        ad.destroy()
+                        return@forNativeAd
+                    }
+                }
+            }.build()
+        adLoader.loadAds(AdRequest.Builder().build(), 5)
+    }
 
     private fun showProgress() {
         progressBar.visibility = View.VISIBLE

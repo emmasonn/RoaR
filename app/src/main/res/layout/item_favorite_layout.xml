@@ -15,12 +15,12 @@
         android:layout_marginTop="5dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        >
+        android:layout_marginBottom="10dp">
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/white"
+            app:cardBackgroundColor="@color/yellow_200"
             app:cardElevation="20dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
-                    android:text="Vacant\n rooms"
+                    android:text="Vacant\nRooms"
                     android:textColor="@color/black_700"
                     app:layout_constraintEnd_toEndOf="@+id/availableRoom"
                     app:layout_constraintStart_toStartOf="@+id/availableRoom"
@@ -114,7 +114,7 @@
                     android:layout_width="179dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
-                    android:text="Ultimate Lodge, Self Con."
+                    tools:text="Ultimate Lodge, Self Con."
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView2"

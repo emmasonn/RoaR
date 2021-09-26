@@ -19,7 +19,9 @@
         android:theme="@style/Theme.RoarHousing"
         tools:ignore="AllowBackup">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTask"
+            >
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN"
@@ -28,13 +30,34 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter android:label="RoaR lodges">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="www.roar.com"
+                    android:scheme="https"
+                    android:pathPrefix="/lodge"/>
+            </intent-filter>
+
+            <intent-filter android:label="RoaR Store">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="www.roar.com"
+                    android:scheme="https"
+                    android:pathPrefix="/property"/>
+            </intent-filter>
+
+            <nav-graph android:value="@navigation/main_nav"/>
         </activity>
 
         <service
             android:name=".fcm.MyFirebaseMessagingService"
             android:exported="false"
             >
-
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>

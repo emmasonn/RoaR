@@ -49,7 +49,7 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView5"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="450dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -57,8 +57,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,27 +66,30 @@
 
                     <ImageView
                         android:id="@+id/imageView1"
+                        android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
                         android:src="@drawable/ic_dot"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView60"
+                        app:layout_constraintTop_toTopOf="@+id/textView60"
                         tools:ignore="ContentDescription" />
 
                     <TextView
+                        android:id="@+id/textView60"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:lineSpacingExtra="4dp"
-                        android:text="\tDirect question pertaining to your personal temporary accommodation to our WhatsApp accommodation customer service and not in the WhatsApp group"
-                        android:textAlignment="gravity"
                         android:layout_marginStart="20dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="20dp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="Direct question pertaining to your personal temporary accommodation to our WhatsApp accommodation customer service and not in the WhatsApp group"
+                        android:textAlignment="gravity"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imageView1" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -101,22 +102,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:layout_marginTop="5dp"
                         android:src="@drawable/ic_dot"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView61"
+                        app:layout_constraintTop_toTopOf="@+id/textView61"
                         tools:ignore="ContentDescription" />
 
                     <TextView
+                        android:id="@+id/textView61"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="\tMembers are not allowed to make calls to customer service anytime, please tell your questions and problems directly, they can identify and answer back as soon as possible"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:text="Members are not allowed to make calls to customer service anytime, please tell your questions and problems directly, they can identify and answer back as soon as possible"
                         android:textAlignment="gravity"
+                        android:lineSpacingExtra="4dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -128,10 +133,10 @@
                         android:id="@+id/imageView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
                         android:src="@drawable/ic_dot"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintEnd_toStartOf="@+id/textView35"
+                        app:layout_constraintTop_toTopOf="@+id/textView35"
                         tools:ignore="ContentDescription" />
 
                     <TextView
@@ -139,13 +144,15 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
                         android:textAlignment="gravity"
-                        android:text="\tThe WhatsApp and Telegram group on this screen are the only groups which are officially authorized by RoaR, members should join at least one of the community groups to keep pace with other members."
+                        android:lineSpacingExtra="4dp"
+                        android:text="The WhatsApp and Telegram group on this screen are the only groups which are officially authorized by RoaR, members should join at least one of the community groups to keep pace with other members."
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -158,22 +165,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:layout_marginTop="5dp"
                         android:src="@drawable/ic_dot"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView62"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="ContentDescription" />
 
                     <TextView
+                        android:id="@+id/textView62"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="\tMembers should not believe anyother platforms or links which are posted in our groups by some people who have an ulterior motive, you will bear the consequences of all such acts take if you do so."
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:textAlignment="gravity"
                         android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:text="Members should not believe anyother platforms or links which are posted in our groups by some people who have an ulterior motive, you will bear the consequences of all such acts take if you do so."
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:lineSpacingExtra="4dp"
+                        android:textAlignment="gravity"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -186,22 +197,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:layout_marginTop="5dp"
                         android:src="@drawable/ic_dot"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView63"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="ContentDescription" />
 
                     <TextView
+                        android:id="@+id/textView63"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="\tMembers should not make a payment to any account which is not belong to RoaR, please be aware of being defrauded."
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:text="Members should not make a payment to any account which is not belong to RoaR, please be aware of being defrauded."
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginStart="20dp"
+                        android:lineSpacingExtra="4dp"
                         android:textAlignment="gravity"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imageView5" />
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -215,22 +230,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:layout_marginTop="5dp"
                         android:src="@drawable/ic_dot"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView64"
+                        app:layout_constraintTop_toTopOf="@+id/textView64"
                         tools:ignore="ContentDescription" />
 
                     <TextView
+                        android:id="@+id/textView64"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="\tThe quality of customer service is one of the most foundation of RoaR, if anyone of the customer service hasn't served you well, please send feedback to complain about his or her service with their mobile number at Roar@gmail.com"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:textAlignment="gravity"
+                        android:lineSpacingExtra="4dp"
+                        android:text="The quality of customer service is one of the most foundation of RoaR, if anyone of the customer service hasn't served you well, please send feedback to complain about his or her service with their mobile number at Roar@gmail.com"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginStart="20dp"
-                        android:textAlignment="gravity"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imageView6" />
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

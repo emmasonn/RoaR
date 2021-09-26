@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/personSheet"
-    android:elevation="10dp"
-    android:background="@color/white_100"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="20dp"
-    android:layout_marginEnd="20dp"
+    android:background="@color/white_100"
+    android:elevation="10dp"
     android:orientation="vertical"
-    app:behavior_hideable ="true"
+    app:behavior_hideable="true"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <com.google.android.material.card.MaterialCardView
@@ -25,59 +22,117 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/personImage"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:padding="2dp"
-                android:scaleType="centerCrop"
+            <TextView
+                android:id="@+id/textView65"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Product Description"
+                android:textAppearance="@style/Widget.Roar.textHeadline"
+                android:textSize="14sp"
+                android:color="?attr/colorOnPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/productImage"
+                app:layout_constraintTop_toBottomOf="@+id/brandName" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/brandImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="5dp"
+                android:elevation="10dp"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="@+id/productImage"
+                app:layout_constraintStart_toEndOf="@+id/productImage"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle50"
+                app:strokeColor="@color/blue_300"
+                app:strokeWidth="1dp"
+                tools:src="@drawable/laptop" />
+
+            <TextView
+                android:id="@+id/brandName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                android:background="@color/white_300"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textColor="@color/blue_700"
+                android:fontFamily="@font/montserrat_medium"
+                android:textAppearance="@style/Widget.Roar.textHeadline"
+                app:layout_constraintEnd_toEndOf="@+id/brandImage"
+                app:layout_constraintStart_toStartOf="@+id/brandImage"
+                app:layout_constraintTop_toBottomOf="@+id/brandImage"
+                tools:text="lavish-text" />
+
+            <TextView
+                android:id="@+id/productDesc"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
+                android:lineSpacingExtra="4dp"
+                android:maxLines="5"
+                android:textAlignment="center"
+                android:textAppearance="@style/Widget.Roar.textHeadline"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/productImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/productImage"
+                app:layout_constraintTop_toBottomOf="@+id/textView65"
+                app:layout_constraintVertical_bias="0.1"
+                tools:text="I sell and make shoes, high quality product and sincerly i do business" />
+
+            <ImageView
+                android:id="@+id/productImage"
+                android:layout_width="200dp"
+                android:layout_height="220dp"
+                android:padding="2dp"
+                android:scaleType="fitXY"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle100"
                 app:strokeColor="@color/white"
                 app:strokeWidth="1dp"
                 tools:ignore="ContentDescription"
-                tools:src="@drawable/emma_white" />
+                tools:src="@drawable/laptop" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/productName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:textAppearance="@style/Widget.Toolbar.title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productImage"
+                tools:text="Infinix hot6" />
+
+            <TextView
+                android:id="@+id/productPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:textAppearance="@style/Widget.Toolbar.title"
+                app:layout_constraintBottom_toBottomOf="@+id/productName"
+                app:layout_constraintStart_toEndOf="@+id/productName"
+                app:layout_constraintTop_toTopOf="@+id/productName"
+                tools:text="140000" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/personImage">
-
-                <TextView
-                    android:id="@+id/brandName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Lavish_Lux"
-                    android:textAppearance="@style/Widget.Toolbar.title"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?attr/colorOnSecondary"
-                    app:layout_constraintBottom_toBottomOf="@+id/brandName"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/productName">
 
                 <LinearLayout
                     android:id="@+id/linearLayout2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
                     android:orientation="vertical"
-                    app:layout_constraintTop_toBottomOf="@+id/brandName">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -91,7 +146,7 @@
                             android:layout_height="40dp"
                             android:layout_marginStart="25dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginEnd="15dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
                             android:text="WhatApp"
                             android:textAllCaps="false"
@@ -112,11 +167,13 @@
                                     android:id="@+id/imageView22"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="25dp"
+                                    android:layout_marginEnd="5dp"
                                     android:src="@drawable/ic_whats_app"
                                     app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@+id/textView20"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:ignore="ContentDescription" />
 
                                 <TextView
                                     android:id="@+id/textView20"
@@ -125,6 +182,7 @@
                                     android:text="WhatsApp"
                                     android:textAppearance="@style/Widget.Toolbar.title"
                                     android:textColor="@color/white"
+                                    android:fontFamily="@font/montserrat_medium"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -135,64 +193,43 @@
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/callBtn"
                             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                            android:layout_width="50dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="8dp"
+                            android:textAllCaps="false"
+                            android:text="Call"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:textColor="@color/blue_300"
+                            app:cornerRadius="5dp"
+                            app:icon="@drawable/ic_call"
+                            app:iconTint="@color/blue_300"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/shareBtn"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:strokeColor="@color/blue_300"
+                            app:strokeWidth="1dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/shareBtn"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="16dp"
+                            android:paddingStart="10dp"
                             android:layout_marginBottom="8dp"
-                            android:paddingStart="5dp"
                             app:cornerRadius="5dp"
-                            app:icon="@drawable/ic_more_icon"
-                            app:iconGravity="end"
-                            app:iconTint="?attr/colorOnPrimary"
+                            app:icon="@drawable/ic_share"
+                            app:iconTint="@color/blue_300"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:strokeColor="?attr/colorSecondary"
-                            app:strokeWidth="1dp" />
+                            app:strokeColor="@color/blue_300"
+                            app:strokeWidth="1dp"
+                             />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <TextView
-                        android:id="@+id/productDesc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        android:textAppearance="@style/Widget.Roar.textHeadline"
-                        android:textSize="14sp"
-                        tools:text="I sell and make shoes, high quality product and sincerly i do business" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Product Description" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="?attr/colorOnSecondary" />
-
-                    <TextView
-                        android:id="@+id/aboutMe"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        android:textAppearance="@style/Widget.Roar.textHeadline"
-                        android:textSize="14sp"
-                        tools:text="I sell and make shoes, high quality product and sincerly i do business" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:text="About me" />
 
                     <View
                         android:layout_width="match_parent"

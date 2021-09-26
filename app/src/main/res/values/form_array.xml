@@ -112,7 +112,7 @@
     </string-array>
 
     <string-array name="product_type">
-        <item>House Property</item>
+        <item>House-Property</item>
         <item>Accessory</item>
         <item>Jewellery</item>
         <item>Stationary</item>
@@ -120,6 +120,13 @@
 
     <string-array name="product_type_filter">
         <item>Store</item>
+        <item>House properties</item>
+        <item>Accessories</item>
+        <item>Jewelleries</item>
+        <item>Stationary</item>
+    </string-array>
+
+    <string-array name="product_preference">
         <item>House properties</item>
         <item>Accessories</item>
         <item>Jewelleries</item>

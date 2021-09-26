@@ -15,10 +15,12 @@ import kotlinx.coroutines.launch
 
 class NativeAdViewHolder(val itemView: View): RecyclerView.ViewHolder(itemView) {
    private val smallAdView = itemView.findViewById<TemplateView>(R.id.smallAdView)
-    fun bind(data: MutableLiveData<NativeAd>,lifecycleOwner: LifecycleOwner, ){
+
+    fun bind(data: MutableLiveData<NativeAd>,lifecycleOwner: LifecycleOwner) {
         data.observe(lifecycleOwner, Observer {
             CoroutineScope(Dispatchers.Main).launch {
                 smallAdView.setNativeAd(it)
+                smallAdView.visibility = View.VISIBLE
             }
         })
     }

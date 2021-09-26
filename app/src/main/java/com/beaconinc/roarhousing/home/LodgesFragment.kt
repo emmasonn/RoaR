@@ -59,86 +59,10 @@ class LodgesFragment : Fragment() {
         lodgesAdapter = LodgesAdapter(LodgeClickListener({ data ->
             val bundle = bundleOf("Lodge" to data)
             findNavController().navigate(R.id.lodgeDetail, bundle)
-        },{}))
+        },{}),this,true)
 
         lodgesRecycler.adapter = lodgesAdapter
         return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        showProgress()
-        lodges.get().addOnSuccessListener { result ->
-            result.documents.mapNotNull { snapLodge ->
-                snapLodge.toObject(FirebaseLodge::class.java)
-            }.also {
-                lodgesAdapter.submitList(it)
-            }
-            hideProgress()
-        }
-    }
-
-    private fun onChipFilterClicked() {
-        Toast.makeText(
-            requireContext(), "Cat $location",
-            Toast.LENGTH_SHORT
-        ).show()
-        Timber.i("Area: $location")
-    }
-
-
-    private fun structureListData(data: List<FirebaseLodge>) {
-        data.groupBy { it.location!! }.forEach { lodge ->
-            populateLayout(lodge.key, lodge.value)
-        }
-    }
-
-    private fun populateLayout(title: String, lodges: List<FirebaseLodge>) {
-
-        val params1 = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        ).apply {
-            setMargins(20, 10, 0, 0)
-        }
-
-        val params2 = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        ).apply {
-            setMargins(0,10,0,0)
-        }
-
-        val listTitle = TextView(requireContext()).apply {
-            text = title
-            layoutParams
-        }
-
-        val recyclerView: RecyclerView = RecyclerView(requireContext()).apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            layoutParams = params2
-        }
-        recyclerView.adapter = lodgesAdapter
-        lodgesAdapter.submitList(lodges)
-        binding.roarParentView.addView(listTitle)
-        binding.roarParentView.addView(recyclerView)
-    }
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance(_homeFragment: HomeFragment, param: String) =
-            LodgesFragment().apply {
-                homeFragment = _homeFragment
-                arguments = Bundle().apply {
-                    putString("Lodge_Location", param)
-                }
-            }
-    }
-
-    private fun showProgress() {
-        binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun hideProgress() {

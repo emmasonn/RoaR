@@ -21,7 +21,6 @@
                 android:id="@+id/accomBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
                 android:layout_marginStart="8dp"
                 android:src="@drawable/ic_backward"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -40,20 +39,31 @@
                 app:layout_constraintStart_toEndOf="@+id/accomBack"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.button.MaterialButton
+            <ImageView
                 android:id="@+id/rulesBtn"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:clickable="false"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textBtn"
+                app:layout_constraintEnd_toStartOf="@+id/textBtn"
+                app:layout_constraintTop_toTopOf="@+id/textBtn"
+                app:srcCompat="@drawable/ic_rule"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/textBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="false"
                 android:text="Rules"
-                android:textColor="@color/black_700"
-                android:textAllCaps="false"
-                app:cornerRadius="0dp"
-                app:icon="@drawable/ic_rule"
-                app:iconTint="@color/black_700"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="?attr/colorControlNormal"
+                android:layout_marginEnd="20dp"
+                android:textAppearance="@style/Widget.Toolbar.title"
+                app:layout_constraintBottom_toBottomOf="@+id/titleText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/titleText" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.card.MaterialCardView
@@ -74,29 +84,28 @@
                 <View
                     android:id="@+id/view15"
                     android:layout_width="2dp"
-                    android:layout_height="20dp"
+                    android:layout_height="0dp"
                     android:layout_marginStart="5dp"
-                    app:layout_constraintVertical_bias="0.2"
                     android:background="@color/blue_500"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.2" />
 
                 <TextView
                     android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="WhatsApp customer service"
+                    android:text="WhatsApp customer services"
                     android:textAppearance="@style/Widget.Roar.textHeadline"
-                    app:layout_constraintBottom_toBottomOf="@+id/view15"
                     app:layout_constraintStart_toEndOf="@+id/view15"
-                    app:layout_constraintTop_toTopOf="@+id/view15" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Restricted to issues relating to accommodation."
+                    android:text="Restricted to accommodation issues."
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/textView13"
                     app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -105,7 +114,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_whats_app"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView13"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription" />
@@ -130,7 +139,7 @@
                 <View
                     android:id="@+id/view3"
                     android:layout_width="2dp"
-                    android:layout_height="20dp"
+                    android:layout_height="0dp"
                     android:layout_marginStart="5dp"
                     app:layout_constraintVertical_bias="0.2"
                     android:background="@color/blue_500"
@@ -142,20 +151,30 @@
                     android:id="@+id/tele"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="Telegram customer service"
+                    android:layout_marginStart="4dp"
+                    android:text="Telegram customer services"
                     android:textAppearance="@style/Widget.Roar.textHeadline"
                     app:layout_constraintBottom_toBottomOf="@+id/view3"
                     app:layout_constraintStart_toEndOf="@+id/view3"
-                    app:layout_constraintTop_toTopOf="@+id/view3" />
+                    app:layout_constraintTop_toTopOf="@+id/view3"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Restricted to issues relating to accommodation."
+                    android:text="Restricted to accommodation issues."
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tele"
                     app:layout_constraintTop_toBottomOf="@+id/tele" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_telegram"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -177,30 +196,29 @@
                 <View
                     android:id="@+id/view12"
                     android:layout_width="2dp"
-                    android:layout_height="20dp"
+                    android:layout_height="0dp"
                     android:layout_marginStart="5dp"
-                    app:layout_constraintVertical_bias="0.2"
                     android:background="@color/blue_500"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.2" />
 
                 <TextView
                     android:id="@+id/ro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="RoaR product customer service"
+                    android:text="Customer product services"
                     android:textAppearance="@style/Widget.Roar.textHeadline"
-                    app:layout_constraintBottom_toBottomOf="@+id/view12"
                     app:layout_constraintStart_toEndOf="@+id/view12"
-                    app:layout_constraintTop_toTopOf="@+id/view12" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textView51"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Restricted to issues relating to Products."
+                    android:text="Restricted to products issues."
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/ro"
                     app:layout_constraintTop_toBottomOf="@+id/ro" />
@@ -209,7 +227,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_whats_app"
-                    app:layout_constraintBottom_toTopOf="@+id/textView51"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription" />
@@ -246,7 +264,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="WhatsApp group link"
+                    android:text="Our whatsApp group link"
                     android:textAppearance="@style/Widget.Roar.textHeadline"
                     app:layout_constraintBottom_toBottomOf="@+id/view2"
                     app:layout_constraintStart_toEndOf="@+id/view2"
@@ -293,11 +311,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="Telegram group link"
+                    android:text="Our telegram group link"
                     android:textAppearance="@style/Widget.Roar.textHeadline"
                     app:layout_constraintBottom_toBottomOf="@+id/view1"
                     app:layout_constraintStart_toEndOf="@+id/view1"
                     app:layout_constraintTop_toTopOf="@+id/view1" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_telegram"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 

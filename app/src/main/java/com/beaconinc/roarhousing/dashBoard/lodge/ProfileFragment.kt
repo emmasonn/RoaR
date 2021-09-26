@@ -156,11 +156,13 @@ class ProfileFragment : Fragment() {
         val diff = currentDate - expiredDate.time
         val result  = TimeUnit.DAYS.convert(diff,TimeUnit.MILLISECONDS)
         val remainingDay = 30 - result
-        cacheRemainingDay(remainingDay)
 
         if(remainingDay <= 0L) {
              userDocument.update("slots","1")
-         }
+             cacheRemainingDay(0L)
+        }else {
+            cacheRemainingDay(remainingDay)
+        }
     }
 
     private fun cacheRemainingDay(day: Long) {
@@ -176,7 +178,7 @@ class ProfileFragment : Fragment() {
             setPositiveButton("Okay") { dialog , _ ->
                 dialog.dismiss()
                 userLoggedState(false)
-                findNavController().navigateUp()
+                findNavController().popBackStack(R.id.becomeAgent,false)
             }
             setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()

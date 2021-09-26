@@ -65,25 +65,23 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/propertyBtn"
             style="@style/Widget.Roar.Button.TextButton"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Store"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <View
             android:id="@+id/propertyItems"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Items"
-            android:textColor="@color/yellow_500"
-            android:textSize="15sp"
-            android:layout_marginTop="8dp"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:background="@drawable/ic_green_dot"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="@+id/propertyBtn"
-            app:layout_constraintStart_toEndOf="@+id/propertyBtn"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="1" />
+            app:layout_constraintTop_toTopOf="@+id/propertyBtn"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.button.MaterialButton

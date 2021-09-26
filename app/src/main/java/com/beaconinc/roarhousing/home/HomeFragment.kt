@@ -1,6 +1,6 @@
 package com.beaconinc.roarhousing.home
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,30 +14,27 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
 import com.beaconinc.roarhousing.MainActivity
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodge
 import com.beaconinc.roarhousing.cloudModel.FirebaseProperty
 import com.beaconinc.roarhousing.listAdapters.LodgeClickListener
-import com.beaconinc.roarhousing.listAdapters.LodgesAdapter
 import com.beaconinc.roarhousing.listAdapters.NewListAdapter
 import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter
-import com.beaconinc.roarhousing.util.ChipClickListener
+import com.beaconinc.roarhousing.util.ConnectivityChecker
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.google.firebase.firestore.DocumentReference
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.launch
@@ -45,7 +42,7 @@ import timber.log.Timber
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homePager: RecyclerView
+    private lateinit var homeRecycler: RecyclerView
     private lateinit var chipGroup: ChipGroup
     private lateinit var backDrop: LinearLayout
     private lateinit var menuIcon: ImageView
@@ -55,18 +52,17 @@ class HomeFragment : Fragment() {
     private lateinit var propertiesQuery: Query
     private lateinit var chipsCategory: Array<String>
     private lateinit var lodgesRef: Query
+    private lateinit var connectionView: ConstraintLayout
     private var counter = 0
+
+    private val argsNav: HomeFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        fireStore = FirebaseFirestore.getInstance()
-        propertiesQuery = fireStore.collection("properties")
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
         smallAdvertNativeAd()
         mediumAdvertNativeAd()
+        fireStore = FirebaseFirestore.getInstance()
+        propertiesQuery = fireStore.collection("properties")
     }
 
     override fun onCreateView(
@@ -75,7 +71,7 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-        homePager = view.findViewById(R.id.homePager)
+        homeRecycler = view.findViewById(R.id.homePager)
         backDrop = view.findViewById<LinearLayout>(R.id.backDrop)
         val luxBtn = view.findViewById<MaterialButton>(R.id.luxBtn)
         val cheapBtn = view.findViewById<MaterialButton>(R.id.cheapBtn)
@@ -86,18 +82,31 @@ class HomeFragment : Fragment() {
         val favBtn = view.findViewById<MaterialButton>(R.id.favBtn)
         val accountBtn = view.findViewById<MaterialButton>(R.id.accountBtn)
         val parentLayout = view.findViewById<ConstraintLayout>(R.id.childLayout)
+        val appIcon = view.findViewById<ImageView>(R.id.appIcon)
+        connectionView = view.findViewById(R.id.connectionView)
 
         menuIcon = view.findViewById<ImageView>(R.id.menuNav)
         chipGroup = view.findViewById<ChipGroup>(R.id.chipGroup)
         progressBar = view.findViewById(R.id.progressBar)
 
+        argsNav.lodgeId?.let {
+            if (it != "roar") {
+                resolveUrl(argsNav.lodgeId)
+            }
+            Timber.i("data: ${argsNav.lodgeId}")
+        }
+
+        appIcon.setOnClickListener {
+            showWelcomeDialog()
+        }
+
         roarItemsAdapter = NewListAdapter(LodgeClickListener({ lodge ->
             val bundle = bundleOf("Lodge" to lodge)
             findNavController().navigate(R.id.lodgeDetail, bundle)
-        },{}), PropertyListAdapter.PropertyClickListener({}, {}, justClick = {
-            findNavController().navigate(R.id.lodgeProperty)
+        }, {}), PropertyListAdapter.PropertyClickListener({}, {}, justClick = {
+            findNavController().navigate(R.id.productStore)
         }), this)
-        homePager.adapter = roarItemsAdapter
+        homeRecycler.adapter = roarItemsAdapter
 
         menuIcon.setOnClickListener(
             NavigationIconClickListener(
@@ -136,7 +145,7 @@ class HomeFragment : Fragment() {
         }
 
         propertyBtn.setOnClickListener {
-            findNavController().navigate(R.id.lodgeProperty)
+            findNavController().navigate(R.id.productStore)
         }
 
         settingsBtn.setOnClickListener {
@@ -195,10 +204,9 @@ class HomeFragment : Fragment() {
                     val query = (view as Chip).tag as Int
                     view.isChecked = true
                     (activity as MainActivity).chipState = query
-
+                    homeRecycler.adapter = null
                     fetchLodges(chipsCategory[query])
                 }
-
                 chip
             }
 
@@ -211,19 +219,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun fetchLodges(filter: String) {
+
         showProgress()
-
-        val filterRef = fireStore.collection("lodges")
-            .whereEqualTo("location", filter)
-
         propertiesQuery.get().addOnSuccessListener { snapShot ->
             snapShot.documents.mapNotNull { docShot ->
                 docShot.toObject(FirebaseProperty::class.java)
             }.also { properties ->
-
                 if (filter == "Lodges") {
                     lodgesRef.addSnapshotListener { value, error ->
                         if (error != null) {
+                            connectionFailure() //error view
                             return@addSnapshotListener
                         }
                         value?.documents?.mapNotNull { snapShot ->
@@ -232,37 +237,67 @@ class HomeFragment : Fragment() {
 
                             if (lodges.isNullOrEmpty()) {
                                 //Show empty view
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Filter: $filter", Toast.LENGTH_SHORT
-                                ).show()
+                                roarItemsAdapter.addLodgeAndProperty(emptyList(), properties)
+                                homeRecycler.adapter = roarItemsAdapter
                                 return@addSnapshotListener
+
+                            } else {
+                                roarItemsAdapter.addLodgeAndProperty(lodges, properties)
+                                homeRecycler.adapter = roarItemsAdapter
+                                hideProgress()
                             }
-                            roarItemsAdapter.addLodgeAndProperty(lodges, properties)
-                            hideProgress()
+//                            roarItemsAdapter.addLodgeAndProperty(lodges, properties)
+//                            roarItemsAdapter.notifyDataSetChanged()
+//                            homeRecycler.adapter = roarItemsAdapter
+//                            hideProgress()
                         }
                     }
                 } else {
+                    val filterRef = fireStore.collection("lodges")
+                        .whereEqualTo("location", filter)
 
                     filterRef.get().addOnSuccessListener { result ->
                         result.documents.mapNotNull { snapLodge ->
                             snapLodge.toObject(FirebaseLodge::class.java)
                         }.also { lodges ->
-                            if (lodges.isNullOrEmpty()) {
-                                //Show empty view
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Filter: $filter", Toast.LENGTH_SHORT
-                                ).show()
+                            if (lodges.isNotEmpty()) {
+
+                                roarItemsAdapter.addLodgeAndProperty(lodges, properties).also {
+                                    homeRecycler.adapter = roarItemsAdapter
+                                }
+                                hideProgress()
+                            } else {
+                                roarItemsAdapter.addLodgeAndProperty(emptyList(), properties)
+                                homeRecycler.adapter = roarItemsAdapter
+                                hideProgress()
                             }
-                            roarItemsAdapter.addLodgeAndProperty(lodges, properties)
-                            hideProgress()
                         }
+                    }.addOnFailureListener {
+                        Toast.makeText(
+                            requireContext(),
+                            "${it.message} no internet",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        connectionFailure()
                     }
                 }
             }
         }
     }
+
+    private fun resolveUrl(id: String?) {
+        id?.let {
+            fireStore.collection("lodges").document(id)
+                .get().addOnSuccessListener {
+                    it.toObject(FirebaseLodge::class.java).also { lodge ->
+                        val bundle = bundleOf("Lodges" to lodge)
+                        findNavController().navigate(R.id.lodgeDetail, bundle)
+                    }
+                }
+        }
+    }
+
+
 
     private fun showProgress() {
         progressBar.visibility = View.VISIBLE
@@ -297,7 +332,6 @@ class HomeFragment : Fragment() {
                     lifecycleScope.launchWhenCreated {
                         roarItemsAdapter.postAd2(ad)
                     }
-
                     if (this.isDetached) {
                         ad.destroy()
                         return@forNativeAd
@@ -306,6 +340,33 @@ class HomeFragment : Fragment() {
             }.build()
         adLoader.loadAds(AdRequest.Builder().build(), 5)
     }
+
+    private fun connectionFailure() {
+        val connection = (activity as MainActivity).connectivityChecker
+        connection?.apply {
+            lifecycle.addObserver(this)
+            connectedStatus.observe(viewLifecycleOwner, Observer {
+                if (!it) {
+                    connectionView.visibility = View.VISIBLE
+                }
+            })
+        }
+    }
+
+    @SuppressLint("InflateParams")
+    fun showWelcomeDialog() {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            val inflater = LayoutInflater.from(requireContext())
+            val view = inflater.inflate(R.layout.item_welcom_dialog,null)
+            setPositiveButton("Close") {dialog, _ ->
+                dialog.dismiss()
+            }
+            setView(view)
+            show()
+        }
+    }
+
+
 
 //    class HomePager(
 //        val fragment: Fragment,

@@ -81,41 +81,18 @@
             app:layout_constraintVertical_bias="0.215" />
 
         <TextView
-            android:id="@+id/textView39"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="v1.0.0"
-            android:textAppearance="@style/Widget.Toolbar.headlineLight"
-            app:layout_constraintEnd_toEndOf="@+id/textView41"
-            app:layout_constraintHorizontal_bias="0.595"
-            app:layout_constraintStart_toStartOf="@+id/textView41"
-            app:layout_constraintTop_toBottomOf="@+id/textView41" />
-
-        <TextView
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:lineSpacingExtra="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="Trust us to provide you with certified, competent and honest Realtors. "
             android:textAlignment="center"
             android:textAppearance="@style/Widget.Roar.textHeadline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView39" />
+            app:layout_constraintTop_toBottomOf="@+id/textView41" />
 
-        <TextView
-            android:id="@+id/textView44"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="© 2021"
-            android:textAppearance="@style/Widget.Toolbar.title"
-            android:textColor="@color/blue_500"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/imageView20"
-            app:layout_constraintStart_toStartOf="@+id/imageView20"
-/>    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

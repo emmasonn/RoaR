@@ -41,49 +41,46 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Certified"
+                android:textStyle="bold"
+                android:textAppearance="@style/Widget.Roar.textHeadline"
+                android:textColor="@color/green_700"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/phoneNumber"
+                app:layout_constraintStart_toStartOf="@+id/phoneNumber"
+                app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+
+            <TextView
                 android:id="@+id/brandTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="10dp"
-                android:textColor="?attr/colorOnPrimary"
                 android:textAlignment="textStart"
                 android:textAppearance="@style/Widget.Toolbar.title"
+                android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/agentImageCover"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Stanbic Lodges"
-                />
+                tools:text="Stanbic Lodges" />
 
             <ImageView
-                android:id="@+id/notifyBtn"
+                android:id="@+id/transferBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/ic_notify"
+                android:src="@drawable/ic_transfer"
+                app:layout_constraintBottom_toTopOf="@+id/viewAccount"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/brandTitle"
                 app:tint="?attr/colorOnPrimary"
                 tools:ignore="ContentDescription" />
 
-            <TextView
-                android:id="@+id/notifyCount"
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/yellow_background"
-                android:elevation="10dp"
-                android:textColor="@color/white"
-                android:textAlignment="center"
-                android:text="14"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:visibility="visible"
-                android:layout_marginBottom="12dp"
-                app:layout_constraintBottom_toBottomOf="@+id/notifyBtn"
-                app:layout_constraintEnd_toEndOf="@+id/notifyBtn"
-                tools:text="16" />
 
             <TextView
                 android:id="@+id/fullName"
@@ -102,20 +99,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Sub:"
-                app:layout_constraintBottom_toBottomOf="@+id/textView42"
+                app:layout_constraintBottom_toBottomOf="@+id/subscription"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView42" />
+                app:layout_constraintTop_toTopOf="@+id/subscription"
+                android:text="subscription:"
+                />
 
             <TextView
-                android:id="@+id/textView42"
+                android:id="@+id/subscription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Default"
+                android:text="Professional"
                 android:layout_marginBottom="10dp"
                 android:textAppearance="@style/Widget.Toolbar.title"
-                android:textColor="@color/green_700"
+                android:textColor="@color/yellow_500"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView37"
 />

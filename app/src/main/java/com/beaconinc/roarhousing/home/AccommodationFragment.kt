@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import com.beaconinc.roarhousing.R
@@ -26,6 +27,9 @@ class AccommodationFragment : Fragment() {
         val binding = FragmentAccommodationBinding.inflate(inflater, container, false)
         showMessageDialog()
         binding.rulesBtn.setOnClickListener {
+            showMessageDialog()
+        }
+        binding.textBtn.setOnClickListener {
             showMessageDialog()
         }
 
@@ -56,7 +60,6 @@ class AccommodationFragment : Fragment() {
     }
 
 
-
     @SuppressLint("InflateParams")
     private fun showMessageDialog() {
         dialog = requireActivity().let {
@@ -81,21 +84,36 @@ class AccommodationFragment : Fragment() {
             val uri = Uri.parse("https://chat.whatsapp.com/KUws1EjUdlmG9j6JhYrepH")
             data = uri
         }
-        startActivity(groupIntent)
+        try {
+            startActivity(groupIntent)
+        }catch (ex: android.content.ActivityNotFoundException){
+            Toast.makeText(requireContext(),"WhatsApp is not Found",
+                Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun chatWhatsAppCustomer(number: String) { //chat accommodation customer care
         val uri = "https://api.whatsapp.com/send?phone="+number
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(uri)
-        startActivity(intent)
+        try {
+            startActivity(intent)
+        }catch (ex: android.content.ActivityNotFoundException){
+            Toast.makeText(requireContext(),"WhatsApp is not Found",
+                Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun chatTelegramCustomer() { //chat telegram accommodation customer service
         val intent = Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse("https://t.me/StrongCode") //or http://telegram.me/userId
         }
-        startActivity(intent)
+        try {
+            startActivity(intent)
+        }catch (ex: android.content.ActivityNotFoundException){
+            Toast.makeText(requireContext(),"Telegram is not Found",
+                Toast.LENGTH_SHORT).show()
+        }
     }
 
 
@@ -103,14 +121,24 @@ class AccommodationFragment : Fragment() {
         val intent = Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse("http://t.me/roarAccommodation")
         }
-        startActivity(intent)
+        try {
+            startActivity(intent)
+        }catch (ex: android.content.ActivityNotFoundException){
+            Toast.makeText(requireContext(),"Telegram is not Found",
+                Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun productWhatsAppCustomer(number: String) { //chat with product customer care
         val intent = Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse("https://api.whatsapp.com/send?phone"+number)
         }
-        startActivity(intent)
+        try {
+            startActivity(intent)
+        }catch (ex: android.content.ActivityNotFoundException){
+            Toast.makeText(requireContext(),"Telegram is not Found",
+                Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

@@ -22,6 +22,7 @@ import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceDataStore
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var fireStore: FirebaseFirestore
     var connectivityChecker: ConnectivityChecker? = null
+    private lateinit var navController: NavController
 
     lateinit var db: AppDatabase
     var clientId: String? = null
@@ -60,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         fireStore = FirebaseFirestore.getInstance()
         clientId = sharedPref.getString("user_id", null)
         db = AppDatabase.getInstance(applicationContext)
+        navController = findNavController(R.id.mainNavHost)
 
         val settingsPref = PreferenceManager.getDefaultSharedPreferences(this)
         val theme = settingsPref.getBoolean("dark_theme", false)
@@ -84,20 +87,13 @@ class MainActivity : AppCompatActivity() {
                     snapShot.toObject(FirebaseLodge::class.java).also { data ->
                         lifecycleScope.launch {
                             val bundle = bundleOf("Lodge" to data!!)
-                            findNavController(R.id.mainNavHost).navigate(R.id.lodgeDetail, bundle)
+                            navController.navigate(R.id.lodgeDetail, bundle)
                         }
                     }
                 }
         } else {
-            Timber.i("lodgeData Empty")
-        }
-    }
-    override fun onStart() {
-        super.onStart()
-        connectivityChecker?.apply {
-            lifecycle.addObserver(this)
-            connectedStatus.observe(this@MainActivity, Observer {
-            })
+            Timber.i("DeepLink Called")
+            navController.handleDeepLink(intent)
         }
     }
 

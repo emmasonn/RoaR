@@ -37,8 +37,10 @@ import com.google.android.material.card.MaterialCardView
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class LodgeDetail : Fragment() {
 
@@ -47,18 +49,15 @@ class LodgeDetail : Fragment() {
     }
 
     private lateinit var favModelDao: FavModelDao
-
     private lateinit var fireStore: FirebaseFirestore
     private lateinit var photosReference: CollectionReference
     private lateinit var photosAdapter: PhotosAdapter
     private lateinit var clientDocumentRef: DocumentReference
     private lateinit var progressBar: ProgressBar
-    private lateinit var lodgeCollection: CollectionReference
+    private lateinit var lodgeCollection: Query
     private lateinit var lodgesAdapter: LodgesAdapter
     private lateinit var photoListRecycler: RecyclerView
     private lateinit var binding: FragmentLodgeDetailBinding
-    private lateinit var lodgeRef: DocumentReference
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -72,9 +71,10 @@ class LodgeDetail : Fragment() {
         fireStore = FirebaseFirestore.getInstance()
         photosReference = fireStore.collection("lodges")
             .document(lodgeData.lodgeId!!).collection("lodgePhotos")
+
         lodgeCollection = fireStore.collection("lodges")
+            .whereNotEqualTo("lodgeId",lodgeData.lodgeId)
         //replace lodgeId with agentId when it is not null
-        lodgeRef = lodgeCollection.document(lodgeData.lodgeId!!)
         clientDocumentRef = fireStore.collection("clients").document(lodgeData.agentId!!)
     }
 
@@ -90,10 +90,10 @@ class LodgeDetail : Fragment() {
         photoListRecycler = binding.listPhotos
         val favIcon = binding.favoriteBtn
 
-        lodgesAdapter = LodgesAdapter(LodgeClickListener ({
+        lodgesAdapter = LodgesAdapter(LodgeClickListener({
             val bundle = bundleOf("Lodge" to it)
             findNavController().navigate(R.id.lodgeDetail, bundle)
-        },{}),false)
+        }, {}), this,false)
 
         favIcon.setOnClickListener {
             lifecycleScope.launch {
@@ -108,7 +108,7 @@ class LodgeDetail : Fragment() {
 
             if (oldIds.contains(currentId)) {
                 favIcon.setImageResource(R.drawable.ic_fav_red)
-            }else {
+            } else {
                 favIcon.setImageResource(R.drawable.ic_fav_outline)
             }
             favIcon.visibility = View.VISIBLE
@@ -160,17 +160,16 @@ class LodgeDetail : Fragment() {
             }
         }
 
-
         lodgeCollection.get().addOnSuccessListener { values ->
             values.documents.mapNotNull {
                 it.toObject(FirebaseLodge::class.java)
             }.also { lodges ->
-                lodgesAdapter.submitList(lodges)
+                lodgesAdapter.addLodgeAndProperty(lodges, true)
             }
         }
     }
 
-    private suspend fun storeFavId( favModels: List<FavModel>) {
+    private suspend fun storeFavId(favModels: List<FavModel>) {
         val currentID = lodgeData.lodgeId
         val oldIDS: List<String> = favModels.map { it.id }
         val favModel = FavModel(currentID!!)
@@ -187,26 +186,29 @@ class LodgeDetail : Fragment() {
     }
 
     private fun setUpNativeAd() {
-        val adLoader = AdLoader.Builder(requireContext(),"ca-app-pub-3940256099942544/2247696110")
+        val adLoader = AdLoader.Builder(requireContext(), "ca-app-pub-3940256099942544/2247696110")
             .forNativeAd { ad: NativeAd ->
-                lifecycleScope.launchWhenCreated {
+                lifecycleScope.launchWhenStarted {
                     val firstAd = binding.firstSmallNativeAd
                     val smallNativeView = binding.adNativeSmall
                     val mediumNativeView = binding.adNativeMedium
+
                     firstAd.setNativeAd(ad)
                     smallNativeView.setNativeAd(ad)
                     mediumNativeView.setNativeAd(ad)
+                    lodgesAdapter.postAd2(ad)
+                    lodgesAdapter.postAd1(ad)
                     showNativeAds()
-                    if(this@LodgeDetail.isDetached) {
+
+                    if (this@LodgeDetail.isDetached) {
                         ad.destroy()
-                        return@launchWhenCreated
+                        return@launchWhenStarted
                     }
                 }
             }.build()
 
-         adLoader.loadAds(AdRequest.Builder().build(),5)
+        adLoader.loadAds(AdRequest.Builder().build(), 5)
     }
-
 
     private fun showNativeAds() {
         binding.firstSmallNativeAd.visibility = View.VISIBLE
@@ -228,14 +230,10 @@ class LodgeDetail : Fragment() {
         val bottomSheetLayout = BottomSheetDialog(requireContext()).apply {
             setContentView(R.layout.realtor_bottom_dialog)
             val coverImage = this.findViewById<ImageView>(R.id.lodgeImage)
-            val aboutMe = this.findViewById<TextView>(R.id.aboutMe)
             val agentImage = this.findViewById<ImageView>(R.id.agentImage)
-            val lodgeName = this.findViewById<TextView>(R.id.lodgeName)
 
             coverImage?.load(lodge.coverImage)
             agentImage?.load(lodge.agentUrl)
-            lodgeName?.text = lodge.lodgeName
-            aboutMe?.text = lodge.aboutRealtor
         }
 
         val whatsAppBtn = bottomSheetLayout.findViewById<MaterialCardView>(R.id.whatsAppBtn)
@@ -252,10 +250,26 @@ class LodgeDetail : Fragment() {
     }
 
     private fun chatWhatsApp(pNumber: String?) {
-        val uri = "https://api.whatsapp.com/send?$pNumber"
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(uri)
-        startActivity(intent)
+
+        val message = """
+            Hi, Am interested in visiting the lodge ${lodgeData.lodgeName}
+             https://roar.com/lodge/${lodgeData.lodgeId}
+        """.trimIndent()
+
+        val uri =
+            "https://api.whatsapp.com/send?phone=+234$pNumber&text=$message"
+
+         val intent = Intent().apply {
+            action = Intent.ACTION_VIEW
+            data = Uri.parse(uri)
+        }
+
+        try {
+            startActivity(intent)
+        }catch (ex: android.content.ActivityNotFoundException){
+            Toast.makeText(requireContext(),"WhatsApp is not Found",
+                Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun dialPhoneNumber(phoneNumber: String?) {
@@ -266,7 +280,6 @@ class LodgeDetail : Fragment() {
             startActivity(intent)
         }
     }
-
 }
 //class PhotosPager(private val photos: List<FirebaseLodgePhoto>, fragment: Fragment):
 //        FragmentStateAdapter(fragment) {
