@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
                     android:text="Vacant\nRooms"
-                    android:textAppearance="@style/Widget.Roar.textHeadline"
+                    android:fontFamily="@font/montserrat_regular"
                     android:textColor="@color/black_700"
                     app:layout_constraintEnd_toEndOf="@+id/availableRoom"
                     app:layout_constraintStart_toStartOf="@+id/availableRoom"
@@ -92,10 +92,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/Widget.Toolbar.title"
-                    android:textSize="18sp"
+                    android:textSize="23sp"
+                    android:layout_marginTop="15dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/lodgeTitle"
                     app:layout_constraintStart_toStartOf="@+id/imageView2"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="₦240000" />
 
                 <TextView
@@ -103,23 +105,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
-                    android:text="Ultimate Lodge, Self Con."
                     android:textAppearance="@style/Widget.Roar.textHeadline"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                     app:layout_constraintStart_toEndOf="@+id/imageView2"
-                    app:layout_constraintTop_toTopOf="@+id/imageView2" />
+                    app:layout_constraintTop_toTopOf="@+id/imageView2"
+                    tools:text="Beach A234"
+                    />
 
                 <ImageView
                     android:id="@+id/imageView1"
                     android:layout_width="14dp"
                     android:layout_height="14dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="20dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_locate"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/imageView2"
-                    app:tint="@color/blue_300"
+                    app:tint="@color/yellow_300"
                     tools:ignore="ContentDescription" />
 
                 <TextView
@@ -127,7 +130,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
-                    android:textColor="@color/blue_300"
                     android:textAppearance="@style/Widget.Roar.textHeadline"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -172,7 +174,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:elevation="10dp"
-                        android:textColor="@color/green_700"
                         android:textAppearance="@style/Widget.Roar.textHeadline"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView18"
@@ -187,14 +188,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:fontFamily="@font/montserrat_bold"
                     android:text="Explore"
-                    android:fontFamily="@font/montserrat_medium"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    app:backgroundTint="@color/blue_500"
+                    app:backgroundTint="?attr/colorControlNormal"
                     app:cornerRadius="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -205,7 +207,7 @@
                     android:src="@drawable/ic_home"
                     app:layout_constraintBottom_toTopOf="@+id/location"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:tint="@color/blue_300"
+                    app:tint="@color/yellow_300"
                     tools:ignore="ContentDescription" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

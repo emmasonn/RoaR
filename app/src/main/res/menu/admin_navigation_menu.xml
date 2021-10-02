@@ -1,36 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+        <item android:id="@+id/exitProfile"
+            android:title="Back"
+            android:icon="@drawable/ic_backward"
+            />
 
-    <item android:id="@+id/exitProfile"
-        android:title="Back"
-        android:icon="@drawable/ic_back"
-        />
+    <item android:title="">
+        <menu>
+            <group>
+                <item android:id="@+id/addProduct"
+                    android:title="Add Product"/>
 
-    <group android:menuCategory="container">
+                <item android:id="@+id/addLodge"
+                    android:title="Add Lodge" />
 
-    <item android:title="Business"
-         android:id="@+id/businessFragment"
-         />
-    <item android:id="@+id/realtorFragment"
-        android:title="Realtors"
-        />
+                <item android:id="@+id/setUpFragment"
+                    android:title="Add Account"
+                    />
+            </group>
+        </menu>
+    </item>
 
-    <item android:title="Admins"
-          android:id="@+id/adminsFragment"
-        />
+    <item android:title="">
+        <menu>
+            <group>
 
-    <item android:id="@+id/setUpFragment"
-        android:title="Add Account"
-        />
+                <item android:title="Admins"
+                    android:id="@+id/adminsFragment"
+                    />
 
-    <item android:title="ManageAccount"
-          android:id="@+id/manageAccount"
-        />
+                <item android:title="Business Accounts"
+                    android:id="@+id/businessFragment"
+                    />
 
-    <item android:id="@+id/signOut"
-        android:title="Sign out"
-        />
-    </group>
+                <item android:id="@+id/realtorFragment"
+                    android:title="Realtor Accounts"
+                    />
 
+                <item android:id="@+id/broadCastLodge"
+                    android:title="Broadcast Lodges" />
+
+                <item android:id="@+id/broadCastProduct"
+                    android:title="Broadcast Products" />
+
+            </group>
+        </menu>
+    </item>
+    <item android:title="">
+        <menu>
+            <group>
+                <item android:title="Manage Account"
+                    android:id="@+id/manageAccount"
+                    />
+                <item
+                    android:title="Sign out"
+                    android:id="@+id/signOut"
+                />
+            </group>
+
+        </menu>
+    </item>
 </menu>

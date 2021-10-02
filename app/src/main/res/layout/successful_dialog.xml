@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:lineSpacingExtra="6dp"
-        android:textColor="@color/yellow_500"
+        android:textColor="@color/blue_700"
         android:text="Your request to visit Lodge has been successully Submitted"
         android:textAlignment="center"
-        android:textSize="23sp"
+        android:textAppearance="?attr/textAppearanceBody1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,10 +24,10 @@
         android:layout_height="80dp"
         android:src="@drawable/ic_done"
         android:layout_margin="10dp"
-        android:tint="@color/green_700"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView34" />
+        app:layout_constraintTop_toBottomOf="@+id/textView34"
+        app:tint="@color/green_700" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,7 +35,7 @@ class ManageProperty : Fragment() {
     private lateinit var sharePref: SharedPreferences
     private lateinit var registration: ListenerRegistration
     lateinit var progressBar: ProgressBar
-    lateinit var toolBar: MaterialToolbar
+    private lateinit var toolBar: MaterialToolbar
 
     val client: FirebaseUser by lazy {
         arguments?.get("Client") as FirebaseUser

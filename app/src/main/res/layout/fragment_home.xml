@@ -48,9 +48,11 @@
                         android:layout_height="wrap_content"
                         android:text="RoaR"
                         android:layout_margin="10dp"
+                        android:textStyle="bold"
+                        android:textSize="23sp"
+                        app:layout_constraintHorizontal_bias="0.45"
                         android:textAppearance="@style/Widget.Toolbar.title"
-                        android:textSize="22sp"
-                        android:fontFamily="@font/montserrat_bold"
+                        android:fontFamily="@font/montserrat_extra_bold"
                         app:layout_constraintBottom_toTopOf="@id/view10"
                         app:layout_constraintEnd_toStartOf="@+id/menuNav"
                         app:layout_constraintStart_toEndOf="@+id/appIcon"
@@ -59,6 +61,7 @@
                     <ImageView
                         android:id="@+id/menuNav"
                         android:layout_width="wrap_content"
+                        android:focusable="true"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:src="@drawable/ic_menu"
@@ -85,20 +88,32 @@
         android:background="?attr/colorPrimaryVariant"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         >
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/homePager"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="40dp"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_lodges_layout" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/homePager"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="40dp"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/item_lodges_layout" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/connectionView"
@@ -149,8 +164,8 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:visibility="gone"
             android:elevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"

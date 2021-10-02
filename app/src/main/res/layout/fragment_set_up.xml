@@ -18,8 +18,9 @@
 
         <ImageView
             android:id="@+id/setUpBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/back_arrow_height"
+            android:layout_height="@dimen/back_arrow_height"
+            android:focusable="true"
             android:layout_marginVertical="10dp"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_backward"
@@ -27,6 +28,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add New Account"
+            android:layout_marginStart="20dp"
+            android:textAppearance="@style/Widget.Toolbar.title"
+            app:layout_constraintBottom_toBottomOf="@+id/setUpBack"
+            app:layout_constraintStart_toEndOf="@+id/setUpBack"
+            app:layout_constraintTop_toTopOf="@+id/setUpBack" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

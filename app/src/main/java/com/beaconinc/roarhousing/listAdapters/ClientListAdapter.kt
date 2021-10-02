@@ -1,5 +1,6 @@
 package com.beaconinc.roarhousing.listAdapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,11 @@ class ClientListAdapter(private val clickListener: UserClickListener): ListAdapt
         holder.bind(data, clickListener)
     }
 
+    fun clear() {
+        currentList.clear()
+        notifyDataSetChanged()
+    }
+
     class ClientListViewHolder(private val itemView: View):
         RecyclerView.ViewHolder(itemView) {
 
@@ -35,12 +41,36 @@ class ClientListAdapter(private val clickListener: UserClickListener): ListAdapt
         private val phoneNumber = itemView.findViewById<TextView>(R.id.phoneNumber)
         private val viewAccount = itemView.findViewById<MaterialButton>(R.id.viewAccount)
         private val brandName = itemView.findViewById<TextView>(R.id.brandTitle)
-
+        private val subscription = itemView.findViewById<TextView>(R.id.subscription)
+        private val isCertified = itemView.findViewById<TextView>(R.id.certifiedState)
+        private val resource = itemView.resources
         fun bind(data: FirebaseUser, clickListener: UserClickListener) {
             coverImage.load(data.clientUrl)
             fullName.text = data.clientName
             phoneNumber.text = data.clientPhone
             brandName.text = data.brandName
+            val condition = data.certified ?: false
+
+            if (condition) {
+               isCertified.apply { setText("Ceritfied") }
+               }else {
+                   isCertified.apply { setText("Uncertified")
+                       setTextColor(Color.RED)
+                   }
+                }
+
+            when(data.slots) {
+                "10" -> {
+                    subscription.text = resource.getString(R.string.business_personal)
+                }
+                 "20" -> {
+                     subscription.text = resource.getString(R.string.business_pro)
+                 }
+                else -> {
+                    subscription.text = resource.getString(R.string.business_default)
+                }
+            }
+
 
             viewAccount.setOnClickListener {
                 clickListener.listener(data)

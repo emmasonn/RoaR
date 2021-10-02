@@ -9,7 +9,9 @@ import java.util.*
 
 @IgnoreExtraProperties
 @Parcelize data class FirebaseLodge(
+    var randomId: String? = null,
     var accountType: String? = null,
+    var tourVideo: String? = null,
     var lodgeId: String? = null,
     var agentId: String? = null,
     var agentName: String? = null,
@@ -17,7 +19,6 @@ import java.util.*
     var agentUrl: String? = null,
     var agentPhone: String? = null,
     var lodgeName: String? = null,
-    var aboutRealtor: String? = null,
     var certified: Boolean? = null,
     var slots: Int? = null,
     var visitCounter: Long? = null,
@@ -37,5 +38,5 @@ import java.util.*
     var ownerName: String? = null,
     var ownerPhone: String? = null,
     var distance: String? = null,
-    @ServerTimestamp var date: Date? = null
+    @ServerTimestamp var timeStamp: Date? = null
 ): Parcelable

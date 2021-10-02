@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="lodge_nav_menu_height">200dp</dimen>
-    <dimen name="corner_radius">12dp</dimen>
+    <dimen name="back_arrow_height">20dp</dimen>
 
-
-
-    <dimen name="shr_product_grid_spacing">16dp</dimen>
-    <dimen name="shr_product_grid_spacing_small">4dp</dimen>
-    <dimen name="shr_product_card_image_height">108dp</dimen>
-
-    <dimen name="shr_product_grid_reveal_height">200dp</dimen>
 
     <!-- Dimens for staggered asymmetric grid layout cards-->
     <dimen name="shr_staggered_product_grid_spacing_large">30dp</dimen>

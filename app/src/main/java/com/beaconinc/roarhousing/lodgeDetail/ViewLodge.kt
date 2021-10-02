@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodgePhoto
+import com.bumptech.glide.Glide
 
 
 class ViewLodge: Fragment() {
@@ -26,7 +28,16 @@ class ViewLodge: Fragment() {
         val view = inflater.inflate(R.layout.fragment_view_lodge, container, false)
         val imageView = view.findViewById<ImageView>(R.id.fullImage)
         val title = view.findViewById<TextView>(R.id.titleText)
-        imageView.load(lodgePicture.photoUrl)
+        val pagerBack = view.findViewById<ImageView>(R.id.pagerBack)
+
+        pagerBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        Glide.with(imageView.context)
+            .load(lodgePicture.photoUrl)
+            .into(imageView)
+
         title.text = lodgePicture.photoTitle
         return view
     }

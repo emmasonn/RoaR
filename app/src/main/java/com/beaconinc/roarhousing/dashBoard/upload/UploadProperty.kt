@@ -61,6 +61,11 @@ class UploadProperty : Fragment() {
         arguments?.get("property") as FirebaseProperty?
     }
 
+    /*this local function allows us to fetch data passed from business accounts during add product*/
+    private val stringId: String? by lazy { //used in the admin dashboard
+        arguments?.get("stringId") as String?
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fireStore = FirebaseFirestore.getInstance()
@@ -69,9 +74,14 @@ class UploadProperty : Fragment() {
         sharedPref = (activity as MainActivity).sharedPref
 
         val clientId = sharedPref.getString("user_id", null)
-        if(clientId != null) {
+
+        if(stringId != null) {
+            clientDocument = fireStore.collection("clients").document(stringId!!)
+
+        }else if(clientId != null) {
             clientDocument = fireStore.collection("clients").document(clientId)
         }
+
         propertyCollection = fireStore.collection("properties")
     }
 

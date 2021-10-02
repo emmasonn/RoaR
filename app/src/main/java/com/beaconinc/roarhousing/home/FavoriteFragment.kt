@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.beaconinc.roarhousing.MainActivity
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodge
@@ -38,6 +39,8 @@ class FavoriteFragment : Fragment() {
     private lateinit var lodgesAdapter: LodgesAdapter
     private lateinit var progressBar: ProgressBar
     private lateinit var favModelDao: FavModelDao
+    private lateinit var swipeRefreshContainer: SwipeRefreshLayout
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +64,8 @@ class FavoriteFragment : Fragment() {
         progressBar = view.findViewById(R.id.progressBar)
         val favBack = view.findViewById<ImageView>(R.id.favBackBtn)
         val lodgeRecycler = view.findViewById<RecyclerView>(R.id.lodgeList)
+        swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
+        swipeRefreshContainer.isRefreshing = true
 
         lodgesAdapter = LodgesAdapter(LodgeClickListener({
             val bundle = bundleOf("Lodge" to it)
@@ -79,6 +84,12 @@ class FavoriteFragment : Fragment() {
         lodgeRecycler.adapter = lodgesAdapter
         showProgress()
 
+        swipeRefreshContainer.setOnRefreshListener {
+            lifecycleScope.launch {
+                fetchFavId(favModelDao.getFavOnce())
+            }
+        }
+
         lifecycleScope.launch {
             fetchFavId(favModelDao.getFavOnce())
         }
@@ -95,12 +106,16 @@ class FavoriteFragment : Fragment() {
                     }.also { lodges ->
                         lodgesAdapter.addLodgeAndProperty(lodges,false)
                         hideProgress()
+                        swipeRefreshContainer.isRefreshing = false
+
                     }
                 }
             } else {
                 hideProgress()
                 lodgesAdapter.notifyDataSetChanged()
                 lodgesAdapter.addLodgeAndProperty(emptyList(),false)
+                swipeRefreshContainer.isRefreshing = false
+
 
                 Toast.makeText(
                     requireContext(),

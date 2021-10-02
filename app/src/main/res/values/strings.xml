@@ -1,44 +1,29 @@
 <resources>
     <string name="app_name">RoaR</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="initial_payment"><![CDATA[Initial Payment( including other fees)]]></string>
     <string name="verify_number">Verify\t %s</string>
     <string name="notifyText">%s\thas booked to visit the above lodge</string>
     <string name="remaining_day">%s days left</string>
     <string name="format_price">₦%s</string>
-    <string name="lodge_listing">Lodge listing by %s</string>
     <string name="choice_title">%s \tLodge</string>
 
     <!--notification strings-->
-    <string name="visit_notification_channel_id">visit booked</string>
-    <string name="availability_channel_id">available</string>
-    <string name="availability_title">Lodge Notice!!!</string>
 
     <!--lodges notification_string-->
-    <string name="lodge_notification_title">VACANT ROOM!!</string>
     <string name="lodges_notification_channel_id">LODGES_CHANNEL</string>
-    <string name="lodges_notification_channel_name">LODGES UPDATE</string>
+    <string name="lodges_notification_channel_name">Vacant Room Notification!!</string>
 
     <!--products notification string-->
     <string name="product_notification_channel_id">PRODUCTS_CHANNEL</string>
-    <string name="product_notification_channel_name">PRODUCTS UPDATE</string>
+    <string name="product_notification_channel_name">New Product Notification!!</string>
 
 
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
 
     <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
 
     <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="swipe_right"><![CDATA[< Swipe right to upload lodge pictures >]]></string>
 
 
@@ -71,6 +56,23 @@
     <string name="estate_pro_price">₦750</string>
     <string name="estate_pro">Professional</string>
     <string name="format_property_header">%s  for sale</string>
+    <string name="tour_title">%s\tTour</string>
+    <string name="about_us">We provide digital platform where  geniune businesses  and enterpreneur can engage their audience with their products and services.</string>
+    <string name="customer_rule1">Direct question pertaining to your personal temporary accommodation to our WhatsApp accommodation customer service and not in the WhatsApp group</string>
+    <string name="customer_rule2">Members are not allowed to make calls to customer service anytime, please tell your questions and problems directly, they can identify and answer back as soon as possible</string>
+    <string name="customer_rule3">The WhatsApp and Telegram group on this screen are the only groups which are officially authorized by RoaR, members should join at least one of the community groups to keep pace with other members.</string>
+    <string name="customer_rule4">Members should not believe anyother platforms or links which are posted in our groups by some people who have an ulterior motive, you will bear the consequences of all such acts take if you do so.</string>
+    <string name="customer_rule5">Members should not make a payment to any account which is not belong to RoaR, please be aware of being defrauded.</string>
+    <string name="customer_rule6">The quality of customer service is one of the most foundation of RoaR, if anyone of the customer service hasn\'t served you well, please send feedback to complain about his or her service with their mobile number at Roar@gmail.com</string>
+    <string name="call_text">Call</string>
+    <string name="upload_video_file">Upload video file...</string>
+    <string name="no_lodge_has_been_added_here_yet">No lodge has been added here yet.</string>
+    <string name="term1">Direct question pertaining to your personal temporary accommodation to our WhatsApp accommodation customer service and not in the WhatsApp group</string>
+    <string name="term2">Members are not allowed to make calls to customer service anytime, please tell your questions and problems directly, they can identify and answer back as soon as possible</string>
+    <string name="term3">The WhatsApp and Telegram group on this screen are the only groups which are officially authorized by RoaR, members should join at least one of the community groups to keep pace with other members.</string>
+    <string name="term4">Members should not believe anyother platforms or links which are posted in our groups by some people who have an ulterior motive, you will bear the consequences of all such acts take if you do so.</string>
+    <string name="term5">Members should not make a payment to any account which is not belong to RoaR, please be aware of being defrauded.</string>
+    <string name="term6">The quality of customer service is one of the most foundation of RoaR, if anyone of the customer service hasn\'t served you well, please send feedback to complain about his or her service with their mobile number at Roar@gmail.com</string>
 
 
 </resources>

@@ -5,10 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/materialCardView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_margin="15dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp"
@@ -41,17 +41,26 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:id="@+id/textView68"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Certified"
-                android:textStyle="bold"
-                android:textAppearance="@style/Widget.Roar.textHeadline"
-                android:textColor="@color/green_700"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="@+id/phoneNumber"
-                app:layout_constraintStart_toStartOf="@+id/phoneNumber"
+                android:text="Status:"
+                app:layout_constraintBottom_toTopOf="@+id/subscription"
+                app:layout_constraintStart_toStartOf="@+id/fullName"
                 app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+
+            <TextView
+                android:id="@+id/certifiedState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="@color/green_700"
+                android:layout_marginStart="5dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView68"
+                app:layout_constraintStart_toEndOf="@+id/textView68"
+                app:layout_constraintTop_toTopOf="@+id/textView68"
+                tools:text="Certified" />
 
             <TextView
                 android:id="@+id/brandTitle"
@@ -61,33 +70,19 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="10dp"
                 android:textAlignment="textStart"
-                android:textAppearance="@style/Widget.Toolbar.title"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
                 android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/agentImageCover"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Stanbic Lodges" />
-
-            <ImageView
-                android:id="@+id/transferBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_transfer"
-                app:layout_constraintBottom_toTopOf="@+id/viewAccount"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/brandTitle"
-                app:tint="?attr/colorOnPrimary"
-                tools:ignore="ContentDescription" />
-
-
             <TextView
                 android:id="@+id/fullName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Marcel Ugochukwu"
-                android:textAppearance="@style/Widget.Roar.textHeadline"
+                android:textAppearance="?attr/textAppearanceBody2"
                 android:textSize="16sp"
                 app:layout_constraintVertical_bias="0.3"
                 app:layout_constraintBottom_toBottomOf="@+id/agentImageCover"
@@ -99,6 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:textAppearance="?attr/textAppearanceBody2"
                 app:layout_constraintBottom_toBottomOf="@+id/subscription"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/subscription"
@@ -112,7 +108,7 @@
                 android:layout_marginStart="10dp"
                 android:text="Professional"
                 android:layout_marginBottom="10dp"
-                android:textAppearance="@style/Widget.Toolbar.title"
+                android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="@color/yellow_500"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView37"
@@ -122,31 +118,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="07060461403"
-                android:textAppearance="@style/Widget.Toolbar.title"
-                android:textSize="12sp"
+                android:textAppearance="?attr/textAppearanceBody2"
                 app:layout_constraintStart_toStartOf="@+id/fullName"
                 app:layout_constraintTop_toBottomOf="@+id/fullName" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/viewAccount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_margin="5dp"
-                android:text="View"
-                app:cornerRadius="10dp"
+                app:iconGravity="start"
                 app:icon="@drawable/ic_forward"
-                app:backgroundTint="@color/blue_100"
-                app:iconGravity="end"
-                app:iconSize="15dp"
                 app:iconTint="@color/white"
-                android:textAppearance="@style/Widget.Toolbar.title"
+                app:cornerRadius="5dp"
+                app:backgroundTint="@color/blue_100"
+                android:textAppearance="@style/Widget.Roar.Button.TextButton"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
     <View
         android:id="@+id/view10"

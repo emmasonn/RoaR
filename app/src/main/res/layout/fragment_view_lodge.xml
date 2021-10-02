@@ -18,16 +18,17 @@
 
         <ImageView
             android:id="@+id/pagerBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/back_arrow_height"
+            android:layout_height="@dimen/back_arrow_height"
             android:layout_marginVertical="10dp"
+            android:focusable="true"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_backward"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription"
-             />
+            />
 
         <TextView
             android:id="@+id/titleText"
@@ -41,18 +42,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Cover  Image"
             />
-
-        <ImageView
-            android:id="@+id/shareBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:src="@drawable/ic_share"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView

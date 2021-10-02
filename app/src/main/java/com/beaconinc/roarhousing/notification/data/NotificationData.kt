@@ -6,6 +6,7 @@ data class NotificationData (
     val id: String,
     val title: String,
     val message: String,
+    val itemType: String,
     val imageBitmap: String?
     )
 

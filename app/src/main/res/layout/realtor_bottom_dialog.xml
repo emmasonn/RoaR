@@ -54,21 +54,6 @@
                     tools:ignore="ContentDescription"
                     tools:src="@drawable/emma_white" />
 
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:elevation="10dp"
-                    android:text="Realtor"
-                    android:textAppearance="@style/Widget.Toolbar.title"
-                    android:textSize="14sp"
-                    android:background="@color/white_300"
-                    android:textColor="@color/blue_700"
-                    app:layout_constraintEnd_toEndOf="@+id/agentImage"
-                    app:layout_constraintStart_toStartOf="@+id/agentImage"
-                    app:layout_constraintTop_toBottomOf="@+id/agentImage" />
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -130,8 +115,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="WhatsApp"
-                                        android:textAppearance="@style/Widget.Toolbar.title"
+                                        android:textAppearance="?attr/textAppearanceSubtitle2"
                                         android:textColor="@color/white"
+                                        android:fontFamily="@font/montserrat_bold"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintHorizontal_bias="0.6"
@@ -142,25 +128,20 @@
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/callBtn"
-                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                style="@style/Widget.Roar.OutlineButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="50dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="5dp"
-                                android:text="Call"
-                                android:textAllCaps="false"
-                                android:textColor="@color/blue_300"
-                                app:cornerRadius="5dp"
+                                android:text="@string/call_text"
                                 app:icon="@drawable/ic_call"
-                                app:iconTint="@color/blue_300"
                                 app:layout_constraintBottom_toBottomOf="@+id/whatsAppBtn"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.5"
                                 app:layout_constraintStart_toEndOf="@+id/whatsAppBtn"
                                 app:layout_constraintTop_toTopOf="@+id/whatsAppBtn"
-                                app:strokeColor="@color/blue_300"
-                                app:strokeWidth="1dp" />
+                                />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <View

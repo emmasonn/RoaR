@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/black_700"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".home.SettingsPager">
+    tools:context=".lodgeDetail.WatchTour">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UseCompoundDrawables">
+        android:layout_height="?attr/actionBarSize">
 
         <ImageView
-            android:id="@+id/settingsBack"
+            android:id="@+id/backBtn"
             android:layout_width="@dimen/back_arrow_height"
             android:layout_height="@dimen/back_arrow_height"
             android:focusable="true"
@@ -30,23 +25,24 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/titleText"
+            android:id="@+id/tourTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="Settings"
+            android:layout_marginStart="10dp"
             android:textAppearance="@style/Widget.Toolbar.title"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/settingsBack"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/backBtn"
+            app:layout_constraintStart_toEndOf="@+id/backBtn"
+            app:layout_constraintTop_toTopOf="@+id/backBtn"
+            tools:text="Lodge B234 Tour " />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/settingsViewPager"
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/playerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:fitsSystemWindows="true"
+        android:layout_height="350dp"
+        android:layout_gravity="center"
         />
-</LinearLayout>
+</FrameLayout>

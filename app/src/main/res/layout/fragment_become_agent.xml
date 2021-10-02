@@ -18,8 +18,9 @@
         tools:ignore="UseCompoundDrawables">
         <ImageView
             android:id="@+id/becomeBackBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/back_arrow_height"
+            android:layout_height="@dimen/back_arrow_height"
+            android:focusable="true"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_backward"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -63,8 +64,8 @@
                 android:backgroundTint="@color/blue_500"
                 android:text="Sell an Item"
                 android:textColor="@color/white"
-                android:fontFamily="@font/montserrat_medium"
-                android:textSize="16sp"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                android:fontFamily="@font/montserrat_bold"
                 app:cornerRadius="5dp"
                 android:textAllCaps="false"
                 android:layout_marginTop="20sp"

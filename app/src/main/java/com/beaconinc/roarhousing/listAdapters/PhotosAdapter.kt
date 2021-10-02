@@ -12,6 +12,7 @@ import coil.load
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodgePhoto
 import com.beaconinc.roarhousing.listAdapters.PhotosAdapter.*
+import com.bumptech.glide.Glide
 
 class PhotosAdapter(private val clickListener: ClickListener) : ListAdapter<FirebaseLodgePhoto, PhotoViewHolder>(diffUtil) {
 
@@ -31,7 +32,12 @@ class PhotosAdapter(private val clickListener: ClickListener) : ListAdapter<Fire
         private val photoTitle = itemView.findViewById<TextView>(R.id.itemTitle)
 
         fun bind(data: FirebaseLodgePhoto, listener: ClickListener) {
-            photoView.load(data.photoUrl)
+            //photoView.load(data.photoUrl)
+            Glide.with(photoView.context)
+                .load(data.photoUrl)
+                .placeholder(R.drawable.bk2wt)
+                .into(photoView)
+
             photoTitle.text = data.photoTitle
 
             itemView.setOnClickListener {

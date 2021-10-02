@@ -17,8 +17,9 @@
 
         <ImageView
             android:id="@+id/businessBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/back_arrow_height"
+            android:layout_height="@dimen/back_arrow_height"
+            android:focusable="true"
             android:layout_marginVertical="10dp"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_backward"
@@ -34,29 +35,37 @@
             android:padding="3dp"
             android:text="Product Accounts"
             android:textAppearance="@style/Widget.Toolbar.title"
-            android:textSize="20sp"
-            android:textStyle="bold"
             android:layout_marginStart="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/businessBack"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/clientsRecycler"
-        android:layout_width="match_parent"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:orientation="vertical"
-        android:paddingTop="20dp"
-        android:paddingBottom="49sp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout12"
-        tools:listitem="@layout/item_realtors_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout12">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/clientsRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="49sp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout12"
+            tools:listitem="@layout/item_realtors_layout" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.beaconinc.roarhousing.MainActivity
@@ -18,6 +19,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.coroutines.launch
 
 class AdminFragment : Fragment() {
 
@@ -48,6 +50,8 @@ class AdminFragment : Fragment() {
  //        binding.fullName.text = sharedPref.getString("user_name", "")
 //        val imageUrl = sharedPref.getString("user_url","")
 //        binding.profilePics.load(imageUrl)
+        showProgressBar()
+
         val drawer = binding.drawerNav
         val menu = binding.adminMenu
         navView = binding.navView
@@ -71,9 +75,31 @@ class AdminFragment : Fragment() {
                     true
                 }
 
+                R.id.addProduct -> {
+                    findNavController().navigate(R.id.uploadProperty)
+                    true
+                }
+
+                R.id.addLodge -> {
+                    findNavController().navigate(R.id.lodgeDetailUpload)
+                    true
+                }
+
                 R.id.businessFragment -> {
                     drawer.close()
                     findNavController().navigate(R.id.businessFragment)
+                    true
+                }
+
+                R.id.broadCastLodge -> {
+                    drawer.close()
+                    findNavController().navigate(R.id.notifyFragment)
+                    true
+                }
+
+                R.id.broadCastProduct -> {
+                    drawer.close()
+                    findNavController().navigate(R.id.broadCastProduct)
                     true
                 }
 
@@ -128,7 +154,18 @@ class AdminFragment : Fragment() {
                 binding.profilePics.load(firebaseUser.clientUrl)
                 binding.fullName.text = firebaseUser.clientName
                 binding.phoneNumber.text = firebaseUser.clientPhone
+                hideProgressBar()
             }
+        }
+    }
+
+    private fun showProgressBar() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgressBar() {
+        lifecycleScope.launch {
+            binding.progressBar.visibility = View.GONE
         }
     }
 

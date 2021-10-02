@@ -25,10 +25,11 @@
 
             <ImageView
                 android:id="@+id/manageBckBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/back_arrow_height"
+                android:layout_height="@dimen/back_arrow_height"
                 android:layout_marginVertical="10dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
+                android:focusable="true"
                 android:src="@drawable/ic_backward"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +105,7 @@
                             android:padding="3dp"
                             android:text="Select Image"
                             android:textColor="@color/white"
-                            android:textSize="18sp"
+                            android:textAppearance="?attr/textAppearanceSubtitle2"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/firstImage"
                             app:layout_constraintStart_toStartOf="parent"

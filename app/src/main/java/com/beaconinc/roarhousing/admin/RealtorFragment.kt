@@ -8,14 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.os.bundleOf
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.beaconinc.roarhousing.MainActivity
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseUser
 import com.beaconinc.roarhousing.listAdapters.ClientListAdapter
+import com.beaconinc.roarhousing.listAdapters.ClientListAdapter.UserClickListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.coroutines.launch
 
 class RealtorFragment : Fragment() {
 
@@ -23,6 +27,7 @@ class RealtorFragment : Fragment() {
     private lateinit var realtorsRef: Query
     private lateinit var sharedPref: SharedPreferences
     private lateinit var clientListAdapter: ClientListAdapter
+    private lateinit var swipeRefreshContainer: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,21 +42,28 @@ class RealtorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_realtor, container, false)
+        val view = inflater.inflate(R.layout.fragment_realtor,
+            container, false)
         val realtorRecycler = view.findViewById<RecyclerView>(R.id.clientsRecycler)
         val backBtn = view.findViewById<ImageView>(R.id.realtorBack)
+        swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
+        swipeRefreshContainer.isRefreshing = true
 
         backBtn.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        clientListAdapter = ClientListAdapter(ClientListAdapter.UserClickListener {
+        clientListAdapter = ClientListAdapter(UserClickListener {
             val bundle = bundleOf("client" to it)
             val action = R.id.action_realtorFragment_to_adminRealtors
             findNavController().navigate(action, bundle)
         })
         realtorRecycler.adapter = clientListAdapter
 
+        swipeRefreshContainer.setOnRefreshListener {
+            clientListAdapter.clear()
+            fetchRealtors()
+        }
         return view
     }
 
@@ -66,10 +78,13 @@ class RealtorFragment : Fragment() {
                 it.toObject(FirebaseUser::class.java)
             }.also {
                 clientListAdapter.submitList(it)
+                clientListAdapter.notifyDataSetChanged()
+                lifecycleScope.launch {
+                    swipeRefreshContainer.isRefreshing = false
+                }
             }
         }
     }
-
     private fun setUpQuery(accountType: String?) {
         val clientId = sharedPref.getString("user_id", "")
 

@@ -17,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.beaconinc.roarhousing.MainActivity
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodge
@@ -44,6 +45,8 @@ class FilterFragment : Fragment() {
     private lateinit var adView: AdView
     private lateinit var adViewParent: FrameLayout
     private var initialLayoutComplete = false
+    private lateinit var swipeRefreshContainer: SwipeRefreshLayout
+
 
     private val filter: String by lazy {
         arguments?.get("choice") as String
@@ -83,6 +86,9 @@ class FilterFragment : Fragment() {
         adView = AdView(requireContext())
         adViewParent.addView(adView)
 
+        swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
+        swipeRefreshContainer.isRefreshing = true
+
         adViewParent.viewTreeObserver.addOnGlobalLayoutListener {
             if(!initialLayoutComplete) {
                 initialLayoutComplete = true
@@ -111,6 +117,9 @@ class FilterFragment : Fragment() {
                     mediumAdvertNativeAd()
                 }
             })
+        }
+        swipeRefreshContainer.setOnRefreshListener {
+            fetchLiveData()
         }
         return view
     }
@@ -162,15 +171,18 @@ class FilterFragment : Fragment() {
                     if(lodges.isNullOrEmpty()){
                         lodgesAdapter.addLodgeAndProperty(emptyList(),false)
                         hideProgress()
+                        swipeRefreshContainer.isRefreshing = false
                     }else {
                         lodgesAdapter.addLodgeAndProperty(lodges,false)
                         hideProgress()
+                        swipeRefreshContainer.isRefreshing = false
                     }
                 }
             }
         }.addOnFailureListener {
             showInternetError()
             hideProgress()
+            swipeRefreshContainer.isRefreshing = false
         }
     }
 

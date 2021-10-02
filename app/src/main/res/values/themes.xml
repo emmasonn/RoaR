@@ -9,8 +9,8 @@
         <item name="colorSecondary">@color/blue_300</item>
         <item name="colorSecondaryVariant">@color/black_100</item>
         <item name="colorOnSecondary">@color/black_500</item>
-        <item name="fontFamily">@font/montserrat_regular</item>
-        <item name="font">@font/montserrat_regular</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="font">@font/montserrat_medium</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorAccent">@color/blue_300</item>
         <item name="colorControlNormal">@color/blue_500</item>
@@ -29,7 +29,7 @@
     </style>
 
     <style name="Widget.Toolbar.title" parent="Widget.MaterialComponents.Toolbar.Primary">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
@@ -43,6 +43,7 @@
 
     <style name="Widget.Roar.textHeadline" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/montserrat_semi_bold</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
 
@@ -50,21 +51,6 @@
     <style name="spinnerTheme" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
         <item name="strokeColor">@color/black_500</item>
         <!--        <item name="endIconDrawable">@drawable/</item>-->
-    </style>
-
-    <style name="Widget.App.cardView" parent="Widget.MaterialComponents.CardView">
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
-    </style>
-    
-    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-          <item name="cornerFamily">rounded</item>
-          <item name="cornerSizeTopRight">16dp</item>
-         <item name="cornerSizeTopLeft">16dp</item>
-    </style>
-
-    <style name="Widget.Roar.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="hintTextColor">@color/blue_500</item>
-        <item name="materialThemeOverlay">@style/ThemeOverlay.TextInputLayout</item>
     </style>
 
     <style name="ThemeOverlay.TextInputLayout" parent="ThemeOverlay.MaterialComponents">
@@ -77,7 +63,6 @@
 
     <style name="Widget.Roar.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">?attr/colorOnPrimary</item>
-        <item name="android:textAppearance">@style/Widget.Toolbar.title</item>
         <item name="fontFamily">@font/montserrat_bold</item>
     </style>
 
@@ -92,39 +77,11 @@
         <item name="cornerSize">5dp</item>
     </style>
 
-    <style name="ShapeAppearanceOverlay.App.selectedCorner" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopRight">18dp</item>
-        <item name="cornerSizeTopLeft">18dp</item>
-    </style>
 
-   <style name="ShapeAppearanceOverlay.App.curveSelectedCorner" parent="">
-       <item name="cornerFamily">rounded</item>
-       <item name="cornerSizeTopLeft">20dp</item>
-       <item name="cornerSizeTopRight">20dp</item>
-       <item name="cornerSizeBottomRight">20dp</item>
-   </style>
+    <!--Defining our style we -->
 
-    <style name="ShapeAppearanceOverlay.App.leftCurved" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopLeft">20dp</item>
-        <item name="cornerSizeTopRight">20dp</item>
-        <item name="cornerSizeBottomLeft">20dp</item>
-    </style>
 
-    <style name="ShapeAppearanceOverlay.App.rightCurved" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopLeft">20dp</item>
-        <item name="cornerSizeTopRight">20dp</item>
-        <item name="cornerSizeBottomRight">20dp</item>
-    </style>
-
-    <style name="ShapeAppearanceOverlay.App.bottomCurved" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopLeft">0dp</item>
-        <item name="cornerSizeTopRight">0dp</item>
-        <item name="cornerSizeBottomRight">20dp</item>
-    </style>
+    <!--End of Defining -->
 
     <style name="ShapeAppearanceOverlay.App.circle" parent="">
         <item name="cornerFamily">rounded</item>
@@ -140,14 +97,6 @@
         <item name="cornerSize">30dp</item>
     </style>
 
-    <style name="ShapeAppearanceOverlay.App.available" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopRight">10dp</item>
-        <item name="cornerSizeBottomRight">10dp</item>
-        <item name="cornerSizeTopLeft">0dp</item>
-        <item name="cornerSizeBottomLeft">0dp</item>
-    </style>
-
     <style name="ShapeAppearanceOverlay.App.dialog" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeBottomRight">10dp</item>
@@ -158,11 +107,6 @@
         <item name="cornerSizeBottomRight">20dp</item>
         <item name="cornerSizeTopRight">20dp</item>
         <item name="cornerSizeTopLeft">20dp</item>
-    </style>
-
-    <style name="MaterialAlertDialog.App.date" parent="MaterialAlertDialog.MaterialComponents">
-        <item name="colorAccent">@color/blue_300</item>
-        <item name="shapeAppearance">@style/ShapeAppearanceOverlay.App.dialog</item>
     </style>
 
     <style name="MaterialAlertDialog.App" parent="MaterialAlertDialog.MaterialComponents">
@@ -180,21 +124,15 @@
 <!--End of Material dialog styling-->
 
     <style name="Widget.App.filterChip" parent="Widget.MaterialComponents.Chip.Filter">
-        <item name="android:textSize">15sp</item>
         <item name="textAllCaps">false</item>
         <item name="fontFamily">@font/montserrat_regular</item>
-        <item name="android:textAppearance">@style/Widget.Toolbar.title</item>
+        <item name="android:textAppearance">?attr/textAppearanceSubtitle2</item>
         <item name="android:elevation">5dp</item>
         <item name="materialThemeOverlay">@style/ThemeOverlay.chipTheme</item>
     </style>
 
     <style name="ThemeOverlay.chipTheme" parent="">
         <item name="colorPrimary">@color/blue_300</item>
-        <item name="colorSurface">@color/white</item>
-    </style>
-
-    <style name="ThemeOverlay.progressBar" parent="">
-        <item name="colorAccent">@color/blue_300</item>
         <item name="colorSurface">@color/white</item>
     </style>
 

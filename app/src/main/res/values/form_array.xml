@@ -7,7 +7,7 @@
         <item>Beach</item>
         <item>Odenigwe</item>
         <item>HillTop</item>
-        <item>Green House</item>
+        <item>Green-House</item>
         <item>Beach</item>
         <item>Onuiyi</item>
         <item>Boys-Quarters</item>
@@ -68,7 +68,7 @@
         <item>Obiagu</item>
         <item>Onuasata</item>
         <item>Uwani</item>
-        <item>Unec gate</item>
+        <item>Unec-gate</item>
     </string-array>
 
     <string-array name="unec_campus">
@@ -83,6 +83,33 @@
         <item>Ebeno-Lane</item>
         <item>Uwani</item>
         <item>Unec-Gate</item>
+    </string-array>
+
+    <string-array name="unec_array">
+        <item>Corridor-Layout</item>
+        <item>College-Road</item>
+        <item>Maryland</item>
+        <item>Monarch</item>
+        <item>Romalinda-Extension</item>
+        <item>Obiagu</item>
+        <item>Onuasata</item>
+        <item>Ebeno-Lane</item>
+        <item>Uwani</item>
+        <item>Unec-Gate</item>
+    </string-array>
+
+    <string-array name="unn_array">
+        <item>Beach</item>
+        <item>Boys-Quarters</item>
+        <item>Behind-Flat</item>
+        <item>Eze-Opi</item>
+        <item>First-Gate</item>
+        <item>Green House</item>
+        <item>HillTop</item>
+        <item>Odim</item>
+        <item>Odenigwe</item>
+        <item>Onuiyi</item>
+
     </string-array>
 
     <string-array name="quality_level">
@@ -126,11 +153,6 @@
         <item>Stationary</item>
     </string-array>
 
-    <string-array name="product_preference">
-        <item>House properties</item>
-        <item>Accessories</item>
-        <item>Jewelleries</item>
-        <item>Stationary</item>
-    </string-array>
+
 
 </resources>

@@ -29,7 +29,8 @@
         <argument
             android:name="lodgeId"
             app:argType="string"
-            app:nullable="true" />
+            android:defaultValue="roar"
+            />
 
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
@@ -42,14 +43,13 @@
             app:destination="@id/becomeAgent" />
 
         <deepLink
-            android:id="@+id/lodgeDeepLink"
+            app:uri="https://roar.com.ng/lodge/{lodgeId}"
             android:autoVerify="true"
             app:action="ACTION_VIEW"
             app:mimeType="text/html"
-            app:uri="roar://roar.com/lodge/{lodgeId}"
-            tools:targetApi="m" />
-
+           />
     </fragment>
+
     <fragment
         android:id="@+id/lodgeDetail"
         android:name="com.beaconinc.roarhousing.lodgeDetail.LodgeDetail"
@@ -58,7 +58,11 @@
         <action
             android:id="@+id/action_lodgeDetail_to_paymentPager"
             app:destination="@id/paymentPager" />
+        <action
+            android:id="@+id/action_lodgeDetail_to_watchTour"
+            app:destination="@id/watchTour" />
     </fragment>
+
     <fragment
         android:id="@+id/authOne"
         android:name="com.beaconinc.roarhousing.authentication.AuthOne"
@@ -125,11 +129,6 @@
             app:destination="@id/uploadProperty" />
     </fragment>
     <fragment
-        android:id="@+id/manageLodgeDetail"
-        android:name="com.beaconinc.roarhousing.dashBoard.lodge.ManageLodgeDetail"
-        android:label="item_lodge_detail"
-        tools:layout="@layout/item_lodge_detail" />
-    <fragment
         android:id="@+id/lodgesFragment"
         android:name="com.beaconinc.roarhousing.home.LodgesFragment"
         android:label="fragment_lodges"
@@ -146,7 +145,7 @@
     </fragment>
     <fragment
         android:id="@+id/notifyFragment"
-        android:name="com.beaconinc.roarhousing.dashBoard.NotifyFragment"
+        android:name="com.beaconinc.roarhousing.dashBoard.BroadCastLodge"
         android:label="fragment_notify"
         tools:layout="@layout/fragment_notify" />
     <fragment
@@ -158,11 +157,7 @@
         android:id="@+id/careerFragment"
         android:name="com.beaconinc.roarhousing.dashBoard.lodge.CareerFragment"
         android:label="CareerFragment"
-        tools:layout="@layout/fragment_career"
-        >
-        <action
-            android:id="@+id/action_careerFragment_to_manageLodgeDetail"
-            app:destination="@id/manageLodgeDetail" />
+        tools:layout="@layout/fragment_career">
         <action
             android:id="@+id/action_careerFragment_to_lodgeDetailUpload"
             app:destination="@id/lodgeDetailUpload" />
@@ -210,12 +205,13 @@
             android:autoVerify="true"
             app:action="ACTION_VIEW"
             app:mimeType="text/html"
-            app:uri="roar://roar.com/property/{propertyId}"
-            tools:targetApi="m" />
+            app:uri="https://roar.com.ng/property/{propertyId}"
+            />
+
         <argument
             android:name="propertyId"
             app:argType="string"
-            app:nullable="true" />
+            app:defaultValue="roar" />
     </fragment>
 
     <fragment
@@ -351,5 +347,16 @@
         android:name="com.beaconinc.roarhousing.home.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/watchTour"
+        android:name="com.beaconinc.roarhousing.lodgeDetail.WatchTour"
+        android:label="fragment_watch_tour"
+        tools:layout="@layout/fragment_watch_tour" />
+    <fragment
+        android:id="@+id/broadCastProduct"
+        android:name="com.beaconinc.roarhousing.BroadCastProduct"
+        android:label="BroadCastProduct"
+        tools:layout="@layout/fragment_broadcast_products"
+        />
 
 </navigation>

@@ -7,9 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseProperty
 import com.beaconinc.roarhousing.cloudModel.FirebaseUser
@@ -18,8 +22,11 @@ import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter.P
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.coroutines.launch
 
 
 class AdminManageMarketers : Fragment() {
@@ -28,6 +35,8 @@ class AdminManageMarketers : Fragment() {
     private lateinit var managePropertyAdapter: ManagePropertyListAdapter
     private lateinit var fireStore: FirebaseFirestore
     private lateinit var productsRef: Query
+    private lateinit var clientRef: DocumentReference
+    private lateinit var swipeRefreshContainer: SwipeRefreshLayout
 
     private val client: FirebaseUser by lazy {
         arguments?.get("client") as FirebaseUser
@@ -36,6 +45,8 @@ class AdminManageMarketers : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fireStore = FirebaseFirestore.getInstance()
+        clientRef = fireStore.collection("clients").document(client.clientId!!)
+
         productsRef = fireStore.collection("properties")
             .whereEqualTo("sellerId",client.clientId)
 
@@ -48,8 +59,13 @@ class AdminManageMarketers : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.admin_manage_marketers, container, false)
         val manageProductsRecycler = view.findViewById<RecyclerView>(R.id.manageProductsRecycler)
+        val productTitle = view.findViewById<TextView>(R.id.titleText)
         toolBar = view.findViewById(R.id.toolBar)
         val backBtn = view.findViewById<ImageView>(R.id.businessBack)
+        swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
+        swipeRefreshContainer.isRefreshing = true
+
+        productTitle.text = client.brandName
 
         backBtn.setOnClickListener {
             findNavController().popBackStack()
@@ -64,19 +80,28 @@ class AdminManageMarketers : Fragment() {
             {
               //long click
               activateAccount(it)
-            },
-            {
-                //just Click
-            }
+            }, {}
         ))
         manageProductsRecycler.adapter = managePropertyAdapter
 
+        swipeRefreshContainer.setOnRefreshListener {
+            fetchProducts()
+        }
+
         toolBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.addProduct -> {
+                    val bundle = bundleOf("stringId" to client.clientId)
+                    val action = R.id.uploadProperty
+                    findNavController().navigate(action,bundle)
+                    true
+                }
                 R.id.changePassword -> {
+                    editPasswordDialog(client)
                     true
                 }
                 R.id.suspendAccount -> {
+
                     true
                 }
 
@@ -86,6 +111,20 @@ class AdminManageMarketers : Fragment() {
             }
         }
         return view
+    }
+
+
+    fun suspendAccount() {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("You're about to suspend account")
+            setPositiveButton("Continue") { dialog, _ ->
+                clientRef.update("certified", false).addOnSuccessListener {
+                    lifecycleScope.launch {
+                        dialog.dismiss()
+                    }
+                }
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -99,7 +138,38 @@ class AdminManageMarketers : Fragment() {
                 it.toObject(FirebaseProperty::class.java)
             }.also { properties ->
                 managePropertyAdapter.submitList(properties)
+                swipeRefreshContainer.isRefreshing = false
+
             }
+        }
+    }
+
+    @SuppressLint("InflateParams")
+    private fun editPasswordDialog(client: FirebaseUser) {
+        val documentReference = fireStore.collection("clients").document(client.clientId!!)
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            val inflater = LayoutInflater.from(requireContext())
+            val view = inflater.inflate(R.layout.edit_room_dialog,null)
+            val roomField = view.findViewById<TextInputEditText>(R.id.roomNumber)
+            roomField.hint = "New password"
+            roomField.setText(client.password.toString())
+
+            setPositiveButton("Submit") { _, _ ->
+                val number = roomField.text.toString()
+                documentReference.update("password", number)
+                    .addOnSuccessListener {
+                        Toast.makeText(requireContext(),"Update is Successfully",
+                            Toast.LENGTH_SHORT).show()
+                    }.addOnFailureListener {
+                        Toast.makeText(requireContext(),"Failed to Update",
+                            Toast.LENGTH_SHORT).show()
+                    }
+            }
+            setNegativeButton("Cancel") { dialog,_ ->
+                dialog.dismiss()
+            }
+            setView(view)
+            show()
         }
     }
 

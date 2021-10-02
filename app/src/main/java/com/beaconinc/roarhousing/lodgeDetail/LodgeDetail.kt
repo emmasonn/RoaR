@@ -2,45 +2,47 @@ package com.beaconinc.roarhousing.lodgeDetail
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.os.bundleOf
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import coil.load
 import com.beaconinc.roarhousing.MainActivity
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodge
-import com.beaconinc.roarhousing.databinding.FragmentLodgeDetailBinding
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodgePhoto
 import com.beaconinc.roarhousing.database.FavModel
 import com.beaconinc.roarhousing.database.FavModelDao
+import com.beaconinc.roarhousing.databinding.FragmentLodgeDetailBinding
 import com.beaconinc.roarhousing.listAdapters.ClickListener
 import com.beaconinc.roarhousing.listAdapters.LodgeClickListener
 import com.beaconinc.roarhousing.listAdapters.LodgesAdapter
 import com.beaconinc.roarhousing.listAdapters.PhotosAdapter
+import com.bumptech.glide.Glide
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class LodgeDetail : Fragment() {
 
@@ -58,22 +60,27 @@ class LodgeDetail : Fragment() {
     private lateinit var lodgesAdapter: LodgesAdapter
     private lateinit var photoListRecycler: RecyclerView
     private lateinit var binding: FragmentLodgeDetailBinding
+    private lateinit var sharedPref: SharedPreferences
+    private lateinit var swipeRefreshContainer: SwipeRefreshLayout
+
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        setUpNativeAd()
+        //setUpNativeAd()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        sharedPref = (activity as MainActivity).sharedPref
         favModelDao = (activity as MainActivity).db.favModelDao()
+
         fireStore = FirebaseFirestore.getInstance()
         photosReference = fireStore.collection("lodges")
             .document(lodgeData.lodgeId!!).collection("lodgePhotos")
 
         lodgeCollection = fireStore.collection("lodges")
-            .whereNotEqualTo("lodgeId",lodgeData.lodgeId)
+            .whereNotEqualTo("lodgeId", lodgeData.lodgeId)
         //replace lodgeId with agentId when it is not null
         clientDocumentRef = fireStore.collection("clients").document(lodgeData.agentId!!)
     }
@@ -89,11 +96,13 @@ class LodgeDetail : Fragment() {
         progressBar = binding.progressBar
         photoListRecycler = binding.listPhotos
         val favIcon = binding.favoriteBtn
+        swipeRefreshContainer = binding.swipeContainer
+        swipeRefreshContainer.isRefreshing = true
 
         lodgesAdapter = LodgesAdapter(LodgeClickListener({
             val bundle = bundleOf("Lodge" to it)
             findNavController().navigate(R.id.lodgeDetail, bundle)
-        }, {}), this,false)
+        }, {}), this, false)
 
         favIcon.setOnClickListener {
             lifecycleScope.launch {
@@ -102,7 +111,12 @@ class LodgeDetail : Fragment() {
             }
         }
 
-        favModelDao.getFavString().observe(viewLifecycleOwner, Observer { favIds ->
+        binding.playBtn.setOnClickListener {
+            val bundle = bundleOf("Lodge" to lodgeData)
+            findNavController().navigate(R.id.watchTour,bundle)
+        }
+
+        favModelDao.getFavString().observe(viewLifecycleOwner, { favIds ->
             val currentId = lodgeData.lodgeId
             val oldIds: List<String> = favIds.map { it.id }
 
@@ -119,14 +133,26 @@ class LodgeDetail : Fragment() {
             showBottomSheet(lodgeData)
         }
 
-        binding.imageSlide.load(lodgeData.coverImage) {
-            crossfade(true)
+        Glide.with(binding.imageSlide.context)
+            .load(lodgeData.coverImage)
+            .placeholder(R.drawable.bk2wt)
+            .into(binding.imageSlide)
+
+        val status = sharedPref.getString("accountType", "")
+
+        binding.titleText.setOnClickListener {
+            if (status == "admin") {
+                showLodgeName(lodgeData.lodgeName)
+            }
         }
 
-        binding.agentImageCover.load(lodgeData.agentUrl)
+        Glide.with(binding.agentImageCover.context)
+            .load(lodgeData.agentUrl)
+            .placeholder(R.drawable.bk2wt)
+            .into(binding.agentImageCover)
 
         binding.backBtn.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().popBackStack()
         }
 
         photosAdapter = PhotosAdapter(ClickListener(listener = { photo ->
@@ -135,6 +161,10 @@ class LodgeDetail : Fragment() {
         }))
         photoListRecycler.adapter = photosAdapter
         fetchLodgeAndPhotos()
+
+        swipeRefreshContainer.setOnRefreshListener {
+            fetchLodgeAndPhotos()
+        }
 
         return binding.root
     }
@@ -156,6 +186,7 @@ class LodgeDetail : Fragment() {
                     )
                 }
                 photosAdapter.submitList(photos)
+                swipeRefreshContainer.isRefreshing = false
                 hideProgress()
             }
         }
@@ -164,7 +195,11 @@ class LodgeDetail : Fragment() {
             values.documents.mapNotNull {
                 it.toObject(FirebaseLodge::class.java)
             }.also { lodges ->
-                lodgesAdapter.addLodgeAndProperty(lodges, true)
+                if(lodges.isNullOrEmpty()) {
+                    lodgesAdapter.addLodgeAndProperty(lodges, true)
+                    binding.othersRecycler.visibility = View.VISIBLE
+                    binding.similarLodges.visibility = View.VISIBLE
+                }
             }
         }
     }
@@ -206,7 +241,6 @@ class LodgeDetail : Fragment() {
                     }
                 }
             }.build()
-
         adLoader.loadAds(AdRequest.Builder().build(), 5)
     }
 
@@ -252,8 +286,8 @@ class LodgeDetail : Fragment() {
     private fun chatWhatsApp(pNumber: String?) {
 
         val message = """
-            Hi, Am interested in visiting the lodge ${lodgeData.lodgeName}
-             https://roar.com/lodge/${lodgeData.lodgeId}
+            Hi, Am interested in visiting ${lodgeData.randomId}
+             https://roar.com.ng/lodge/${lodgeData.lodgeId}
         """.trimIndent()
 
         val uri =
@@ -266,11 +300,21 @@ class LodgeDetail : Fragment() {
 
         try {
             startActivity(intent)
-        }catch (ex: android.content.ActivityNotFoundException){
-            Toast.makeText(requireContext(),"WhatsApp is not Found",
-                Toast.LENGTH_SHORT).show()
+        } catch (ex: android.content.ActivityNotFoundException) {
+            Toast.makeText(
+                requireContext(), "WhatsApp is not Found",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
+
+//    private fun getBitmapUri(bitmapImage: Bitmap): String {
+//        return MediaStore.Images.Media.insertImage(
+//            requireContext().contentResolver,
+//            bitmapImage,
+//            null, null
+//        )
+//    }
 
     private fun dialPhoneNumber(phoneNumber: String?) {
         val intent = Intent(Intent.ACTION_DIAL).apply {
@@ -280,6 +324,15 @@ class LodgeDetail : Fragment() {
             startActivity(intent)
         }
     }
+
+    private fun showLodgeName(lodgeName: String?) {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle(lodgeName)
+            setCancelable(false)
+            show()
+        }
+    }
+
 }
 //class PhotosPager(private val photos: List<FirebaseLodgePhoto>, fragment: Fragment):
 //        FragmentStateAdapter(fragment) {

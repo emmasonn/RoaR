@@ -8,24 +8,13 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.net.ConnectivityManager
-import android.provider.ContactsContract
-import android.widget.Toast
+import android.net.Uri
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf
-import androidx.datastore.core.DataStore
-import androidx.datastore.core.DataStoreFactory
-import androidx.datastore.preferences.core.MutablePreferences
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringSetPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.preference.Preference
-import androidx.preference.PreferenceDataStore
 import androidx.preference.PreferenceManager
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodge
 import com.beaconinc.roarhousing.database.AppDatabase
@@ -33,10 +22,9 @@ import com.beaconinc.roarhousing.util.ConnectivityChecker
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 //const val TOPIC = "/topics/myTopic"
@@ -73,7 +61,12 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
-        subScribeTopics(settingsPref)
+        lifecycleScope.launch(Dispatchers.Default) {
+            subscribeProductLodge(settingsPref)
+            subscribeUnecLodge(settingsPref)
+            subscribeUnnLodge(settingsPref)
+        }
+
         connectivityChecker = connectivityChecker(this)
     }
 
@@ -81,19 +74,26 @@ class MainActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         val string = intent?.getStringExtra("notification")
         val lodgeId = intent?.getStringExtra("lodgeId")
-        if (string == "lodge_notifier") {
-            fireStore.collection("lodges").document(lodgeId!!)
-                .get().addOnSuccessListener { snapShot ->
-                    snapShot.toObject(FirebaseLodge::class.java).also { data ->
-                        lifecycleScope.launch {
-                            val bundle = bundleOf("Lodge" to data!!)
-                            navController.navigate(R.id.lodgeDetail, bundle)
+        val productId = intent?.getStringExtra("productId")
+        when (string) {
+            "lodge_notifier" -> {
+                fireStore.collection("lodges").document(lodgeId!!)
+                    .get().addOnSuccessListener { snapShot ->
+                        snapShot.toObject(FirebaseLodge::class.java).also { data ->
+                            lifecycleScope.launch {
+                                val bundle = bundleOf("Lodge" to data!!)
+                                navController.navigate(R.id.lodgeDetail, bundle)
+                            }
                         }
                     }
-                }
-        } else {
-            Timber.i("DeepLink Called")
-            navController.handleDeepLink(intent)
+            }
+            "product_notifier" -> {
+                val link = Uri.parse("https://roar.com.ng/property/${productId}")
+                navController.navigate(link)
+            }
+            else -> {
+                navController.handleDeepLink(intent)
+            }
         }
     }
 
@@ -106,23 +106,38 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun subScribeTopics(sharedPreferences: SharedPreferences) {
-        val topics = sharedPreferences.getStringSet("notify_topics", null)
-        val propertyTopic = sharedPreferences.getString("propertyTopic",null)
-        Timber.i("topics: $topics")
-        topics?.forEach { myTopic ->
-            subScribeLodgeTopic("/topics/${myTopic}")
+    private suspend fun subscribeUnnLodge(sharedPreferences: SharedPreferences) {
+        withContext(Dispatchers.Default) {
+            val unn = sharedPreferences.getStringSet("unn_topics", null)
+
+            unn?.forEach { myTopic ->
+                subscribeTopics("/topics/${myTopic}")
+            }
         }
-        subScribeLodgeTopic("/topics/${propertyTopic}")
     }
 
-    private fun subScribeLodgeTopic(topic: String) {
-        FirebaseMessaging.getInstance().subscribeToTopic(topic)
-            .addOnSuccessListener {
-                Toast.makeText(applicationContext, "successful", Toast.LENGTH_SHORT).show()
-            }.addOnFailureListener { e ->
-                Timber.e(e, "Error Failed to Subscribe")
+    private suspend fun subscribeUnecLodge(sharedPreferences: SharedPreferences) {
+        withContext(Dispatchers.Default) {
+            val unec = sharedPreferences.getStringSet("unec_topics", null)
+
+            unec?.forEach { myTopic ->
+                subscribeTopics("/topics/${myTopic}")
             }
+        }
+    }
+
+    private suspend fun subscribeProductLodge(sharedPreferences: SharedPreferences) {
+        withContext(Dispatchers.Default) {
+            val products = sharedPreferences.getStringSet("product_topics", null)
+             Timber.i("products: $products")
+            products?.forEach { myTopic ->
+                subscribeTopics("/topics/${myTopic}")
+            }
+        }
+    }
+
+    private fun subscribeTopics(topic: String) {
+        FirebaseMessaging.getInstance().subscribeToTopic(topic)
     }
 
 }

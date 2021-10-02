@@ -10,6 +10,7 @@ import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.beaconinc.roarhousing.MainActivity
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseUser
@@ -24,12 +25,12 @@ class BusinessFragment : Fragment() {
     private lateinit var businessRef: Query
     private lateinit var sharedPref: SharedPreferences
     private lateinit var clientListAdapter: ClientListAdapter
+    private lateinit var swipeRefreshContainer: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPref = (activity as MainActivity).sharedPref
         fireStore = FirebaseFirestore.getInstance()
-
         val accountType = sharedPref.getString("accountType","")
         setUpQuery(accountType)
     }
@@ -42,6 +43,8 @@ class BusinessFragment : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_business, container, false)
         val clientsRecycler = view.findViewById<RecyclerView>(R.id.clientsRecycler)
         val backBtn = view.findViewById<ImageView>(R.id.businessBack)
+        swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
+        swipeRefreshContainer.isRefreshing = true
 
         backBtn.setOnClickListener {
             findNavController().popBackStack()
@@ -53,6 +56,12 @@ class BusinessFragment : Fragment() {
             findNavController().navigate(action, bundle)
         })
         clientsRecycler.adapter  = clientListAdapter
+
+        swipeRefreshContainer.setOnRefreshListener {
+            clientListAdapter.clear()
+            fetchBusiness()
+        }
+
         return view
     }
 
@@ -67,6 +76,7 @@ class BusinessFragment : Fragment() {
                 it.toObject(FirebaseUser::class.java)
             }.also {
                 clientListAdapter.submitList(it)
+                swipeRefreshContainer.isRefreshing = false
             }
         }
     }

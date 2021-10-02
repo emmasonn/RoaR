@@ -93,7 +93,7 @@ class AccommodationFragment : Fragment() {
     }
 
     private fun chatWhatsAppCustomer(number: String) { //chat accommodation customer care
-        val uri = "https://api.whatsapp.com/send?phone="+number
+        val uri = "https://api.whatsapp.com/send?phone=$number"
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(uri)
         try {
@@ -131,7 +131,7 @@ class AccommodationFragment : Fragment() {
 
     private fun productWhatsAppCustomer(number: String) { //chat with product customer care
         val intent = Intent(Intent.ACTION_VIEW).apply {
-            data = Uri.parse("https://api.whatsapp.com/send?phone"+number)
+            data = Uri.parse("https://api.whatsapp.com/send?phone$number")
         }
         try {
             startActivity(intent)

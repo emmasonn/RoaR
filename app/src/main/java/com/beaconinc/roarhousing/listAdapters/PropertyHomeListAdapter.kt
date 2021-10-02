@@ -42,9 +42,8 @@ class PropertyHomeListAdapter(private val propertyListener: PropertyClickListene
             propertyTitle.text = data.propertyTitle
             propertyPrice.text = resource.getString(R.string.format_price, data.propertyPrice)
 
-            itemView.setOnLongClickListener {
-                propertyListener.onLongClick(data)
-                true
+            itemView.setOnClickListener {
+                propertyListener.onAction(data)
             }
         }
     }

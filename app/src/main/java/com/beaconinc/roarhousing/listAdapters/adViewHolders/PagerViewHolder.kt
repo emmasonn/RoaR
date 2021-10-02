@@ -14,15 +14,12 @@ import com.google.android.gms.ads.nativead.NativeAd
 import okhttp3.internal.addHeaderLenient
 
 class PagerViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
-   private val adImageView = itemView.findViewById<ViewPager2>(R.id.adPagerView)
   fun bind(photoAds:List<FirebasePhotoAd>,
            ad: NativeAd,
            fragment: Fragment
   ) {
      val pagerAdapter = PhotosPager(photoAds,fragment,ad)
-      adImageView.adapter = pagerAdapter
   }
-
 }
 
 class PhotosPager(

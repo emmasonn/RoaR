@@ -24,70 +24,43 @@
 
             <TextView
                 android:id="@+id/textView65"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Product Description"
-                android:textAppearance="@style/Widget.Roar.textHeadline"
-                android:textSize="14sp"
-                android:color="?attr/colorOnPrimary"
+                android:layout_marginTop="20dp"
+                android:text="Description"
+                android:textAlignment="center"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textSize="16sp"
+                android:elevation="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/productDesc"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/productImage"
-                app:layout_constraintTop_toBottomOf="@+id/brandName" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/brandImage"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="5dp"
-                android:elevation="10dp"
-                android:scaleType="fitXY"
-                app:layout_constraintEnd_toEndOf="@+id/productImage"
-                app:layout_constraintStart_toEndOf="@+id/productImage"
-                app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle50"
-                app:strokeColor="@color/blue_300"
-                app:strokeWidth="1dp"
-                tools:src="@drawable/laptop" />
-
-            <TextView
-                android:id="@+id/brandName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:elevation="10dp"
-                android:background="@color/white_300"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:textColor="@color/blue_700"
-                android:fontFamily="@font/montserrat_medium"
-                android:textAppearance="@style/Widget.Roar.textHeadline"
-                app:layout_constraintEnd_toEndOf="@+id/brandImage"
-                app:layout_constraintStart_toStartOf="@+id/brandImage"
-                app:layout_constraintTop_toBottomOf="@+id/brandImage"
-                tools:text="lavish-text" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/productDesc"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="8dp"
+                android:layout_marginTop="10dp"
                 android:lineSpacingExtra="4dp"
                 android:maxLines="5"
+                android:elevation="10dp"
                 android:textAlignment="center"
-                android:textAppearance="@style/Widget.Roar.textHeadline"
+                android:textAppearance="?attr/textAppearanceBody2"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/productImage"
+                app:layout_constraintBottom_toTopOf="@+id/productPrice"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/productImage"
                 app:layout_constraintTop_toBottomOf="@+id/textView65"
-                app:layout_constraintVertical_bias="0.1"
                 tools:text="I sell and make shoes, high quality product and sincerly i do business" />
 
             <ImageView
                 android:id="@+id/productImage"
-                android:layout_width="200dp"
+                android:layout_width="180dp"
                 android:layout_height="220dp"
-                android:padding="2dp"
                 android:scaleType="fitXY"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -101,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textAppearance="@style/Widget.Toolbar.title"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.3"
                 app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +86,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:textAppearance="@style/Widget.Toolbar.title"
+                android:textColor="@color/yellow_500"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
                 app:layout_constraintBottom_toBottomOf="@+id/productName"
                 app:layout_constraintStart_toEndOf="@+id/productName"
                 app:layout_constraintTop_toTopOf="@+id/productName"
@@ -144,19 +118,17 @@
                             android:id="@+id/whatsAppBtn"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
-                            android:layout_marginStart="25dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="10dp"
                             android:text="WhatApp"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
                             app:cardBackgroundColor="@color/green_300"
                             app:cardCornerRadius="5dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@+id/callBtn"
                             app:layout_constraintEnd_toStartOf="@+id/callBtn"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            app:layout_constraintTop_toTopOf="@+id/callBtn">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
@@ -179,12 +151,13 @@
                                     android:id="@+id/textView20"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:fontFamily="@font/montserrat_bold"
                                     android:text="WhatsApp"
-                                    android:textAppearance="@style/Widget.Toolbar.title"
+                                    android:textAppearance="?attr/textAppearanceSubtitle2"
                                     android:textColor="@color/white"
-                                    android:fontFamily="@font/montserrat_medium"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.61"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -192,24 +165,18 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/callBtn"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            style="@style/Widget.Roar.OutlineButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="8dp"
-                            android:textAllCaps="false"
                             android:text="Call"
-                            android:fontFamily="@font/montserrat_medium"
-                            android:textColor="@color/blue_300"
-                            app:cornerRadius="5dp"
                             app:icon="@drawable/ic_call"
-                            app:iconTint="@color/blue_300"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/shareBtn"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:strokeColor="@color/blue_300"
-                            app:strokeWidth="1dp" />
+                            />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/shareBtn"
@@ -218,8 +185,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="16dp"
-                            android:paddingStart="10dp"
                             android:layout_marginBottom="8dp"
+                            android:paddingStart="10dp"
                             app:cornerRadius="5dp"
                             app:icon="@drawable/ic_share"
                             app:iconTint="@color/blue_300"
@@ -227,8 +194,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:strokeColor="@color/blue_300"
-                            app:strokeWidth="1dp"
-                             />
+                            app:strokeWidth="1dp" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <View

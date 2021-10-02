@@ -30,6 +30,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class LodgeUploadDetail : Fragment() {
 
@@ -116,10 +117,6 @@ class LodgeUploadDetail : Fragment() {
             findNavController().popBackStack()
         }
 
-        lodgeDesc.setOnFocusChangeListener { _, _ ->
-            showDescTemplate()
-        }
-
         val campusAdapter = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.campus_array,
@@ -190,6 +187,10 @@ class LodgeUploadDetail : Fragment() {
         lodgeName.setText(lodge?.lodgeName)
         initialPay.setText(lodge?.subPayment)
         subPay.setText(lodge?.subPayment)
+        campus.editText?.setText(lodge?.campus)
+        landLordName.setText(lodge?.ownerName)
+        lodgeType.editText?.setText(lodge?.type)
+        landLordPhone.setText(lodge?.ownerPhone)
         lodgeDesc.setText(lodge?.description)
         landLordName.setText(lodge?.ownerName)
         landLordPhone.setText(lodge?.ownerPhone)
@@ -212,13 +213,12 @@ class LodgeUploadDetail : Fragment() {
         val campus = campus.editText?.text.toString()
         val ownerName = landLordName.text.toString()
         val ownerPhone = landLordPhone.text.toString()
+        val randomUserId = generateLodgeId()
 
-        //validate the forms
-        //val form = listOf<TextInputLayout>(addre)
-        //val documentId = lodgeCollection.document().id
         nameOfLodge = lodgeName
 
         val lodge = FirebaseLodge(
+            randomId = randomUserId,
             lodgeId = documentId,
             lodgeName = lodgeName,
             location = address,
@@ -251,38 +251,30 @@ class LodgeUploadDetail : Fragment() {
 
             lodgeCollection.document(documentId!!).set(lodge)
                 .addOnSuccessListener {
-                    Toast.makeText(
-                        requireContext(),
-                        "Upload was successful",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showDescTemplate("Lodge uploaded successfully")
                     lifecycleScope.launch(Dispatchers.Main) {
                         val action = R.id.action_lodgeDetailUpload_to_editLodgePager
                         val bundle = bundleOf("Lodge" to lodge)
                         findNavController().navigate(action, bundle)
                     }
-                }.addOnFailureListener { ex ->
-                    Toast.makeText(
-                        requireContext(),
-                        "upload Failed: $ex",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                }.addOnFailureListener {
+                    showDescTemplate("Unable to upload lodge")
                 }
         }.addOnFailureListener {
-
+            showDescTemplate("Unable to upload Lodge")
         }
     }
 
-    private fun showDescTemplate() {
-        val snackBar = Snackbar.make(parentView, "Snack Message", Snackbar.LENGTH_INDEFINITE)
+    private fun generateLodgeId(): String =
+        (0..9).shuffled().take(4).joinToString("").let { "Lodge$it" }
+
+    private fun showDescTemplate(message: String?) {
+        val snackBar = Snackbar.make(parentView, "$message", Snackbar.LENGTH_SHORT)
         val view = snackBar.view
         val params = view.layoutParams as FrameLayout.LayoutParams
         params.gravity = Gravity.CENTER
         view.layoutParams = params
         snackBar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
-        snackBar.setAction("dismiss") {
-            snackBar.dismiss()
-        }
         snackBar.show()
     }
 

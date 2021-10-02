@@ -18,7 +18,7 @@
         <ImageView
             android:id="@+id/adminBack"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/back_arrow_height"
             android:layout_marginVertical="10dp"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_backward"

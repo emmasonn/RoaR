@@ -18,8 +18,9 @@
 
             <ImageView
                 android:id="@+id/propertyBackBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/back_arrow_height"
+                android:layout_height="@dimen/back_arrow_height"
+                android:focusable="true"
                 android:layout_marginVertical="10dp"
                 android:layout_marginStart="8dp"
                 android:src="@drawable/ic_backward"
@@ -34,7 +35,6 @@
                 android:layout_height="wrap_content"
                 android:text="Store"
                 android:textAppearance="@style/Widget.Toolbar.title"
-                android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/filterSpinner"
                 app:layout_constraintStart_toEndOf="@+id/propertyBackBtn"
@@ -56,6 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
+                android:focusable="true"
                 android:src="@drawable/ic_filter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

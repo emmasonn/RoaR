@@ -29,6 +29,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.19"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -38,9 +39,10 @@
                 android:layout_margin="10dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:text="No lodge has been added here yet."
+                android:text="@string/no_lodge_has_been_added_here_yet"
+                android:layout_marginBottom="10dp"
                 android:textAlignment="center"
-                android:textAppearance="@style/Widget.Toolbar.title"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
                 android:fontFamily="@font/montserrat_extra_bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

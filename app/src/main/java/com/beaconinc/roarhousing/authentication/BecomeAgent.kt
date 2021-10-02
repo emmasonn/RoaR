@@ -1,13 +1,14 @@
 package com.beaconinc.roarhousing.authentication
 
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -54,7 +55,7 @@ class BecomeAgent : Fragment() {
         }
 
         joinBtn.setOnClickListener {
-
+          chatWhatsApp("+23407060461403")
         }
 
         backBtn.setOnClickListener {
@@ -62,6 +63,16 @@ class BecomeAgent : Fragment() {
         }
 
         return view
+    }
+
+    private fun chatWhatsApp(pNumber:String) {
+        val uri =
+            "https://api.whatsapp.com/send?phone=+234$pNumber"
+        val intent = Intent().apply {
+            action = Intent.ACTION_VIEW
+            data = Uri.parse(uri)
+        }
+        startActivity(intent)
     }
 
     private fun navigateToScreen(accountType: String?) {

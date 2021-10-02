@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -30,6 +31,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -70,9 +72,12 @@ class RoarStore : Fragment() {
         val filterSpinner = view.findViewById<Spinner>(R.id.filterSpinner)
         progressBar = view.findViewById(R.id.progressBar)
 
-        argsNav.propertyId?.let {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-        }?: Timber.i("productId: ${argsNav.propertyId}")
+        argsNav.propertyId.let {
+            if(it!="roar"){
+                showProgress()
+                showProduct(it)
+            }
+        }
 
         showProgress()
         backBtn.setOnClickListener {
@@ -103,7 +108,6 @@ class RoarStore : Fragment() {
         val smallPadding =
             resources.getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_small)
         propertyRecycler.addItemDecoration(ProductGridItemDecoration(largePadding, smallPadding))
-
         propertyListAdapter = PropertyListAdapter(PropertyClickListener(
             listener = {
             }, longClick = { showBottomSheet(it) }),
@@ -116,6 +120,17 @@ class RoarStore : Fragment() {
             filterSpinner.performClick()
         }
         return view
+    }
+
+    private fun showProduct(it: String) {
+        propertyCollection.document(it).get().addOnSuccessListener {
+            it.toObject(FirebaseProperty::class.java).also { item ->
+                    item?.let {
+                        showBottomSheet(item)
+                    }
+                    hideProgress()
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -158,25 +173,18 @@ class RoarStore : Fragment() {
     private fun showBottomSheet(property: FirebaseProperty) {
         val bottomSheetLayout = BottomSheetDialog(requireContext()).apply {
             setContentView(R.layout.layout_person_sheet)
-            val sellerImage = this.findViewById<ImageView>(R.id.brandImage)
             val productImage = this.findViewById<ImageView>(R.id.productImage)
             val productName = this.findViewById<TextView>(R.id.productName)
             val productPrice = this.findViewById<TextView>(R.id.productPrice)
-            val brandName = this.findViewById<TextView>(R.id.brandName)
             val aboutProduct = this.findViewById<TextView>(R.id.productDesc)
-
-
-            sellerImage?.load(property.sellerUrl)
             productImage?.load(property.firstImage)
             productName?.text = property.propertyTitle
             productPrice?.text = getString(R.string.format_price,property.propertyPrice)
-            brandName?.text = property.sellerName
             aboutProduct?.text = property.propertyDesc
         }
         val whatsAppBtn = bottomSheetLayout.findViewById<MaterialCardView>(R.id.whatsAppBtn)
         val share = bottomSheetLayout.findViewById<MaterialButton>(R.id.shareBtn)
         val callBtn = bottomSheetLayout.findViewById<MaterialButton>(R.id.callBtn)
-
 
         share?.setOnClickListener {
             share(property)
@@ -189,15 +197,13 @@ class RoarStore : Fragment() {
         callBtn?.setOnClickListener {
             dialPhoneNumber(property.sellerNumber)
         }
-
         bottomSheetLayout.show()
     }
-
 
     private fun share(product: FirebaseProperty) {
             val message =
             "Hi, check out this ${product.propertyTitle} on Roar App \n"+
-                    "https://roar.com/property/${product.id}"
+                    "https://roar.com.ng/property/${product.id}"
 
             val intent = Intent().apply {
                 action = Intent.ACTION_SEND
@@ -222,24 +228,23 @@ class RoarStore : Fragment() {
         }
     }
 
-
-    private fun onCreateMenuLayout(view: View) {
-        val popUpMenu = PopupMenu(requireContext(), view)
-        val popInflater = popUpMenu.menuInflater
-        popInflater.inflate(R.menu.view_product_menu, popUpMenu.menu)
-        popUpMenu.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.viewAllProduct -> {
-                    Toast.makeText(requireContext(), "Not available", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                else -> {
-                    true
-                }
-            }
-        }
-        popUpMenu.show()
-    }
+//    private fun onCreateMenuLayout(view: View) {
+//        val popUpMenu = PopupMenu(requireContext(), view)
+//        val popInflater = popUpMenu.menuInflater
+//        popInflater.inflate(R.menu.view_product_menu, popUpMenu.menu)
+//        popUpMenu.setOnMenuItemClickListener { menuItem ->
+//            when (menuItem.itemId) {
+//                R.id.viewAllProduct -> {
+//                    Toast.makeText(requireContext(), "Not available", Toast.LENGTH_SHORT).show()
+//                    true
+//                }
+//                else -> {
+//                    true
+//                }
+//            }
+//        }
+//        popUpMenu.show()
+//    }
 
 
     private fun setUpSpinnerCallBack() {
@@ -252,6 +257,7 @@ class RoarStore : Fragment() {
             ) {
                 val selected = parent?.getItemAtPosition(position) as String
                 titleText.text = selected
+
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -261,16 +267,15 @@ class RoarStore : Fragment() {
     }
 
     private fun chatWhatsApp(pNumber: String?) {
-
         val uri =
             "https://api.whatsapp.com/send?phone=+234$pNumber"
-
         val intent = Intent().apply {
             action = Intent.ACTION_VIEW
             data = Uri.parse(uri)
         }
         startActivity(intent)
     }
+
 
     private fun showProgress() {
         progressBar.visibility = View.VISIBLE

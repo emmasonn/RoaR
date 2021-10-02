@@ -16,10 +16,22 @@
 
     <MultiSelectListPreference
         app:defaultValue="@array/empty_list"
-        app:entries ="@array/address_array"
-        app:entryValues="@array/address_array"
-        app:key="notify_topics"
-        app:title="Turn on lodge notification"
+        app:entries ="@array/unn_array"
+        app:entryValues="@array/unn_array"
+        app:key="unn_topics"
+        app:title="Unn lodges notification"
+        app:summary=" Pick interested areas"
+        app:iconSpaceReserved="false"
+        app:allowDividerBelow="true"
+        app:negativeButtonText="Close"
+        />
+
+    <MultiSelectListPreference
+        app:defaultValue="@array/empty_list"
+        app:entries ="@array/unec_array"
+        app:entryValues="@array/unec_array"
+        app:key="unec_topics"
+        app:title="Unec lodges notification"
         app:summary=" Pick interested areas"
         app:iconSpaceReserved="false"
         app:allowDividerBelow="true"
@@ -30,8 +42,8 @@
 
     <MultiSelectListPreference
         app:defaultValue="@array/empty_list"
-        app:entries ="@array/product_preference"
-        app:entryValues="@array/product_preference"
+        app:entries ="@array/product_type"
+        app:entryValues="@array/product_type"
         app:key="product_topics"
         app:iconSpaceReserved="false"
         app:title="Turn on New product notification"

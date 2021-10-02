@@ -4,14 +4,11 @@
     <color name="black_700">#000000</color>
     <color name="black_600">#80000000</color>
     <color name="black_500">#70000000</color>
-    <color name="black_300">#50000000</color>
     <color name="black_200">#40000000</color>
     <color name="black_100">#20000000</color>
-    <color name="black_50">#10000000</color>
     <color name="white_300">#70ffffff</color>
     <color name="white_100">#01ffffff</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="green_100">#22bf69</color>
     <color name="green_300">#25D366</color>
     <color name="green_700">#388e3c</color>
     <color name="blue_700">#044b86</color>

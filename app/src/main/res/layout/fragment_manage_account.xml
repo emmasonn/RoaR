@@ -24,9 +24,10 @@
 
             <ImageView
                 android:id="@+id/aBackBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/back_arrow_height"
+                android:layout_height="@dimen/back_arrow_height"
                 android:layout_gravity="center_vertical"
+                android:focusable="true"
                 android:layout_marginStart="20dp"
                 android:src="@drawable/ic_backward"
                 tools:ignore="ContentDescription" />
@@ -106,9 +107,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
-            android:text="Full Name"
+            android:text="Brand Name"
             android:textAppearance="@style/Widget.Toolbar.headlineLight"
-            android:textSize="15sp"
             app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -118,8 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:textAppearance="@style/Widget.Roar.textHeadline"
-            android:textSize="17sp"
+            android:textAppearance="?attr/textAppearanceBody2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView1"
             app:layout_constraintTop_toBottomOf="@+id/textView1"
@@ -185,8 +184,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:textAppearance="@style/Widget.Roar.textHeadline"
-            android:textSize="17sp"
+            android:textAppearance="?attr/textAppearanceBody2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView14"
@@ -230,6 +228,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginEnd="20dp"
             android:text="Change Password"
             android:textAppearance="@style/Widget.Toolbar.title"
             android:textColor="@color/blue_500"

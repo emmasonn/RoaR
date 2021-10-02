@@ -186,23 +186,25 @@ class LodgeUploadImage : Fragment() {
                         lodgeDocument.update("coverImage", imageUri).addOnSuccessListener {
                             Toast.makeText(requireContext(),"Cover Image Uploaded",Toast.LENGTH_SHORT).show()
                         }
-                    }
-                    val lodgePhoto = FirebaseLodgePhoto(
-                        photoId = uid,
-                        photoUrl = imageUri,
-                        photoTitle = lodgeView
-                    )
-                    lodgePhotos.document(uid).set(lodgePhoto).addOnSuccessListener {
-                        Toast.makeText(requireContext(),
-                            "Picture has uploaded",Toast.LENGTH_SHORT).show()
-                             hideLoadingBar()
-                             pagerObject.moveBackward()
-                    }.addOnFailureListener {
-                        Toast.makeText(requireContext(),
-                        "Upload Failed",Toast.LENGTH_SHORT).show()
-                    }
-                    selectedImage.clear()
+                    }else {
 
+                        val lodgePhoto = FirebaseLodgePhoto(
+                            photoId = uid,
+                            photoUrl = imageUri,
+                            photoTitle = lodgeView
+                        )
+                        lodgePhotos.document(uid).set(lodgePhoto).addOnSuccessListener {
+                            Toast.makeText(requireContext(),
+                                "Picture has uploaded",Toast.LENGTH_SHORT).show()
+                            hideLoadingBar()
+                            pagerObject.moveBackward()
+                        }.addOnFailureListener {
+                            Toast.makeText(requireContext(),
+                                "Upload Failed",Toast.LENGTH_SHORT).show()
+                        }
+                        selectedImage.clear()
+
+                    }
                 }
             }//end complete listener
         }

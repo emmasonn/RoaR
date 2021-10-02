@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
                 android:layout_marginStart="8dp"
-                android:elevation="10dp"
+                android:focusable="true"
                 android:src="@drawable/ic_menu"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -57,11 +57,10 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profilePics"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:background="@drawable/ic_person"
             android:padding="1dp"
-            app:layout_constraintVertical_bias="0.5"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -79,6 +78,7 @@
             android:background="@drawable/green_background"
             android:gravity="center"
             android:padding="3dp"
+            android:textAppearance="?attr/textAppearanceBody1"
             android:text="Admin"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -125,12 +125,20 @@
             android:id="@+id/phoneNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Widget.Roar.textHeadline"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="14sp"
+            android:textAppearance="?attr/textAppearanceBody1"
             app:layout_constraintStart_toEndOf="@+id/imageView23"
             app:layout_constraintTop_toBottomOf="@+id/fullName"
             tools:text="070405730247" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profilePics" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -139,6 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            android:elevation="20dp"
             android:fitsSystemWindows="true"
             app:itemTextColor="@color/nav_drawer_selector"
             app:itemTextAppearance="@style/Widget.Roar.textHeadline"
