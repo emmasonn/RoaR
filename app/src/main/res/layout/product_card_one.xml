@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="true"
+    app:contentPaddingTop="@dimen/shr_staggered_product_grid_margin_top_first">
+
+    <LinearLayout
+        android:layout_width="@dimen/shr_staggered_product_grid_card_width_landscape"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/shr_staggered_product_grid_spacing_small"
+        android:layout_marginLeft="@dimen/shr_staggered_product_grid_spacing_small"
+        android:orientation="vertical">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/product_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shr_staggered_product_grid_card_height_landscape"
+            android:background="@color/blue_100"
+            android:scaleType="fitXY"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius"
+            tools:src="@drawable/galon"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/product_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                tools:text="Bag one with big"
+                />
+
+            <TextView
+                android:id="@+id/product_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="@color/yellow_500"
+                tools:text="#5000"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
