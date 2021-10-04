@@ -8,6 +8,7 @@ import coil.load
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodge
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.button.MaterialButton
 
 class LodgeViewHolder (val itemView: View):
@@ -35,9 +36,10 @@ class LodgeViewHolder (val itemView: View):
         }
 
         Glide.with(lodgeImage.context)
-            .load(data.coverImage)
-            .placeholder(R.drawable.bk2wt)
-            .into(lodgeImage)
+            .load(data.coverImage).apply(
+                RequestOptions().placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.loading_animation)
+            ).into(lodgeImage)
 
         exploreBtn.setOnClickListener {
             listener.clickAction(data)

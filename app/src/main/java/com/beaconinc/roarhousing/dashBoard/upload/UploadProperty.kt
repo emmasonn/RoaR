@@ -262,7 +262,7 @@ class UploadProperty : Fragment() {
 
     private fun submitDetails() {
         val propertyName = binding.propertyTitle.text.toString()
-        val propertyPrice = binding.propertyPrice.text.toString()
+        val propertyPrice = binding.productPrice.text.toString()
         val propertyDesc = binding.propertyDesc.text.toString()
         val campus = binding.campus.editText?.text.toString()
         val propertyType = binding.productType.editText?.text.toString()

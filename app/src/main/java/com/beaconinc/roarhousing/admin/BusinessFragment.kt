@@ -58,7 +58,6 @@ class BusinessFragment : Fragment() {
         clientsRecycler.adapter  = clientListAdapter
 
         swipeRefreshContainer.setOnRefreshListener {
-            clientListAdapter.clear()
             fetchBusiness()
         }
 

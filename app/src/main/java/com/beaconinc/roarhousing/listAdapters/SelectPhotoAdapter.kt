@@ -34,7 +34,6 @@ class SelectPhotoAdapter(private val clickListener: ClickListener) :
         fun bind(data: FirebaseLodgePhoto, listener: ClickListener) {
             lodgeImage.load(data.photoUrl)
             imageTitle.text = data.photoTitle
-
             selectBtn.setOnClickListener {
                 listener.clickAction(data)
             }

@@ -55,15 +55,12 @@ class LodgeDetail : Fragment() {
     private lateinit var photosReference: CollectionReference
     private lateinit var photosAdapter: PhotosAdapter
     private lateinit var clientDocumentRef: DocumentReference
-    private lateinit var progressBar: ProgressBar
     private lateinit var lodgeCollection: Query
     private lateinit var lodgesAdapter: LodgesAdapter
     private lateinit var photoListRecycler: RecyclerView
     private lateinit var binding: FragmentLodgeDetailBinding
     private lateinit var sharedPref: SharedPreferences
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
-
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -93,7 +90,6 @@ class LodgeDetail : Fragment() {
         binding = FragmentLodgeDetailBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.lodgeDetail = lodgeData
-        progressBar = binding.progressBar
         photoListRecycler = binding.listPhotos
         val favIcon = binding.favoriteBtn
         swipeRefreshContainer = binding.swipeContainer
@@ -109,6 +105,16 @@ class LodgeDetail : Fragment() {
                 favIcon.visibility = View.GONE
                 storeFavId(favModelDao.getFavOnce())
             }
+        }
+
+        binding.coverImage.setOnClickListener {
+            val photo = FirebaseLodgePhoto(
+                photoId = clientDocumentRef.id,
+                photoUrl = lodgeData.coverImage,
+                photoTitle = "CoverImage"
+            )
+            val bundle = bundleOf("picture" to photo)
+            findNavController().navigate(R.id.viewLodge, bundle)
         }
 
         binding.playBtn.setOnClickListener {
@@ -133,10 +139,10 @@ class LodgeDetail : Fragment() {
             showBottomSheet(lodgeData)
         }
 
-        Glide.with(binding.imageSlide.context)
+        Glide.with(binding.coverImage.context)
             .load(lodgeData.coverImage)
             .placeholder(R.drawable.bk2wt)
-            .into(binding.imageSlide)
+            .into(binding.coverImage)
 
         val status = sharedPref.getString("accountType", "")
 
@@ -170,7 +176,6 @@ class LodgeDetail : Fragment() {
     }
 
     private fun fetchLodgeAndPhotos() {
-        showProgress()
         photosReference.get().addOnSuccessListener { photosSnap ->
             photosSnap.documents.mapNotNull {
                 it.toObject(FirebaseLodgePhoto::class.java)
@@ -187,7 +192,6 @@ class LodgeDetail : Fragment() {
                 }
                 photosAdapter.submitList(photos)
                 swipeRefreshContainer.isRefreshing = false
-                hideProgress()
             }
         }
 
@@ -248,16 +252,6 @@ class LodgeDetail : Fragment() {
         binding.firstSmallNativeAd.visibility = View.VISIBLE
         binding.adNativeSmall.visibility = View.VISIBLE
         binding.adNativeMedium.visibility = View.VISIBLE
-    }
-
-    private fun showProgress() {
-        binding.progressBar.visibility = View.VISIBLE
-    }
-
-    private fun hideProgress() {
-        lifecycleScope.launch {
-            binding.progressBar.visibility = View.GONE
-        }
     }
 
     private fun showBottomSheet(lodge: FirebaseLodge) {

@@ -38,7 +38,7 @@ fun NotificationManager.sendLodgeNotification(
         context.getString(R.string.lodges_notification_channel_id)
     ).apply {
         setSmallIcon(R.drawable.ic_emma)
-        color = ContextCompat.getColor(context, R.color.blue_500)
+        color = ContextCompat.getColor(context, R.color.blue_100)
 
         val imageUrl = remoteMessage.data["imageBitmap"]
         val futureTarget = Glide.with(context)
@@ -89,7 +89,7 @@ fun NotificationManager.sendProductNotification(
         context.getString(R.string.product_notification_channel_id)
     ).apply {
         setSmallIcon(R.drawable.ic_emma)
-        color = ContextCompat.getColor(context, R.color.blue_500)
+        color = ContextCompat.getColor(context, R.color.blue_100)
 
         val imageUrl = remoteMessage.data["imageBitmap"]
         val futureTarget = Glide.with(context)

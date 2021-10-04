@@ -97,14 +97,14 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun fetchFavId(favorites: List<FavModel>) {
-
+        lodgesAdapter.clear()
         favorites.map { it.id }.also { ids ->
             if (ids.isNotEmpty()) {
                 lodgesQuery.whereIn("lodgeId", ids).get().addOnSuccessListener { snapShot ->
                     snapShot.documents.mapNotNull { shot ->
                         shot.toObject(FirebaseLodge::class.java)
                     }.also { lodges ->
-                        lodgesAdapter.addLodgeAndProperty(lodges,false)
+                        lodgesAdapter.addLodgeAndProperty(lodges, false)
                         hideProgress()
                         swipeRefreshContainer.isRefreshing = false
 
@@ -112,10 +112,9 @@ class FavoriteFragment : Fragment() {
                 }
             } else {
                 hideProgress()
-                lodgesAdapter.notifyDataSetChanged()
-                lodgesAdapter.addLodgeAndProperty(emptyList(),false)
+                lodgesAdapter.clear()
+                lodgesAdapter.addLodgeAndProperty(emptyList(), false)
                 swipeRefreshContainer.isRefreshing = false
-
 
                 Toast.makeText(
                     requireContext(),

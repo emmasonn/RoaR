@@ -203,7 +203,7 @@ class HomeFragment : Fragment() {
                     (activity as MainActivity).chipState = query
 
                     roarItemsAdapter.showEmpty = false
-                    roarItemsAdapter.addLodgeAndProperty(emptyList(), emptyList())
+                    roarItemsAdapter.submitList(emptyList())
                     roarItemsAdapter.clear()
                     fetchLodges(chipsCategory[query])
                 }

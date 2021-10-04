@@ -134,12 +134,12 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:textAppearance="?attr/textAppearanceSubtitle2"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/propertyPrice"
+                app:layout_constraintBottom_toTopOf="@+id/productPrice"
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout7"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout7" />
 
             <TextView
-                android:id="@+id/propertyPrice"
+                android:id="@+id/productPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"

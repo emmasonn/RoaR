@@ -146,7 +146,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/title">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/propertyPrice"
+                        android:id="@+id/productPrice"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="Property Price"

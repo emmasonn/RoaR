@@ -12,7 +12,7 @@ import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter.*
 import timber.log.Timber
 
 
-//view Holder for home product recyclerview
+//view Holder for home product recyclerview...in form of ads
 class PropertyViewHolder(val itemView: View): RecyclerView.ViewHolder(itemView) {
      private val recycleView = itemView.findViewById<RecyclerView>(R.id.advertPropertyRecycler)
     fun bind(data: List<FirebaseProperty>,

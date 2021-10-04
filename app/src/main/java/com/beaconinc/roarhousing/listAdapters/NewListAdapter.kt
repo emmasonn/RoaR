@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
@@ -15,13 +16,12 @@ import com.beaconinc.roarhousing.cloudModel.FirebaseProperty
 import com.beaconinc.roarhousing.listAdapters.adViewHolders.MediumAdViewHolder
 import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter.*
 import com.beaconinc.roarhousing.listAdapters.adViewHolders.NativeAdViewHolder
-import com.google.android.ads.nativetemplates.TemplateView
+import com.beaconinc.roarhousing.listAdapters.businessAds.BusinessAdsViewHolder
 import com.google.android.gms.ads.nativead.NativeAd
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import java.lang.ClassCastException
 import kotlin.random.Random
 
@@ -31,6 +31,8 @@ const val ITEM_VIEW_HEADER = 2
 const val ITEM_AD_VIEW = 3
 const val ITEM_MEDIUM_AD_VIEW = 4
 const val ITEM_EMPTY_LODGE = 5
+const val ITEM_AUTO_SCROLL_HEADER = 6
+const val ITEM_AUTO_SCROLL_ITEMS = 7
 
 //Adapter for main homeScreen for display both the lodges and product with headers
 class NewListAdapter(
@@ -57,26 +59,33 @@ class NewListAdapter(
         val layoutInflater = LayoutInflater.from(parent.context)
         val lodgesView = layoutInflater.inflate(R.layout.item_lodges_layout, parent, false)
         val propertyView = layoutInflater.inflate(R.layout.item_advert_property, parent, false)
-        val view = layoutInflater.inflate(R.layout.item_advert_header, parent, false)
+        val itemHeader = layoutInflater.inflate(R.layout.item_advert_header, parent, false)
+        val businessAdView = layoutInflater.inflate(R.layout.business_ads_layout, parent, false)
+        val businessAdHeader = layoutInflater.inflate(R.layout.business_item_header, parent, false) as ConstraintLayout
+
         val adView = layoutInflater.inflate(
             R.layout.native_small_advert_layout,
             parent,
             false
-        ) as TemplateView
+        )
+
         val mediumAdView = layoutInflater.inflate(
             R.layout.native_medium_advert_layout,
             parent,
             false
-        ) as TemplateView
+        )
+
         val emptyListLayout = layoutInflater.inflate(R.layout.item_empty_list_card, parent, false)
 
         return when (viewType) {
             ITEM_VIEW_LODGE -> LodgeViewHolder(lodgesView)
             ITEM_VIEW_PROPERTY -> PropertyViewHolder(propertyView)
-            ITEM_VIEW_HEADER -> HeaderViewHolder(view)
+            ITEM_VIEW_HEADER -> HeaderViewHolder(itemHeader)
             ITEM_AD_VIEW -> NativeAdViewHolder(adView)
             ITEM_MEDIUM_AD_VIEW -> MediumAdViewHolder(mediumAdView)
             ITEM_EMPTY_LODGE -> EmptyViewHolder(emptyListLayout)
+            ITEM_AUTO_SCROLL_HEADER -> BusinessHeaderViewHolder(businessAdHeader)
+            ITEM_AUTO_SCROLL_ITEMS -> BusinessAdsViewHolder(businessAdView)
             else -> throw ClassCastException("Unknown view type $viewType")
         }
     }
@@ -90,6 +99,10 @@ class NewListAdapter(
             is PropertyViewHolder -> {
                 val propertyItem = getItem(position) as DataItem.PropertyItem
                 holder.bind(propertyItem.property, propertyListener)
+            }
+            is BusinessAdsViewHolder -> {
+                val businessItems = getItem(position) as DataItem.BusinessAdsItem
+                holder.bind(businessItems.property,propertyListener)
             }
             is HeaderViewHolder -> {
                 val item = getItem(position) as DataItem.Header
@@ -133,6 +146,9 @@ class NewListAdapter(
                 }
                 else -> {
                     lodges.take(1).map { DataItem.LodgeItem(it) } +
+                            listOf(DataItem.CampusBusinessHeader) +
+                            properties.run {DataItem.BusinessAdsItem(this)} +
+                            listOf(DataItem.AdHeader) +
                             listOf(DataItem.Header("Properties")) +
                             properties.run { DataItem.PropertyItem(this) } +
                             listOf(DataItem.AdHeader) +
@@ -191,6 +207,8 @@ class NewListAdapter(
             is DataItem.AdHeader -> ITEM_AD_VIEW
             is DataItem.MediumAd -> ITEM_MEDIUM_AD_VIEW
             is DataItem.EmptyCard -> ITEM_EMPTY_LODGE
+            is DataItem.CampusBusinessHeader -> ITEM_AUTO_SCROLL_HEADER
+            is DataItem.BusinessAdsItem -> ITEM_AUTO_SCROLL_ITEMS
         }
     }
 
@@ -217,6 +235,10 @@ sealed class DataItem() {
         override val id: String = Random.nextDouble().toString()
     }
 
+    data class BusinessAdsItem(val property: List<FirebaseProperty>) : DataItem() {
+        override val id: String = Random.nextDouble().toString()
+    }
+
     data class Header(val title: String) : DataItem() {
         override val id: String
             get() = "xkdskrkewjrk"
@@ -225,6 +247,11 @@ sealed class DataItem() {
     object AdHeader : DataItem() {
         override val id: String
             get() = "yreiewuxixixu"
+    }
+
+    object CampusBusinessHeader : DataItem() {
+        override val id: String
+            get() = "yrwxiescfdedd"
     }
 
     object MediumAd : DataItem() {
@@ -254,5 +281,7 @@ class HeaderViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
     }
 }
+
+class BusinessHeaderViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView)
 
 class EmptyViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView)

@@ -47,7 +47,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="RoaR"
-                        android:layout_margin="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
                         android:textStyle="bold"
                         android:textSize="23sp"
                         app:layout_constraintHorizontal_bias="0.45"
@@ -103,7 +104,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:paddingTop="10dp"
-                android:paddingBottom="40dp"
+                android:paddingBottom="100dp"
                 android:clipToPadding="false"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -158,8 +159,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/imageView26"
                 app:layout_constraintStart_toStartOf="@+id/imageView26"
                 app:layout_constraintTop_toBottomOf="@+id/imageView26" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ProgressBar

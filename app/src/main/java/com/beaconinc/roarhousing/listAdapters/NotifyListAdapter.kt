@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseNotifier
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.card.MaterialCardView
 
 class NotifyListAdapter(private val deleteClickListener: DeleteClickListener) :
@@ -49,7 +51,12 @@ class NotifyListAdapter(private val deleteClickListener: DeleteClickListener) :
                 delete.chatClicked(data)
             }
 
-            lodgeCover.load(data.lodgeCover)
+            Glide.with(lodgeCover.context)
+                .load(data.lodgeCover).apply(
+                    RequestOptions().placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.loading_animation)
+                ).into(lodgeCover)
+
             lodgeName.text = data.lodgeName
             campus.text = data.campus
             location.text = data.lodgeLocation

@@ -58,6 +58,7 @@ class LodgeUploadDetail : Fragment() {
     private lateinit var parentView: ConstraintLayout
     private lateinit var landLordPhone: TextInputEditText
     private lateinit var landLordName: TextInputEditText
+    private lateinit var lodgeIdentifier: TextInputEditText
 
     private val lodge: FirebaseLodge? by lazy {
         arguments?.get("Lodge") as FirebaseLodge?
@@ -104,6 +105,7 @@ class LodgeUploadDetail : Fragment() {
         val uploadBack = view.findViewById<ImageView>(R.id.uploadBack)
         landLordName = view.findViewById(R.id.houseOwner)
         landLordPhone = view.findViewById(R.id.housePhone)
+        lodgeIdentifier = view.findViewById(R.id.lodgeId)
 
         nextBtn.setOnClickListener {
             //submitDetails()
@@ -178,6 +180,7 @@ class LodgeUploadDetail : Fragment() {
     }
 
     private fun updateFields() {
+        lodgeIdentifier.setText(lodge?.randomId)
         address.editText?.setText(lodge?.location)
         distanceAway.editText?.setText(lodge?.distance)
         surrounding.editText?.setText(lodge?.surrounding)
@@ -188,6 +191,7 @@ class LodgeUploadDetail : Fragment() {
         initialPay.setText(lodge?.subPayment)
         subPay.setText(lodge?.subPayment)
         campus.editText?.setText(lodge?.campus)
+        lodgeType.editText?.setText(lodge?.type)
         landLordName.setText(lodge?.ownerName)
         lodgeType.editText?.setText(lodge?.type)
         landLordPhone.setText(lodge?.ownerPhone)
@@ -197,6 +201,7 @@ class LodgeUploadDetail : Fragment() {
     }
 
     private fun submitDetails() {
+        val lodgeIdentifier = lodgeIdentifier.text.toString()
         val address = address.editText?.text.toString()
         val distance = distanceAway.editText?.text.toString()
         val surrounding = surrounding.editText?.text.toString()
@@ -213,12 +218,12 @@ class LodgeUploadDetail : Fragment() {
         val campus = campus.editText?.text.toString()
         val ownerName = landLordName.text.toString()
         val ownerPhone = landLordPhone.text.toString()
-        val randomUserId = generateLodgeId()
+        //val randomUserId = generateLodgeId()
 
         nameOfLodge = lodgeName
 
         val lodge = FirebaseLodge(
-            randomId = randomUserId,
+            randomId = lodgeIdentifier,
             lodgeId = documentId,
             lodgeName = lodgeName,
             location = address,
@@ -236,7 +241,6 @@ class LodgeUploadDetail : Fragment() {
             distance = distance,
             ownerName = ownerName,
             ownerPhone = ownerPhone
-
         )
 
         clientDocument.get().addOnSuccessListener {

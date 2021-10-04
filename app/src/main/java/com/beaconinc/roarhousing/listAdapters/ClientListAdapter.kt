@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseUser
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.button.MaterialButton
 
 class ClientListAdapter(private val clickListener: UserClickListener): ListAdapter<FirebaseUser, ClientListAdapter.ClientListViewHolder>(diffUtil) {
@@ -28,11 +30,6 @@ class ClientListAdapter(private val clickListener: UserClickListener): ListAdapt
         holder.bind(data, clickListener)
     }
 
-    fun clear() {
-        currentList.clear()
-        notifyDataSetChanged()
-    }
-
     class ClientListViewHolder(private val itemView: View):
         RecyclerView.ViewHolder(itemView) {
 
@@ -45,16 +42,23 @@ class ClientListAdapter(private val clickListener: UserClickListener): ListAdapt
         private val isCertified = itemView.findViewById<TextView>(R.id.certifiedState)
         private val resource = itemView.resources
         fun bind(data: FirebaseUser, clickListener: UserClickListener) {
-            coverImage.load(data.clientUrl)
+
+            Glide.with(coverImage.context)
+                .load(data.clientUrl).apply(
+                    RequestOptions().placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.loading_animation)
+                ).into(coverImage)
+
+
             fullName.text = data.clientName
             phoneNumber.text = data.clientPhone
             brandName.text = data.brandName
             val condition = data.certified ?: false
 
             if (condition) {
-               isCertified.apply { setText("Ceritfied") }
+               isCertified.apply { text = "Ceritfied" }
                }else {
-                   isCertified.apply { setText("Uncertified")
+                   isCertified.apply { text = "Uncertified"
                        setTextColor(Color.RED)
                    }
                 }

@@ -9,7 +9,7 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/blue_300</item>
         <item name="colorSecondaryVariant">@color/black_100</item>
-        <item name="colorOnSecondary">@color/black_500</item>
+        <item name="colorOnSecondary">@color/blue_100</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorAccent">@color/blue_300</item>
         <item name="colorControlNormal">@color/blue_300</item>

@@ -16,6 +16,8 @@ import com.beaconinc.roarhousing.cloudModel.FirebaseLodge
 import com.beaconinc.roarhousing.listAdapters.DataItem.*
 import com.beaconinc.roarhousing.listAdapters.adViewHolders.MediumAdViewHolder
 import com.beaconinc.roarhousing.listAdapters.adViewHolders.NativeAdViewHolder
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.ads.nativetemplates.TemplateView
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.material.button.MaterialButton
@@ -56,9 +58,9 @@ class LodgesAdapter(
         val lodgesView = inflater.inflate(R.layout.item_lodges_layout, parent, false)
         val favViewLayout = inflater.inflate(R.layout.item_favorite_layout, parent, false)
         val adView =
-            inflater.inflate(R.layout.native_small_advert_layout, parent, false) as TemplateView
+            inflater.inflate(R.layout.native_small_advert_layout, parent, false)
         val mediumAdView =
-            inflater.inflate(R.layout.native_medium_advert_layout, parent, false) as TemplateView
+            inflater.inflate(R.layout.native_medium_advert_layout, parent, false)
         val emptyListLayout = inflater.inflate(R.layout.item_empty_list_card, parent, false)
 
         return if (fav != null && fav == true) {
@@ -98,6 +100,11 @@ class LodgesAdapter(
                 holder.bind(mutableNativeAd2, lifeCycle)
             }
         }
+    }
+
+    fun clear() {
+        submitList(emptyList())
+        notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -179,7 +186,14 @@ class LodgesAdapter(
         private val resource = itemView.resources
 
         fun bind(data: FirebaseLodge, listener: LodgeClickListener) {
-            lodgeImage.load(data.coverImage)
+
+            Glide.with(lodgeImage.context)
+                .load(data.coverImage).apply(
+                    RequestOptions().placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.loading_animation)
+                ).into(lodgeImage)
+
+
             initialPrice.text = resource.getString(R.string.format_price, data.subPayment)
             lodgeName.text = data.lodgeName
             location.text = data.location

@@ -12,6 +12,8 @@ import coil.load
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseUser
 import com.beaconinc.roarhousing.listAdapters.AdminListAdapter.AdminListViewHolder
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 
 class AdminListAdapter(private val adminClickListener: AdminClickListener)
@@ -34,9 +36,15 @@ class AdminListAdapter(private val adminClickListener: AdminClickListener)
             private val adminFullName = itemView.findViewById<TextView>(R.id.adminFullName)
 
             fun bind(data: FirebaseUser, listener: AdminClickListener) {
-                adminImage.load(data.clientUrl)
-                adminFullName.text = data.clientName
 
+                Glide.with(adminImage.context)
+                    .load(data.clientUrl).apply(
+                        RequestOptions().placeholder(R.drawable.loading_animation)
+                            .error(R.drawable.loading_animation)
+                    ).into(adminImage)
+
+
+                adminFullName.text = data.clientName
                 itemView.setOnClickListener {
                     listener.onClick(data)
                 }

@@ -22,7 +22,7 @@ class AboutFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_about, container, false)
-        val backBtn = view.findViewById<ImageButton>(R.id.pagerBack)
+        val backBtn = view.findViewById<ImageView>(R.id.pagerBack)
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolBar)
 
         backBtn.setOnClickListener {

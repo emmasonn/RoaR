@@ -8,10 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseProperty
 import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter.*
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 
@@ -30,7 +31,7 @@ class ManagePropertyListAdapter(private val clickListener: PropertyClickListener
 
     class ManagePropertyVieHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         private val propertyName = itemView.findViewById<TextView>(R.id.propertyTitle)
-        private val propertyPrice = itemView.findViewById<TextView>(R.id.propertyPrice)
+        private val propertyPrice = itemView.findViewById<TextView>(R.id.productPrice)
         private val firstImage = itemView.findViewById<ImageView>(R.id.firstImage)
         private val campus = itemView.findViewById<TextView>(R.id.campus)
         private val propertyDesc = itemView.findViewById<TextView>(R.id.propertyDesc)
@@ -40,7 +41,12 @@ class ManagePropertyListAdapter(private val clickListener: PropertyClickListener
 
         private val resource = itemView.resources
         fun bind(data: FirebaseProperty, clickListener: PropertyClickListener) {
-         firstImage.load(data.firstImage)
+
+            Glide.with(firstImage.context)
+                .load(data.firstImage).apply(
+                    RequestOptions().placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.loading_animation)
+                ).into(firstImage)
             propertyName.text = data.propertyTitle
             propertyPrice.text = resource.getString(R.string.format_price,data.propertyPrice)
             propertyDesc.text = data.propertyDesc

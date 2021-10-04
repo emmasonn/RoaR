@@ -1,57 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     app:cardBackgroundColor="@android:color/transparent"
     app:cardElevation="0dp"
     app:cardPreventCornerOverlap="true"
     app:contentPaddingTop="@dimen/shr_staggered_product_grid_margin_top_first">
 
-    <LinearLayout
-        android:layout_width="@dimen/shr_staggered_product_grid_card_width_landscape"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/shr_staggered_product_grid_spacing_small"
-        android:layout_marginLeft="@dimen/shr_staggered_product_grid_spacing_small"
-        android:orientation="vertical">
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/product_image"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/shr_staggered_product_grid_card_height_landscape"
-            android:background="@color/blue_100"
-            android:scaleType="fitXY"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius"
-            tools:src="@drawable/galon"
-            />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/shr_staggered_product_grid_card_width_landscape"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:background="@drawable/blue_card_outline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/product_title"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/product_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/shr_staggered_product_grid_card_height_landscape"
+                android:layout_margin="0.5dp"
+                android:scaleType="fitXY"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius"
+                tools:src="@drawable/galon" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="14sp"
-                android:textAppearance="?attr/textAppearanceSubtitle2"
-                tools:text="Bag one with big"
-                />
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <TextView
-                android:id="@+id/product_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="14sp"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="@color/yellow_500"
-                tools:text="#5000"
-                />
+                <TextView
+                    android:id="@+id/product_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    android:textSize="14sp"
+                    tools:text="Bag one with big" />
+
+                <TextView
+                    android:id="@+id/product_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="@color/yellow_500"
+                    android:textSize="14sp"
+                    tools:text="#5000" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/light_black_background"
+            android:elevation="10dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="3dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_locate"
+                app:tint="@color/yellow_200"
+                tools:ignore="ContentDescription" />
+            <TextView
+                android:id="@+id/campus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:paddingEnd="8dp"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="@color/white"
+                tools:text="Unn" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

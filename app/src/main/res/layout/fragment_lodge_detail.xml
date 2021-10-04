@@ -10,6 +10,15 @@
             type="com.beaconinc.roarhousing.cloudModel.FirebaseLodge" />
     </data>
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout12">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -62,7 +71,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout4"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:background="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -178,7 +187,6 @@
                 app:layout_constraintStart_toStartOf="@+id/textView81"
                 app:layout_constraintTop_toBottomOf="@+id/textView18"
                 tools:text="3.6m" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -225,6 +233,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView57"
                         tools:ignore="RtlSymmetry"
                         tools:text="10" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -253,6 +262,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginBottom="80dp"
                         android:orientation="vertical">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -260,9 +270,9 @@
                             android:layout_height="wrap_content">
 
                             <com.google.android.material.imageview.ShapeableImageView
-                                android:id="@+id/imageSlide"
+                                android:id="@+id/coverImage"
                                 android:layout_width="0dp"
-                                android:layout_height="250dp"
+                                android:layout_height="200dp"
                                 android:padding="2dp"
                                 android:scaleType="centerCrop"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -289,15 +299,6 @@
                                 app:layout_constraintVertical_bias="0.8" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                            android:id="@+id/swipeContainer"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/constraintLayout12">
-
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/listPhotos"
                             android:layout_width="match_parent"
@@ -309,7 +310,6 @@
                             android:scrollbars="horizontal"
                             android:scrollbarStyle="outsideOverlay"
                             />
-                        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
                         <com.google.android.ads.nativetemplates.TemplateView
                             android:id="@+id/firstSmallNativeAd"
@@ -502,7 +502,6 @@
                                 </TableRow>
 
                                 <TableRow>
-
                                     <TextView
                                         android:layout_gravity="start"
                                         android:text="Light" />
@@ -582,7 +581,7 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginTop="20dp"
                                 android:textStyle="bold"
-                                android:text="Watch Lodge Video tour"
+                                android:text="Lodge Tour Video"
                                 android:textAppearance="?attr/textAppearanceBody1"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/view5" />
@@ -592,10 +591,11 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="200dp"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginEnd="10dp"
-                                android:src="@drawable/roar_two"
-                                android:scaleType="centerCrop"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginEnd="5dp"
+                                android:src="@drawable/ic_emma"
+                                android:background="@drawable/light_black_background"
+                                android:scaleType="center"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/textView42"
@@ -605,8 +605,9 @@
                                 android:id="@+id/playBtn"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:src="@drawable/ic_play_btn"
+                                android:src="@drawable/ic_play_btn2"
                                 android:alpha="0.8"
+                                android:scaleType="fitXY"
                                 app:layout_constraintBottom_toBottomOf="@+id/playerView"
                                 app:layout_constraintEnd_toEndOf="@+id/playerView"
                                 app:layout_constraintStart_toStartOf="@+id/playerView"
@@ -631,10 +632,11 @@
                                     android:layout_marginEnd="10dp"
                                     android:layout_marginStart="10dp"
                                     android:elevation="10dp"
-                                    android:fontFamily="@font/montserrat_bold"
+                                    android:textStyle="bold"
+                                    android:fontFamily="@font/montserrat_extra_bold"
                                     android:text="@{lodgeDetail.brandName}"
                                     android:textAlignment="center"
-                                    android:textAppearance="?attr/textAppearanceBody1"
+                                    android:textAppearance="?attr/textAppearanceSubtitle1"
                                     android:textColor="@color/blue_700"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toEndOf="@+id/agentImageCover"
@@ -674,10 +676,10 @@
                                 android:id="@+id/bookBtn"
                                 android:layout_width="0dp"
                                 android:layout_height="50dp"
-                                android:layout_marginStart="20dp"
+                                android:layout_marginStart="40dp"
                                 android:layout_marginTop="20dp"
                                 android:layout_marginEnd="20dp"
-                                android:layout_marginBottom="5dp"
+                                android:layout_marginBottom="10dp"
                                 android:backgroundTint="?attr/colorControlNormal"
                                 android:text="Contact Realtor"
                                 android:textAllCaps="false"
@@ -734,7 +736,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:elevation="10dp"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             android:layout_marginEnd="20dp"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="5dp"
@@ -744,19 +746,7 @@
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
             </com.google.android.material.card.MaterialCardView>
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginBottom="200dp"
-                android:elevation="20dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/materialCardView4" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

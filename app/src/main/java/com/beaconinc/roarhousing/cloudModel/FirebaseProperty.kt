@@ -18,6 +18,8 @@ import java.util.*
     var sellerNumber: String? = null,
     var sellerId: String? = null,
     var sellerUrl: String? = null,
+    var specials: String? = null,
+    var brandName: String? = null,
     var certified: Boolean? = null,
     var campus: String? = null,
     @ServerTimestamp var postDate: Date? = null

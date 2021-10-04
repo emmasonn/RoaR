@@ -8,7 +8,7 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/blue_300</item>
         <item name="colorSecondaryVariant">@color/black_100</item>
-        <item name="colorOnSecondary">@color/black_500</item>
+        <item name="colorOnSecondary">@color/blue_100</item>
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="font">@font/montserrat_medium</item>
         <item name="colorSurface">@color/white</item>
@@ -29,7 +29,7 @@
     </style>
 
     <style name="Widget.Toolbar.title" parent="Widget.MaterialComponents.Toolbar.Primary">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>

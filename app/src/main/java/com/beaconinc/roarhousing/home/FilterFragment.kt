@@ -111,7 +111,7 @@ class FilterFragment : Fragment() {
 
         (activity as MainActivity).connectivityChecker?.apply {
             lifecycle.addObserver(this)
-            connectedStatus.observe(viewLifecycleOwner, Observer {
+            connectedStatus.observe(viewLifecycleOwner, {
                 if(it) {
                     smallAdvertNativeAd()
                     mediumAdvertNativeAd()
@@ -125,7 +125,7 @@ class FilterFragment : Fragment() {
     }
 
 
-    public override fun onPause() {
+    override fun onPause() {
         adView.pause()
         super.onPause()
     }
@@ -163,6 +163,7 @@ class FilterFragment : Fragment() {
     }
 
     private fun fetchLiveData() {
+        lodgesAdapter.clear()
         lodgesQuery.get().addOnSuccessListener { result ->
             result.documents.mapNotNull { snapLodge ->
                 snapLodge.toObject(FirebaseLodge::class.java)

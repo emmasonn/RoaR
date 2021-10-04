@@ -86,7 +86,7 @@
             android:lineSpacingExtra="10dp"
             android:text="@string/about_us"
             android:textAlignment="center"
-            android:textAppearance="?attr/textAppearanceBody2"
+            android:textAppearance="?attr/textAppearanceBody1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

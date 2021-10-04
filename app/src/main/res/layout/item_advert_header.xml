@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:andriod="http://schemas.android.com/tools">
+    >
 
     <TextView
         android:id="@+id/text1"
@@ -49,30 +49,18 @@
         tools:text="Properties for sale"
         />
 
-    <ImageView
-        android:id="@+id/viewMoreItem"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_forward"
-        app:layout_constraintBottom_toBottomOf="@+id/viewAll"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewAll"
-        app:layout_constraintVertical_bias="0.6"
-        andriod:ignore="ContentDescription" />
-
     <TextView
         android:id="@+id/viewAll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="3dp"
-        android:text="more"
-        android:textStyle="bold"
-        android:textColor="?attr/colorControlNormal"
-        android:textAppearance="?attr/textAppearanceSubtitle2"
         android:fontFamily="@font/montserrat_bold"
+        android:text="more"
+        android:layout_marginEnd="15dp"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        android:textColor="?attr/colorControlNormal"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/productType"
-        app:layout_constraintEnd_toStartOf="@+id/viewMoreItem"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/productType" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

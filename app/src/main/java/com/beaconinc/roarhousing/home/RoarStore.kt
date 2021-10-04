@@ -1,6 +1,5 @@
 package com.beaconinc.roarhousing.home
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -10,30 +9,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.os.bundleOf
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import coil.load
+import com.beaconinc.roarhousing.MainActivity
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseProperty
 import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter
 import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter.*
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class RoarStore : Fragment() {
 
@@ -45,6 +45,8 @@ class RoarStore : Fragment() {
     private lateinit var spinnerCallBack: AdapterView.OnItemSelectedListener
     private lateinit var titleText: TextView
     private lateinit var propertyRecycler: RecyclerView
+    private lateinit var swipeRefreshContainer: SwipeRefreshLayout
+    private lateinit var connectionView: ConstraintLayout
 
     private val argsNav: RoarStoreArgs by navArgs()
 
@@ -71,6 +73,8 @@ class RoarStore : Fragment() {
         titleText = view.findViewById(R.id.titleText)
         val filterSpinner = view.findViewById<Spinner>(R.id.filterSpinner)
         progressBar = view.findViewById(R.id.progressBar)
+        swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
+        connectionView = view.findViewById(R.id.connectionView)
 
         argsNav.propertyId.let {
             if(it!="roar"){
@@ -115,6 +119,10 @@ class RoarStore : Fragment() {
         )
         propertyRecycler.adapter = propertyListAdapter
 
+        swipeRefreshContainer.setOnRefreshListener {
+            initializeFetch()
+        }
+
         filterBtn.setOnClickListener {
             //val action = R.id.action_homeFragment_to_profileFragment
             filterSpinner.performClick()
@@ -123,12 +131,12 @@ class RoarStore : Fragment() {
     }
 
     private fun showProduct(it: String) {
+        showProgress()
         propertyCollection.document(it).get().addOnSuccessListener {
             it.toObject(FirebaseProperty::class.java).also { item ->
                     item?.let {
                         showBottomSheet(item)
                     }
-                    hideProgress()
             }
         }
     }
@@ -164,40 +172,54 @@ class RoarStore : Fragment() {
             snapShots?.documents?.mapNotNull {
                 it.toObject(FirebaseProperty::class.java)
             }.also { properties ->
-                propertyListAdapter.submitList(properties)
-                hideProgress()
+                if (properties.isNullOrEmpty()) {
+                   connectionView()
+                    swipeRefreshContainer.isRefreshing = false
+                    hideProgress()
+                }else {
+                    propertyListAdapter.submitList(properties)
+                    swipeRefreshContainer.isRefreshing = false
+                    hideProgress()
+                }
             }
         }
     }
 
-    private fun showBottomSheet(property: FirebaseProperty) {
+    private fun showBottomSheet(product: FirebaseProperty) {
         val bottomSheetLayout = BottomSheetDialog(requireContext()).apply {
             setContentView(R.layout.layout_person_sheet)
             val productImage = this.findViewById<ImageView>(R.id.productImage)
             val productName = this.findViewById<TextView>(R.id.productName)
             val productPrice = this.findViewById<TextView>(R.id.productPrice)
             val aboutProduct = this.findViewById<TextView>(R.id.productDesc)
-            productImage?.load(property.firstImage)
-            productName?.text = property.propertyTitle
-            productPrice?.text = getString(R.string.format_price,property.propertyPrice)
-            aboutProduct?.text = property.propertyDesc
+
+            Glide.with(productImage!!.context)
+                .load(product.firstImage).apply(
+                    RequestOptions().placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.loading_animation)
+                ).into(productImage)
+
+            productName?.text = product.propertyTitle
+            productPrice?.text = getString(R.string.format_price,product.propertyPrice)
+            aboutProduct?.text = product.propertyDesc
         }
         val whatsAppBtn = bottomSheetLayout.findViewById<MaterialCardView>(R.id.whatsAppBtn)
         val share = bottomSheetLayout.findViewById<MaterialButton>(R.id.shareBtn)
         val callBtn = bottomSheetLayout.findViewById<MaterialButton>(R.id.callBtn)
 
         share?.setOnClickListener {
-            share(property)
+            share(product)
         }
 
         whatsAppBtn?.setOnClickListener {
-            chatWhatsApp(property.sellerNumber)
+            chatWhatsApp(product.sellerNumber)
         }
 
         callBtn?.setOnClickListener {
-            dialPhoneNumber(property.sellerNumber)
+            dialPhoneNumber(product.sellerNumber)
         }
         bottomSheetLayout.show()
+        hideProgress()
     }
 
     private fun share(product: FirebaseProperty) {
@@ -225,6 +247,18 @@ class RoarStore : Fragment() {
         }
         if (intent.resolveActivity(requireActivity().packageManager) != null) {
             startActivity(intent)
+        }
+    }
+
+    private fun connectionView() {
+        val connection = (activity as MainActivity).connectivityChecker
+        connection?.apply {
+            lifecycle.addObserver(this)
+            connectedStatus.observe(viewLifecycleOwner, {
+                if (!it) {
+                    connectionView.visibility = View.VISIBLE
+                }
+            })
         }
     }
 

@@ -8,11 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseProperty
 import com.beaconinc.roarhousing.listAdapters.PropertyHomeListAdapter.PropertyHomeListViewHolder
 import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter.*
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 
 //this adapter is for the list of items in the ads section of the homeScreen
@@ -34,13 +35,21 @@ class PropertyHomeListAdapter(private val propertyListener: PropertyClickListene
 
     class PropertyHomeListViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val propertyTitle = itemView.findViewById<TextView>(R.id.propertyTitle)
-        private val propertyPrice = itemView.findViewById<TextView>(R.id.propertyPrice)
+        private val propertyPrice = itemView.findViewById<TextView>(R.id.productPrice)
         private val firstImage = itemView.findViewById<ImageView>(R.id.propertyImage)
+        private val campus = itemView.findViewById<TextView>(R.id.campus)
         private val resource = itemView.resources
         fun bind(data: FirebaseProperty, propertyListener: PropertyClickListener) {
-            firstImage.load(data.firstImage)
+
+            Glide.with(firstImage.context)
+                .load(data.firstImage).apply(
+                    RequestOptions().placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.loading_animation)
+                ).into(firstImage)
+
             propertyTitle.text = data.propertyTitle
             propertyPrice.text = resource.getString(R.string.format_price, data.propertyPrice)
+            campus.text = data.campus
 
             itemView.setOnClickListener {
                 propertyListener.onAction(data)

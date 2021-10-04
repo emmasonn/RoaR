@@ -14,6 +14,8 @@ import com.beaconinc.roarhousing.MainActivity
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseUser
 import com.beaconinc.roarhousing.databinding.FragmentAdminBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.DocumentReference
@@ -151,7 +153,13 @@ class AdminFragment : Fragment() {
         clientRef.get().addOnSuccessListener { value ->
             value?.toObject(FirebaseUser::class.java).also { firebaseUser ->
                 client = firebaseUser!!
-                binding.profilePics.load(firebaseUser.clientUrl)
+
+                Glide.with(binding.profilePics.context)
+                    .load(firebaseUser.clientUrl).apply(
+                        RequestOptions().placeholder(R.drawable.loading_animation)
+                            .error(R.drawable.loading_animation)
+                    ).into(binding.profilePics)
+
                 binding.fullName.text = firebaseUser.clientName
                 binding.phoneNumber.text = firebaseUser.clientPhone
                 hideProgressBar()

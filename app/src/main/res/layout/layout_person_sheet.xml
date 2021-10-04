@@ -24,7 +24,7 @@
 
             <TextView
                 android:id="@+id/textView65"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="Description"
@@ -57,7 +57,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView65"
                 tools:text="I sell and make shoes, high quality product and sincerly i do business" />
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/productImage"
                 android:layout_width="180dp"
                 android:layout_height="220dp"
@@ -66,6 +66,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:strokeColor="@color/white"
                 app:strokeWidth="1dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius"
                 tools:ignore="ContentDescription"
                 tools:src="@drawable/laptop" />
 
@@ -74,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textAppearance="?attr/textAppearanceSubtitle2"
+                android:textAppearance="?attr/textAppearanceHeadline6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.3"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:textColor="@color/yellow_500"
-                android:textAppearance="?attr/textAppearanceSubtitle2"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
                 app:layout_constraintBottom_toBottomOf="@+id/productName"
                 app:layout_constraintStart_toEndOf="@+id/productName"
                 app:layout_constraintTop_toTopOf="@+id/productName"
@@ -155,6 +156,7 @@
                                     android:text="WhatsApp"
                                     android:textAppearance="?attr/textAppearanceSubtitle2"
                                     android:textColor="@color/white"
+                                    android:textStyle="bold"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintHorizontal_bias="0.61"
@@ -171,6 +173,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="8dp"
+                            android:textStyle="bold"
                             android:text="Call"
                             app:icon="@drawable/ic_call"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -189,11 +192,11 @@
                             android:paddingStart="10dp"
                             app:cornerRadius="5dp"
                             app:icon="@drawable/ic_share"
-                            app:iconTint="@color/blue_300"
+                            app:iconTint="@color/blue_500"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:strokeColor="@color/blue_300"
+                            app:strokeColor="@color/blue_500"
                             app:strokeWidth="1dp" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

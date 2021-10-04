@@ -61,7 +61,6 @@ class RealtorFragment : Fragment() {
         realtorRecycler.adapter = clientListAdapter
 
         swipeRefreshContainer.setOnRefreshListener {
-            clientListAdapter.clear()
             fetchRealtors()
         }
         return view
