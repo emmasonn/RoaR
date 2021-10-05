@@ -84,7 +84,6 @@ class HomeFragment : Fragment() {
         val favBtn = view.findViewById<MaterialButton>(R.id.favBtn)
         val accountBtn = view.findViewById<MaterialButton>(R.id.accountBtn)
         val parentLayout = view.findViewById<ConstraintLayout>(R.id.childLayout)
-        val appIcon = view.findViewById<ImageView>(R.id.appIcon)
         connectionView = view.findViewById(R.id.connectionView)
         swipeContainer = view.findViewById(R.id.swipeContainer)
 
@@ -376,6 +375,8 @@ class HomeFragment : Fragment() {
             connectedStatus.observe(viewLifecycleOwner, Observer {
                 if (!it) {
                     connectionView.visibility = View.VISIBLE
+                }else {
+                    connectionView.visibility = View.GONE
                 }
             })
         }

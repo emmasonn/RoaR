@@ -58,8 +58,8 @@
                 android:layout_height="wrap_content"
                 android:text="Rules"
                 android:textColor="?attr/colorControlNormal"
-                android:layout_marginEnd="20dp"
-                android:textAppearance="@style/Widget.Toolbar.title"
+                android:layout_marginEnd="10dp"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
                 app:layout_constraintBottom_toBottomOf="@+id/titleText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/titleText" />
@@ -99,14 +99,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:text="WhatsApp customer services"
-                    android:textAppearance="@style/Widget.Roar.textHeadline"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
                     app:layout_constraintStart_toEndOf="@+id/view15"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Restricted to accommodation issues."
+                    android:text="Restricted to accommodation issues"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/textView13"
                     app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -116,6 +116,7 @@
                     android:layout_height="20dp"
                     android:src="@drawable/ic_whats_app"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription" />
@@ -154,7 +155,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="Telegram customer services"
-                    android:textAppearance="@style/Widget.Roar.textHeadline"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
                     app:layout_constraintBottom_toBottomOf="@+id/view3"
                     app:layout_constraintStart_toEndOf="@+id/view3"
                     app:layout_constraintTop_toTopOf="@+id/view3"
@@ -172,6 +173,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_telegram"
+                    app:layout_constraintVertical_bias="0.3"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -211,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:text="Customer product services"
-                    android:textAppearance="@style/Widget.Roar.textHeadline"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
                     app:layout_constraintStart_toEndOf="@+id/view12"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -266,7 +268,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:text="Our whatsApp group link"
-                    android:textAppearance="@style/Widget.Roar.textHeadline"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
                     app:layout_constraintBottom_toBottomOf="@+id/view2"
                     app:layout_constraintStart_toEndOf="@+id/view2"
                     app:layout_constraintTop_toTopOf="@+id/view2" />
@@ -313,7 +315,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:text="Our telegram group link"
-                    android:textAppearance="@style/Widget.Roar.textHeadline"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
                     app:layout_constraintBottom_toBottomOf="@+id/view1"
                     app:layout_constraintStart_toEndOf="@+id/view1"
                     app:layout_constraintTop_toTopOf="@+id/view1" />

@@ -48,15 +48,14 @@
                 app:layout_constraintStart_toEndOf="@+id/pagerBack"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/materialToolbar">
@@ -64,7 +63,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/bottom_padding_ad"
+            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -94,13 +95,14 @@
                     android:background="@drawable/green_background"
                     android:padding="3dp"
                     android:text="Business"
-                    android:textAppearance="?attr/textAppearanceSubtitle2"
                     android:textAlignment="center"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/profilePics"
                     app:layout_constraintEnd_toEndOf="@+id/profilePics"
                     app:layout_constraintStart_toStartOf="@+id/profilePics" />
+
                 <ImageView
                     android:id="@+id/imageView23"
                     android:layout_width="20dp"
@@ -110,27 +112,28 @@
                     app:layout_constraintStart_toStartOf="@+id/fullName"
                     app:layout_constraintTop_toTopOf="@+id/phoneNumber"
                     app:tint="?attr/colorOnPrimary" />
+
                 <TextView
                     android:id="@+id/fullName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    app:layout_constraintVertical_bias="0.3"
                     android:textAppearance="?attr/textAppearanceSubtitle2"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/profilePics"
                     app:layout_constraintStart_toEndOf="@+id/profilePics"
                     app:layout_constraintTop_toTopOf="@+id/profilePics"
+                    app:layout_constraintVertical_bias="0.3"
                     tools:text="Nnamani Emmanuel" />
 
                 <TextView
                     android:id="@+id/phoneNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:textAppearance="?attr/textAppearanceSubtitle2"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="14sp"
-                     android:layout_marginTop="5dp"
                     app:layout_constraintStart_toEndOf="@+id/imageView23"
                     app:layout_constraintTop_toBottomOf="@+id/fullName"
                     tools:text="070405730247" />
@@ -163,9 +166,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:src="@drawable/ic_account"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     tools:ignore="ContentDescription" />
 
                 <TextView
@@ -199,22 +202,22 @@
                     android:id="@+id/setting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_offer"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
+                    android:src="@drawable/ic_offer"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
+                    android:layout_marginStart="40dp"
                     android:layout_toEndOf="@+id/setting"
                     android:text="Sell Property"
-                    android:layout_marginStart="40dp"
                     android:textAppearance="@style/Widget.Roar.textHeadline"
                     app:layout_constraintBottom_toBottomOf="@+id/setting"
                     app:layout_constraintStart_toEndOf="@+id/setting"
@@ -236,9 +239,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:src="@drawable/ic_terms_condition"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     tools:ignore="ContentDescription" />
 
                 <TextView
@@ -277,9 +280,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:src="@drawable/ic_payment"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     tools:ignore="ContentDescription" />
 
                 <TextView
@@ -313,10 +316,10 @@
                     android:id="@+id/signOut"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_sign_out"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
+                    android:src="@drawable/ic_sign_out"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -325,9 +328,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
                     android:layout_toEndOf="@+id/signOut"
                     android:text="Sign Out"
-                    android:layout_marginStart="40dp"
                     android:textAppearance="@style/Widget.Roar.textHeadline"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/signOut"

@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.util.DisplayMetrics
+import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.getSystemService
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         adView = AdView(this)
         adView.adUnitId = "ca-app-pub-3940256099942544/6300978111"
         adViewParent.addView(adView)
-        loadBannerAd()
+        //loadBannerAd()
 
 //        adViewParent.viewTreeObserver.addOnGlobalLayoutListener {
 //            if(!initialLayoutComplete) {
@@ -92,8 +93,8 @@ class MainActivity : AppCompatActivity() {
             subscribeUnecLodge(settingsPref)
             subscribeUnnLodge(settingsPref)
         }
-
         connectivityChecker = connectivityChecker(this)
+        performNetworkAction()
     }
 
     override fun onPause() {
@@ -110,6 +111,17 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         adView.destroy()
         super.onDestroy()
+    }
+
+    private fun performNetworkAction() {
+        connectivityChecker?.apply {
+            lifecycle.addObserver(this)
+            connectedStatus.observe(this@MainActivity, {
+                if (it) {
+                    loadBannerAd()
+                }
+            })
+        }
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -142,7 +154,6 @@ class MainActivity : AppCompatActivity() {
     private fun loadBannerAd() {
 //        adView.adUnitId = "ca-app-pub-3940256099942544/921458741"
         adView.adSize = getScreenSize()
-
         val adRequest = AdRequest
             .Builder().build()
 

@@ -83,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="@dimen/bottom_padding_ad"
                 android:scrollbars="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +96,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/connectionView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:visibility="gone"
         android:layout_margin="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -127,16 +127,30 @@
             tools:ignore="ContentDescription" />
 
         <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No Internet Connection"
-            android:textAppearance="@style/Widget.Toolbar.title"
             android:fontFamily="@font/montserrat_bold"
+            android:text="Failed to load item"
+            android:textAppearance="@style/Widget.Toolbar.title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/imageView26"
             app:layout_constraintStart_toStartOf="@+id/imageView26"
             app:layout_constraintTop_toBottomOf="@+id/imageView26" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Check your Internet Connection"
+            android:layout_marginBottom="10dp"
+            android:textAppearance="@style/Widget.Toolbar.title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView26"
+            app:layout_constraintStart_toStartOf="@+id/imageView26"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="20dp"

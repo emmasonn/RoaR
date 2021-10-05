@@ -25,6 +25,10 @@ class BusinessAdsViewHolder (val itemView: View): RecyclerView.ViewHolder(itemVi
         recycleView.adapter = adapter
         adapter.submitList(data)
 
+        CoroutineScope(Dispatchers.Main).launch {
+            autoScrollFeature(recycleView,adapter)
+        }
+
 //        recycleView.post {
 //            recycleView.smoothScrollToPosition(adapter.itemCount)
 //        }

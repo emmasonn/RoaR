@@ -50,7 +50,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/bottom_padding_ad"
+            >
 
             <TextView
                 android:id="@+id/textView47"
@@ -101,7 +103,7 @@
                         android:layout_marginTop="10dp"
                         android:text="Default"
                         android:textAllCaps="true"
-                        android:textAppearance="@style/Widget.Roar.textHeadline"
+                        android:textAppearance="?attr/textAppearanceSubtitle1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -111,8 +113,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="Free"
-                        android:textAppearance="@style/Widget.Roar.textHeadline"
-                        android:textSize="25sp"
+                        android:textAppearance="?attr/textAppearanceSubtitle1"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@+id/subscribeType"
                         app:layout_constraintTop_toBottomOf="@+id/subscribeType" />
@@ -123,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:text="/Month"
-                        android:textAppearance="@style/Widget.Roar.textHeadline"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
                         app:layout_constraintBottom_toBottomOf="@+id/subscribePrice"
                         app:layout_constraintStart_toEndOf="@+id/subscribePrice"
                         app:layout_constraintTop_toTopOf="@+id/subscribePrice" />
@@ -134,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
                         android:text="Available slots:"
-                        android:textAppearance="@style/Widget.Roar.textHeadline"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
 
@@ -144,9 +145,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
                         android:text="1"
-                        android:textAppearance="@style/Widget.Roar.textHeadline"
-                        android:textSize="25sp"
-                        android:textStyle="bold"
+                        android:textAppearance="?attr/textAppearanceSubtitle1"
                         app:layout_constraintBottom_toBottomOf="@+id/textView40"
                         app:layout_constraintStart_toEndOf="@+id/textView40"
                         app:layout_constraintTop_toTopOf="@+id/textView40" />
@@ -228,15 +227,14 @@
                             android:layout_height="match_parent">
 
                             <TextView
-                                android:layout_width="80dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="10dp"
                                 android:background="@drawable/light_yellow_background"
-                                android:padding="2dp"
+                                android:padding="10dp"
                                 android:text="New!"
                                 android:textAlignment="center"
-                                android:textAppearance="@style/Widget.Roar.textHeadline"
-                                android:textSize="20sp"
+                                android:textAppearance="?attr/textAppearanceSubtitle1"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@+id/textView55" />
 
@@ -246,7 +244,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
                                 android:text="PERSONAL"
-                                android:textAppearance="@style/Widget.Roar.textHeadline"
+                                android:textAppearance="?attr/textAppearanceSubtitle1"
                                 app:layout_constraintBottom_toTopOf="@+id/textView33"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -256,8 +254,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="₦750"
-                                android:textAppearance="@style/Widget.Roar.textHeadline"
-                                android:textSize="28sp"
+                                android:textAppearance="?attr/textAppearanceSubtitle1"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="@+id/text1"
                                 app:layout_constraintStart_toStartOf="@+id/textView55"
@@ -270,7 +267,7 @@
                                 android:layout_marginStart="5dp"
                                 android:layout_marginBottom="20dp"
                                 android:text="/Month"
-                                android:textAppearance="@style/Widget.Roar.textHeadline"
+                                android:textAppearance="?attr/textAppearanceSubtitle2"
                                 app:layout_constraintBottom_toTopOf="@+id/textView49"
                                 app:layout_constraintStart_toEndOf="@+id/textView33" />
 
@@ -281,7 +278,7 @@
                                 android:layout_marginStart="20sp"
                                 android:layout_marginBottom="15dp"
                                 android:text="Availabe slots:"
-                                android:textAppearance="@style/Widget.Roar.textHeadline"
+                                android:textAppearance="?attr/textAppearanceSubtitle2"
                                 app:layout_constraintBottom_toTopOf="@+id/personalBtn"
                                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -291,8 +288,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:text="10"
-                                android:textAppearance="@style/Widget.Roar.textHeadline"
-                                android:textSize="25sp"
+                                android:textAppearance="?attr/textAppearanceSubtitle1"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="@+id/textView49"
                                 app:layout_constraintStart_toEndOf="@+id/textView49"
@@ -337,11 +333,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="10dp"
                                 android:background="@drawable/light_yellow_background"
-                                android:padding="2dp"
+                                android:padding="10dp"
                                 android:text="New!"
                                 android:textAlignment="center"
-                                android:textAppearance="@style/Widget.Roar.textHeadline"
-                                android:textSize="20sp"
+                                android:textAppearance="?attr/textAppearanceSubtitle1"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@+id/textView56" />
 
@@ -351,7 +346,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
                                 android:text="PROFFESSIONAL"
-                                android:textAppearance="@style/Widget.Roar.textHeadline"
+                                android:textAppearance="?attr/textAppearanceSubtitle1"
                                 app:layout_constraintBottom_toTopOf="@+id/textView39"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -361,8 +356,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="₦5500"
-                                android:textAppearance="@style/Widget.Roar.textHeadline"
-                                android:textSize="30sp"
+                                android:textAppearance="?attr/textAppearanceSubtitle1"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="@+id/text20"
                                 app:layout_constraintStart_toStartOf="@+id/textView56"
@@ -375,7 +369,7 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_marginBottom="20dp"
                                 android:text="/Month"
-                                android:textAppearance="@style/Widget.Roar.textHeadline"
+                                android:textAppearance="?attr/textAppearanceSubtitle2"
                                 app:layout_constraintBottom_toTopOf="@+id/textView44"
                                 app:layout_constraintStart_toEndOf="@+id/textView39" />
 
@@ -386,7 +380,7 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginBottom="15dp"
                                 android:text="Available slots:"
-                                android:textAppearance="@style/Widget.Roar.textHeadline"
+                                android:textAppearance="?attr/textAppearanceSubtitle2"
                                 app:layout_constraintBottom_toTopOf="@+id/professionalBtn"
                                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -395,8 +389,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="20dp"
                                 android:text="20"
-                                android:textAppearance="@style/Widget.Roar.textHeadline"
-                                android:textSize="25sp"
+                                android:textAppearance="?attr/textAppearanceSubtitle1"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="@+id/textView44"
                                 app:layout_constraintStart_toEndOf="@+id/textView44"

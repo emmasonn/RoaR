@@ -148,6 +148,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:elevation="20dp"
+            android:paddingBottom="60dp"
             android:fitsSystemWindows="true"
             app:itemTextColor="@color/nav_drawer_selector"
             app:itemTextAppearance="@style/Widget.Roar.textHeadline"
