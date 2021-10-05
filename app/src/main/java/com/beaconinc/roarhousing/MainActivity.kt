@@ -70,14 +70,15 @@ class MainActivity : AppCompatActivity() {
         adView = AdView(this)
         adView.adUnitId = "ca-app-pub-3940256099942544/6300978111"
         adViewParent.addView(adView)
+        adView.adSize = getScreenSize()
         //loadBannerAd()
 
-//        adViewParent.viewTreeObserver.addOnGlobalLayoutListener {
-//            if(!initialLayoutComplete) {
-//                initialLayoutComplete = true
-//                loadBannerAd()
-//            }
-//        }
+        adViewParent.viewTreeObserver.addOnGlobalLayoutListener {
+            if(!initialLayoutComplete) {
+                initialLayoutComplete = true
+                performNetworkAction()
+            }
+        }
 
         val settingsPref = PreferenceManager.getDefaultSharedPreferences(this)
         val theme = settingsPref.getBoolean("dark_theme", false)
@@ -94,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             subscribeUnnLodge(settingsPref)
         }
         connectivityChecker = connectivityChecker(this)
-        performNetworkAction()
+        //performNetworkAction()
     }
 
     override fun onPause() {
@@ -153,7 +154,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadBannerAd() {
 //        adView.adUnitId = "ca-app-pub-3940256099942544/921458741"
-        adView.adSize = getScreenSize()
         val adRequest = AdRequest
             .Builder().build()
 
