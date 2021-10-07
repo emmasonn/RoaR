@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="5dp"
+        app:cardBackgroundColor="?attr/colorPrimary"
         app:cardElevation="5dp"
         app:strokeWidth="0.5dp"
         app:strokeColor="@color/white_300"
@@ -75,7 +76,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0"
                 tools:ignore="ContentDescription"
-                tools:src="@drawable/laptop" />
+                tools:src="@drawable/ic_loading_img_one" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout5"

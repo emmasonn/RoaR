@@ -21,7 +21,6 @@ class StaggeredCardViewHolder(val itemView: View): RecyclerView.ViewHolder(itemV
     private val productName = itemView.findViewById<TextView>(R.id.product_title)
     private val productPrice = itemView.findViewById<TextView>(R.id.product_price)
     private val productImage = itemView.findViewById<ImageView>(R.id.product_image)
-    private val adView = itemView.findViewById<TemplateView>(R.id.smallAdView)
     private val firstAdView = itemView.findViewById<TemplateView>(R.id.smallSecondAdView)
     private val campus = itemView.findViewById<TextView>(R.id.campus)
 
@@ -42,13 +41,7 @@ class StaggeredCardViewHolder(val itemView: View): RecyclerView.ViewHolder(itemV
 
         lifeCycle?.let {
             mutableAdView.observe(it, Observer { adData ->
-
-                if(firstAdView != null) {
-                    adView.visibility = View.VISIBLE
-                    firstAdView.visibility = View.VISIBLE
-                    adView.setNativeAd(adData)
-                    firstAdView.setNativeAd(adData)
-                }
+                firstAdView?.setNativeAd(adData)
             })
         }
 

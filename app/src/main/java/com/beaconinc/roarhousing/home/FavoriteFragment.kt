@@ -49,12 +49,6 @@ class FavoriteFragment : Fragment() {
         lodgesQuery = fireStore.collection("lodges")
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        smallAdvertNativeAd()
-        mediumAdvertNativeAd()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -80,8 +74,8 @@ class FavoriteFragment : Fragment() {
         favBack.setOnClickListener {
             findNavController().popBackStack()
         }
-
         lodgeRecycler.adapter = lodgesAdapter
+        initialize()
         showProgress()
 
         swipeRefreshContainer.setOnRefreshListener {
@@ -124,36 +118,14 @@ class FavoriteFragment : Fragment() {
         }
     }
 
-    private fun smallAdvertNativeAd() {
-        val adLoader = AdLoader.Builder(requireContext(), "ca-app-pub-3940256099942544/2247696110")
-            .forNativeAd { ad: NativeAd ->
-                run {
-                    lifecycleScope.launchWhenStarted {
-                        lodgesAdapter.postAd1(ad)
-                    }
-                    if (this.isDetached) {
-                        ad.destroy()
-                        return@forNativeAd
-                    }
-                }
-            }.build()
-        adLoader.loadAds(AdRequest.Builder().build(), 5)
-    }
+    private fun initialize() {
+        (activity as MainActivity).storeScreenAd.observe(viewLifecycleOwner,{ ad ->
+            lodgesAdapter.postAd1(ad)
+        })
 
-    private fun mediumAdvertNativeAd() {
-        val adLoader = AdLoader.Builder(requireContext(), "ca-app-pub-3940256099942544/2247696110")
-            .forNativeAd { ad: NativeAd ->
-                run {
-                    lifecycleScope.launchWhenStarted {
-                        lodgesAdapter.postAd2(ad)
-                    }
-                    if (this.isDetached) {
-                        ad.destroy()
-                        return@forNativeAd
-                    }
-                }
-            }.build()
-        adLoader.loadAds(AdRequest.Builder().build(), 5)
+        (activity as MainActivity).detailScreenMediumAd.observe(viewLifecycleOwner,{ ad ->
+            lodgesAdapter.postAd2(ad)
+        })
     }
 
     private fun showProgress() {

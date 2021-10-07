@@ -50,13 +50,13 @@
         app:summary=" Pick interested categories"
         />
 
-    <SwitchPreferenceCompat
-        app:key="sound_update"
-        app:summaryOff="Off"
-        app:summaryOn="On"
-        app:iconSpaceReserved="false"
-        app:allowDividerBelow="true"
-        app:title="Turn Notification Sound" />
+<!--    <SwitchPreferenceCompat-->
+<!--        app:key="sound_update"-->
+<!--        app:summaryOff="Off"-->
+<!--        app:summaryOn="On"-->
+<!--        app:iconSpaceReserved="false"-->
+<!--        app:allowDividerBelow="true"-->
+<!--        app:title="Turn Notification Sound" />-->
 
     <SwitchPreferenceCompat
         app:key="dark_theme"

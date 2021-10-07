@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="lodge_nav_menu_height">200dp</dimen>
-    <dimen name="back_arrow_height">20dp</dimen>
+    <dimen name="back_arrow_height">40dp</dimen>
     <dimen name="bottom_padding_ad">70dp</dimen>
+    <dimen name="start_margin">0dp</dimen>
 
-
-    <!-- Dimens for staggered asymmetric grid layout cards-->
     <dimen name="shr_staggered_product_grid_spacing_large">30dp</dimen>
     <dimen name="shr_staggered_product_grid_spacing_small">26dp</dimen>
     <dimen name="shr_staggered_product_grid_margin_top_first">72dp</dimen>

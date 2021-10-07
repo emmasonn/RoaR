@@ -32,6 +32,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="ContentDescription" />
 
+    <ImageView
+        android:id="@+id/cancelBtn"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:focusable="true"
+        android:src="@drawable/ic_nav_close"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/ad_view_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="ContentDescription" />
+
     <FrameLayout
         android:id="@+id/ad_view_container"
         android:layout_width="wrap_content"

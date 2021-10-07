@@ -60,6 +60,10 @@ class VerifyPassword : Fragment() {
                 binding.passwordInput.error = "Incorrect password"
             }
         }
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         binding.notMeBtn.setOnClickListener {
             val action = R.id.action_verifyPassword_to_verifyNumber
             findNavController().navigate(action)

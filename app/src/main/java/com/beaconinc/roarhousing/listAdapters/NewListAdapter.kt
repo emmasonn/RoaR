@@ -147,25 +147,23 @@ class NewListAdapter(
                 else -> {
                     lodges.take(1).map { DataItem.LodgeItem(it) } +
                             listOf(DataItem.CampusBusinessHeader) +
-                            properties.run {DataItem.BusinessAdsItem(this)} +
+                            properties.run { this.filter{ it.propertyType == "Ads" }.let{
+                                DataItem.BusinessAdsItem(it)
+                            }} +
                             listOf(DataItem.AdHeader) +
                             listOf(DataItem.Header("Properties")) +
-                            properties.run { DataItem.PropertyItem(this) } +
-                            listOf(DataItem.AdHeader) +
-//                            listOf(DataItem.Header("Properties")) +
-//                            properties.run {
-//                                this.filter { it.propertyType == "House-Property" }.let {
-//                                    DataItem.PropertyItem(it)
-//                                }
-//                            } + //first items for sale
+                            properties.run {
+                                this.filter { it.propertyType == "House-Property" }.let {
+                                    DataItem.PropertyItem(it)
+                                }
+                            } + //first items for sale
                             lodges.drop(1).take(4).map { DataItem.LodgeItem(it) } +
-                            listOf(DataItem.Header("Accessory")) +
+                    listOf(DataItem.Header("Accessory")) +
                             properties.run {
                                 this.filter { it.propertyType == "Accessory" }.let {
                                     DataItem.PropertyItem(it)
                                 }
                             } +    //second property
-                            listOf(DataItem.AdHeader) +
                             lodges.drop(5).take(3).map { DataItem.LodgeItem(it) } +
                             listOf(DataItem.Header("Jewellery")) +
                             properties.run {
@@ -173,7 +171,6 @@ class NewListAdapter(
                                     DataItem.PropertyItem(it)
                                 }
                             } +    //third property
-                            listOf(DataItem.AdHeader) +
                             lodges.drop(8).take(2).map { DataItem.LodgeItem(it) } +
                             listOf(DataItem.Header("Stationary")) +
                             properties.run {
@@ -182,9 +179,7 @@ class NewListAdapter(
                                 }
                             } +   //forth property
                             lodges.drop(10).take(4).map { DataItem.LodgeItem(it) } +
-                            listOf(DataItem.AdHeader) +
-                            lodges.drop(14).map { DataItem.LodgeItem(it) } +
-                            listOf(DataItem.AdHeader)
+                            lodges.drop(14).map { DataItem.LodgeItem(it) }
                 }
             }
             withContext(Dispatchers.Main) {

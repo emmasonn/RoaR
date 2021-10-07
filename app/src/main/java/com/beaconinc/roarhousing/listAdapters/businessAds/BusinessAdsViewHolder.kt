@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView.EdgeEffectFactory.DIRECTION_RIG
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseProperty
 import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter
+import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter.*
 import kotlinx.coroutines.*
 import timber.log.Timber
 
@@ -14,20 +15,19 @@ class BusinessAdsViewHolder (val itemView: View): RecyclerView.ViewHolder(itemVi
     private val recycleView = itemView.findViewById<RecyclerView>(R.id.businessAdRecycler)
 
     fun bind(data: List<FirebaseProperty>,
-             propertyListener: PropertyListAdapter.PropertyClickListener
+             propertyListener: PropertyClickListener
     ) {
         val adapter = AutoScrollListAdapter(
-            PropertyListAdapter.PropertyClickListener({
-                Timber.i("Clicked")
+            PropertyClickListener({
                 propertyListener.onAction(it)
             },{})
         )
         recycleView.adapter = adapter
         adapter.submitList(data)
 
-        CoroutineScope(Dispatchers.Main).launch {
-            autoScrollFeature(recycleView,adapter)
-        }
+//        CoroutineScope(Dispatchers.Main).launch {
+//            autoScrollFeature(recycleView,adapter)
+//        }
 
 //        recycleView.post {
 //            recycleView.smoothScrollToPosition(adapter.itemCount)

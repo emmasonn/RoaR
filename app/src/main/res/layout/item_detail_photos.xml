@@ -32,7 +32,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription"
-                tools:src="@drawable/laptop"
+                tools:src="@drawable/ic_loading_image_small"
                 />
             <TextView
                 android:id="@+id/itemTitle"

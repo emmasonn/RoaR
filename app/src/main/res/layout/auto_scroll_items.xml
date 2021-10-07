@@ -9,7 +9,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView3"
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
         android:layout_marginBottom="15dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
@@ -18,7 +18,6 @@
         app:strokeWidth="0.5dp"
         app:strokeColor="?attr/colorOnSecondary"
         app:cardCornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -54,7 +53,7 @@
                     android:layout_marginStart="3dp"
                     android:paddingEnd="8dp"
                     android:textAllCaps="false"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/montserrat_bold"
                     android:textSize="12sp"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="@color/white"
@@ -64,65 +63,56 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/propertyImage"
                 android:layout_width="150dp"
-                android:layout_height="200dp"
+                android:layout_height="180dp"
                 android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription"
-                tools:src="@drawable/galon" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout7"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@color/black_600"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/propertyImage"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/itemName" />
-
-            <TextView
-                android:id="@+id/itemName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Jellof Rice"
-                android:textAppearance="?attr/textAppearanceSubtitle2"
-                android:fontFamily="@font/montserrat_bold"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/brandName"
-                app:layout_constraintEnd_toEndOf="@+id/constraintLayout7"
-                app:layout_constraintStart_toStartOf="@+id/constraintLayout7" />
-
-            <TextView
-                android:id="@+id/brandName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="\@\Wendee"
-                android:textAppearance="?attr/textAppearanceSubtitle2"
-                android:fontFamily="@font/montserrat_bold"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/specials"
-                app:layout_constraintEnd_toEndOf="@+id/constraintLayout7"
-                app:layout_constraintStart_toStartOf="@+id/constraintLayout7" />
-
-            <TextView
-                android:id="@+id/specials"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:textColor="@color/yellow_200"
-                android:textAppearance="?attr/textAppearanceBody2"
-                app:layout_constraintBottom_toBottomOf="@+id/propertyImage"
-                app:layout_constraintEnd_toEndOf="@+id/constraintLayout7"
-                app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
-                tools:text="Flash Sales"
-                />
-
+                tools:src="@drawable/ic_plug" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/brandName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:layout_marginTop="5dp"
+        android:textAppearance="?attr/textAppearanceSubtitle2"
+        android:textColor="?attr/colorSecondaryVariant"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/specials"
+        app:layout_constraintEnd_toEndOf="@+id/materialCardView3"
+        app:layout_constraintStart_toStartOf="@+id/materialCardView3"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView3"
+        tools:text="@string/format_brandName" />
+
+    <ImageView
+        android:id="@+id/dotIcon"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:alpha="0"
+        android:src="@drawable/ic_green_dot"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintEnd_toStartOf="@id/specials"
+        app:layout_constraintTop_toTopOf="@id/specials"
+        app:layout_constraintBottom_toBottomOf="@id/specials"
+        app:tint="@color/red_700"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/specials"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceBody2"
+        android:textColor="?attr/colorOnPrimary"
+        android:layout_marginBottom="5dp"
+        android:textAlignment="center"
+        android:padding="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/brandName"
+        app:layout_constraintStart_toStartOf="@+id/brandName"
+        tools:text="Flash Sales" />
 </androidx.constraintlayout.widget.ConstraintLayout>

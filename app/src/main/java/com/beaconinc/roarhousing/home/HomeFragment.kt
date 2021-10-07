@@ -1,6 +1,9 @@
 package com.beaconinc.roarhousing.home
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,10 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -29,9 +29,13 @@ import com.beaconinc.roarhousing.cloudModel.FirebaseProperty
 import com.beaconinc.roarhousing.listAdapters.LodgeClickListener
 import com.beaconinc.roarhousing.listAdapters.NewListAdapter
 import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter
+import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter.*
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -61,8 +65,6 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        smallAdvertNativeAd()
-//        mediumAdvertNativeAd()
         fireStore = FirebaseFirestore.getInstance()
         propertiesQuery = fireStore.collection("properties")
     }
@@ -99,23 +101,33 @@ class HomeFragment : Fragment() {
                 resolveUrl(argsNav.lodgeId)
             }
         }
-
         swipeContainer.isRefreshing = true
         showProgress()
 
         roarItemsAdapter = NewListAdapter(LodgeClickListener({ lodge ->
             val bundle = bundleOf("Lodge" to lodge)
             findNavController().navigate(R.id.lodgeDetail, bundle)
-        }, {}), PropertyListAdapter.PropertyClickListener(
+        }, {}), PropertyClickListener(
             { data ->
-                val link = Uri.parse("https://roar.com.ng/property/${data.id}")
-                findNavController().navigate(link)
+                 showProgress()
+                if (data.propertyType == "Ads") {
+                    showAdDialog(data)
+                } else {
+                    val link = Uri.parse("https://roar.com.ng/property/${data.id}")
+                    findNavController().navigate(link)
+                }
             },
             {}, justClick = {
                 findNavController().navigate(R.id.productStore)
             }), this
         )
         homeRecycler.adapter = roarItemsAdapter
+        connectionFailure(false) //this function calls the ads when internet is available
+
+        (activity as MainActivity).homeScreenAd.observe(viewLifecycleOwner, { ad ->
+            roarItemsAdapter.postAd1(ad)
+            roarItemsAdapter.postAd2(ad)
+        })
 
         swipeContainer.setOnRefreshListener {
             if (::chipsCategory.isInitialized) {
@@ -255,7 +267,7 @@ class HomeFragment : Fragment() {
                 if (filter == "Lodges") {
                     lodgesRef.addSnapshotListener { value, error ->
                         if (error != null) {
-                            connectionFailure() //error view
+                            connectionFailure(true) //error view
                             return@addSnapshotListener
                         }
                         value?.documents?.mapNotNull { snapShot ->
@@ -307,7 +319,7 @@ class HomeFragment : Fragment() {
                         ).show()
                         roarItemsAdapter.clear()
                         swipeContainer.isRefreshing = false
-                        connectionFailure()
+                        connectionFailure(true)
                     }
                 }
             }
@@ -336,46 +348,15 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun smallAdvertNativeAd() {
-        val adLoader = AdLoader.Builder(requireContext(), "ca-app-pub-3940256099942544/2247696110")
-            .forNativeAd { ad: NativeAd ->
-                run {
-                    lifecycleScope.launchWhenCreated {
-                        roarItemsAdapter.postAd1(ad)
-                    }
-                    if (this.isDetached) {
-                        ad.destroy()
-                        return@forNativeAd
-                    }
-                }
-            }.build()
-        adLoader.loadAds(AdRequest.Builder().build(), 5)
-    }
-
-    private fun mediumAdvertNativeAd() {
-        val adLoader = AdLoader.Builder(requireContext(), "ca-app-pub-3940256099942544/2247696110")
-            .forNativeAd { ad: NativeAd ->
-                run {
-                    lifecycleScope.launchWhenCreated {
-                        roarItemsAdapter.postAd2(ad)
-                    }
-                    if (this.isDetached) {
-                        ad.destroy()
-                        return@forNativeAd
-                    }
-                }
-            }.build()
-        adLoader.loadAds(AdRequest.Builder().build(), 5)
-    }
-
-    private fun connectionFailure() {
+    private fun connectionFailure(error: Boolean) {
         val connection = (activity as MainActivity).connectivityChecker
         connection?.apply {
             lifecycle.addObserver(this)
-            connectedStatus.observe(viewLifecycleOwner, Observer {
-                if (!it) {
+            connectedStatus.observe(viewLifecycleOwner, { network ->
+
+                if (!network && error) {
                     connectionView.visibility = View.VISIBLE
-                }else {
+                } else {
                     connectionView.visibility = View.GONE
                 }
             })
@@ -383,12 +364,42 @@ class HomeFragment : Fragment() {
     }
 
     @SuppressLint("InflateParams")
-    fun showWelcomeDialog() {
-        MaterialAlertDialogBuilder(requireContext()).apply {
-            val inflater = LayoutInflater.from(requireContext())
-            val view = inflater.inflate(R.layout.item_edit_product_dialog, null)
-            setView(view)
-            show()
+    fun showAdDialog(property: FirebaseProperty) {
+        val bottomSheetLayout = BottomSheetDialog(requireContext()).apply {
+            setContentView(R.layout.dialog_show_ad)
+            val adImage = this.findViewById<ImageView>(R.id.adImage)
+
+            adImage?.let {
+                Glide.with(adImage.context)
+                    .load(property.firstImage)
+                    .apply(RequestOptions()
+                        .placeholder(R.drawable.loading_animation)).into(adImage)
+            }
+        }
+        val callBtn = bottomSheetLayout.findViewById<TextView>(R.id.callNow)
+
+        lifecycleScope.launch {
+            animateWarning(callBtn!!)
+        }
+
+        callBtn?.setOnClickListener {}
+        bottomSheetLayout.show()
+        hideProgress()
+    }
+
+    //this function animates the location icon
+    private fun animateWarning(icon: TextView) {
+        val prevColor = Color.parseColor("#046d86")
+        val newColor = Color.parseColor("#d32f2f")
+        ValueAnimator.ofObject(ArgbEvaluator(), newColor, prevColor).apply {
+            repeatCount = 100
+            duration = 100
+            addUpdateListener { valueAnimator ->
+                val background = valueAnimator.animatedValue as Int
+                icon.setBackgroundColor(background)
+                icon.setTextColor(Color.WHITE)
+            }
+            start()
         }
     }
 

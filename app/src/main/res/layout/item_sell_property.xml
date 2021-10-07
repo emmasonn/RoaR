@@ -54,7 +54,7 @@
                     android:layout_marginStart="3dp"
                     android:paddingEnd="8dp"
                     android:textAllCaps="false"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/montserrat_bold"
                     android:textSize="12sp"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="@color/white"
@@ -71,7 +71,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription"
-                tools:src="@drawable/galon" />
+                tools:src="@drawable/ic_plug" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout7"

@@ -1,5 +1,8 @@
 package com.beaconinc.roarhousing.listAdapters.businessAds
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,23 +35,27 @@ class AutoScrollListAdapter(private val propertyListener: PropertyListAdapter.Pr
     }
 
     class AutoScrollListViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val propertyTitle = itemView.findViewById<TextView>(R.id.itemName)
-        private val propertyPrice = itemView.findViewById<TextView>(R.id.brandName)
+        private val brandName = itemView.findViewById<TextView>(R.id.brandName)
         private val specials = itemView.findViewById<TextView>(R.id.specials)
         private val firstImage = itemView.findViewById<ImageView>(R.id.propertyImage)
         private val campus = itemView.findViewById<TextView>(R.id.campus)
+        private val dotImage = itemView.findViewById<ImageView>(R.id.dotIcon)
         private val resource = itemView.resources
+
         fun bind(data: FirebaseProperty, propertyListener: PropertyListAdapter.PropertyClickListener) {
 
             Glide.with(firstImage.context)
                 .load(data.firstImage).apply(
                     RequestOptions().placeholder(R.drawable.loading_animation)
-                        .error(R.drawable.loading_animation)
-                ).into(firstImage)
+                        .error(R.drawable.loading_animation)).into(firstImage)
 
-            propertyTitle.text = data.propertyTitle
-            propertyPrice.text = resource.getString(R.string.format_price, data.propertyPrice)
+            brandName.text = resource.getString(R.string.format_brandName,data.brandName)
+            specials.text = data.specials
             campus.text = data.campus
+
+            data.specials?.let {
+                dotImage.alpha = 1F
+            }
 
             itemView.setOnClickListener {
                 propertyListener.onAction(data)

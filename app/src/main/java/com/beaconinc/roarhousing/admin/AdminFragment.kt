@@ -82,6 +82,11 @@ class AdminFragment : Fragment() {
                     true
                 }
 
+                R.id.businessAd -> {
+                    findNavController().navigate(R.id.manageAds)
+                    true
+                }
+
                 R.id.addLodge -> {
                     findNavController().navigate(R.id.lodgeDetailUpload)
                     true
@@ -190,7 +195,7 @@ class AdminFragment : Fragment() {
             setPositiveButton("Okay") { dialog , _ ->
                 dialog.dismiss()
                 userLogged(false)
-                findNavController().popBackStack(R.id.becomeAgent,false)
+                findNavController().popBackStack(R.id.homeFragment,false)
             }
             setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()

@@ -1,12 +1,10 @@
 package com.beaconinc.roarhousing.home
 
 import android.os.Bundle
-import android.util.DisplayMetrics
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -23,11 +21,6 @@ import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodge
 import com.beaconinc.roarhousing.listAdapters.LodgeClickListener
 import com.beaconinc.roarhousing.listAdapters.LodgesAdapter
-import com.google.android.gms.ads.AdLoader
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.nativead.NativeAd
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.launch
@@ -35,16 +28,11 @@ import kotlinx.coroutines.launch
 
 class FilterFragment : Fragment() {
 
-    //private lateinit var lodgesAdapter: LodgesAdapter
     lateinit var fireStore: FirebaseFirestore
     private lateinit var lodgesQuery: Query
-//    private lateinit var propertiesQuery: Query
     private lateinit var progressBar: ProgressBar
     private lateinit var lodgesAdapter: LodgesAdapter
     private lateinit var connectionView: ConstraintLayout
-    private lateinit var adView: AdView
-    private lateinit var adViewParent: FrameLayout
-    private var initialLayoutComplete = false
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
 
 
@@ -78,23 +66,13 @@ class FilterFragment : Fragment() {
         val filterRecycler = view.findViewById<RecyclerView>(R.id.lodgeList)
         val title = view.findViewById<TextView>(R.id.titleText)
         val filterBackBtn = view.findViewById<ImageView>(R.id.filterBackBtn)
-        adViewParent = view.findViewById(R.id.ad_view_container)
         connectionView = view.findViewById(R.id.connectionView)
         progressBar = view.findViewById(R.id.progressBar)
         title.text = getString(R.string.choice_title, filter)
 
-        adView = AdView(requireContext())
-        adViewParent.addView(adView)
-
         swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
         swipeRefreshContainer.isRefreshing = true
 
-        adViewParent.viewTreeObserver.addOnGlobalLayoutListener {
-            if(!initialLayoutComplete) {
-                initialLayoutComplete = true
-                loadBannerAd()
-            }
-        }
 
         lodgesAdapter = LodgesAdapter(LodgeClickListener({
             val bundle = bundleOf("Lodge" to it)
@@ -103,63 +81,27 @@ class FilterFragment : Fragment() {
 
         showProgress()
         filterRecycler.adapter = lodgesAdapter
+        initializeAd()
         fetchLiveData()
 
         filterBackBtn.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        (activity as MainActivity).connectivityChecker?.apply {
-            lifecycle.addObserver(this)
-            connectedStatus.observe(viewLifecycleOwner, {
-                if(it) {
-                    smallAdvertNativeAd()
-                    mediumAdvertNativeAd()
-                }
-            })
-        }
         swipeRefreshContainer.setOnRefreshListener {
             fetchLiveData()
         }
         return view
     }
 
+    private fun initializeAd() {
+        (activity as MainActivity).detailScreenMediumAd.observe(viewLifecycleOwner,{ ad ->
+            lodgesAdapter.postAd2(ad)
+        })
 
-    override fun onPause() {
-        adView.pause()
-        super.onPause()
-    }
-
-    private fun smallAdvertNativeAd() {
-        val adLoader = AdLoader.Builder(requireContext(), "ca-app-pub-3940256099942544/2247696110")
-            .forNativeAd { ad: NativeAd ->
-                run {
-                    lifecycleScope.launchWhenStarted {
-                        lodgesAdapter.postAd1(ad)
-                    }
-                    if (this.isDetached) {
-                        ad.destroy()
-                        return@forNativeAd
-                    }
-                }
-            }.build()
-        adLoader.loadAds(AdRequest.Builder().build(), 5)
-    }
-
-    private fun mediumAdvertNativeAd() {
-        val adLoader = AdLoader.Builder(requireContext(), "ca-app-pub-3940256099942544/2247696110")
-            .forNativeAd { ad: NativeAd ->
-                run {
-                    lifecycleScope.launchWhenStarted {
-                        lodgesAdapter.postAd2(ad)
-                    }
-                    if (this.isDetached) {
-                        ad.destroy()
-                        return@forNativeAd
-                    }
-                }
-            }.build()
-        adLoader.loadAds(AdRequest.Builder().build(), 5)
+        (activity as MainActivity).detailScreenSmallAd.observe(viewLifecycleOwner,{ ad ->
+            lodgesAdapter.postAd1(ad)
+        })
     }
 
     private fun fetchLiveData() {
@@ -187,17 +129,6 @@ class FilterFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        adView.resume()
-    }
-
-
-    override fun onDestroy() {
-        adView.destroy()
-        super.onDestroy()
-    }
-
     private fun showProgress() {
         progressBar.visibility = View.VISIBLE
     }
@@ -219,29 +150,5 @@ class FilterFragment : Fragment() {
                 }
             })
         }
-    }
-
-    private fun loadBannerAd() {
-        adView.adUnitId = "ca-app-pub-3940256099942544/2247696110"
-        adView.adSize = getScreenSize()
-
-        val adRequest = AdRequest
-            .Builder().build()
-        adView.loadAd(adRequest)
-    }
-
-    private fun getScreenSize(): AdSize {
-        val display = requireActivity().windowManager.defaultDisplay
-        val outMetrics = DisplayMetrics()
-        display.getRealMetrics(outMetrics)
-        val density  = outMetrics.density
-
-        var adWidthPixels = adViewParent.width.toFloat()
-            if(adWidthPixels == 0f) {
-                adWidthPixels = outMetrics.widthPixels.toFloat()
-            }
-
-        val adWidth = (adWidthPixels/density).toInt()
-        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(requireContext(),adWidth)
     }
 }

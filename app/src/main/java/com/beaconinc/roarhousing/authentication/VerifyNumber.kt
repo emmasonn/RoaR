@@ -43,6 +43,11 @@ class VerifyNumber : Fragment() {
         binding.nextBtn.setOnClickListener {
             verifyNumber()
         }
+
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         return binding.root
     }
 

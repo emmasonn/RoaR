@@ -33,7 +33,7 @@
                 android:scaleType="centerCrop"
                 app:strokeColor="@color/blue_500"
                 app:strokeWidth="1dp"
-                android:src="@drawable/rain"
+                tools:src="@drawable/loading_animation"
                 app:layout_constraintBottom_toTopOf="@+id/viewAccount"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

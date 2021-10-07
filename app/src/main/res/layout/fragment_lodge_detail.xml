@@ -34,8 +34,7 @@
                 android:layout_width="@dimen/back_arrow_height"
                 android:layout_height="@dimen/back_arrow_height"
                 android:focusable="true"
-                android:layout_marginVertical="10dp"
-                android:layout_marginStart="8dp"
+                android:clickable="true"
                 android:src="@drawable/ic_backward"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -282,7 +281,7 @@
                                 app:strokeColor="@color/white_300"
                                 app:strokeWidth="0.5dp"
                                 tools:ignore="ContentDescription"
-                                tools:src="@drawable/laptop" />
+                                tools:src="@drawable/ic_loading_image_small" />
 
                             <TextView
                                 android:id="@+id/itemTitle"
@@ -316,7 +315,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:elevation="10dp"
-                            android:visibility="gone"
                             android:layout_marginEnd="20dp"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="15dp"
@@ -343,7 +341,8 @@
                                     android:textAppearance="?attr/textAppearanceBody2"
                                     app:layout_constraintEnd_toEndOf="@+id/textP"
                                     app:layout_constraintStart_toStartOf="@+id/textP"
-                                    app:layout_constraintTop_toTopOf="@+id/title" />
+                                    app:layout_constraintTop_toTopOf="@+id/title"
+                                    tools:ignore="TooDeepLayout" />
 
                                 <TextView
                                     android:id="@+id/textP"
@@ -699,8 +698,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:elevation="10dp"
-                            android:visibility="gone"
                             android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="70dp"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="15dp"
                             app:gnt_template_type="@layout/gnt_medium_template_view"
@@ -730,18 +729,6 @@
                             android:scrollbars="horizontal"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             tools:listitem="@layout/item_lodges_layout" />
-
-                        <com.google.android.ads.nativetemplates.TemplateView
-                            android:id="@+id/adNativeSmall"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:elevation="10dp"
-                            android:visibility="gone"
-                            android:layout_marginEnd="20dp"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="20dp"
-                            app:gnt_template_type="@layout/gnt_small_template_view" />
 
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>

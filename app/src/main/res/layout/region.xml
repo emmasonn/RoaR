@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="5dp"
     android:layout_marginEnd="5dp"
+    android:fontFamily="@font/montserrat_medium"
     android:textColor="@color/chip_text_selector"
     app:checkedIconEnabled="false"
     app:chipBackgroundColor="@color/chip_selector"

@@ -101,7 +101,7 @@ class UploadProperty : Fragment() {
 
         val productAdapter = ArrayAdapter.createFromResource(
             requireContext(),
-            R.array.product_type,
+            R.array.product_type_form,
             android.R.layout.simple_spinner_dropdown_item
         )
 
@@ -139,7 +139,6 @@ class UploadProperty : Fragment() {
             propertyId = propertyCollection.document().id
             propertyDocument = propertyCollection.document(propertyId)
         }
-        Toast.makeText(requireContext(),"propertyId: $propertyId",Toast.LENGTH_SHORT).show()
         registration = propertyDocument.addSnapshotListener { value, _ ->
             value?.toObject(FirebaseProperty::class.java).also { data ->
                 lifecycleScope.launch {

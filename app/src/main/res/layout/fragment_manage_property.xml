@@ -19,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/property_menu"
         >
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,7 +29,6 @@
                 android:layout_width="@dimen/back_arrow_height"
                 android:layout_height="@dimen/back_arrow_height"
                 android:layout_marginVertical="10dp"
-                android:layout_marginStart="16dp"
                 android:src="@drawable/ic_backward"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

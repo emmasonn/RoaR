@@ -12,6 +12,8 @@ import coil.load
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodgePhoto
 import com.beaconinc.roarhousing.listAdapters.UploadPhotosAdapter.*
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 class UploadPhotosAdapter(private val clickListener: ClickListener) :
     ListAdapter<FirebaseLodgePhoto, UploadPhotosViewHolder>(diffUtil) {
@@ -25,7 +27,6 @@ class UploadPhotosAdapter(private val clickListener: ClickListener) :
         holder.bind(item, clickListener)
     }
 
-
     class UploadPhotosViewHolder (private val itemView: View)
         : RecyclerView.ViewHolder(itemView){
 
@@ -38,7 +39,11 @@ class UploadPhotosAdapter(private val clickListener: ClickListener) :
                     listener.removeClick(data)
                 }
                 imageTitle.text = data.photoTitle
-                imageView.load(data.photoUrl)
+
+                Glide.with(imageView.context)
+                    .load(data.photoUrl).apply(
+                        RequestOptions().placeholder(R.drawable.loading_animation)
+                    ).into(imageView)
             }
     }
 

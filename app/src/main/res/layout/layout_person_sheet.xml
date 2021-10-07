@@ -68,7 +68,7 @@
                 app:strokeWidth="1dp"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius"
                 tools:ignore="ContentDescription"
-                tools:src="@drawable/laptop" />
+                tools:src="@drawable/ic_loading_image_small" />
 
             <TextView
                 android:id="@+id/productName"

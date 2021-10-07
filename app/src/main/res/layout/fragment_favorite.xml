@@ -21,7 +21,6 @@
             android:layout_height="@dimen/back_arrow_height"
             android:layout_marginVertical="10dp"
             android:focusable="true"
-            android:layout_marginStart="8dp"
             android:src="@drawable/ic_backward"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -16,6 +16,20 @@
         <item>First-Gate</item>
     </string-array>
 
+    <string-array name="unec_campus">
+        <item>Lodges</item>
+        <item>Corridor-Layout</item>
+        <item>College-Road</item>
+        <item>Maryland</item>
+        <item>Monarch</item>
+        <item>Romalinda-Extension</item>
+        <item>Obiagu</item>
+        <item>Onuasata</item>
+        <item>Ebeno-Lane</item>
+        <item>Uwani</item>
+        <item>Unec-Gate</item>
+    </string-array>
+
     <string-array name="lodge_type">
         <item>Single Room</item>
         <item>Self Contain</item>
@@ -23,10 +37,10 @@
     </string-array>
 
     <string-array name="lodge_size">
-        <item>3.6m</item>
-        <item>3.0m</item>
-        <item>2.6m</item>
-        <item>2.0m</item>
+        <item>Standard</item>
+        <item>Large</item>
+        <item>Mini Standard</item>
+        <item>Medium Size</item>
     </string-array>
 
     <string-array name="campus_array">
@@ -48,7 +62,7 @@
         <item>Business</item>
     </string-array>
 
-    <string-array name="address_array">
+    <string-array name="lodges_all_location">
         <item>Beach</item>
         <item>Ebeno-Lane</item>
         <item>Behind-Flat</item>
@@ -69,20 +83,6 @@
         <item>Onuasata</item>
         <item>Uwani</item>
         <item>Unec-gate</item>
-    </string-array>
-
-    <string-array name="unec_campus">
-        <item>Lodges</item>
-        <item>Corridor-Layout</item>
-        <item>College-Road</item>
-        <item>Maryland</item>
-        <item>Monarch</item>
-        <item>Romalinda-Extension</item>
-        <item>Obiagu</item>
-        <item>Onuasata</item>
-        <item>Ebeno-Lane</item>
-        <item>Uwani</item>
-        <item>Unec-Gate</item>
     </string-array>
 
     <string-array name="unec_array">
@@ -109,7 +109,6 @@
         <item>Odim</item>
         <item>Odenigwe</item>
         <item>Onuiyi</item>
-
     </string-array>
 
     <string-array name="quality_level">
@@ -129,6 +128,7 @@
         <item>Quite</item>
     </string-array>
 
+    <!--Lodges view-->
     <string-array name="lodge_view">
         <item>Cover Image</item>
         <item>Frontage</item>
@@ -138,18 +138,37 @@
         <item>Kitchen</item>
     </string-array>
 
+
+    <!--Product type array String-->
     <string-array name="product_type">
         <item>House-Property</item>
         <item>Accessory</item>
+        <item>Fragrance</item>
         <item>Jewellery</item>
         <item>Stationary</item>
+        <item>Clothing</item>
+        <item>Foot-Wear</item>
+    </string-array>
+
+    <string-array name="product_type_form">
+        <item>House-Property</item>
+        <item>Accessory</item>
+        <item>Fragrance</item>
+        <item>Jewellery</item>
+        <item>Stationary</item>
+        <item>Clothing</item>
+        <item>Foot-Wear</item>
+        <item>Ads</item>
     </string-array>
 
     <string-array name="product_type_filter">
         <item>Store</item>
-        <item>House properties</item>
-        <item>Accessories</item>
+        <item>House-Property</item>
+        <item>Accessory</item>
+        <item>Fragrance</item>
         <item>Jewelleries</item>
+        <item>Clothing</item>
+        <item>Foot-Wear</item>
         <item>Stationary</item>
     </string-array>
 

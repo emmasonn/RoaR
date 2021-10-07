@@ -22,7 +22,6 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -30,7 +29,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class LodgeUploadDetail : Fragment() {
 
@@ -127,7 +125,7 @@ class LodgeUploadDetail : Fragment() {
 
         val addressAdapter = ArrayAdapter.createFromResource(
             requireContext(),
-            R.array.address_array,
+            R.array.lodges_all_location,
             android.R.layout.simple_spinner_dropdown_item
         )
 
@@ -193,7 +191,6 @@ class LodgeUploadDetail : Fragment() {
         campus.editText?.setText(lodge?.campus)
         lodgeType.editText?.setText(lodge?.type)
         landLordName.setText(lodge?.ownerName)
-        lodgeType.editText?.setText(lodge?.type)
         landLordPhone.setText(lodge?.ownerPhone)
         lodgeDesc.setText(lodge?.description)
         landLordName.setText(lodge?.ownerName)

@@ -28,7 +28,6 @@
                 android:layout_width="@dimen/back_arrow_height"
                 android:layout_height="@dimen/back_arrow_height"
                 android:layout_marginVertical="10dp"
-                android:layout_marginStart="8dp"
                 android:focusable="true"
                 android:src="@drawable/ic_backward"
                 app:layout_constraintBottom_toBottomOf="parent"

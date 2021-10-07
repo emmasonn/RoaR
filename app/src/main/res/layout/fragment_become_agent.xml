@@ -15,18 +15,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="UseCompoundDrawables">
+
         <ImageView
             android:id="@+id/becomeBackBtn"
             android:layout_width="@dimen/back_arrow_height"
             android:layout_height="@dimen/back_arrow_height"
             android:focusable="true"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/ic_backward"
+            android:clickable="true"
+            android:background="@drawable/ic_backward"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -48,6 +48,7 @@
             android:layout_marginTop="30dp"
             android:elevation="3dp"
             app:cardCornerRadius="0dp"
+            app:cardBackgroundColor="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -75,7 +76,7 @@
                     android:layout_marginTop="20sp"
                     android:backgroundTint="@color/blue_500"
                     android:fontFamily="@font/montserrat_bold"
-                    android:text="Sell an Item  /\n partner with us"
+                    android:text="Sell an Item /\n partner with us"
                     android:textAllCaps="false"
                     android:textAppearance="?attr/textAppearanceSubtitle2"
                     android:textColor="@color/white"
@@ -88,16 +89,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:fontFamily="@font/montserrat_medium"
+                    android:fontFamily="@font/montserrat_bold"
                     android:text="Sign In"
                     android:textAllCaps="false"
-                    android:textColor="@color/blue_500"
-                    android:textSize="16sp"
+                    android:textColor="?attr/colorControlNormal"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
                     app:cornerRadius="5dp"
                     app:layout_constraintBottom_toBottomOf="@+id/joinBtn"
                     app:layout_constraintStart_toEndOf="@+id/joinBtn"
                     app:layout_constraintTop_toTopOf="@+id/joinBtn"
-                    app:strokeColor="@color/blue_500"
+                    app:strokeColor="?attr/colorControlNormal"
                     app:strokeWidth="1dp" />
 
                 <TextView
@@ -105,12 +106,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="We desire partnership."
+                    android:text="We desire partnership"
                     android:textAppearance="@style/Widget.Roar.textHeadline"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/textView38"
+                    app:layout_constraintStart_toStartOf="@+id/textView38"
                     app:layout_constraintTop_toBottomOf="@+id/joinBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -123,6 +124,7 @@
             android:layout_marginTop="20dp"
             app:cardCornerRadius="0dp"
             app:cardElevation="0dp"
+            app:cardBackgroundColor="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/materialCardView7">

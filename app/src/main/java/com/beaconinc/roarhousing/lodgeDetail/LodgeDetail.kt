@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -30,6 +31,7 @@ import com.beaconinc.roarhousing.listAdapters.LodgeClickListener
 import com.beaconinc.roarhousing.listAdapters.LodgesAdapter
 import com.beaconinc.roarhousing.listAdapters.PhotosAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.nativead.NativeAd
@@ -43,6 +45,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LodgeDetail : Fragment() {
 
@@ -61,11 +64,6 @@ class LodgeDetail : Fragment() {
     private lateinit var binding: FragmentLodgeDetailBinding
     private lateinit var sharedPref: SharedPreferences
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        //setUpNativeAd()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,6 +86,7 @@ class LodgeDetail : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentLodgeDetailBinding.inflate(inflater, container, false)
+        initializeAd()
         binding.lifecycleOwner = this
         binding.lodgeDetail = lodgeData
         photoListRecycler = binding.listPhotos
@@ -141,7 +140,10 @@ class LodgeDetail : Fragment() {
 
         Glide.with(binding.coverImage.context)
             .load(lodgeData.coverImage)
-            .placeholder(R.drawable.bk2wt)
+            .apply(
+                 RequestOptions().placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.loading_animation)
+            )
             .into(binding.coverImage)
 
         val status = sharedPref.getString("accountType", "")
@@ -154,7 +156,10 @@ class LodgeDetail : Fragment() {
 
         Glide.with(binding.agentImageCover.context)
             .load(lodgeData.agentUrl)
-            .placeholder(R.drawable.bk2wt)
+            .apply(
+                RequestOptions().placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.loading_animation)
+            )
             .into(binding.agentImageCover)
 
         binding.backBtn.setOnClickListener {
@@ -222,36 +227,6 @@ class LodgeDetail : Fragment() {
                 favModelDao.insert(favModel)
             }
         }
-    }
-
-    private fun setUpNativeAd() {
-        val adLoader = AdLoader.Builder(requireContext(), "ca-app-pub-3940256099942544/2247696110")
-            .forNativeAd { ad: NativeAd ->
-                lifecycleScope.launchWhenStarted {
-                    val firstAd = binding.firstSmallNativeAd
-                    val smallNativeView = binding.adNativeSmall
-                    val mediumNativeView = binding.adNativeMedium
-
-                    firstAd.setNativeAd(ad)
-                    smallNativeView.setNativeAd(ad)
-                    mediumNativeView.setNativeAd(ad)
-                    lodgesAdapter.postAd2(ad)
-                    lodgesAdapter.postAd1(ad)
-                    showNativeAds()
-
-                    if (this@LodgeDetail.isDetached) {
-                        ad.destroy()
-                        return@launchWhenStarted
-                    }
-                }
-            }.build()
-        adLoader.loadAds(AdRequest.Builder().build(), 5)
-    }
-
-    private fun showNativeAds() {
-        binding.firstSmallNativeAd.visibility = View.VISIBLE
-        binding.adNativeSmall.visibility = View.VISIBLE
-        binding.adNativeMedium.visibility = View.VISIBLE
     }
 
     private fun showBottomSheet(lodge: FirebaseLodge) {
@@ -325,6 +300,16 @@ class LodgeDetail : Fragment() {
             setCancelable(false)
             show()
         }
+    }
+
+    private fun initializeAd() {
+        (activity as MainActivity).detailScreenSmallAd.observe(viewLifecycleOwner,{ ad ->
+            binding.firstSmallNativeAd.setNativeAd(ad)
+        })
+
+        (activity as MainActivity).detailScreenMediumAd.observe(viewLifecycleOwner, { ad ->
+            binding.adNativeMedium.setNativeAd(ad)
+        })
     }
 
 }

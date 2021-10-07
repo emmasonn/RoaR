@@ -358,5 +358,22 @@
         android:label="BroadCastProduct"
         tools:layout="@layout/fragment_broadcast_products"
         />
+    <fragment
+        android:id="@+id/manageAds"
+        android:name="com.beaconinc.roarhousing.admin.ManageAds"
+        android:label="ManageAds"
+        tools:layout="@layout/fragment_manage_ads"
+
+        >
+        <action
+            android:id="@+id/action_manageAds_to_uploadAds2"
+            app:destination="@id/uploadAds" />
+    </fragment>
+    <fragment
+        android:id="@+id/uploadAds"
+        android:name="com.beaconinc.roarhousing.UploadAds"
+        android:label="UploadAds"
+        tools:layout="@layout/fragment_upload_ads"
+        />
 
 </navigation>

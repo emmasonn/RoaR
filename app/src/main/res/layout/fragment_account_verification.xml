@@ -31,7 +31,6 @@
             android:layout_height="@dimen/back_arrow_height"
             android:src="@drawable/ic_backward"
             android:focusable="true"
-            android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -52,22 +51,46 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="OTP"
+            android:hint="Enter OTP"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout9" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Amount:"
+        android:textAppearance="?attr/textAppearanceSubtitle2"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+
+    <TextView
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="₦1000"
+        android:textColor="@color/yellow_500"
+        android:layout_marginStart="10dp"
+        android:textStyle="bold"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        app:layout_constraintBottom_toBottomOf="@+id/textView26"
+        app:layout_constraintStart_toEndOf="@+id/textView26"
+        app:layout_constraintTop_toTopOf="@+id/textView26" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/submitOTP"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="?attr/colorControlNormal"
         android:text="Submit"
-        android:backgroundTint="@color/yellow_500"
+        android:layout_marginTop="30dp"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView26" />
 </androidx.constraintlayout.widget.ConstraintLayout>

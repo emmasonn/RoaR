@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
         <item android:id="@+id/exitProfile"
             android:title="Back"
             android:icon="@drawable/ic_backward"
             />
 
-    <item android:title="">
+    <item tools:ignore="MenuTitle">
         <menu>
             <group>
                 <item android:id="@+id/addProduct"
@@ -18,13 +19,9 @@
                 <item android:id="@+id/setUpFragment"
                     android:title="Add Account"
                     />
-            </group>
-        </menu>
-    </item>
 
-    <item android:title="">
-        <menu>
-            <group>
+                <item android:id="@+id/businessAd"
+                    android:title="BusinessAds" />
 
                 <item android:title="Admins"
                     android:id="@+id/adminsFragment"
@@ -43,11 +40,11 @@
 
                 <item android:id="@+id/broadCastProduct"
                     android:title="Broadcast Products" />
-
             </group>
         </menu>
     </item>
-    <item android:title="">
+
+    <item tools:ignore="MenuTitle">
         <menu>
             <group>
                 <item android:title="Manage Account"

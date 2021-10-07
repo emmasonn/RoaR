@@ -63,6 +63,7 @@
                         android:id="@+id/menuNav"
                         android:layout_width="wrap_content"
                         android:focusable="true"
+                        android:clickable="true"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:src="@drawable/ic_menu"
@@ -75,7 +76,7 @@
                         android:id="@+id/view10"
                         android:layout_width="0dp"
                         android:layout_height="0.5dp"
-                        android:background="?attr/colorSecondaryVariant"
+                        android:background="?attr/colorSecondary"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />

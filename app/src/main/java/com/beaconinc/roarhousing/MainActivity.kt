@@ -12,9 +12,11 @@ import android.net.Uri
 import android.util.DisplayMetrics
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -23,6 +25,7 @@ import com.beaconinc.roarhousing.cloudModel.FirebaseLodge
 import com.beaconinc.roarhousing.database.AppDatabase
 import com.beaconinc.roarhousing.util.ConnectivityChecker
 import com.google.android.gms.ads.*
+import com.google.android.gms.ads.nativead.NativeAd
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.Dispatchers
@@ -41,7 +44,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adViewParent: FrameLayout
     private lateinit var adView: AdView
     private var initialLayoutComplete = false
+    private lateinit var isAddInitialized: String //we want to load ads once
 
+    val homeScreenAd = MutableLiveData<NativeAd>()
+    val storeScreenAd = MutableLiveData<NativeAd>()
+    val detailScreenSmallAd = MutableLiveData<NativeAd>()
+    val detailScreenMediumAd = MutableLiveData<NativeAd>()
 
     lateinit var db: AppDatabase
     var clientId: String? = null
@@ -54,13 +62,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         adViewParent = findViewById(R.id.ad_view_container)
-        MobileAds.initialize(this)
+        val cancelBtn = findViewById<ImageView>(R.id.cancelBtn)
 
+        MobileAds.initialize(this)
         MobileAds.setRequestConfiguration(
             RequestConfiguration.Builder()
                 .setTestDeviceIds(listOf("1FDC32B9CBE3CDABBE6B40D81394FA10"))
-                .build()
-        )
+                .build())
+
+        cancelBtn.setOnClickListener {
+            adViewParent.visibility = View.GONE
+            adView.pause()
+        }
 
         fireStore = FirebaseFirestore.getInstance()
         clientId = sharedPref.getString("user_id", null)
@@ -71,7 +84,6 @@ class MainActivity : AppCompatActivity() {
         adView.adUnitId = "ca-app-pub-3940256099942544/6300978111"
         adViewParent.addView(adView)
         adView.adSize = getScreenSize()
-        //loadBannerAd()
 
         adViewParent.viewTreeObserver.addOnGlobalLayoutListener {
             if(!initialLayoutComplete) {
@@ -101,7 +113,6 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         adView.pause()
         super.onPause()
-
     }
 
     override fun onResume() {
@@ -118,8 +129,14 @@ class MainActivity : AppCompatActivity() {
         connectivityChecker?.apply {
             lifecycle.addObserver(this)
             connectedStatus.observe(this@MainActivity, {
-                if (it) {
+                if (it && !::isAddInitialized.isInitialized) {
                     loadBannerAd()
+                    lifecycleScope.launch(Dispatchers.Default) {
+                        smallAdvertNativeAd()
+                        otherSmallNativeAds()
+                        mediumAdvertNativeAd()
+                    }
+                    isAddInitialized = "initialized"
                 }
             })
         }
@@ -153,10 +170,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadBannerAd() {
-//        adView.adUnitId = "ca-app-pub-3940256099942544/921458741"
         val adRequest = AdRequest
             .Builder().build()
-
         adView.loadAd(adRequest)
     }
 
@@ -214,9 +229,59 @@ class MainActivity : AppCompatActivity() {
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this,adWidth)
     }
 
-
     private fun subscribeTopics(topic: String) {
         FirebaseMessaging.getInstance().subscribeToTopic(topic)
+    }
+
+
+    private fun smallAdvertNativeAd() {
+        val adLoader = AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110")
+            .forNativeAd { ad: NativeAd ->
+                run {
+                    lifecycleScope.launch(Dispatchers.Main){
+                        homeScreenAd.postValue(ad)
+                        storeScreenAd.postValue(ad)
+                    }
+                    if (this.isDestroyed) {
+                        ad.destroy()
+                        return@forNativeAd
+                    }
+                }
+            }.build()
+        adLoader.loadAds(AdRequest.Builder().build(), 5)
+    }
+
+    private fun otherSmallNativeAds() {
+        val adLoader = AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110")
+            .forNativeAd { ad: NativeAd ->
+                run {
+                    lifecycleScope.launch(Dispatchers.Main){
+                        storeScreenAd.postValue(ad)
+                        detailScreenSmallAd.postValue(ad)
+                    }
+                    if (this.isDestroyed) {
+                        ad.destroy()
+                        return@forNativeAd
+                    }
+                }
+            }.build()
+        adLoader.loadAds(AdRequest.Builder().build(), 5)
+    }
+
+    private fun mediumAdvertNativeAd() {
+        val adLoader = AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110")
+            .forNativeAd { ad: NativeAd ->
+                run {
+                    lifecycleScope.launch(Dispatchers.Main){
+                        detailScreenMediumAd.postValue(ad)
+                    }
+                    if (this.isDestroyed) {
+                        ad.destroy()
+                        return@forNativeAd
+                    }
+                }
+            }.build()
+        adLoader.loadAds(AdRequest.Builder().build(), 5)
     }
 
 }

@@ -16,11 +16,10 @@
 
         <ImageView
             android:id="@+id/pagerBack"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/back_arrow_height"
             android:layout_height="@dimen/back_arrow_height"
             android:focusable="true"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="6dp"
+            android:clickable="true"
             android:src="@drawable/ic_backward"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +46,7 @@
         android:text="How would you \nLike to Pay?"
            android:layout_marginTop="90dp"
            android:textAppearance="?attr/textAppearanceSubtitle1"
-        android:textSize="29sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout8" />
@@ -181,7 +180,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Card"
-                android:textSize="20dp"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:layout_marginStart="10dp"

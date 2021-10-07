@@ -16,7 +16,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import coil.load
 import com.beaconinc.roarhousing.MainActivity
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseProperty
@@ -32,33 +31,33 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.Source
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class RoarStore : Fragment() {
 
     private lateinit var propertyListAdapter: PropertyListAdapter
+    private lateinit var productRef: CollectionReference
     lateinit var fireStore: FirebaseFirestore
-    private lateinit var propertyCollection: CollectionReference
-    private lateinit var registration: ListenerRegistration
+    private lateinit var propertyCollection: Query
     private lateinit var progressBar: ProgressBar
     private lateinit var spinnerCallBack: AdapterView.OnItemSelectedListener
     private lateinit var titleText: TextView
     private lateinit var propertyRecycler: RecyclerView
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
     private lateinit var connectionView: ConstraintLayout
+    private lateinit var emptyItem: MaterialCardView
 
     private val argsNav: RoarStoreArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fireStore = FirebaseFirestore.getInstance()
+        productRef = fireStore.collection("properties")
         propertyCollection = fireStore.collection("properties")
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        setUpNativeAd()
+            .whereNotEqualTo("propertyType","Ads")
     }
 
     override fun onCreateView(
@@ -75,19 +74,18 @@ class RoarStore : Fragment() {
         progressBar = view.findViewById(R.id.progressBar)
         swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
         connectionView = view.findViewById(R.id.connectionView)
-
+        emptyItem = view.findViewById(R.id.emptyList)
+        setUpSpinnerCallBack()
+        showProgress()
         argsNav.propertyId.let {
             if(it!="roar"){
-                showProgress()
                 showProduct(it)
             }
         }
 
-        showProgress()
         backBtn.setOnClickListener {
             findNavController().navigateUp()
         }
-        setUpSpinnerCallBack()
 
         ArrayAdapter.createFromResource(
             requireContext(), R.array.product_type_filter,
@@ -118,9 +116,10 @@ class RoarStore : Fragment() {
             lifecycleOwner = this@RoarStore
         )
         propertyRecycler.adapter = propertyListAdapter
+        initializeAd() //initialize ad for this screen
 
         swipeRefreshContainer.setOnRefreshListener {
-            initializeFetch()
+            initializeFetch(titleText.text.toString())
         }
 
         filterBtn.setOnClickListener {
@@ -132,7 +131,7 @@ class RoarStore : Fragment() {
 
     private fun showProduct(it: String) {
         showProgress()
-        propertyCollection.document(it).get().addOnSuccessListener {
+        productRef.document(it).get().addOnSuccessListener {
             it.toObject(FirebaseProperty::class.java).also { item ->
                     item?.let {
                         showBottomSheet(item)
@@ -141,45 +140,55 @@ class RoarStore : Fragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initializeFetch()
+    private fun initializeAd() {
+        (activity as MainActivity).storeScreenAd.observe(viewLifecycleOwner,{ ad ->
+            propertyListAdapter.setNativeAd(ad)
+        })
     }
 
-    private fun setUpNativeAd() {
-        val adLoader = AdLoader.Builder(requireContext(), "ca-app-pub-3940256099942544/2247696110")
-            .forNativeAd { ad: NativeAd ->
-                lifecycleScope.launchWhenCreated {
-                    propertyListAdapter.setNativeAd(ad)
+    private fun initializeFetch(filter: String) {
+        Timber.i("filter: $filter")
+
+        showProgress()
+        val source = Source.CACHE
+        if(filter == "Store") {
+            propertyCollection.get(source).addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    val document = task.result
+                    document?.documents?.mapNotNull {
+                        it.toObject(FirebaseProperty::class.java)
+                    }.also { items ->
+                        if (items.isNullOrEmpty()) {
+                            connectionView(true)
+                            swipeRefreshContainer.isRefreshing = false
+                            hideProgress()
+                        } else {
+                            propertyListAdapter.submitList(items)
+                            swipeRefreshContainer.isRefreshing = false
+                            hideProgress()
+                        }
+                    }
                 }
-                if (this@RoarStore.isDetached) {
-                    ad.destroy()
-                    return@forNativeAd
-                }
-            }.build()
-
-        adLoader.loadAds(AdRequest.Builder().build(), 5)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        if (::registration.isInitialized)
-            registration.remove()
-    }
-
-    private fun initializeFetch() {
-        registration = propertyCollection.addSnapshotListener { snapShots, _ ->
-            snapShots?.documents?.mapNotNull {
-                it.toObject(FirebaseProperty::class.java)
-            }.also { properties ->
-                if (properties.isNullOrEmpty()) {
-                   connectionView()
-                    swipeRefreshContainer.isRefreshing = false
-                    hideProgress()
-                }else {
-                    propertyListAdapter.submitList(properties)
-                    swipeRefreshContainer.isRefreshing = false
-                    hideProgress()
+            }
+        } else {
+            propertyCollection.whereEqualTo("propertyType", filter)
+                .get(source).addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    val document = task.result
+                    document?.documents?.mapNotNull {
+                        it.toObject(FirebaseProperty::class.java)
+                    }.also { items ->
+                        if (items.isNullOrEmpty()) {
+                            connectionView(true)
+                            swipeRefreshContainer.isRefreshing = false
+                            hideProgress()
+                        } else {
+                            connectionView(false)
+                            propertyListAdapter.submitList(items)
+                            swipeRefreshContainer.isRefreshing = false
+                            hideProgress()
+                        }
+                    }
                 }
             }
         }
@@ -203,6 +212,7 @@ class RoarStore : Fragment() {
             productPrice?.text = getString(R.string.format_price,product.propertyPrice)
             aboutProduct?.text = product.propertyDesc
         }
+
         val whatsAppBtn = bottomSheetLayout.findViewById<MaterialCardView>(R.id.whatsAppBtn)
         val share = bottomSheetLayout.findViewById<MaterialButton>(R.id.shareBtn)
         val callBtn = bottomSheetLayout.findViewById<MaterialButton>(R.id.callBtn)
@@ -241,6 +251,14 @@ class RoarStore : Fragment() {
             }
         }
 
+    private fun showEmptyList() {
+        emptyItem.visibility = View.VISIBLE
+    }
+
+    private fun hideEmptyList() {
+        emptyItem.visibility = View.GONE
+    }
+
     private fun dialPhoneNumber(phoneNumber: String?) {
         val intent = Intent(Intent.ACTION_DIAL).apply {
             data = Uri.parse("tel:$phoneNumber") //or use Uri.fromParts()
@@ -250,13 +268,20 @@ class RoarStore : Fragment() {
         }
     }
 
-    private fun connectionView() {
+    private fun connectionView(isEmpty: Boolean) {
         val connection = (activity as MainActivity).connectivityChecker
         connection?.apply {
             lifecycle.addObserver(this)
             connectedStatus.observe(viewLifecycleOwner, {
-                if (!it) {
+                if (!it && isEmpty) {
                     connectionView.visibility = View.VISIBLE
+                    hideEmptyList()
+                }else if(isEmpty){
+                    connectionView.visibility = View.GONE
+                    showEmptyList()
+                }else if(!isEmpty) {
+                    connectionView.visibility = View.GONE
+                    hideEmptyList()
                 }
             })
         }
@@ -280,7 +305,6 @@ class RoarStore : Fragment() {
 //        popUpMenu.show()
 //    }
 
-
     private fun setUpSpinnerCallBack() {
         spinnerCallBack = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -291,7 +315,8 @@ class RoarStore : Fragment() {
             ) {
                 val selected = parent?.getItemAtPosition(position) as String
                 titleText.text = selected
-
+                propertyListAdapter.submitList(emptyList())
+                initializeFetch(selected)
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -309,7 +334,6 @@ class RoarStore : Fragment() {
         }
         startActivity(intent)
     }
-
 
     private fun showProgress() {
         progressBar.visibility = View.VISIBLE

@@ -6,9 +6,10 @@
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/black_700</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/blue_300</item>
-        <item name="colorSecondaryVariant">@color/black_100</item>
-        <item name="colorOnSecondary">@color/blue_100</item>
+        <item name="colorSecondary">@color/black_100</item>
+        <item name="colorSecondaryVariant">@color/yellow_500</item> <!--used for ad title color-->
+        <item name="colorOnSecondary">@color/black_200</item> <!--become agent fade buttons-->
+
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="font">@font/montserrat_medium</item>
         <item name="colorSurface">@color/white</item>
@@ -21,6 +22,11 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:statusBarColor" tools:targetApi="N">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Widget.Roar.textImageButton" parent="">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
     </style>
 
     <style name="Widget.Roar.Toolbar" parent="Widget.AppCompat.Toolbar">
@@ -59,6 +65,10 @@
         <item name="cornerSizeTopLeft">12dp</item>
         <item name="colorPrimary">@color/blue_700</item>
         <item name="colorOnSurface">@color/blue_500</item>
+    </style>
+
+    <style name="Widget.Roar.textInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.TextInputLayout</item>
     </style>
 
     <style name="Widget.Roar.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
