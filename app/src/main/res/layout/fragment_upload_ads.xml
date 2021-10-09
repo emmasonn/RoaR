@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:theme="@style/ThemeOverlay.TextInputLayout"
                 app:layout_constraintBottom_toBottomOf="@+id/selectedImage"
-                app:layout_constraintStart_toStartOf="@+id/selectedImage">
+                app:layout_constraintStart_toStartOf="@+id/specialSpinner">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/brandTitle"
@@ -83,6 +83,27 @@
                     android:hint="BrandName"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phoneTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:theme="@style/ThemeOverlay.TextInputLayout"
+                app:layout_constraintBottom_toBottomOf="@+id/brandSpinner"
+                app:layout_constraintEnd_toEndOf="@+id/viewSpinner"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/brandSpinner"
+                app:layout_constraintTop_toTopOf="@+id/brandSpinner">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone Number"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/specialSpinner"

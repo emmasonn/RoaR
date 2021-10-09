@@ -20,6 +20,7 @@ import com.beaconinc.roarhousing.cloudModel.FirebaseUser
 import com.beaconinc.roarhousing.listAdapters.ManagePropertyListAdapter
 import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter.PropertyClickListener
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputEditText
@@ -37,6 +38,7 @@ class AdminManageMarketers : Fragment() {
     private lateinit var productsRef: Query
     private lateinit var clientRef: DocumentReference
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
+    private lateinit var emptyLayout: MaterialCardView
 
     private val client: FirebaseUser by lazy {
         arguments?.get("client") as FirebaseUser
@@ -63,6 +65,7 @@ class AdminManageMarketers : Fragment() {
         toolBar = view.findViewById(R.id.toolBar)
         val backBtn = view.findViewById<ImageView>(R.id.businessBack)
         swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
+        emptyLayout = view.findViewById(R.id.emptyListView)
         swipeRefreshContainer.isRefreshing = true
 
         productTitle.text = client.brandName
@@ -138,12 +141,17 @@ class AdminManageMarketers : Fragment() {
                 it.toObject(FirebaseProperty::class.java)
             }.also { properties ->
                 managePropertyAdapter.submitList(properties)
+                emptyLayout.visibility = View.GONE
                 swipeRefreshContainer.isRefreshing = false
-
+                if(properties.isNullOrEmpty()) {
+                    emptyLayout.visibility = View.VISIBLE
+                }
             }
+        }.addOnFailureListener {
+            emptyLayout.visibility = View.VISIBLE
         }
-    }
 
+    }
     @SuppressLint("InflateParams")
     private fun editPasswordDialog(client: FirebaseUser) {
         val documentReference = fireStore.collection("clients").document(client.clientId!!)

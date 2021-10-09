@@ -42,7 +42,8 @@ class UploadPhotosAdapter(private val clickListener: ClickListener) :
 
                 Glide.with(imageView.context)
                     .load(data.photoUrl).apply(
-                        RequestOptions().placeholder(R.drawable.loading_animation)
+                        RequestOptions().placeholder(R.drawable.animated_gradient)
+                            .error(R.drawable.animated_gradient)
                     ).into(imageView)
             }
     }

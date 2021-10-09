@@ -38,7 +38,7 @@ class ManageListAdapter (private val manageAdapterListener: ManageAdapterListene
         private val availableRoom = itemView.findViewById<TextView>(R.id.availNumber)
         private val ownerName = itemView.findViewById<TextView>(R.id.ownerName)
         private val ownerPhone = itemView.findViewById<TextView>(R.id.ownerPhone)
-        private val updatePhone = itemView.findViewById<MaterialButton>(R.id.updateRoomBtn)
+        private val updateRoom = itemView.findViewById<MaterialButton>(R.id.updateRoomBtn)
         private val notActive = itemView.findViewById<MaterialCardView>(R.id.notActive)
         private val onLine = itemView.findViewById<MaterialButton>(R.id.online)
 
@@ -74,7 +74,7 @@ class ManageListAdapter (private val manageAdapterListener: ManageAdapterListene
                 listener.updateDetail(data)
             }
 
-            updatePhone.setOnClickListener {
+            updateRoom.setOnClickListener {
                 listener.updateRoom(data)
             }
         }

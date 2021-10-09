@@ -1,8 +1,6 @@
 package com.beaconinc.roarhousing.listAdapters.businessAds
 
-import android.animation.ArgbEvaluator
-import android.animation.ValueAnimator
-import android.graphics.Color
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,18 +40,23 @@ class AutoScrollListAdapter(private val propertyListener: PropertyListAdapter.Pr
         private val dotImage = itemView.findViewById<ImageView>(R.id.dotIcon)
         private val resource = itemView.resources
 
-        fun bind(data: FirebaseProperty, propertyListener: PropertyListAdapter.PropertyClickListener) {
+        fun bind(
+            data: FirebaseProperty,
+            propertyListener: PropertyListAdapter.PropertyClickListener
+        ) {
 
             Glide.with(firstImage.context)
                 .load(data.firstImage).apply(
-                    RequestOptions().placeholder(R.drawable.animated_gradient)).into(firstImage)
+                    RequestOptions().placeholder(R.drawable.animated_gradient)
+                ).into(firstImage)
 
-            brandName.text = resource.getString(R.string.format_brandName,data.brandName)
+            brandName.text = resource.getString(R.string.format_brandName, data.brandName)
             specials.text = data.specials
             campus.text = data.campus
 
             data.specials?.let {
-                dotImage.alpha = 1F
+                if (it.isNotBlank())
+                    dotImage.alpha = 1F
             }
 
             itemView.setOnClickListener {

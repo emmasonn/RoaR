@@ -107,8 +107,7 @@ class SplashActivity : AppCompatActivity() {
                // if(isChecked) {
                     //storeCondition(isChecked)
                 dialogLayout.dismiss()
-                hideImageView()
-                  //  moveToMainActivity()
+                moveToMainActivity()
               //  }
             }
             setCancelable(false)
@@ -117,18 +116,6 @@ class SplashActivity : AppCompatActivity() {
         return dialogLayout
     }
 
-    private fun hideImageView() {
-        val hideAlpha =PropertyValuesHolder.ofFloat(View.ALPHA,1f,0f)
-        val hideIcon = ObjectAnimator.ofPropertyValuesHolder(iconImage,hideAlpha).apply {
-            duration = 500
-        }
-
-      AnimatorSet().apply {
-            play(hideIcon)
-            moveToMainActivity()
-        }
-
-    }
 
     private fun moveToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)

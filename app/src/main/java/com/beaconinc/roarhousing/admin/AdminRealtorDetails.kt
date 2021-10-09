@@ -27,6 +27,7 @@ import com.beaconinc.roarhousing.notification.data.NotificationData
 import com.beaconinc.roarhousing.notification.data.PushNotification
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputEditText
@@ -51,6 +52,7 @@ class AdminRealtorDetails : Fragment() {
     private lateinit var lodgeCollection: Query
     private lateinit var clientRef: DocumentReference
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
+    private lateinit var emptyLayout: MaterialCardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +71,7 @@ class AdminRealtorDetails : Fragment() {
         val lodgeRecycler = view.findViewById<RecyclerView>(R.id.lodgeRecycler)
         val toolbar = view.findViewById<MaterialToolbar>(R.id.materialToolbar)
         val backBtn = view.findViewById<ImageView>(R.id.realtorBack)
+        emptyLayout = view.findViewById(R.id.emptyListView)
         brandName.text = client.brandName
         swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
 
@@ -127,8 +130,14 @@ class AdminRealtorDetails : Fragment() {
                 it.toObject(FirebaseLodge::class.java)
             }.also { lodges ->
                 manageListAdapter.submitList(lodges)
+                emptyLayout.visibility = View.GONE
                 swipeRefreshContainer.isRefreshing = false
+                if(lodges.isNullOrEmpty()) {
+                    emptyLayout.visibility = View.VISIBLE
+                }
             }
+        }.addOnFailureListener {
+            emptyLayout.visibility = View.VISIBLE
         }
     }
 

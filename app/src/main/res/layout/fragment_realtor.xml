@@ -67,6 +67,7 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <include layout="@layout/auto_no_item_found" />
 
     <ProgressBar
         android:id="@+id/progressBar"

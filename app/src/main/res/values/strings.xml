@@ -12,11 +12,11 @@
 
     <!--lodges notification_string-->
     <string name="lodges_notification_channel_id">LODGES_CHANNEL</string>
-    <string name="lodges_notification_channel_name">Vacant Room Notification!!</string>
+    <string name="lodges_notification_channel_name">Vacant Room Notification !!</string>
 
     <!--products notification string-->
     <string name="product_notification_channel_id">PRODUCTS_CHANNEL</string>
-    <string name="product_notification_channel_name">New Product Notification!!</string>
+    <string name="product_notification_channel_name">New Product Notification !!</string>
     <!-- Preference Titles -->
 
     <!-- Messages Preferences -->

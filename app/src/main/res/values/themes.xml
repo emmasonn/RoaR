@@ -114,9 +114,8 @@
 
     <style name="ShapeAppearanceOverlay.App.general" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeBottomRight">20dp</item>
-        <item name="cornerSizeTopRight">20dp</item>
-        <item name="cornerSizeTopLeft">20dp</item>
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerSizeBottomRight">10dp</item>
     </style>
 
     <style name="MaterialAlertDialog.App" parent="MaterialAlertDialog.MaterialComponents">
@@ -124,7 +123,8 @@
     </style>
 <!--Material dialog styling -->
     <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <item name="colorSurface">@color/white</item>
+        <item name="colorSurface">?attr/colorPrimary</item>
+        <item name="backgroundColor">?attr/colorPrimary</item>
         <item name="colorAccent">@color/blue_500</item>
         <item name="colorOnPrimary">@color/blue_500</item>
         <item name="buttonBarPositiveButtonStyle">@style/Widget.Roar.textHeadline</item>

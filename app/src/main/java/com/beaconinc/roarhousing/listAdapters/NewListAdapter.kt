@@ -270,7 +270,7 @@ class HeaderViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(title: String, propertyListener: PropertyClickListener) {
         titleView.text = resource.getString(R.string.format_property_header, title)
         moreIcon.setOnClickListener {
-            propertyListener.onJustClick()
+            propertyListener.onJustClick(null)
         }
     }
 }

@@ -15,6 +15,7 @@ import com.beaconinc.roarhousing.MainActivity
 import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseUser
 import com.beaconinc.roarhousing.listAdapters.ClientListAdapter
+import com.google.android.material.card.MaterialCardView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import timber.log.Timber
@@ -26,6 +27,7 @@ class BusinessFragment : Fragment() {
     private lateinit var sharedPref: SharedPreferences
     private lateinit var clientListAdapter: ClientListAdapter
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
+    private lateinit var emptyLayout: MaterialCardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +47,7 @@ class BusinessFragment : Fragment() {
         val backBtn = view.findViewById<ImageView>(R.id.businessBack)
         swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
         swipeRefreshContainer.isRefreshing = true
+        emptyLayout = view.findViewById(R.id.emptyListView)
 
         backBtn.setOnClickListener {
             findNavController().popBackStack()
@@ -75,8 +78,14 @@ class BusinessFragment : Fragment() {
                 it.toObject(FirebaseUser::class.java)
             }.also {
                 clientListAdapter.submitList(it)
+                emptyLayout.visibility = View.GONE
                 swipeRefreshContainer.isRefreshing = false
+                if(it.isNullOrEmpty()) {
+                    emptyLayout.visibility = View.VISIBLE
+                }
             }
+        }.addOnFailureListener {
+            emptyLayout.visibility = View.VISIBLE
         }
     }
 

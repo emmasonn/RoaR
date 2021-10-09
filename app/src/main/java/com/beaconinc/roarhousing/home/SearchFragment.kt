@@ -1,4 +1,4 @@
-package com.beaconinc.roarhousing
+package com.beaconinc.roarhousing.home
 
 import android.app.SearchManager
 import android.content.Context
@@ -11,12 +11,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.os.bundleOf
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.beaconinc.roarhousing.MainActivity
+import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseLodge
 import com.beaconinc.roarhousing.listAdapters.LodgeClickListener
 import com.beaconinc.roarhousing.listAdapters.LodgesAdapter
@@ -102,11 +102,6 @@ class SearchFragment : Fragment() {
             setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
             setIconifiedByDefault(false)
             isSubmitButtonEnabled = true
-            setOnQueryTextFocusChangeListener { _ , hasFocus ->
-//                if (hasFocus) {
-//                    //(activity as MainActivity).showKeyBoard(v)
-//                }
-            }
             setOnQueryTextListener(queryTextListener)
         }
     }

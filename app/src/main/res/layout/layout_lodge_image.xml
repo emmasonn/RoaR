@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/loading_animation"
+        tools:src="@drawable/animated_gradient"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius"
         tools:ignore="ContentDescription" />
 
@@ -52,7 +52,7 @@
         android:layout_height="1dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:background="@color/black_500"
+        android:background="?attr/colorOnSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

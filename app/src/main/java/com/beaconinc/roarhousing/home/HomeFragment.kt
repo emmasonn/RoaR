@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -36,6 +37,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.Source
@@ -58,6 +60,7 @@ class HomeFragment : Fragment() {
     private lateinit var lodgesRef: Query
     private lateinit var connectionView: MaterialCardView
     private lateinit var swipeContainer: SwipeRefreshLayout
+    private lateinit var callback: OnBackPressedCallback
     private var counter = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,6 +97,8 @@ class HomeFragment : Fragment() {
         searchIcon.setOnClickListener {
             findNavController().navigate(R.id.searchFragment)
         }
+
+        setUpOnBackPressedCallback()
 
         val argsNav: HomeFragmentArgs by navArgs()
         argsNav.lodgeId.let {
@@ -183,8 +188,18 @@ class HomeFragment : Fragment() {
         aboutBtn.setOnClickListener {
             findNavController().navigate(R.id.aboutFragment)
         }
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, callback)
         return view
     }
+
+
+    private fun setUpOnBackPressedCallback() {
+    callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            showExitDialog()
+        }
+    }
+}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -414,6 +429,20 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun showExitDialog() {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("You're about to exit app")
+            setPositiveButton("Okay") { dialog, _ ->
+                dialog.dismiss()
+                (activity as MainActivity).finish()
+            }
+
+            setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
+        }
+    }
 
 //    class HomePager(
 //        val fragment: Fragment,

@@ -143,7 +143,7 @@
     </fragment>
     <fragment
         android:id="@+id/notifyFragment"
-        android:name="com.beaconinc.roarhousing.dashBoard.BroadCastLodge"
+        android:name="com.beaconinc.roarhousing.admin.BroadCastLodge"
         android:label="fragment_notify"
         tools:layout="@layout/fragment_notify" />
     <fragment
@@ -351,7 +351,7 @@
         tools:layout="@layout/fragment_watch_tour" />
     <fragment
         android:id="@+id/broadCastProduct"
-        android:name="com.beaconinc.roarhousing.BroadCastProduct"
+        android:name="com.beaconinc.roarhousing.admin.BroadCastProduct"
         android:label="BroadCastProduct"
         tools:layout="@layout/fragment_broadcast_products"
         />
@@ -368,13 +368,13 @@
 
     <fragment
         android:id="@+id/uploadAds"
-        android:name="com.beaconinc.roarhousing.UploadAds"
+        android:name="com.beaconinc.roarhousing.admin.UploadAds"
         android:label="UploadAds"
         tools:layout="@layout/fragment_upload_ads"
         />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.beaconinc.roarhousing.SearchFragment"
+        android:name="com.beaconinc.roarhousing.home.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
 </navigation>

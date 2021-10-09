@@ -67,10 +67,10 @@ class PropertyListAdapter (
     class PropertyClickListener(
         private val listener: (data: FirebaseProperty) -> Unit,
         private val longClick: (data: FirebaseProperty) -> Unit,
-        private val justClick: (() -> Unit)? = null,
+        private val justClick: ((data: FirebaseProperty?) -> Unit)? = null,
     ) {
         fun onAction(data: FirebaseProperty) = listener(data)
         fun onLongClick(data: FirebaseProperty) = longClick(data)
-        fun onJustClick() = justClick?.invoke()
+        fun onJustClick(data: FirebaseProperty?) = justClick?.invoke(data)
     }
 }

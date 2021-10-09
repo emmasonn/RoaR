@@ -1,4 +1,4 @@
-package com.beaconinc.roarhousing
+package com.beaconinc.roarhousing.admin
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -15,9 +15,8 @@ import android.widget.*
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.clear
-import com.beaconinc.roarhousing.cloudModel.FirebaseLodgePhoto
+import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseProperty
-import com.beaconinc.roarhousing.dashBoard.upload.EditLodgePager
 import com.beaconinc.roarhousing.util.MB
 import com.beaconinc.roarhousing.util.MB_THRESHOLD
 import com.beaconinc.roarhousing.util.Memory_Access_code
@@ -25,7 +24,6 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -48,6 +46,7 @@ class UploadAds : Fragment() {
     private lateinit var saveImageBtn: MaterialButton
     private lateinit var progressBar: ProgressBar
     private lateinit var brandName: TextInputEditText
+    private lateinit var phoneNumber: TextInputEditText
     private lateinit var specialOffer: TextInputEditText
     private lateinit var campus: TextInputLayout
 
@@ -66,11 +65,12 @@ class UploadAds : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_upload_ads, container, false)
-        selectedImage = view.findViewById<ImageView>(R.id.selectedImage)
-        browseImageBtn = view.findViewById<MaterialButton>(R.id.browseBtn)
-        saveImageBtn = view.findViewById<MaterialButton>(R.id.saveImage)
+        selectedImage = view.findViewById(R.id.selectedImage)
+        browseImageBtn = view.findViewById(R.id.browseBtn)
+        saveImageBtn = view.findViewById(R.id.saveImage)
         progressBar = view.findViewById(R.id.progressBar)
         brandName = view.findViewById(R.id.brandTitle)
+        phoneNumber = view.findViewById(R.id.phoneNumber)
         campus = view.findViewById(R.id.viewSpinner)
         specialOffer = view.findViewById(R.id.specialTitle)
         val backBtn = view.findViewById<ImageView>(R.id.businessBack)
@@ -195,13 +195,16 @@ class UploadAds : Fragment() {
                     val title = brandName.text.toString()
                     val campus = campus.editText?.text.toString()
                     val offer = specialOffer.text.toString()
+                    val phone = phoneNumber.text.toString()
 
                     val lodgePhoto = FirebaseProperty(
                         id = uid,
                         firstImage = imageUri,
                         brandName = title,
                         campus = campus,
+                        sellerNumber = phone,
                         specials = offer,
+                        certified = true,
                         propertyType = "Ads"
                     )
                     businessPhotos.document(uid).set(lodgePhoto).addOnSuccessListener {

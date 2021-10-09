@@ -38,8 +38,6 @@ class AdminFragment : Fragment() {
         fireStore = FirebaseFirestore.getInstance()
         val clientId = sharedPref.getString("user_id","")
         clientRef  = fireStore.collection("clients").document(clientId!!)
-
-        val accountType = sharedPref.getString("accountType","")
         userLogged(true)
     }
 
@@ -49,9 +47,6 @@ class AdminFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentAdminBinding.inflate(inflater, container, false)
- //        binding.fullName.text = sharedPref.getString("user_name", "")
-//        val imageUrl = sharedPref.getString("user_url","")
-//        binding.profilePics.load(imageUrl)
         showProgressBar()
 
         val drawer = binding.drawerNav
@@ -93,42 +88,35 @@ class AdminFragment : Fragment() {
                 }
 
                 R.id.businessFragment -> {
-                    drawer.close()
                     findNavController().navigate(R.id.businessFragment)
                     true
                 }
 
                 R.id.broadCastLodge -> {
-                    drawer.close()
                     findNavController().navigate(R.id.notifyFragment)
                     true
                 }
 
                 R.id.broadCastProduct -> {
-                    drawer.close()
                     findNavController().navigate(R.id.broadCastProduct)
                     true
                 }
 
                 R.id.realtorFragment -> {
-                    drawer.close()
                     findNavController().navigate(R.id.realtorFragment)
                     true
                 }
 
                 R.id.adminsFragment -> {
-                    drawer.close()
                     true
                 }
 
                 R.id.setUpFragment -> {
-                    drawer.close()
                     findNavController().navigate(R.id.setUpFragment)
                     true
                 }
 
                 R.id.manageAccount -> {
-                    drawer.close()
                     if(::client.isInitialized) {
                         val bundle = bundleOf("Client" to client)
                         findNavController().navigate(R.id.manageAccount,bundle)
@@ -137,6 +125,7 @@ class AdminFragment : Fragment() {
                 }
 
                 R.id.signOut -> {
+                    drawer.close()
                     showSignOutDialog()
                     true
                 }
@@ -191,7 +180,7 @@ class AdminFragment : Fragment() {
 
     private fun showSignOutDialog() {
         MaterialAlertDialogBuilder(requireContext()).apply {
-            setTitle("You're About to Sign out")
+            setTitle("You're about to sign out")
             setPositiveButton("Okay") { dialog , _ ->
                 dialog.dismiss()
                 userLogged(false)

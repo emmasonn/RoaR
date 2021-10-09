@@ -66,6 +66,10 @@ class ManagePropertyListAdapter(private val clickListener: PropertyClickListener
                 clickListener.onAction(data)
             }
 
+            itemView.setOnClickListener {
+                clickListener.onJustClick(data)
+            }
+
             itemView.setOnLongClickListener {
                 clickListener.onLongClick(data)
                 true

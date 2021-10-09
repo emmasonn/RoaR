@@ -17,6 +17,7 @@ import com.beaconinc.roarhousing.R
 import com.beaconinc.roarhousing.cloudModel.FirebaseUser
 import com.beaconinc.roarhousing.listAdapters.ClientListAdapter
 import com.beaconinc.roarhousing.listAdapters.ClientListAdapter.UserClickListener
+import com.google.android.material.card.MaterialCardView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.launch
@@ -28,6 +29,7 @@ class RealtorFragment : Fragment() {
     private lateinit var sharedPref: SharedPreferences
     private lateinit var clientListAdapter: ClientListAdapter
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
+    private lateinit var emptyLayout: MaterialCardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +50,7 @@ class RealtorFragment : Fragment() {
         val backBtn = view.findViewById<ImageView>(R.id.realtorBack)
         swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
         swipeRefreshContainer.isRefreshing = true
+        emptyLayout = view.findViewById(R.id.emptyListView)
 
         backBtn.setOnClickListener {
             findNavController().popBackStack()
@@ -77,13 +80,21 @@ class RealtorFragment : Fragment() {
                 it.toObject(FirebaseUser::class.java)
             }.also {
                 clientListAdapter.submitList(it)
-                clientListAdapter.notifyDataSetChanged()
+                emptyLayout.visibility = View.GONE
+
                 lifecycleScope.launch {
                     swipeRefreshContainer.isRefreshing = false
                 }
+                if(it.isNullOrEmpty()) {
+                    emptyLayout.visibility = View.VISIBLE
+                }
             }
+        }.addOnFailureListener {
+            emptyLayout.visibility = View.VISIBLE
         }
     }
+
+
     private fun setUpQuery(accountType: String?) {
         val clientId = sharedPref.getString("user_id", "")
 

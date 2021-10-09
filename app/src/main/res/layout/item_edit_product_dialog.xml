@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp">
+    android:layout_height="200dp">
 
     <TextView
         android:id="@+id/textView34"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         android:lineSpacingExtra="6dp"
         android:text="Modification Dialog"
+        android:background="@drawable/background_black"
         android:textAlignment="center"
+        android:textColor="@color/white"
+        android:padding="10dp"
         android:textAppearance="?attr/textAppearanceSubtitle1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,11 +23,15 @@
         android:id="@+id/dialogEditItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit"
         android:layout_marginTop="10dp"
-        android:textAppearance="@style/Widget.Roar.Button.TextButton"
-        android:textSize="20sp"
+        android:layout_margin="10dp"
+        android:text="Edit Item"
+        android:textColor="?attr/colorControlNormal"
+        android:textStyle="bold"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        app:layout_constraintBottom_toTopOf="@+id/notifyBtn"
         app:layout_constraintEnd_toEndOf="@+id/textView34"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/textView34"
         app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
@@ -35,14 +39,29 @@
         android:id="@+id/dialogDeleteItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delete"
+        android:layout_marginBottom="10dp"
+        android:text="Delete Item"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
         android:textColor="@color/red_700"
-        android:textSize="18sp"
-        android:layout_marginTop="10dp"
-        android:textAppearance="@style/Widget.Roar.Button.TextButton"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/dialogEditItem"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/dialogEditItem"
+        app:layout_constraintTop_toBottomOf="@+id/notifyBtn" />
+
+    <TextView
+        android:id="@+id/notifyBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send Notification"
+        android:layout_marginBottom="10dp"
+        android:textColor="?attr/colorControlNormal"
+        android:textStyle="bold"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        app:layout_constraintBottom_toTopOf="@+id/dialogDeleteItem"
+        app:layout_constraintEnd_toEndOf="@+id/dialogEditItem"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/dialogEditItem"
         app:layout_constraintTop_toBottomOf="@+id/dialogEditItem" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

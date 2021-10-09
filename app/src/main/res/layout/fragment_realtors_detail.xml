@@ -80,4 +80,6 @@
             tools:listitem="@layout/item_manage_list" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
+
+    <include layout="@layout/auto_no_item_found" />
 </androidx.constraintlayout.widget.ConstraintLayout>
