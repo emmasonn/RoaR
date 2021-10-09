@@ -3,13 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:fillAfter="true"
     android:interpolator="@android:anim/bounce_interpolator">
-
+<!--fromXScale 0.5-->
     <scale
         android:pivotX="50%"
         android:pivotY="50%"
-        android:fromXScale="0.5"
+        android:fromXScale="0.2"
         android:toXScale="1.0"
-        android:fromYScale="0.5"
+        android:fromYScale="0.2"
         android:toYScale="1.0"
-        android:duration="1000"/>
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:duration="2000"/>
 </set>

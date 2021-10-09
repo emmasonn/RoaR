@@ -46,7 +46,6 @@ class NewListAdapter(
     private val mutableNativeAd2 = MutableLiveData<NativeAd>()
     var showEmpty: Boolean = false
 
-
     fun postAd1(_nativeAd: NativeAd) {
         mutableNativeAd1.postValue(_nativeAd)
     }
@@ -74,7 +73,6 @@ class NewListAdapter(
             parent,
             false
         )
-
         val emptyListLayout = layoutInflater.inflate(R.layout.item_empty_list_card, parent, false)
 
         return when (viewType) {
@@ -220,7 +218,7 @@ class NewListAdapter(
     }
 }
 
-sealed class DataItem() {
+sealed class DataItem {
 
     data class LodgeItem(val lodge: FirebaseLodge) : DataItem() {
         override val id: String? = lodge.lodgeId

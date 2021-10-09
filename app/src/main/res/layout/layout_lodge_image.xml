@@ -37,15 +37,13 @@
 
     <ImageView
         android:id="@+id/deleteBtn"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/ic_delete"
-        android:elevation="20dp"
+        android:elevation="10dp"
         android:focusable="true"
-        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/imageLink"
         app:layout_constraintTop_toTopOf="@+id/imageLink"
-        app:tint="@color/red_700"
         tools:ignore="ContentDescription" />
 
     <View

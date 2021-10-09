@@ -189,9 +189,7 @@ class LodgesAdapter(
 
             Glide.with(lodgeImage.context)
                 .load(data.coverImage).apply(
-                    RequestOptions().placeholder(R.drawable.loading_animation)
-                        .error(R.drawable.loading_animation)
-                ).into(lodgeImage)
+                    RequestOptions().placeholder(R.drawable.animated_gradient)).into(lodgeImage)
 
 
             initialPrice.text = resource.getString(R.string.format_price, data.subPayment)

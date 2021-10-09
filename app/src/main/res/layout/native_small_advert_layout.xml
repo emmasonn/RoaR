@@ -14,7 +14,6 @@
         android:layout_marginEnd="20dp"
         android:backgroundTint="?attr/colorPrimary"
         android:elevation="10dp"
-        android:visibility="gone"
         app:gnt_template_type="@layout/gnt_small_template_view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

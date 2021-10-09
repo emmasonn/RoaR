@@ -22,7 +22,7 @@ class MediumAdViewHolder (val itemView: View): RecyclerView.ViewHolder(itemView)
             Glide.with(loadingImage.context)
                 .load(R.drawable.loading_animation_medium)
                 .into(loadingImage)
-        data.observe(lifecycleOwner, Observer {
+        data.observe(lifecycleOwner, {
             CoroutineScope(Dispatchers.Main).launch {
                 mediumAdView.setNativeAd(it)
                 mediumAdView.visibility = View.VISIBLE

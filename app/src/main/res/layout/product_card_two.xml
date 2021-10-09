@@ -27,7 +27,6 @@
                 android:layout_height="@dimen/shr_staggered_product_grid_card_height_landscape"
                 android:layout_margin="0.5dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_plug"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius" />
 
             <LinearLayout

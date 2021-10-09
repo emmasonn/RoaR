@@ -43,8 +43,8 @@ class PropertyHomeListAdapter(private val propertyListener: PropertyClickListene
 
             Glide.with(firstImage.context)
                 .load(data.firstImage).apply(
-                    RequestOptions().placeholder(R.drawable.loading_animation)
-                        .error(R.drawable.loading_animation)
+                    RequestOptions().placeholder(R.drawable.animated_gradient)
+                        .error(R.drawable.animated_gradient)
                 ).into(firstImage)
 
             propertyTitle.text = data.propertyTitle

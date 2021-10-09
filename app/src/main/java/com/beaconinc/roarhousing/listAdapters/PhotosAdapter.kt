@@ -36,8 +36,8 @@ class PhotosAdapter(private val clickListener: ClickListener) : ListAdapter<Fire
 
             Glide.with(photoView.context)
                 .load(data.photoUrl).apply(
-                    RequestOptions().placeholder(R.drawable.loading_animation)
-                        .error(R.drawable.loading_animation)
+                    RequestOptions().placeholder(R.drawable.animated_gradient)
+                        .error(R.drawable.animated_gradient)
                 ).into(photoView)
 
             photoTitle.text = data.photoTitle

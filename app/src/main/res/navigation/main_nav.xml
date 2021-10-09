@@ -375,5 +375,10 @@
         android:label="UploadAds"
         tools:layout="@layout/fragment_upload_ads"
         />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.beaconinc.roarhousing.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 
 </navigation>

@@ -46,8 +46,7 @@ class AutoScrollListAdapter(private val propertyListener: PropertyListAdapter.Pr
 
             Glide.with(firstImage.context)
                 .load(data.firstImage).apply(
-                    RequestOptions().placeholder(R.drawable.loading_animation)
-                        .error(R.drawable.loading_animation)).into(firstImage)
+                    RequestOptions().placeholder(R.drawable.animated_gradient)).into(firstImage)
 
             brandName.text = resource.getString(R.string.format_brandName,data.brandName)
             specials.text = data.specials

@@ -142,7 +142,7 @@ class FilterFragment : Fragment() {
     private fun showInternetError() {
         (activity as MainActivity).connectivityChecker?.apply {
             lifecycle.addObserver(this)
-            connectedStatus.observe(viewLifecycleOwner, Observer {
+            connectedStatus.observe(viewLifecycleOwner, {
                 if (!it) {
                     connectionView.visibility = View.VISIBLE
                 }else {

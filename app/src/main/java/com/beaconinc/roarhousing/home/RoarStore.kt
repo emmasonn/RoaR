@@ -1,6 +1,5 @@
 package com.beaconinc.roarhousing.home
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -23,9 +22,6 @@ import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter
 import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.google.android.gms.ads.AdLoader
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -47,7 +43,7 @@ class RoarStore : Fragment() {
     private lateinit var titleText: TextView
     private lateinit var propertyRecycler: RecyclerView
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
-    private lateinit var connectionView: ConstraintLayout
+    private lateinit var connectionView: MaterialCardView
     private lateinit var emptyItem: MaterialCardView
 
     private val argsNav: RoarStoreArgs by navArgs()
@@ -74,11 +70,13 @@ class RoarStore : Fragment() {
         progressBar = view.findViewById(R.id.progressBar)
         swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
         connectionView = view.findViewById(R.id.connectionView)
-        emptyItem = view.findViewById(R.id.emptyList)
+        emptyItem = view.findViewById(R.id.emptyListView)
         setUpSpinnerCallBack()
+
         showProgress()
         argsNav.propertyId.let {
             if(it!="roar"){
+                showProgress()
                 showProduct(it)
             }
         }
@@ -130,7 +128,6 @@ class RoarStore : Fragment() {
     }
 
     private fun showProduct(it: String) {
-        showProgress()
         productRef.document(it).get().addOnSuccessListener {
             it.toObject(FirebaseProperty::class.java).also { item ->
                     item?.let {
@@ -163,6 +160,7 @@ class RoarStore : Fragment() {
                             swipeRefreshContainer.isRefreshing = false
                             hideProgress()
                         } else {
+                            connectionView(false)
                             propertyListAdapter.submitList(items)
                             swipeRefreshContainer.isRefreshing = false
                             hideProgress()
@@ -211,6 +209,8 @@ class RoarStore : Fragment() {
             productName?.text = product.propertyTitle
             productPrice?.text = getString(R.string.format_price,product.propertyPrice)
             aboutProduct?.text = product.propertyDesc
+
+            hideProgress()
         }
 
         val whatsAppBtn = bottomSheetLayout.findViewById<MaterialCardView>(R.id.whatsAppBtn)
@@ -229,7 +229,6 @@ class RoarStore : Fragment() {
             dialPhoneNumber(product.sellerNumber)
         }
         bottomSheetLayout.show()
-        hideProgress()
     }
 
     private fun share(product: FirebaseProperty) {

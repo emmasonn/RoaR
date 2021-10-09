@@ -15,7 +15,6 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -28,20 +27,18 @@ import com.beaconinc.roarhousing.cloudModel.FirebaseLodge
 import com.beaconinc.roarhousing.cloudModel.FirebaseProperty
 import com.beaconinc.roarhousing.listAdapters.LodgeClickListener
 import com.beaconinc.roarhousing.listAdapters.NewListAdapter
-import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter
 import com.beaconinc.roarhousing.listAdapters.storeAdapter.PropertyListAdapter.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.google.android.gms.ads.AdLoader
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.nativead.NativeAd
+
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.Source
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -59,7 +56,7 @@ class HomeFragment : Fragment() {
     private lateinit var propertiesQuery: Query
     private lateinit var chipsCategory: Array<String>
     private lateinit var lodgesRef: Query
-    private lateinit var connectionView: ConstraintLayout
+    private lateinit var connectionView: MaterialCardView
     private lateinit var swipeContainer: SwipeRefreshLayout
     private var counter = 0
 
@@ -88,10 +85,15 @@ class HomeFragment : Fragment() {
         val parentLayout = view.findViewById<ConstraintLayout>(R.id.childLayout)
         connectionView = view.findViewById(R.id.connectionView)
         swipeContainer = view.findViewById(R.id.swipeContainer)
+        val searchIcon = view.findViewById<ImageView>(R.id.searchIcon)
 
         menuIcon = view.findViewById<ImageView>(R.id.menuNav)
         chipGroup = view.findViewById<ChipGroup>(R.id.chipGroup)
         progressBar = view.findViewById(R.id.progressBar)
+
+        searchIcon.setOnClickListener {
+            findNavController().navigate(R.id.searchFragment)
+        }
 
         val argsNav: HomeFragmentArgs by navArgs()
         argsNav.lodgeId.let {
@@ -103,31 +105,28 @@ class HomeFragment : Fragment() {
         }
         swipeContainer.isRefreshing = true
         showProgress()
+     lifecycleScope.launch (Dispatchers.Main) {
 
-        roarItemsAdapter = NewListAdapter(LodgeClickListener({ lodge ->
-            val bundle = bundleOf("Lodge" to lodge)
-            findNavController().navigate(R.id.lodgeDetail, bundle)
-        }, {}), PropertyClickListener(
-            { data ->
+         roarItemsAdapter = NewListAdapter(LodgeClickListener({ lodge ->
+             val bundle = bundleOf("Lodge" to lodge)
+             findNavController().navigate(R.id.lodgeDetail, bundle)
+         }, {}), PropertyClickListener(
+             { data ->
                  showProgress()
-                if (data.propertyType == "Ads") {
-                    showAdDialog(data)
-                } else {
-                    val link = Uri.parse("https://roar.com.ng/property/${data.id}")
-                    findNavController().navigate(link)
-                }
-            },
-            {}, justClick = {
-                findNavController().navigate(R.id.productStore)
-            }), this
-        )
-        homeRecycler.adapter = roarItemsAdapter
+                 if (data.propertyType == "Ads") {
+                     showAdDialog(data)
+                 } else {
+                     val link = Uri.parse("https://roar.com.ng/property/${data.id}")
+                     findNavController().navigate(link)
+                 }
+             },
+             {}, justClick = {
+                 findNavController().navigate(R.id.productStore)
+             }), this@HomeFragment
+         )
+         homeRecycler.adapter = roarItemsAdapter
+     }
         connectionFailure(false) //this function calls the ads when internet is available
-
-        (activity as MainActivity).homeScreenAd.observe(viewLifecycleOwner, { ad ->
-            roarItemsAdapter.postAd1(ad)
-            roarItemsAdapter.postAd2(ad)
-        })
 
         swipeContainer.setOnRefreshListener {
             if (::chipsCategory.isInitialized) {
@@ -142,7 +141,7 @@ class HomeFragment : Fragment() {
                 requireActivity(),
                 parentLayout,
                 AccelerateDecelerateInterpolator(),
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_menu),
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_menu_icon),
                 ContextCompat.getDrawable(requireContext(), R.drawable.ic_nav_close)
             )
         )
@@ -189,8 +188,12 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.Main) {
             initializeHome()
+            (activity as MainActivity).homeScreenAd.observe(viewLifecycleOwner, { ad ->
+                roarItemsAdapter.postAd1(ad)
+                roarItemsAdapter.postAd2(ad)
+            })
         }
     }
 
@@ -257,10 +260,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun fetchLodges(filter: String) {
         showProgress()
-        propertiesQuery.get().addOnSuccessListener { snapShot ->
+
+        val source = Source.DEFAULT
+        propertiesQuery.get(source).addOnSuccessListener { snapShot ->
             snapShot.documents.mapNotNull { docShot ->
                 docShot.toObject(FirebaseProperty::class.java)
             }.also { properties ->
@@ -294,7 +298,7 @@ class HomeFragment : Fragment() {
                     val filterRef = fireStore.collection("lodges")
                         .whereEqualTo("location", filter)
 
-                    filterRef.get().addOnSuccessListener { result ->
+                    filterRef.get(source).addOnSuccessListener { result ->
                         result.documents.mapNotNull { snapLodge ->
                             snapLodge.toObject(FirebaseLodge::class.java)
                         }.also { lodges ->
@@ -323,6 +327,12 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
+        }.addOnFailureListener {
+            roarItemsAdapter.submitList(emptyList())
+            roarItemsAdapter.clear()
+            swipeContainer.isRefreshing = false
+            hideProgress()
+            connectionFailure(true)
         }
     }
 
@@ -373,10 +383,11 @@ class HomeFragment : Fragment() {
                 Glide.with(adImage.context)
                     .load(property.firstImage)
                     .apply(RequestOptions()
-                        .placeholder(R.drawable.loading_animation)).into(adImage)
+                        .placeholder(R.drawable.white_gradient_drawable)
+                        .error(R.drawable.white_gradient_drawable)).into(adImage)
             }
         }
-        val callBtn = bottomSheetLayout.findViewById<TextView>(R.id.callNow)
+        val callBtn = bottomSheetLayout.findViewById<MaterialButton>(R.id.callNow)
 
         lifecycleScope.launch {
             animateWarning(callBtn!!)
@@ -388,12 +399,12 @@ class HomeFragment : Fragment() {
     }
 
     //this function animates the location icon
-    private fun animateWarning(icon: TextView) {
+    private fun animateWarning(icon: MaterialButton) {
         val prevColor = Color.parseColor("#046d86")
         val newColor = Color.parseColor("#d32f2f")
         ValueAnimator.ofObject(ArgbEvaluator(), newColor, prevColor).apply {
-            repeatCount = 100
-            duration = 100
+            repeatCount = 10000000
+            duration = 200
             addUpdateListener { valueAnimator ->
                 val background = valueAnimator.animatedValue as Int
                 icon.setBackgroundColor(background)

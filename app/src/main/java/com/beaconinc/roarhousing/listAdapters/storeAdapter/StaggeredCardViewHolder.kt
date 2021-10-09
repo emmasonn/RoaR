@@ -31,8 +31,8 @@ class StaggeredCardViewHolder(val itemView: View): RecyclerView.ViewHolder(itemV
 
         Glide.with(productImage.context)
             .load(data.firstImage).apply(
-                RequestOptions().placeholder(R.drawable.loading_animation)
-                    .error(R.drawable.loading_animation)
+                RequestOptions().placeholder(R.drawable.animated_gradient)
+                    .error(R.drawable.animated_gradient)
             ).into(productImage)
 
         productName.text = data.propertyTitle

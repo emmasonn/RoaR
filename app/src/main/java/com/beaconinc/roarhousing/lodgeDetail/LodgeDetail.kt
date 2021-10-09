@@ -141,8 +141,8 @@ class LodgeDetail : Fragment() {
         Glide.with(binding.coverImage.context)
             .load(lodgeData.coverImage)
             .apply(
-                 RequestOptions().placeholder(R.drawable.loading_animation)
-                    .error(R.drawable.loading_animation)
+                 RequestOptions().placeholder(R.drawable.animated_gradient)
+                    .error(R.drawable.animated_gradient)
             )
             .into(binding.coverImage)
 
@@ -157,8 +157,8 @@ class LodgeDetail : Fragment() {
         Glide.with(binding.agentImageCover.context)
             .load(lodgeData.agentUrl)
             .apply(
-                RequestOptions().placeholder(R.drawable.loading_animation)
-                    .error(R.drawable.loading_animation)
+                RequestOptions().placeholder(R.drawable.ic_round_person)
+                    .error(R.drawable.ic_round_person)
             )
             .into(binding.agentImageCover)
 
@@ -235,8 +235,21 @@ class LodgeDetail : Fragment() {
             val coverImage = this.findViewById<ImageView>(R.id.lodgeImage)
             val agentImage = this.findViewById<ImageView>(R.id.agentImage)
 
-            coverImage?.load(lodge.coverImage)
-            agentImage?.load(lodge.agentUrl)
+            Glide.with(coverImage!!.context)
+                .load(lodge.coverImage)
+                .apply(
+                    RequestOptions().placeholder(R.drawable.animated_gradient)
+                        .error(R.drawable.animated_gradient)
+                )
+                .into(coverImage)
+
+            Glide.with(agentImage!!.context)
+                .load(lodge.agentUrl)
+                .apply(
+                    RequestOptions().placeholder(R.drawable.ic_round_person)
+                        .error(R.drawable.ic_round_person)
+                )
+                .into(agentImage)
         }
 
         val whatsAppBtn = bottomSheetLayout.findViewById<MaterialCardView>(R.id.whatsAppBtn)

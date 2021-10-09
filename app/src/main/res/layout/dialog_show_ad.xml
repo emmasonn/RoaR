@@ -8,26 +8,26 @@
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/adImage"
         android:layout_width="0dp"
-        android:layout_height="400dp"
+        android:layout_height="450dp"
         android:scaleType="fitXY"
-        android:src="@drawable/loading_animation"
+        android:src="@drawable/animated_gradient"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius" />
 
-    <TextView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/callNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:elevation="10dp"
-        android:background="@drawable/yellow_background"
+        android:backgroundTint="@color/blue_300"
         android:padding="3dp"
+        app:cornerRadius="12dp"
         android:text="Call Now"
-        android:textAppearance="@style/Widget.Roar.Button.TextButton"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
         android:textColor="@color/white"
-        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/adImage"
         app:layout_constraintEnd_toEndOf="parent"
         />

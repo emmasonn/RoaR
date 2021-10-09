@@ -34,42 +34,55 @@
                         android:id="@+id/appIcon"
                         android:layout_width="30dp"
                         android:layout_height="34dp"
-                        android:layout_marginStart="20dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_emma"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView6"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="ContentDescription" />
 
-                    <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="RoaR"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="5dp"
-                        android:textStyle="bold"
-                        android:textSize="23sp"
-                        app:layout_constraintHorizontal_bias="0.45"
-                        android:textAppearance="@style/Widget.Toolbar.title"
-                        android:fontFamily="@font/montserrat_extra_bold"
-                        app:layout_constraintBottom_toTopOf="@id/view10"
-                        app:layout_constraintEnd_toStartOf="@+id/menuNav"
-                        app:layout_constraintStart_toEndOf="@+id/appIcon"
-                        app:layout_constraintTop_toTopOf="parent" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView6"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="RoaR"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:layout_marginBottom="5dp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textSize="23sp"-->
+<!--                        app:layout_constraintHorizontal_bias="0.45"-->
+<!--                        android:textAppearance="@style/Widget.Toolbar.title"-->
+<!--                        android:fontFamily="@font/montserrat_extra_bold"-->
+<!--                        app:layout_constraintBottom_toTopOf="@id/view10"-->
+<!--                        app:layout_constraintEnd_toStartOf="@+id/menuNav"-->
+<!--                        app:layout_constraintStart_toEndOf="@+id/appIcon"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
 
                     <ImageView
                         android:id="@+id/menuNav"
                         android:layout_width="wrap_content"
-                        android:focusable="true"
-                        android:clickable="true"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_marginStart="8dp"
+                        android:src="@drawable/ic_menu_icon"
+                        app:layout_constraintBottom_toBottomOf="@+id/appIcon"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/appIcon"
+                        tools:ignore="ContentDescription" />
+
+                    <ImageView
+                        android:id="@+id/searchIcon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginEnd="10dp"
-                        android:src="@drawable/ic_menu"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:src="@drawable/ic_search_blue"
+                        app:layout_constraintBottom_toBottomOf="@+id/appIcon"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView6"
+                        app:layout_constraintTop_toTopOf="@+id/appIcon"
                         tools:ignore="ContentDescription" />
 
                     <View
@@ -115,55 +128,13 @@
                 tools:listitem="@layout/item_lodges_layout" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/connectionView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:visibility="gone"
-            android:layout_margin="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3"
-            >
-
-            <ImageView
-                android:id="@+id/imageView26"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_plug"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_wifi_off"
-                app:layout_constraintEnd_toStartOf="@+id/imageView26"
-                app:layout_constraintStart_toStartOf="@+id/imageView26"
-                app:layout_constraintTop_toTopOf="@+id/imageView26"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No Internet Connection"
-                android:textAppearance="@style/Widget.Toolbar.title"
-                android:fontFamily="@font/montserrat_bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView26"
-                app:layout_constraintStart_toStartOf="@+id/imageView26"
-                app:layout_constraintTop_toBottomOf="@+id/imageView26" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <include layout="@layout/auto_no_network_layout"
+            />
 
         <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:visibility="gone"
             android:elevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"

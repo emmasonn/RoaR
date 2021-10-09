@@ -29,8 +29,8 @@ class NativeAdViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView)
         data.observe(lifecycleOwner, {
             CoroutineScope(Dispatchers.Main).launch {
                 smallAdView.setNativeAd(it)
-                smallAdView.visibility = View.VISIBLE
                 loadingImage.visibility = View.GONE
+
             }
         })
     }

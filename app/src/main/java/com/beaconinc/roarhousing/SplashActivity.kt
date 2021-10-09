@@ -13,8 +13,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -27,13 +30,12 @@ class SplashActivity : AppCompatActivity() {
         this.getPreferences(Context.MODE_PRIVATE)
     }
 
-    private lateinit var dialogLayout: MaterialAlertDialogBuilder
+    private lateinit var dialogLayout: AlertDialog
     private lateinit var iconImage: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        dialogLayout = showTermAndCondition()
         iconImage = findViewById(R.id.iconView)
 
         val animation = AnimationUtils.loadAnimation(this, R.anim.bounce_anim)
@@ -42,7 +44,7 @@ class SplashActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val isShowed = sharedPref.getBoolean("isShowed", false)
 
-            delay(2000)
+            delay(2500)
             if (!isShowed) {
                slideInDialog()
             } else {
@@ -52,46 +54,80 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun slideInDialog(): Animator {
-        val translationY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 1000f, 0f) //was  1000f
-        val alpha = PropertyValuesHolder.ofFloat(View.ALPHA, 1f, 1f)
-        val hideAlpha =PropertyValuesHolder.ofFloat(View.ALPHA,1f,0f)
+        val translationY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 2000f, 0f) //was  1000f
+        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 0.5f, 1f)
+        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 0.5f, 1f)
+        val alpha = PropertyValuesHolder.ofFloat(View.ALPHA, 0f, 1f)
 
-        val dialog = ObjectAnimator.ofPropertyValuesHolder(dialogLayout.show(), translationY, alpha)
-        val hideIcon = ObjectAnimator.ofPropertyValuesHolder(iconImage,hideAlpha)
+        val animateDialog = ObjectAnimator.ofPropertyValuesHolder(
+            showTermAndCondition(),
+            translationY,
+            scaleX,
+            scaleY,
+            alpha
+        ).apply {
+            interpolator = OvershootInterpolator()
+        }
 
         return AnimatorSet().apply {
-            play(hideIcon)
-            play(dialog)
+            play(animateDialog)
         }
     }
 
     @SuppressLint("InflateParams")
-    private fun showTermAndCondition(): MaterialAlertDialogBuilder {
-        return MaterialAlertDialogBuilder(this).apply {
+    private fun showTermAndCondition(): AlertDialog {
+        dialogLayout = MaterialAlertDialogBuilder(this).apply {
             val inflater = LayoutInflater.from(this@SplashActivity)
             val view = inflater.inflate(R.layout.splash_rules_dialog, null)
 
+            val iconSmall = view.findViewById<ImageView>(R.id.iconSmall)
             val okayBtn = view.findViewById<MaterialButton>(R.id.okayBtn)
             val checkBtn = view.findViewById<MaterialCheckBox>(R.id.acceptCheckbox)
+            val closeBtn = view.findViewById<ImageView>(R.id.closeBtn)
             var isChecked = false
+
+            val animation = AnimationUtils.loadAnimation(this@SplashActivity, R.anim.shake_rotate)
+            iconSmall.startAnimation(animation)
 
             checkBtn.setOnCheckedChangeListener { _,  checked ->
 
                 if(checked) {
                     okayBtn.alpha = 1F
+                }else {
+                    okayBtn.alpha = 0.2F
                     isChecked = checked
-                   // storeCondition(checked)
                 }
             }
 
+            closeBtn.setOnClickListener {
+                showCloseDialog()
+            }
+
             okayBtn.setOnClickListener {
-                if(isChecked) {
-                    moveToMainActivity()
-                }
+               // if(isChecked) {
+                    //storeCondition(isChecked)
+                dialogLayout.dismiss()
+                hideImageView()
+                  //  moveToMainActivity()
+              //  }
             }
             setCancelable(false)
             setView(view)
+        }.show()
+        return dialogLayout
+    }
+
+    private fun hideImageView() {
+        val hideAlpha =PropertyValuesHolder.ofFloat(View.ALPHA,1f,0f)
+        val hideIcon = ObjectAnimator.ofPropertyValuesHolder(iconImage,hideAlpha).apply {
+            duration = 500
         }
+
+      AnimatorSet().apply {
+            play(hideIcon)
+            moveToMainActivity()
+        }
+
     }
 
     private fun moveToMainActivity() {
@@ -107,4 +143,19 @@ class SplashActivity : AppCompatActivity() {
             commit()
         }
     }
+
+    private fun showCloseDialog() {
+        MaterialAlertDialogBuilder(this).apply {
+            setTitle("You're about to exit app")
+            setPositiveButton("Okay") { dialog , _ ->
+                dialog.dismiss()
+                finish()
+            }
+            setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
+        }
+    }
+
 }
