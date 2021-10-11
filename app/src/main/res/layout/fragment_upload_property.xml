@@ -6,7 +6,7 @@
     <data>
         <variable
             name="lodgeProperty"
-            type="com.beaconinc.roarhousing.cloudModel.FirebaseProperty"/>
+            type="com.column.roar.cloudModel.FirebaseProperty"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

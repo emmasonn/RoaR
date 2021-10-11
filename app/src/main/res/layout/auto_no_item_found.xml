@@ -40,7 +40,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/montserrat_extra_bold"
-            android:text="No item has been added here yet."
+            android:text="@string/no_item_string"
             android:textAlignment="center"
             android:textAppearance="?attr/textAppearanceSubtitle1"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -11,13 +11,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/adminImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_margin="20dp"
         android:scaleType="centerCrop"
-        tools:src="@drawable/ic_loading_img_one"
+        tools:src="@drawable/animated_gradient"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -38,10 +39,9 @@
             android:id="@+id/selectBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select"
-            android:textAppearance="@style/Widget.Roar.Button.TextButton"
+            android:text="@string/select_string"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
             android:textColor="?attr/colorControlNormal"
-            android:textSize="16sp"
             android:textStyle="bold"
             android:layout_margin="10dp"
             app:layout_constraintBottom_toBottomOf="parent"

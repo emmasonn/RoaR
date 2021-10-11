@@ -9,7 +9,12 @@
     <string name="format_price_integer">₦%d</string>
     <string name="choice_title">%s \tLodge</string>
 
-    <!--notification strings-->
+    <!--query strings strings-->
+    <string name="lodges_arg_capital">Lodges</string>
+    <string name="lodge_fire_store">lodges</string>
+    <string name="product_arg">Product</string>
+    <string name="roar_arg">roar</string>
+    <string name="product_properties">properties</string>
 
     <!--lodges notification_string-->
     <string name="lodges_notification_channel_id">LODGES_CHANNEL</string>
@@ -20,7 +25,6 @@
     <string name="product_notification_channel_name">New Product Notification !!</string>
     <!-- Preference Titles -->
 
-    <!-- Messages Preferences -->
     <!-- Sync Preferences -->
     <string name="swipe_right"><![CDATA[< Swipe right to upload lodge pictures >]]></string>
 
@@ -74,6 +78,16 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="format_brandName">\@%s</string>
+    <string name="select_string">Select</string>
+    <string name="select_admin">Select Admin</string>
+    <string name="online">Online</string>
+    <string name="no_item_string">No item has been added here yet.</string>
+    <string name="failed_to_load_item">Failed to load item</string>
+    <string name="check_your_internet_connection">Check your Internet Connection</string>
+    <string name="ads">ads</string>
+    <string name="campus_top_sales">Campus Top Sales</string>
+    <string name="call_now">Call Now</string>
+    <string name="about_us_title">About us</string>
 
 
 </resources>

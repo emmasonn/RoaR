@@ -57,7 +57,8 @@
                     android:fontFamily="@font/montserrat_regular"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="@color/white"
-                    tools:text="Unn" />
+                    tools:text="Unn"
+                    tools:ignore="RtlSymmetry" />
             </LinearLayout>
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -70,7 +71,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription"
-                tools:src="@drawable/ic_plug" />
+                tools:src="@drawable/animated_gradient" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 

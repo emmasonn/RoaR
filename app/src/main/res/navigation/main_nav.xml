@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/lodgeDetailUpload"
-        android:name="com.beaconinc.roarhousing.dashBoard.upload.LodgeUploadDetail"
+        android:name="com.column.roar.dashBoard.upload.LodgeUploadDetail"
         android:label="fragment_upload_lodge"
         tools:layout="@layout/fragment_upload_lodge" >
         <action
@@ -16,13 +16,13 @@
     </fragment>
     <fragment
         android:id="@+id/lodgeImageUpload"
-        android:name="com.beaconinc.roarhousing.dashBoard.upload.LodgeUploadImage"
+        android:name="com.column.roar.dashBoard.upload.LodgeUploadImage"
         android:label="fragment_upload_image"
         tools:layout="@layout/fragment_upload_image" />
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.beaconinc.roarhousing.home.HomeFragment"
+        android:name="com.column.roar.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
 
@@ -52,7 +52,7 @@
 
     <fragment
         android:id="@+id/lodgeDetail"
-        android:name="com.beaconinc.roarhousing.lodgeDetail.LodgeDetail"
+        android:name="com.column.roar.lodgeDetail.LodgeDetail"
         android:label="LodgeDetail"
         tools:layout="@layout/fragment_lodge_detail">
         <action
@@ -65,7 +65,7 @@
 
     <fragment
         android:id="@+id/authOne"
-        android:name="com.beaconinc.roarhousing.authentication.AuthOne"
+        android:name="com.column.roar.authentication.AuthOne"
         android:label="fragment_auth_two"
         tools:layout="@layout/fragment_auth_one" >
         <action
@@ -80,7 +80,7 @@
     </fragment>
     <fragment
         android:id="@+id/authTwo"
-        android:name="com.beaconinc.roarhousing.authentication.AuthTwo"
+        android:name="com.column.roar.authentication.AuthTwo"
         android:label="AuthTwo"
         tools:layout="@layout/fragment_auth_two"
         >
@@ -91,7 +91,7 @@
     </fragment>
     <fragment
         android:id="@+id/setUpFragment"
-        android:name="com.beaconinc.roarhousing.dashBoard.SetUpFragment"
+        android:name="com.column.roar.dashBoard.SetUpFragment"
         android:label="fragment_set_up"
         tools:layout="@layout/fragment_set_up" >
         <action
@@ -101,7 +101,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.beaconinc.roarhousing.dashBoard.lodge.ProfileFragment"
+        android:name="com.column.roar.dashBoard.lodge.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile"
         >
@@ -121,7 +121,7 @@
     </fragment>
     <fragment
         android:id="@+id/manageProperty"
-        android:name="com.beaconinc.roarhousing.dashBoard.property.ManageProperty"
+        android:name="com.column.roar.dashBoard.property.ManageProperty"
         android:label="fragment_manage_lodge"
         tools:layout="@layout/fragment_manage_property" >
         <action
@@ -130,12 +130,12 @@
     </fragment>
     <fragment
         android:id="@+id/lodgesFragment"
-        android:name="com.beaconinc.roarhousing.home.LodgesFragment"
+        android:name="com.column.roar.home.LodgesFragment"
         android:label="fragment_lodges"
         tools:layout="@layout/fragment_lodges" />
     <fragment
         android:id="@+id/manageAccount"
-        android:name="com.beaconinc.roarhousing.dashBoard.ManageAccount"
+        android:name="com.column.roar.dashBoard.ManageAccount"
         android:label="ManageAccount"
         tools:layout="@layout/fragment_manage_account"
         >
@@ -145,17 +145,17 @@
     </fragment>
     <fragment
         android:id="@+id/notifyFragment"
-        android:name="com.beaconinc.roarhousing.admin.BroadCastLodge"
+        android:name="com.column.roar.admin.BroadCastLodge"
         android:label="fragment_notify"
         tools:layout="@layout/fragment_notify" />
     <fragment
         android:id="@+id/filterFragment"
-        android:name="com.beaconinc.roarhousing.home.FilterFragment"
+        android:name="com.column.roar.home.FilterFragment"
         android:label="fragment_filter"
         tools:layout="@layout/fragment_filter" />
     <fragment
         android:id="@+id/careerFragment"
-        android:name="com.beaconinc.roarhousing.dashBoard.lodge.CareerFragment"
+        android:name="com.column.roar.dashBoard.lodge.CareerFragment"
         android:label="CareerFragment"
         tools:layout="@layout/fragment_career">
         <action
@@ -167,7 +167,7 @@
     </fragment>
     <fragment
         android:id="@+id/phoneAuthentication"
-        android:name="com.beaconinc.roarhousing.authentication.PhoneAuthentication"
+        android:name="com.column.roar.authentication.PhoneAuthentication"
         android:label="fragment_phone_authentication"
         tools:layout="@layout/fragment_phone_authentication" >
         <action
@@ -185,18 +185,18 @@
         tools:layout="@layout/fragment_via_account" />
     <fragment
         android:id="@+id/paymentPager"
-        android:name="com.beaconinc.roarhousing.payment.PaymentPager"
+        android:name="com.column.roar.payment.PaymentPager"
         android:label="fragment_payment_pager"
         tools:layout="@layout/fragment_payment_pager" />
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.beaconinc.roarhousing.home.AboutFragment"
+        android:name="com.column.roar.home.AboutFragment"
         android:label="AboutFragment"
         tools:layout="@layout/fragment_about"
         />
     <fragment
         android:id="@+id/productStore"
-        android:name="com.beaconinc.roarhousing.home.RoarStore"
+        android:name="com.column.roar.home.RoarStore"
         android:label="fragment_property"
         tools:layout="@layout/fragment_store">
 
@@ -216,17 +216,17 @@
 
     <fragment
         android:id="@+id/settingsPager"
-        android:name="com.beaconinc.roarhousing.home.SettingsPager"
+        android:name="com.column.roar.home.SettingsPager"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/uploadProperty"
-        android:name="com.beaconinc.roarhousing.dashBoard.upload.UploadProperty"
+        android:name="com.column.roar.dashBoard.upload.UploadProperty"
         android:label="fragment_upload_property"
         tools:layout="@layout/fragment_upload_property" />
     <fragment
         android:id="@+id/becomeAgent"
-        android:name="com.beaconinc.roarhousing.authentication.BecomeAgent"
+        android:name="com.column.roar.authentication.BecomeAgent"
         android:label="fragment_become_agent"
         tools:layout="@layout/fragment_become_agent" >
         <action
@@ -248,13 +248,13 @@
     </fragment>
     <fragment
         android:id="@+id/verifyNumber"
-        android:name="com.beaconinc.roarhousing.authentication.VerifyNumber"
+        android:name="com.column.roar.authentication.VerifyNumber"
         android:label="VerifyNumber"
         tools:layout="@layout/fragment_verify_number"
         />
     <fragment
         android:id="@+id/verifyPassword"
-        android:name="com.beaconinc.roarhousing.authentication.VerifyPassword"
+        android:name="com.column.roar.authentication.VerifyPassword"
         android:label="VerifyPassword"
         tools:layout="@layout/fragment_verify_password"
 
@@ -270,58 +270,58 @@
     </fragment>
     <fragment
         android:id="@+id/changePassword"
-        android:name="com.beaconinc.roarhousing.dashBoard.ChangePassword"
+        android:name="com.column.roar.dashBoard.ChangePassword"
         android:label="ChangePassword"
         tools:layout="@layout/fragment_change_password"
         />
     <fragment
         android:id="@+id/viewLodge"
-        android:name="com.beaconinc.roarhousing.lodgeDetail.ViewLodge"
+        android:name="com.column.roar.lodgeDetail.ViewLodge"
         android:label="ExploreLodge"
         tools:layout="@layout/fragment_view_lodge"
         />
     <fragment
         android:id="@+id/editLodgePager"
-        android:name="com.beaconinc.roarhousing.dashBoard.upload.EditLodgePager"
+        android:name="com.column.roar.dashBoard.upload.EditLodgePager"
         android:label="fragment_edit_lodge_pager"
         tools:layout="@layout/fragment_edit_lodge_pager" />
     <fragment
         android:id="@+id/adminFragment"
-        android:name="com.beaconinc.roarhousing.admin.AdminFragment"
+        android:name="com.column.roar.admin.AdminFragment"
         android:label="AdminFragment"
         tools:layout="@layout/fragment_admin"
         />
     <fragment
         android:id="@+id/adminRealtors"
-        android:name="com.beaconinc.roarhousing.admin.AdminRealtorDetails"
+        android:name="com.column.roar.admin.AdminRealtorDetails"
         android:label="ClientDetail"
         tools:layout="@layout/fragment_realtors_detail"
         />
     <fragment
         android:id="@+id/marketProfile"
-        android:name="com.beaconinc.roarhousing.dashBoard.property.MarketProfile"
+        android:name="com.column.roar.dashBoard.property.MarketProfile"
         android:label="MarketProfile"
         tools:layout="@layout/fragment_market_profile"
         />
     <fragment
         android:id="@+id/accommodationFragment"
-        android:name="com.beaconinc.roarhousing.home.AccommodationFragment"
+        android:name="com.column.roar.home.AccommodationFragment"
         android:label="AccommodationFragment"
         tools:layout="@layout/fragment_accommodation"
         />
     <fragment
         android:id="@+id/subscriptionFragment"
-        android:name="com.beaconinc.roarhousing.dashBoard.SubscriptionFragment"
+        android:name="com.column.roar.dashBoard.SubscriptionFragment"
         android:label="fragment_subscription"
         tools:layout="@layout/fragment_subscription" />
     <fragment
         android:id="@+id/termsFragment"
-        android:name="com.beaconinc.roarhousing.dashBoard.TermsFragment"
+        android:name="com.column.roar.dashBoard.TermsFragment"
         android:label="fragment_terms"
         tools:layout="@layout/fragment_terms" />
     <fragment
         android:id="@+id/businessFragment"
-        android:name="com.beaconinc.roarhousing.admin.BusinessFragment"
+        android:name="com.column.roar.admin.BusinessFragment"
         android:label="fragment_business"
         tools:layout="@layout/fragment_business" >
         <action
@@ -330,7 +330,7 @@
     </fragment>
     <fragment
         android:id="@+id/realtorFragment"
-        android:name="com.beaconinc.roarhousing.admin.RealtorFragment"
+        android:name="com.column.roar.admin.RealtorFragment"
         android:label="fragment_realtor"
         tools:layout="@layout/fragment_realtor" >
         <action
@@ -339,28 +339,28 @@
     </fragment>
     <fragment
         android:id="@+id/adminManageMarketers"
-        android:name="com.beaconinc.roarhousing.admin.AdminManageMarketers"
+        android:name="com.column.roar.admin.AdminManageMarketers"
         android:label="admin_manage_marketers"
         tools:layout="@layout/admin_manage_marketers" />
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.beaconinc.roarhousing.home.FavoriteFragment"
+        android:name="com.column.roar.home.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/watchTour"
-        android:name="com.beaconinc.roarhousing.lodgeDetail.WatchTour"
+        android:name="com.column.roar.lodgeDetail.WatchTour"
         android:label="fragment_watch_tour"
         tools:layout="@layout/fragment_watch_tour" />
     <fragment
         android:id="@+id/broadCastProduct"
-        android:name="com.beaconinc.roarhousing.admin.BroadCastProduct"
+        android:name="com.column.roar.admin.BroadCastProduct"
         android:label="BroadCastProduct"
         tools:layout="@layout/fragment_broadcast_products"
         />
     <fragment
         android:id="@+id/manageAds"
-        android:name="com.beaconinc.roarhousing.admin.ManageAds"
+        android:name="com.column.roar.admin.ManageAds"
         android:label="ManageAds"
         tools:layout="@layout/fragment_manage_ads"
 
@@ -371,13 +371,13 @@
     </fragment>
     <fragment
         android:id="@+id/uploadAds"
-        android:name="com.beaconinc.roarhousing.admin.UploadAds"
+        android:name="com.column.roar.admin.UploadAds"
         android:label="UploadAds"
         tools:layout="@layout/fragment_upload_ads"
         />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.beaconinc.roarhousing.home.SearchFragment"
+        android:name="com.column.roar.home.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
 

@@ -115,8 +115,8 @@
                 tools:listitem="@layout/item_lodges_layout" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <include layout="@layout/auto_no_network_layout"
-            />
+        <include
+            layout="@layout/auto_no_network_layout" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -124,7 +124,7 @@
             android:layout_height="30dp"
             android:visibility="gone"
             android:elevation="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

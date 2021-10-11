@@ -9,8 +9,8 @@
 
   <ImageView
       android:id="@+id/iconView"
-      android:layout_width="100dp"
-      android:layout_height="100dp"
+      android:layout_width="80dp"
+      android:layout_height="80dp"
       android:src="@drawable/ic_emma"
       android:scaleType="centerCrop"
       android:elevation="10dp"

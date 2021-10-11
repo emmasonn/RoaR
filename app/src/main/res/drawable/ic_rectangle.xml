@@ -2,8 +2,8 @@
 <vector
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
-    android:width="200dp"
-    android:height="200dp"
+    android:width="600dp"
+    android:height="500dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
 
@@ -18,18 +18,22 @@
                     android:startY="0"
                     android:tileMode="repeat"
                     android:type="linear">
+
                     <item
-                        android:color="#1dacbe"
-                        android:offset="0.0" />
-                    <item
-                        android:color="#1dacbe"
-                        android:offset="0.0" />
+                        android:color="#046d86"
+                        android:offset="0.3" />
                     <item
                         android:color="#70ffffff"
                         android:offset="0.5" />
+
+                    <item
+                        android:color="#70ffffff"
+                        android:offset="0.5" />
+
                     <item
                         android:color="#20000000"
                         android:offset="1.0" />
+
                 </gradient>
             </aapt:attr>
         </path>

@@ -68,6 +68,5 @@
             app:layout_constraintTop_toBottomOf="@+id/toolBar"
             tools:listitem="@layout/item_property_edit" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
     <include layout="@layout/auto_no_item_found" />
 </androidx.constraintlayout.widget.ConstraintLayout>
