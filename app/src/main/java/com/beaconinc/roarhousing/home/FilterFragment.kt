@@ -24,6 +24,7 @@ import com.beaconinc.roarhousing.listAdapters.LodgesAdapter
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 
 class FilterFragment : Fragment() {
@@ -46,14 +47,16 @@ class FilterFragment : Fragment() {
         val settingsPref = PreferenceManager.getDefaultSharedPreferences(requireContext())
         val campus = settingsPref.getString("campus", "")
 
+        Timber.i("campus: $campus")
+
         lodgesQuery = if(filter == "Simple") {
             fireStore.collection("lodges")
-                .whereEqualTo("location",campus)
-                .whereLessThan("subPayment","100000")
+                .whereEqualTo("campus", campus)
+                .whereLessThan("subPayment",100000)
         } else {
             fireStore.collection("lodges")
-                .whereEqualTo("location",campus)
-                .whereGreaterThan("subPayment","100000")
+                .whereEqualTo("campus",campus)
+                .whereGreaterThan("subPayment",100000)
         }
     }
 
@@ -110,7 +113,7 @@ class FilterFragment : Fragment() {
             result.documents.mapNotNull { snapLodge ->
                 snapLodge.toObject(FirebaseLodge::class.java)
             }.also { lodges ->
-                lifecycleScope.launch {
+                lifecycleScope.launchWhenCreated {
                     if(lodges.isNullOrEmpty()){
                         lodgesAdapter.addLodgeAndProperty(emptyList(),false)
                         hideProgress()
@@ -123,9 +126,11 @@ class FilterFragment : Fragment() {
                 }
             }
         }.addOnFailureListener {
-            showInternetError()
-            hideProgress()
-            swipeRefreshContainer.isRefreshing = false
+            lifecycleScope.launchWhenCreated {
+                showInternetError()
+                hideProgress()
+                swipeRefreshContainer.isRefreshing = false
+            }
         }
     }
 

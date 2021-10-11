@@ -17,7 +17,11 @@
         android:background="?attr/colorPrimary"
         android:orientation="vertical"
         android:paddingTop="60dp">
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <include layout="@layout/lodge_back_drop" />
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
     <com.google.android.material.appbar.AppBarLayout
@@ -41,23 +45,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="ContentDescription" />
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/textView6"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="RoaR"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:layout_marginBottom="5dp"-->
-<!--                        android:textStyle="bold"-->
-<!--                        android:textSize="23sp"-->
-<!--                        app:layout_constraintHorizontal_bias="0.45"-->
-<!--                        android:textAppearance="@style/Widget.Toolbar.title"-->
-<!--                        android:fontFamily="@font/montserrat_extra_bold"-->
-<!--                        app:layout_constraintBottom_toTopOf="@id/view10"-->
-<!--                        app:layout_constraintEnd_toStartOf="@+id/menuNav"-->
-<!--                        app:layout_constraintStart_toEndOf="@+id/appIcon"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
 
                     <ImageView
                         android:id="@+id/menuNav"

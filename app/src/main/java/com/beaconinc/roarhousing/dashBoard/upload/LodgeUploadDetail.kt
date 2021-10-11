@@ -186,8 +186,8 @@ class LodgeUploadDetail : Fragment() {
         network.editText?.setText(lodge?.network)
         water.editText?.setText(lodge?.water)
         lodgeName.setText(lodge?.lodgeName)
-        initialPay.setText(lodge?.subPayment)
-        subPay.setText(lodge?.subPayment)
+        initialPay.setText(lodge?.initialPayment)
+        subPay.setText(getString(R.string.format_price_integer,lodge?.subPayment))
         campus.editText?.setText(lodge?.campus)
         lodgeType.editText?.setText(lodge?.type)
         landLordName.setText(lodge?.ownerName)
@@ -233,7 +233,7 @@ class LodgeUploadDetail : Fragment() {
             surrounding = surrounding,
             water = water,
             network = network,
-            subPayment = subPay,
+            subPayment = subPay.toInt(),
             initialPayment = initialPay,
             distance = distance,
             ownerName = ownerName,

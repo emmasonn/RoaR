@@ -29,7 +29,7 @@ import java.util.*
     var size: String? = null,
     var availableRoom: Long? = null,
     var initialPayment: String? = null,
-    var subPayment: String? = null,
+    var subPayment: Int? = null,
     var description: String? = null,
     var water: String? = null,
     var light: String? = null,

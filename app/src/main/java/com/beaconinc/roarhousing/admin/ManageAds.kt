@@ -91,7 +91,7 @@ class ManageAds : Fragment() {
     }
 
     private fun fetchProducts() {
-        productsRef.addSnapshotListener { snapShot, _ ->
+        productsRef.get().addOnSuccessListener{ snapShot ->
             snapShot?.documents?.mapNotNull {
                 it.toObject(FirebaseProperty::class.java)
             }.also { properties ->

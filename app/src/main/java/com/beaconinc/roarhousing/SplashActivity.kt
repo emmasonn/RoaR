@@ -44,9 +44,9 @@ class SplashActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val isShowed = sharedPref.getBoolean("isShowed", false)
 
-            delay(2500)
+            delay(1000)
             if (!isShowed) {
-               slideInDialog()
+                slideInDialog()
             } else {
                 moveToMainActivity()
             }
@@ -89,11 +89,12 @@ class SplashActivity : AppCompatActivity() {
             val animation = AnimationUtils.loadAnimation(this@SplashActivity, R.anim.shake_rotate)
             iconSmall.startAnimation(animation)
 
-            checkBtn.setOnCheckedChangeListener { _,  checked ->
+            checkBtn.setOnCheckedChangeListener { _, checked ->
 
-                if(checked) {
+                if (checked) {
                     okayBtn.alpha = 1F
-                }else {
+                    isChecked = checked
+                } else {
                     okayBtn.alpha = 0.2F
                     isChecked = checked
                 }
@@ -104,11 +105,11 @@ class SplashActivity : AppCompatActivity() {
             }
 
             okayBtn.setOnClickListener {
-               // if(isChecked) {
-                    //storeCondition(isChecked)
-                dialogLayout.dismiss()
-                moveToMainActivity()
-              //  }
+                if (isChecked) {
+                    storeCondition(isChecked)
+                    dialogLayout.dismiss()
+                    moveToMainActivity()
+                }
             }
             setCancelable(false)
             setView(view)
@@ -134,7 +135,7 @@ class SplashActivity : AppCompatActivity() {
     private fun showCloseDialog() {
         MaterialAlertDialogBuilder(this).apply {
             setTitle("You're about to exit app")
-            setPositiveButton("Okay") { dialog , _ ->
+            setPositiveButton("Okay") { dialog, _ ->
                 dialog.dismiss()
                 finish()
             }

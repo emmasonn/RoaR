@@ -4,7 +4,7 @@
 
         <item android:id="@+id/exitProfile"
             android:title="Back"
-            android:icon="@drawable/ic_backward"
+            android:icon="@drawable/ic_admin_back"
             />
 
     <item tools:ignore="MenuTitle">

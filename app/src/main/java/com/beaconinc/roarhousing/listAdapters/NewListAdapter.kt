@@ -135,8 +135,12 @@ class NewListAdapter(
                     if(showEmpty) {
                        listOf(DataItem.AdHeader) +
                                 listOf(DataItem.EmptyCard) +
-                                listOf(DataItem.Header("Properties")) +
-                                properties.run { DataItem.PropertyItem(this) } +
+                               listOf(DataItem.Header("Property")) +
+                               properties.run {
+                                   this.filter { it.propertyType == "Property" }.let {
+                                       DataItem.PropertyItem(it)
+                                   }
+                               } +
                                 listOf(DataItem.MediumAd)
                     } else {
                         return@launch
@@ -148,10 +152,9 @@ class NewListAdapter(
                             properties.run { this.filter{ it.propertyType == "Ads" }.let{
                                 DataItem.BusinessAdsItem(it)
                             }} +
-                            listOf(DataItem.AdHeader) +
-                            listOf(DataItem.Header("Properties")) +
+                            listOf(DataItem.Header("Property")) +
                             properties.run {
-                                this.filter { it.propertyType == "House-Property" }.let {
+                                this.filter { it.propertyType == "Property" }.let {
                                     DataItem.PropertyItem(it)
                                 }
                             } + //first items for sale

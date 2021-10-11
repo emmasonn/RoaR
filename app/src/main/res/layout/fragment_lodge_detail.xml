@@ -102,7 +102,7 @@
                 android:text="@{lodgeDetail.location}"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/textView18"
+                app:layout_constraintStart_toStartOf="@+id/imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/textView18"
                 tools:text="Green house" />
 
@@ -152,7 +152,7 @@
                 android:text="@{lodgeDetail.type}"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintStart_toStartOf="@+id/imageView15"
                 app:layout_constraintTop_toBottomOf="@+id/textView18"
                 tools:text="Single room" />
 
@@ -183,7 +183,7 @@
                 android:text="@{lodgeDetail.size}"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/textView81"
+                app:layout_constraintStart_toStartOf="@+id/imageView50"
                 app:layout_constraintTop_toBottomOf="@+id/textView18"
                 tools:text="3.6m" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -263,7 +263,6 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="80dp"
                         android:orientation="vertical">
-
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -281,7 +280,7 @@
                                 app:strokeColor="@color/white_300"
                                 app:strokeWidth="0.5dp"
                                 tools:ignore="ContentDescription"
-                                tools:src="@drawable/ic_loading_image_small" />
+                                tools:src="@drawable/animated_gradient" />
 
                             <TextView
                                 android:id="@+id/itemTitle"
@@ -349,7 +348,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="15dp"
-                                    android:text="@{@string/format_price(lodgeDetail.subPayment)}"
+                                    android:text="@{@string/format_price_integer(lodgeDetail.subPayment)}"
                                     android:textAppearance="?attr/textAppearanceHeadline5"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/rentTitle"
@@ -370,7 +369,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="30dp"
-                                    android:text="Initial Fee"
+                                    android:text="Initial Payment"
                                     android:textAppearance="?attr/textAppearanceBody2"
                                     app:layout_constraintEnd_toEndOf="@+id/intPrice"
                                     app:layout_constraintStart_toStartOf="@+id/intPrice"
@@ -393,8 +392,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="+ Lawyer fee"
-                                    android:textAppearance="@style/Widget.Roar.textHeadline"
-                                    android:textSize="15sp"
+                                    android:textAppearance="?attr/textAppearanceBody2"
                                     app:layout_constraintEnd_toEndOf="@+id/intPrice"
                                     app:layout_constraintStart_toStartOf="@+id/intPrice"
                                     app:layout_constraintTop_toBottomOf="@+id/intPrice" />

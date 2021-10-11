@@ -50,14 +50,14 @@
     <style name="Widget.Roar.textHeadline" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="android:textSize">18sp</item>
         <item name="fontFamily">@font/montserrat_semi_bold</item>
-        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
     </style>
-
 
     <style name="spinnerTheme" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
         <item name="strokeColor">@color/black_500</item>
         <!--        <item name="endIconDrawable">@drawable/</item>-->
     </style>
+
 
     <style name="ThemeOverlay.TextInputLayout" parent="ThemeOverlay.MaterialComponents">
         <item name="cornerFamily">rounded</item>
@@ -86,17 +86,13 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">5dp</item>
     </style>
-
-
     <!--Defining our style we -->
-
-
     <!--End of Defining -->
-
     <style name="ShapeAppearanceOverlay.App.circle" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50dp</item>
     </style>
+
     <style name="ShapeAppearanceOverlay.App.circle100" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">70dp</item>
@@ -124,14 +120,29 @@
 <!--Material dialog styling -->
     <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="colorSurface">?attr/colorPrimary</item>
-        <item name="backgroundColor">?attr/colorPrimary</item>
         <item name="colorAccent">@color/blue_500</item>
+        <item name="background">?attr/colorPrimary</item>
         <item name="colorOnPrimary">@color/blue_500</item>
         <item name="buttonBarPositiveButtonStyle">@style/Widget.Roar.textHeadline</item>
         <item name="buttonBarNegativeButtonStyle">@style/Widget.Roar.textHeadline</item>
+<!--        <item name="materialAlertDialogTitleTextStyle">@style/Widget.Roar.dialogTitle</item>-->
+<!--        <item name="materialAlertDialogBodyTextStyle">@style/Widget.Roar.dialogBody</item>-->
         <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
     </style>
 <!--End of Material dialog styling-->
+
+    <!--the alarm dialog-->
+    <style name="Widget.Roar.dialogTitle" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:textAppearance">?attr/textAppearanceSubtitle1</item>
+        <item name="fontFamily">@font/montserrat_extra_bold</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="Widget.Roar.dialogBody" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:textAppearance">?attr/textAppearanceSubtitle2</item>
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
 
     <style name="Widget.App.filterChip" parent="Widget.MaterialComponents.Chip.Filter">
         <item name="textAllCaps">false</item>

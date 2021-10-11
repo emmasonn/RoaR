@@ -150,8 +150,7 @@ class AdminFragment : Fragment() {
 
                 Glide.with(binding.profilePics.context)
                     .load(firebaseUser.clientUrl).apply(
-                        RequestOptions().placeholder(R.drawable.animated_gradient)
-                            .error(R.drawable.animated_gradient)
+                        RequestOptions().placeholder(R.drawable.ic_round_person)
                     ).into(binding.profilePics)
 
                 binding.fullName.text = firebaseUser.clientName

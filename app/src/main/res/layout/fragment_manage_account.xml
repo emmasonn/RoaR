@@ -7,40 +7,32 @@
     android:layout_height="match_parent"
     >
 
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout
         android:id="@+id/appBarLayout2"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:elevation="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UseCompoundDrawables">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:id="@+id/aBackBtn"
-                android:layout_width="@dimen/back_arrow_height"
-                android:layout_height="@dimen/back_arrow_height"
-                android:layout_gravity="center_vertical"
-                android:focusable="true"
-                android:src="@drawable/ic_backward"
-                tools:ignore="ContentDescription" />
+        <ImageView
+            android:id="@+id/aBackBtn"
+            android:layout_width="@dimen/back_arrow_height"
+            android:layout_height="@dimen/back_arrow_height"
+            android:layout_gravity="center_vertical"
+            android:focusable="true"
+            android:src="@drawable/ic_backward"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Manage Account"
             android:layout_marginStart="20dp"
-            android:textAppearance="@style/Widget.Toolbar.title"
-            />
-        </LinearLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+            android:text="Manage Account"
+            android:textAppearance="@style/Widget.Toolbar.title" />
+    </LinearLayout>
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/clientImage"

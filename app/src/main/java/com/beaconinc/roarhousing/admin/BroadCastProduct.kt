@@ -154,6 +154,7 @@ class BroadCastProduct : Fragment() {
 
             deleteBtn.setOnClickListener {
                 firebaseProperty.id?.let {
+                    editDialog.dismiss()
                     deleteCard(it)
                 }
             }

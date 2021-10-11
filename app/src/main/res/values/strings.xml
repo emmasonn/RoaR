@@ -6,6 +6,7 @@
     <string name="notifyText">%s\thas booked to visit the above lodge</string>
     <string name="remaining_day">%s days left</string>
     <string name="format_price">₦%s</string>
+    <string name="format_price_integer">₦%d</string>
     <string name="choice_title">%s \tLodge</string>
 
     <!--notification strings-->

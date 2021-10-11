@@ -98,22 +98,26 @@ class FavoriteFragment : Fragment() {
                     snapShot.documents.mapNotNull { shot ->
                         shot.toObject(FirebaseLodge::class.java)
                     }.also { lodges ->
-                        lodgesAdapter.addLodgeAndProperty(lodges, false)
-                        hideProgress()
-                        swipeRefreshContainer.isRefreshing = false
-
+                        lifecycleScope.launchWhenCreated {
+                            lodgesAdapter.addLodgeAndProperty(lodges, false)
+                            hideProgress()
+                            swipeRefreshContainer.isRefreshing = false
+                        }
                     }
                 }
             } else {
-                hideProgress()
-                lodgesAdapter.clear()
-                lodgesAdapter.addLodgeAndProperty(emptyList(), false)
-                swipeRefreshContainer.isRefreshing = false
+                lifecycleScope.launchWhenCreated {
 
-                Toast.makeText(
-                    requireContext(),
-                    "No Favorite Lodge Empty", Toast.LENGTH_SHORT
-                ).show()
+                    hideProgress()
+                    lodgesAdapter.clear()
+                    lodgesAdapter.addLodgeAndProperty(emptyList(), false)
+                    swipeRefreshContainer.isRefreshing = false
+
+                    Toast.makeText(
+                        requireContext(),
+                        "No Favorite Lodge Empty", Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }

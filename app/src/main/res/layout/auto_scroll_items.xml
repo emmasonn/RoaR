@@ -30,6 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/light_black_background"
                 android:elevation="10dp"
@@ -53,8 +54,7 @@
                     android:layout_marginStart="3dp"
                     android:paddingEnd="8dp"
                     android:textAllCaps="false"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:textSize="12sp"
+                    android:fontFamily="@font/montserrat_regular"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="@color/white"
                     tools:text="Unn" />

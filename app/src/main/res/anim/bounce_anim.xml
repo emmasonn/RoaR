@@ -13,5 +13,5 @@
         android:toYScale="1.0"
         android:repeatCount="infinite"
         android:repeatMode="reverse"
-        android:duration="2000"/>
+        android:duration="1500"/>
 </set>

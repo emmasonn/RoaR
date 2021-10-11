@@ -101,9 +101,9 @@
                     android:id="@+id/lodgePrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/Widget.Toolbar.title"
-                    android:textSize="23sp"
+                    android:textAppearance="?attr/textAppearanceHeadline5"
                     android:layout_marginTop="15dp"
+                    android:fontFamily="@font/montserrat_extra_bold"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/lodgeTitle"
                     app:layout_constraintStart_toStartOf="@+id/imageView2"
@@ -115,8 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
-                    android:textAppearance="@style/Widget.Roar.textHeadline"
-                    android:textSize="15sp"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                     app:layout_constraintStart_toEndOf="@+id/imageView2"
                     app:layout_constraintTop_toTopOf="@+id/imageView2"
@@ -140,8 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
-                    android:textAppearance="@style/Widget.Roar.textHeadline"
-                    android:textSize="14sp"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView1"
                     app:layout_constraintStart_toEndOf="@+id/imageView1"
@@ -184,14 +182,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:elevation="10dp"
-                        android:textAppearance="@style/Widget.Roar.textHeadline"
-                        android:textSize="14sp"
+                        android:textAppearance="?attr/textAppearanceSubtitle2"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView18"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/imageView18"
                         tools:text="UNN" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/exploreBtn"

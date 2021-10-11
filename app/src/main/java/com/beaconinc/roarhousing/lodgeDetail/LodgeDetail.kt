@@ -185,18 +185,21 @@ class LodgeDetail : Fragment() {
             photosSnap.documents.mapNotNull {
                 it.toObject(FirebaseLodgePhoto::class.java)
             }.also { photos ->
-                if (photos.size <= 3) {
-                    photoListRecycler.layoutManager = LinearLayoutManager(
-                        requireContext(), LinearLayoutManager.HORIZONTAL, false
-                    )
-                } else {
-                    photoListRecycler.layoutManager = GridLayoutManager(
-                        requireContext(),
-                        2, GridLayoutManager.HORIZONTAL, false
-                    )
+                lifecycleScope.launch {
+                    if (photos.size <= 3) {
+                        photoListRecycler.layoutManager = LinearLayoutManager(
+                            requireContext(), LinearLayoutManager.HORIZONTAL, false
+                        )
+                    } else {
+
+                            photoListRecycler.layoutManager = GridLayoutManager(
+                                requireContext(),
+                                2, GridLayoutManager.HORIZONTAL, false
+                            )
+                            photosAdapter.submitList(photos)
+                            swipeRefreshContainer.isRefreshing = false
+                    }
                 }
-                photosAdapter.submitList(photos)
-                swipeRefreshContainer.isRefreshing = false
             }
         }
 
@@ -204,10 +207,13 @@ class LodgeDetail : Fragment() {
             values.documents.mapNotNull {
                 it.toObject(FirebaseLodge::class.java)
             }.also { lodges ->
+                lifecycleScope.launchWhenCreated {
                 if(lodges.isNullOrEmpty()) {
-                    lodgesAdapter.addLodgeAndProperty(lodges, true)
-                    binding.othersRecycler.visibility = View.VISIBLE
-                    binding.similarLodges.visibility = View.VISIBLE
+
+                        lodgesAdapter.addLodgeAndProperty(lodges, true)
+                        binding.othersRecycler.visibility = View.VISIBLE
+                        binding.similarLodges.visibility = View.VISIBLE
+                    }
                 }
             }
         }

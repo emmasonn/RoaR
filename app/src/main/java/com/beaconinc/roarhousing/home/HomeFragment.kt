@@ -16,6 +16,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -76,7 +77,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         homeRecycler = view.findViewById(R.id.homePager)
-        backDrop = view.findViewById<LinearLayout>(R.id.backDrop)
+        backDrop = view.findViewById(R.id.backDrop)
         val luxBtn = view.findViewById<MaterialButton>(R.id.luxBtn)
         val cheapBtn = view.findViewById<MaterialButton>(R.id.cheapBtn)
         val propertyBtn = view.findViewById<MaterialButton>(R.id.propertyBtn)
@@ -108,7 +109,6 @@ class HomeFragment : Fragment() {
                 resolveUrl(argsNav.lodgeId)
             }
         }
-        swipeContainer.isRefreshing = true
         showProgress()
      lifecycleScope.launch (Dispatchers.Main) {
 
@@ -295,17 +295,23 @@ class HomeFragment : Fragment() {
 
                             if (lodges.isNullOrEmpty()) {
                                 //Show empty view
-                                roarItemsAdapter.showEmpty = true
-                                roarItemsAdapter.addLodgeAndProperty(emptyList(), properties)
-                                roarItemsAdapter.clear()
-                                swipeContainer.isRefreshing = false
+                                    lifecycleScope.launchWhenCreated {
+                                        roarItemsAdapter.showEmpty = true
+                                        roarItemsAdapter.addLodgeAndProperty(emptyList(), properties)
+                                        roarItemsAdapter.clear()
+                                        swipeContainer.isRefreshing = false
+                                    }
+
                                 return@addSnapshotListener
 
                             } else {
-                                roarItemsAdapter.addLodgeAndProperty(lodges, properties)
-                                roarItemsAdapter.clear()
-                                swipeContainer.isRefreshing = false
-                                hideProgress()
+                                lifecycleScope.launchWhenCreated {
+                                    roarItemsAdapter.addLodgeAndProperty(lodges, properties)
+                                    roarItemsAdapter.clear()
+                                    swipeContainer.isRefreshing = false
+                                    hideProgress()
+                                }
+
                             }
                         }
                     }
@@ -318,16 +324,21 @@ class HomeFragment : Fragment() {
                             snapLodge.toObject(FirebaseLodge::class.java)
                         }.also { lodges ->
                             if (lodges.isNotEmpty()) {
-                                roarItemsAdapter.addLodgeAndProperty(lodges, properties)
-                                roarItemsAdapter.clear()
-                                swipeContainer.isRefreshing = false
-                                hideProgress()
+                                lifecycleScope.launchWhenCreated {
+                                    roarItemsAdapter.addLodgeAndProperty(lodges, properties)
+                                    roarItemsAdapter.clear()
+                                    swipeContainer.isRefreshing = false
+                                    hideProgress()
+                                }
+
                             } else {
-                                roarItemsAdapter.showEmpty = true
-                                roarItemsAdapter.addLodgeAndProperty(emptyList(), properties)
-                                roarItemsAdapter.clear()
-                                swipeContainer.isRefreshing = false
-                                hideProgress()
+                                lifecycleScope.launchWhenCreated {
+                                    roarItemsAdapter.showEmpty = true
+                                    roarItemsAdapter.addLodgeAndProperty(emptyList(), properties)
+                                    roarItemsAdapter.clear()
+                                    swipeContainer.isRefreshing = false
+                                    hideProgress()
+                                }
                             }
                         }
                     }.addOnFailureListener {
@@ -336,18 +347,22 @@ class HomeFragment : Fragment() {
                             "${it.message} no internet",
                             Toast.LENGTH_LONG
                         ).show()
-                        roarItemsAdapter.clear()
-                        swipeContainer.isRefreshing = false
-                        connectionFailure(true)
+                        lifecycleScope.launchWhenCreated {
+                            roarItemsAdapter.clear()
+                            swipeContainer.isRefreshing = false
+                            connectionFailure(true)
+                        }
                     }
                 }
             }
         }.addOnFailureListener {
-            roarItemsAdapter.submitList(emptyList())
-            roarItemsAdapter.clear()
-            swipeContainer.isRefreshing = false
-            hideProgress()
-            connectionFailure(true)
+            lifecycleScope.launchWhenCreated {
+                roarItemsAdapter.submitList(emptyList())
+                roarItemsAdapter.clear()
+                swipeContainer.isRefreshing = false
+                hideProgress()
+                connectionFailure(true)
+            }
         }
     }
 
@@ -355,9 +370,11 @@ class HomeFragment : Fragment() {
         id?.let {
             fireStore.collection("lodges").document(id)
                 .get().addOnSuccessListener {
-                    it.toObject(FirebaseLodge::class.java).also { lodge ->
-                        val bundle = bundleOf("Lodge" to lodge)
-                        findNavController().navigate(R.id.lodgeDetail, bundle)
+                    lifecycleScope.launchWhenCreated {
+                        it.toObject(FirebaseLodge::class.java).also { lodge ->
+                            val bundle = bundleOf("Lodge" to lodge)
+                            findNavController().navigate(R.id.lodgeDetail, bundle)
+                        }
                     }
                 }
         }
@@ -398,8 +415,8 @@ class HomeFragment : Fragment() {
                 Glide.with(adImage.context)
                     .load(property.firstImage)
                     .apply(RequestOptions()
-                        .placeholder(R.drawable.white_gradient_drawable)
-                        .error(R.drawable.white_gradient_drawable)).into(adImage)
+                        .placeholder(R.drawable.animated_gradient)
+                        .error(R.drawable.animated_gradient)).into(adImage)
             }
         }
         val callBtn = bottomSheetLayout.findViewById<MaterialButton>(R.id.callNow)

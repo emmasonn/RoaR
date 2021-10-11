@@ -155,15 +155,18 @@ class RoarStore : Fragment() {
                     document?.documents?.mapNotNull {
                         it.toObject(FirebaseProperty::class.java)
                     }.also { items ->
-                        if (items.isNullOrEmpty()) {
-                            connectionView(true)
-                            swipeRefreshContainer.isRefreshing = false
-                            hideProgress()
-                        } else {
-                            connectionView(false)
-                            propertyListAdapter.submitList(items)
-                            swipeRefreshContainer.isRefreshing = false
-                            hideProgress()
+                        lifecycleScope.launchWhenCreated {
+
+                            if (items.isNullOrEmpty()) {
+                                connectionView(true)
+                                swipeRefreshContainer.isRefreshing = false
+                                hideProgress()
+                            } else {
+                                connectionView(false)
+                                propertyListAdapter.submitList(items)
+                                swipeRefreshContainer.isRefreshing = false
+                                hideProgress()
+                            }
                         }
                     }
                 }
@@ -176,15 +179,17 @@ class RoarStore : Fragment() {
                     document?.documents?.mapNotNull {
                         it.toObject(FirebaseProperty::class.java)
                     }.also { items ->
-                        if (items.isNullOrEmpty()) {
-                            connectionView(true)
-                            swipeRefreshContainer.isRefreshing = false
-                            hideProgress()
-                        } else {
-                            connectionView(false)
-                            propertyListAdapter.submitList(items)
-                            swipeRefreshContainer.isRefreshing = false
-                            hideProgress()
+                        lifecycleScope.launchWhenCreated {
+                            if (items.isNullOrEmpty()) {
+                                connectionView(true)
+                                swipeRefreshContainer.isRefreshing = false
+                                hideProgress()
+                            } else {
+                                connectionView(false)
+                                propertyListAdapter.submitList(items)
+                                swipeRefreshContainer.isRefreshing = false
+                                hideProgress()
+                            }
                         }
                     }
                 }

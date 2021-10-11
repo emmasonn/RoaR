@@ -8,7 +8,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,7 +16,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/selectedImage"
@@ -37,26 +37,9 @@
                 tools:ignore="ContentDescription" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/brandSpinner"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:theme="@style/ThemeOverlay.TextInputLayout"
-                app:layout_constraintBottom_toTopOf="@+id/viewSpinner"
-                app:layout_constraintStart_toStartOf="@+id/selectedImage">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/brandTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="BrandName"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/viewSpinner"
                 style="@style/spinnerTheme"
-                android:layout_width="150dp"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:theme="@style/ThemeOverlay.TextInputLayout"
                 app:layout_constraintBottom_toBottomOf="@+id/selectedImage"
@@ -66,7 +49,7 @@
                 <AutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Campus"
+                    android:hint="View Type"
                     android:inputType="none" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -74,9 +57,9 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/browseBtn"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="100dp"
                 android:backgroundTint="?attr/colorControlNormal"
                 android:text="Select picture"
                 android:textColor="@color/white"
