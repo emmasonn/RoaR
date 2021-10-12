@@ -44,9 +44,9 @@
     </string-array>
 
     <string-array name="campus_array">
-        <item>Unn</item>
-        <item>Unec</item>
-        <item>Global</item>
+        <item>UNN</item>
+        <item>UNEC</item>
+        <item>GLOBAL</item>
     </string-array>
 
     <string-array name="empty_list" />
@@ -143,7 +143,6 @@
     <string-array name="product_type">
         <item>Property</item>
         <item>Accessory</item>
-        <item>Fragrance</item>
         <item>Jewellery</item>
         <item>Stationary</item>
         <item>Clothing</item>
@@ -153,7 +152,6 @@
     <string-array name="product_type_form">
         <item>Property</item>
         <item>Accessory</item>
-        <item>Fragrance</item>
         <item>Jewellery</item>
         <item>Stationary</item>
         <item>Clothing</item>
@@ -165,7 +163,6 @@
         <item>Store</item>
         <item>Property</item>
         <item>Accessory</item>
-        <item>Fragrance</item>
         <item>Jewellery</item>
         <item>Clothing</item>
         <item>Foot-Wear</item>

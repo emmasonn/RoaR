@@ -180,6 +180,7 @@ class LodgesAdapter(
         private val available = itemView.findViewById<TextView>(R.id.availableRoom)
         private val campus = itemView.findViewById<TextView>(R.id.campus)
         private val favBtn = itemView.findViewById<ImageView>(R.id.favBtn)
+        private val lock = itemView.findViewById<ImageView>(R.id.lockLodge)
 
         private val resource = itemView.resources
 
@@ -190,14 +191,21 @@ class LodgesAdapter(
                     RequestOptions().placeholder(R.drawable.animated_gradient)).into(lodgeImage)
 
 
-            initialPrice.text = resource.getString(R.string.format_price, data.subPayment)
+            initialPrice.text = resource.getString(R.string.format_price_integer, data.subPayment)
             lodgeName.text = data.lodgeName
             location.text = data.location
             campus.text = data.campus
-            if (data.availableRoom == null) {
-                available.text = "0"
-            } else {
-                available.text = data.availableRoom.toString()
+            if(data.availableRoom == null) {
+                lock.alpha = 1F
+            }else {
+                if(data.availableRoom == 0L) {
+                    lock.alpha = 1F
+                    available.alpha = 0F
+                }else {
+                    lock.alpha = 0F
+                    available.alpha = 1F
+                    available.text = data.availableRoom.toString()
+                }
             }
 
             favBtn?.setOnClickListener {

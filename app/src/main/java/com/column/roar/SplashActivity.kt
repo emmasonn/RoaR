@@ -43,11 +43,14 @@ class SplashActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val isShowed = sharedPref.getBoolean("isShowed", false)
 
-            delay(2000)
+            delay(5000)
             if (!isShowed) {
                 slideInDialog()
             } else {
-                moveToMainActivity()
+                lifecycleScope.launch{
+                    moveToMainActivity()
+                }
+
             }
         }
     }
@@ -75,44 +78,49 @@ class SplashActivity : AppCompatActivity() {
 
     @SuppressLint("InflateParams")
     private fun showTermAndCondition(): AlertDialog {
-        dialogLayout = MaterialAlertDialogBuilder(this).apply {
-            val inflater = LayoutInflater.from(this@SplashActivity)
-            val view = inflater.inflate(R.layout.splash_rules_dialog, null)
+        dialogLayout = this.let {
+            AlertDialog.Builder(it).apply {
+                setCancelable(false)
+                val inflater = LayoutInflater.from(this@SplashActivity)
+                val view = inflater.inflate(R.layout.splash_rules_dialog, null)
 
-            val iconSmall = view.findViewById<ImageView>(R.id.iconSmall)
-            val okayBtn = view.findViewById<MaterialButton>(R.id.okayBtn)
-            val checkBtn = view.findViewById<MaterialCheckBox>(R.id.acceptCheckbox)
-            val closeBtn = view.findViewById<ImageView>(R.id.closeBtn)
-            var isChecked = false
+                val iconSmall = view.findViewById<ImageView>(R.id.iconSmall)
+                val okayBtn = view.findViewById<MaterialButton>(R.id.okayBtn)
+                val checkBtn = view.findViewById<MaterialCheckBox>(R.id.acceptCheckbox)
+                val closeBtn = view.findViewById<ImageView>(R.id.closeBtn)
+                var isChecked = false
 
-            val animation = AnimationUtils.loadAnimation(this@SplashActivity, R.anim.shake_rotate)
-            iconSmall.startAnimation(animation)
+                val animation =
+                    AnimationUtils.loadAnimation(this@SplashActivity, R.anim.shake_rotate)
+                iconSmall.startAnimation(animation)
 
-            checkBtn.setOnCheckedChangeListener { _, checked ->
+                checkBtn.setOnCheckedChangeListener { _, checked ->
 
-                if (checked) {
-                    okayBtn.alpha = 1F
-                    isChecked = checked
-                } else {
-                    okayBtn.alpha = 0.2F
-                    isChecked = checked
+                    if (checked) {
+                        okayBtn.alpha = 1F
+                        isChecked = checked
+                    } else {
+                        okayBtn.alpha = 0.2F
+                        isChecked = checked
+                    }
                 }
-            }
 
-            closeBtn.setOnClickListener {
-                showCloseDialog()
-            }
-
-            okayBtn.setOnClickListener {
-                if (isChecked) {
-                    storeCondition(isChecked)
-                    dialogLayout.dismiss()
-                    moveToMainActivity()
+                closeBtn.setOnClickListener {
+                    showCloseDialog()
                 }
-            }
-            setCancelable(false)
-            setView(view)
-        }.show()
+
+                okayBtn.setOnClickListener {
+                    if (isChecked) {
+                        lifecycleScope.launch {
+                            storeCondition(isChecked)
+                            dialogLayout.dismiss()
+                            moveToMainActivity()
+                        }
+                    }
+                }
+                setView(view)
+            }.show()
+        }
         return dialogLayout
     }
 

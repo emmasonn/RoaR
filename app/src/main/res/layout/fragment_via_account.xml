@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="Pay with Account"
             android:textAppearance="@style/Widget.Toolbar.title"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="@dimen/start_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView14"
             app:layout_constraintTop_toTopOf="parent" />

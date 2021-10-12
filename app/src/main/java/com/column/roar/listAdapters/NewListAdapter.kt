@@ -1,5 +1,6 @@
 package com.column.roar.listAdapters
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,12 +39,14 @@ const val ITEM_AUTO_SCROLL_ITEMS = 7
 class NewListAdapter(
     private val lodgeListener: LodgeClickListener,
     private val propertyListener: PropertyClickListener,
-    private val lifeCycle: LifecycleOwner
+    private val lifeCycle: LifecycleOwner,
+    resource: Resources
 ) : ListAdapter<DataItem, RecyclerView.ViewHolder>(diffUtil) {
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
     private val mutableNativeAd1 = MutableLiveData<NativeAd>()
     private val mutableNativeAd2 = MutableLiveData<NativeAd>()
+    private val productCat = resource.getStringArray(R.array.product_type_form)
     var showEmpty: Boolean = false
 
     fun postAd1(_nativeAd: NativeAd) {
@@ -123,25 +126,23 @@ class NewListAdapter(
 
       adapterScope.launch {
 
-//            val item = lodges.take(1).map { DataItem.LodgeItem(it) } +
-//                    listOf(DataItem.Header("Items")) +
-//                    properties.run { DataItem.PropertyItem(this) } +
-//                    lodges.drop(1).map { DataItem.LodgeItem(it) } +
-//                    listOf(DataItem.AdHeader)
+          val position: Int = (0..5).random()
 
-            val result: List<DataItem> = when (lodges.size) {
+          val headerTitle = productCat[position]
+          val randomProducts = properties.run {
+              this.filter {it.propertyType == headerTitle }.let {
+                  DataItem.PropertyItem(it)
+              }
+          }
+          val result: List<DataItem> = when (lodges.size) {
 
                 0 -> {
                     if(showEmpty) {
                        listOf(DataItem.AdHeader) +
                                 listOf(DataItem.EmptyCard) +
-                               listOf(DataItem.Header("Property")) +
-                               properties.run {
-                                   this.filter { it.propertyType == "Property" }.let {
-                                       DataItem.PropertyItem(it)
-                                   }
-                               } +
-                                listOf(DataItem.MediumAd)
+                               listOf(DataItem.Header(headerTitle)) +
+                               randomProducts +
+                               listOf(DataItem.MediumAd)
                     } else {
                         return@launch
                     }
@@ -152,35 +153,10 @@ class NewListAdapter(
                             properties.run { this.filter{ it.propertyType == "Ads" }.let{
                                 DataItem.BusinessAdsItem(it)
                             }} +
-                            listOf(DataItem.Header("Property")) +
-                            properties.run {
-                                this.filter { it.propertyType == "Property" }.let {
-                                    DataItem.PropertyItem(it)
-                                }
-                            } + //first items for sale
-                            lodges.drop(1).take(4).map { DataItem.LodgeItem(it) } +
-                    listOf(DataItem.Header("Accessory")) +
-                            properties.run {
-                                this.filter { it.propertyType == "Accessory" }.let {
-                                    DataItem.PropertyItem(it)
-                                }
-                            } +    //second property
-                            lodges.drop(5).take(3).map { DataItem.LodgeItem(it) } +
-                            listOf(DataItem.Header("Jewellery")) +
-                            properties.run {
-                                this.filter { it.propertyType == "Jewellery" }.let {
-                                    DataItem.PropertyItem(it)
-                                }
-                            } +    //third property
-                            lodges.drop(8).take(2).map { DataItem.LodgeItem(it) } +
-                            listOf(DataItem.Header("Stationary")) +
-                            properties.run {
-                                this.filter { it.propertyType == "Stationary" }.let {
-                                    DataItem.PropertyItem(it)
-                                }
-                            } +   //forth property
-                            lodges.drop(10).take(4).map { DataItem.LodgeItem(it) } +
-                            lodges.drop(14).map { DataItem.LodgeItem(it) }
+                            lodges.drop(1).take(3).map { DataItem.LodgeItem(it) } +
+                            listOf(DataItem.Header(headerTitle)) +
+                            randomProducts + //first items for sale
+                            lodges.drop(4).map { DataItem.LodgeItem(it) }
                 }
             }
             withContext(Dispatchers.Main) {
@@ -281,3 +257,34 @@ class HeaderViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
 class BusinessHeaderViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView)
 
 class EmptyViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView)
+
+
+/*
+* listOf(DataItem.Header("Accessory")) +
+                            properties.run {
+                                this.filter { it.propertyType == "Accessory" }.let {
+                                    DataItem.PropertyItem(it)
+                                }
+                            } +    //second property
+                            lodges.drop(5).take(3).map { DataItem.LodgeItem(it) } +
+                            listOf(DataItem.Header("Jewellery")) +
+                            properties.run {
+                                this.filter { it.propertyType == "Jewellery" }.let {
+                                    DataItem.PropertyItem(it)
+                                }
+                            } +    //third property
+                            lodges.drop(8).take(2).map { DataItem.LodgeItem(it) } +
+                            listOf(DataItem.Header("Stationary")) +
+                            properties.run {
+                                this.filter { it.propertyType == "Stationary" }.let {
+                                    DataItem.PropertyItem(it)
+                                }
+                            } +   //forth property
+                            lodges.drop(10).take(4).map { DataItem.LodgeItem(it) } +
+                            lodges.drop(14).map { DataItem.LodgeItem(it) } +
+                            * properties.run {
+                                   this.filter { it.propertyType == "Property" }.let {
+                                       DataItem.PropertyItem(it)
+                                   }
+                               }
+**/

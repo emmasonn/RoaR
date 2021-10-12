@@ -37,7 +37,8 @@
             app:goIcon="@drawable/ic_forward_fast"
             app:queryHint="search eg. Lodge2345"
             app:iconifiedByDefault="false"
-            app:searchIcon="@drawable/ic_search_blue" />
+            app:searchIcon="@drawable/ic_search_blue"
+            />
 
     </com.google.android.material.appbar.MaterialToolbar>
 

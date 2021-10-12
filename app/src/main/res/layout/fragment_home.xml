@@ -19,7 +19,9 @@
         android:paddingTop="60dp">
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/bottom_padding_ad"
+            >
         <include layout="@layout/lodge_back_drop" />
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
@@ -48,8 +50,8 @@
 
                     <ImageView
                         android:id="@+id/menuNav"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:clickable="true"
                         android:focusable="true"
                         android:layout_marginStart="8dp"
@@ -61,8 +63,8 @@
 
                     <ImageView
                         android:id="@+id/searchIcon"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_marginEnd="10dp"
                         android:clickable="true"
                         android:focusable="true"

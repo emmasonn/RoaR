@@ -20,18 +20,26 @@ class LodgeViewHolder (val itemView: View):
     private val exploreBtn =  itemView.findViewById<MaterialButton>(R.id.exploreBtn)
     private val available = itemView.findViewById<TextView>(R.id.availableRoom)
     private val campus = itemView.findViewById<TextView>(R.id.campus)
+    private val lock = itemView.findViewById<ImageView>(R.id.lockLodge)
 
     private val resource = itemView.resources
 
     fun bind(data: FirebaseLodge, listener: LodgeClickListener) {
-        initialPrice.text = resource.getString(R.string.format_price, data.subPayment)
+        initialPrice.text = resource.getString(R.string.format_price_integer, data.subPayment)
         lodgeName.text = data.randomId
         location.text = data.location
         campus.text = data.campus
         if(data.availableRoom == null) {
-            available.text = "0"
+            lock.alpha = 1F
         }else {
-            available.text = data.availableRoom.toString()
+            if(data.availableRoom == 0L) {
+                lock.alpha = 1F
+                 available.alpha = 0F
+            }else {
+                lock.alpha = 0F
+                available.alpha = 1F
+                available.text = data.availableRoom.toString()
+            }
         }
 
         Glide.with(lodgeImage.context)

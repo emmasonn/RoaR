@@ -84,13 +84,17 @@ class SearchFragment : Fragment() {
                 task.documents.mapNotNull {
                     it.toObject(FirebaseLodge::class.java)
                 }.also { lodges ->
-                    hideConnectionError()
-                    hideProgressBar()
-                    lodgesList = lodges
+                    lifecycleScope.launchWhenCreated {
+                        hideConnectionError()
+                        hideProgressBar()
+                        lodgesList = lodges
+                    }
                 }
             }.addOnFailureListener {
-                hideProgressBar()
-                showConnectionError()
+               lifecycleScope.launchWhenCreated {
+                   hideProgressBar()
+                   showConnectionError()
+               }
            }
     }
 

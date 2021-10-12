@@ -99,6 +99,7 @@ class LodgeDetail : Fragment() {
             }
         }
 
+        lockLodge() //call this function to lock lodge
         binding.coverImage.setOnClickListener {
             val photo = FirebaseLodgePhoto(
                 photoId = clientDocumentRef.id,
@@ -108,6 +109,8 @@ class LodgeDetail : Fragment() {
             val bundle = bundleOf("picture" to photo)
             findNavController().navigate(R.id.viewLodge, bundle)
         }
+
+
 
         binding.playBtn.setOnClickListener {
             val bundle = bundleOf("Lodge" to lodgeData)
@@ -178,7 +181,7 @@ class LodgeDetail : Fragment() {
             photosSnap.documents.mapNotNull {
                 it.toObject(FirebaseLodgePhoto::class.java)
             }.also { photos ->
-                lifecycleScope.launch {
+                lifecycleScope.launchWhenStarted{
                     if (photos.size <= 3) {
                         photoListRecycler.layoutManager = LinearLayoutManager(
                             requireContext(), LinearLayoutManager.HORIZONTAL, false
@@ -208,6 +211,20 @@ class LodgeDetail : Fragment() {
                         binding.similarLodges.visibility = View.VISIBLE
                     }
                 }
+            }
+        }
+    }
+
+    private fun lockLodge() {
+        if(lodgeData.availableRoom == null) {
+            binding.lockLodge.alpha = 1F
+        }else {
+            if(lodgeData.availableRoom == 0L) {
+                binding.lockLodge.alpha = 1F
+                binding.availableRoom.alpha = 0F
+            }else {
+                binding.lockLodge.alpha = 0F
+                binding.availableRoom.alpha = 1F
             }
         }
     }

@@ -33,7 +33,6 @@ class FavoriteFragment : Fragment() {
     private lateinit var favModelDao: FavModelDao
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fireStore = FirebaseFirestore.getInstance()
@@ -107,7 +106,7 @@ class FavoriteFragment : Fragment() {
 
                     Toast.makeText(
                         requireContext(),
-                        "No Favorite Lodge Empty", Toast.LENGTH_SHORT
+                        "No Favorite Lodge", Toast.LENGTH_SHORT
                     ).show()
                 }
             }

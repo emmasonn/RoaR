@@ -108,9 +108,9 @@ class HomeFragment : Fragment() {
                 resolveUrl(argsNav.lodgeId)
             }
         }
+
         showProgress()
      lifecycleScope.launch (Dispatchers.Main) {
-
          roarItemsAdapter = NewListAdapter(LodgeClickListener({ lodge ->
              val bundle = bundleOf("Lodge" to lodge)
              findNavController().navigate(R.id.lodgeDetail, bundle)
@@ -126,8 +126,7 @@ class HomeFragment : Fragment() {
              },
              {}, justClick = {
                  findNavController().navigate(R.id.productStore)
-             }), this@HomeFragment
-         )
+             }), this@HomeFragment,resources)
          homeRecycler.adapter = roarItemsAdapter
      }
         connectionFailure(false) //this function calls the ads when internet is available
@@ -340,12 +339,14 @@ class HomeFragment : Fragment() {
                             }
                         }
                     }.addOnFailureListener {
-                        Toast.makeText(
-                            requireContext(),
-                            "${it.message} no internet",
-                            Toast.LENGTH_LONG
-                        ).show()
+
                         lifecycleScope.launchWhenCreated {
+                            Toast.makeText(
+                                requireContext(),
+                                "${it.message} no internet",
+                                Toast.LENGTH_LONG
+                            ).show()
+
                             roarItemsAdapter.clear()
                             swipeContainer.isRefreshing = false
                             connectionFailure(true)
@@ -365,14 +366,23 @@ class HomeFragment : Fragment() {
     }
 
     private fun resolveUrl(id: String?) {
+        showProgress()
         id?.let {
             fireStore.collection("lodges").document(id)
                 .get().addOnSuccessListener {
                     lifecycleScope.launchWhenCreated {
+                        hideProgress()
+
                         it.toObject(FirebaseLodge::class.java).also { lodge ->
                             val bundle = bundleOf("Lodge" to lodge)
                             findNavController().navigate(R.id.lodgeDetail, bundle)
                         }
+                    }
+                }.addOnFailureListener {
+                    lifecycleScope.launch {
+                        hideProgress()
+                        Toast.makeText(requireContext(),"Failed to Load item, Network failure",
+                        Toast.LENGTH_SHORT).show()
                     }
                 }
         }
@@ -419,7 +429,7 @@ class HomeFragment : Fragment() {
         }
         val callBtn = bottomSheetLayout.findViewById<MaterialButton>(R.id.callNow)
 
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenCreated {
             animateWarning(callBtn!!)
         }
 

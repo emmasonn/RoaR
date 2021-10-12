@@ -9,8 +9,7 @@
         android:id="@+id/drawerNav"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".admin.AdminNavFragment">
-
+>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/coordinator_Layout"
         android:layout_width="match_parent"
@@ -119,7 +118,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/phoneNumber"
             app:layout_constraintStart_toStartOf="@+id/fullName"
             app:layout_constraintTop_toTopOf="@+id/phoneNumber"
-            app:tint="?attr/colorOnPrimary" />
+            app:tint="?attr/colorOnPrimary"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/phoneNumber"
