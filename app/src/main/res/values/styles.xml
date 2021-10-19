@@ -12,18 +12,50 @@
         <item name="android:textAppearance">?attr/textAppearanceSubtitle2</item>
     </style>
 
-    <!--  <style name="MyCustomTheme" parent="RaveAppTheme.NoActionBar">
-      <item name="colorPrimary">@color/colorPrimary</item>
-      <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-      <item name="colorAccent">@color/colorAccent</item>
-      <item name="OTPButtonStyle">@style/myOtpBtnStyle</item>
-      <item name="PayButtonStyle">@style/myBtnStyle</item>
-      <item name="PinButtonStyle">@style/myPinButtonStyle</item>
-      <item name="OTPHeaderStyle">@style/myOtpHeaderStyle</item>
-      <item name="TabLayoutStyle">@style/myTabLayoutStyle</item>
-      <item name="PinHeaderStyle">@style/myPinHeaderStyle</item>
-      <item name="PaymentTileStyle">@style/myPaymentTileStyle</item>
-      <item name="PaymentTileTextStyle">@style/myPaymentTileTextStyle</item>
-      <item name="PaymentTileDividerStyle">@style/myPaymentTileDividerStyle</item>
-  </style>-->
+    <style name="MyCustomTheme" parent="RaveAppTheme.NoActionBar">
+        <item name="colorPrimary">#046d86</item>
+        <item name="colorPrimaryDark">#ffffff</item>
+        <item name="colorAccent">#046d86</item>
+        <item name="OTPButtonStyle">@string/myOtpBtnStyle</item>
+        <item name="PayButtonStyle">@string/myOtpBtnStyle</item>
+        <item name="PinButtonStyle">@string/myOtpBtnStyle</item>
+<!--        <item name="OTPHeaderStyle">@string/myOtpBtnStyle</item>-->
+<!--        <item name="TabLayoutStyle">@style/myTabLayoutStyle</item>-->
+<!--        <item name="PinHeaderStyle">@style/myPinHeaderStyle</item>-->
+<!--        <item name="PaymentTileStyle">@style/paymentTileStyle</item>-->
+<!--&lt;!&ndash;        <item name="PaymentTileTextStyle">@style/paymentTileTextStyle</item>&ndash;&gt;-->
+<!--        <item name="PaymentTileDividerStyle">@style/paymentTileDividerStyle</item>-->
+    </style>
+
+    <string name="myOtpBtnStyle" parent="@android:style/Widget.Button">
+        <item name="android:backgroundColor">#046d86</item>
+        <item name="android:textColor">#ffffff</item>
+    </string>
+
+    <style name="myPinHeaderStyle">
+        <item name="background">@color/blue_100</item>
+    </style>
+
+    <style name="myOtpHeaderStyle">
+        <item name="background">@color/blue_100</item>
+    </style>
+
+    <style name="myTabLayoutStyle">
+        <item name="background">@color/blue_100</item>
+    </style>
+
+    <style name="paymentTileStyle">
+        <item name="background">?attr/colorControlNormal</item>
+    </style>
+
+    <style name="paymentTileTextStyle">
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="paymentTileDividerStyle">
+        <item name="android:backgroundTint">?attr/colorSecondary</item>
+    </style>
+
+
+
 </resources>

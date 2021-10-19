@@ -20,9 +20,9 @@ class AccountVerification : Fragment() {
         val view = inflater.inflate(R.layout.fragment_account_verification, container, false)
         val submitBtn = view.findViewById<MaterialButton>(R.id.submitOTP)
 
-        submitBtn.setOnClickListener {
-            paymentPager.moveForward(4)
-        }
+//        submitBtn.setOnClickListener {
+//            paymentPager.moveForward(4)
+//        }
         return view
     }
 

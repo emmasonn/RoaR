@@ -10,8 +10,8 @@
         <item name="colorSecondaryVariant">@color/yellow_500</item> <!--used for ad title color-->
         <item name="colorOnSecondary">@color/black_200</item> <!--become agent fade buttons-->
 
-        <item name="fontFamily">@font/montserrat_medium</item>
-        <item name="font">@font/montserrat_medium</item>
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="font">@font/montserrat_bold</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorAccent">@color/blue_300</item>
         <item name="colorControlNormal">@color/blue_500</item>
@@ -35,7 +35,7 @@
     </style>
 
     <style name="Widget.Toolbar.title" parent="Widget.MaterialComponents.Toolbar.Primary">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/title_text_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
@@ -44,7 +44,7 @@
     <style name="Widget.Toolbar.headlineLight" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="android:textSize">14sp</item>
         <item name="android:layout_marginBottom">20dp</item>
-        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
     </style>
 
     <style name="Widget.Roar.textHeadline" parent="Widget.MaterialComponents.Toolbar.Primary">

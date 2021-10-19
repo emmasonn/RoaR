@@ -20,6 +20,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class ManageAds : Fragment() {
 
@@ -36,7 +37,6 @@ class ManageAds : Fragment() {
         productCollection = fireStore.collection("properties")
         productsRef = productCollection.whereEqualTo("propertyType","Ads")
             .orderBy("postDate",Query.Direction.DESCENDING)
-
         lodgeCollection = fireStore.collection("properties")
     }
 
@@ -91,23 +91,27 @@ class ManageAds : Fragment() {
     }
 
     private fun fetchProducts() {
-        productsRef.get().addOnSuccessListener{ snapShot ->
-            snapShot?.documents?.mapNotNull {
+        productsRef.get().addOnSuccessListener { snapShot ->
+            snapShot.documents.mapNotNull {
                 it.toObject(FirebaseProperty::class.java)
             }.also { properties ->
-                properties?.map {
+                properties.map {
                     FirebaseLodgePhoto(
                         photoId = it.id,
                         photoTitle = it.brandName,
                         photoUrl = it.firstImage
                     )
                 }.let {
-                    if(it!=null){
+                    lifecycleScope.launchWhenCreated {
                         uploadPhotosAdapter.submitList(it)
                         swipeContainer.isRefreshing = false
-                }}
-
+                    }
+                }
             }
+        }.addOnFailureListener { e ->
+            swipeContainer.isRefreshing = false
+            Timber.e(e,"Unable to fetch data")
+            Toast.makeText(requireContext(),"Cannot fetch data",Toast.LENGTH_SHORT).show()
         }
     }
 

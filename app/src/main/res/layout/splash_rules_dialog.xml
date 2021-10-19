@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:cardBackgroundColor="?attr/colorPrimary"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -23,8 +25,8 @@
 
         <ImageView
             android:id="@+id/closeBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:clickable="true"
             android:focusable="true"
             android:layout_margin="10dp"
@@ -37,7 +39,7 @@
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Terms and Conditions"
+            android:text="Privacy and Terms"
             android:fontFamily="@font/montserrat_bold"
             android:textStyle="bold"
             android:textAppearance="?attr/textAppearanceSubtitle1"
@@ -66,104 +68,18 @@
                 android:orientation="vertical"
                 android:paddingBottom="20dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="8dp">
-
-                    <ImageView
-                        android:id="@+id/imageView1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:src="@drawable/ic_dot"
-                        app:layout_constraintEnd_toStartOf="@+id/textView60"
-                        app:layout_constraintTop_toTopOf="@+id/textView60"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:id="@+id/textView60"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginEnd="15dp"
-                        android:lineSpacingExtra="4dp"
-                        android:text="@string/term1"
-                        android:textAlignment="center"
-                        android:textAppearance="?attr/textAppearanceBody2"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <TextView
+                    android:id="@+id/privacyTerms"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20sp">
-
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="5dp"
-                        android:src="@drawable/ic_dot"
-                        app:layout_constraintEnd_toStartOf="@+id/textView61"
-                        app:layout_constraintTop_toTopOf="@+id/textView61"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:id="@+id/textView61"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:lineSpacingExtra="4dp"
-                        android:text="@string/term2"
-                        android:textAlignment="center"
-                        android:textAppearance="?attr/textAppearanceBody2"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
-
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:src="@drawable/ic_dot"
-                        app:layout_constraintEnd_toStartOf="@+id/textView35"
-                        app:layout_constraintTop_toTopOf="@+id/textView35"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:id="@+id/textView35"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:lineSpacingExtra="4dp"
-                        android:text="@string/term3"
-                        android:gravity="center|start"
-                        android:textAppearance="?attr/textAppearanceBody2"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="15dp"
+                    android:lineSpacingExtra="4dp"
+                    tools:text="@string/privacyAndTerms"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -173,10 +89,10 @@
 
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/acceptCheckbox"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="5dp"
                         android:backgroundTint="?attr/colorControlNormal"
                         android:buttonTint="?attr/colorControlNormal"
                         app:layout_constraintBottom_toTopOf="@+id/okayBtn"
@@ -187,8 +103,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Accept terms and Conditions"
-                        android:textAppearance="?attr/textAppearanceBody2"
-                        android:textColor="@color/blue_100"
+                        android:layout_gravity="center_vertical"
+                        android:textAppearance="?attr/textAppearanceSubtitle1"
                         app:layout_constraintBottom_toBottomOf="@+id/acceptCheckbox"
                         app:layout_constraintStart_toEndOf="@+id/acceptCheckbox"
                         app:layout_constraintTop_toTopOf="@+id/acceptCheckbox" />
@@ -196,7 +112,6 @@
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/okayBtn"

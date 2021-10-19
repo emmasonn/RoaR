@@ -21,7 +21,8 @@
             android:layout_width="@dimen/back_arrow_height"
             android:layout_height="@dimen/back_arrow_height"
             android:focusable="true"
-            android:layout_marginVertical="10dp"
+            android:clickable="true"
+            android:layout_marginStart="@dimen/back_button_start_margin"
             android:src="@drawable/ic_backward"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,14 +33,13 @@
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/start_margin"
+            android:layout_marginStart="@dimen/title_start_margin"
             android:textAppearance="@style/Widget.Toolbar.title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/filterBackBtn"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Classic Lodges"
             />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -65,10 +65,12 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
             tools:listitem="@layout/item_lodges_layout" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/connectionView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_margin="20dp"
         android:elevation="20dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -77,36 +79,29 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
         app:layout_constraintVertical_bias="0.3">
 
-        <ImageView
-            android:id="@+id/imageView26"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_plug"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageView10"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_wifi_off"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle50"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/ic_wifi_off"
-            app:layout_constraintBottom_toTopOf="@+id/imageView26"
-            app:layout_constraintEnd_toStartOf="@+id/imageView26"
-            app:layout_constraintStart_toStartOf="@+id/imageView26"
-            app:layout_constraintTop_toTopOf="@+id/imageView26"
-            tools:ignore="ContentDescription" />
-
         <TextView
+            android:id="@+id/textView65"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No Internet Connection"
             android:textAppearance="@style/Widget.Toolbar.title"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/imageView26"
-            app:layout_constraintStart_toStartOf="@+id/imageView26"
-            app:layout_constraintTop_toBottomOf="@+id/imageView26" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView10"
+            tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

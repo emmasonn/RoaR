@@ -87,7 +87,7 @@ class AuthTwo : Fragment() {
 
                     lifecycleScope.launch {
                         verifyStateToNull()
-                        val action = R.id.action_phoneAuthentication_to_setUpFragment
+                        val action = R.id.setUpFragment
                         val bundle = bundleOf("phone" to phoneNumber)
                         findNavController().navigate(action, bundle)
                     }

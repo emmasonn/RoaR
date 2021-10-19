@@ -32,22 +32,18 @@
             android:defaultValue="roar"
             />
 
-        <action
-            android:id="@+id/action_homeFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_filterFragment"
-            app:destination="@id/filterFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_becomeAgent"
-            app:destination="@id/becomeAgent" />
-
         <deepLink
-            app:uri="https://roar.com.ng/lodge/{lodgeId}"
+            app:uri="https://unnapp.page.link/lodges/{lodgeId}"
             android:autoVerify="true"
             app:action="ACTION_VIEW"
             app:mimeType="text/html"
            />
+
+        <action
+            android:id="@+id/action_homeFragment_to_lodgeDetail"
+            app:destination="@id/lodgeDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     </fragment>
 
     <fragment
@@ -60,45 +56,32 @@
             app:destination="@id/paymentPager" />
         <action
             android:id="@+id/action_lodgeDetail_to_watchTour"
-            app:destination="@id/watchTour" />
+            app:destination="@id/watchTour"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_lodgeDetail_to_viewLodge"
+            app:destination="@id/viewLodge"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment
         android:id="@+id/authOne"
         android:name="com.column.roar.authentication.AuthOne"
         android:label="fragment_auth_two"
-        tools:layout="@layout/fragment_auth_one" >
-        <action
-            android:id="@+id/action_authOne_to_authTwo"
-            app:destination="@id/authTwo"
-            app:popUpTo="@id/homeFragment" />
-        <action
-            android:id="@+id/action_authOne_to_setUpFragment"
-            app:destination="@id/setUpFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="false" />
-    </fragment>
+        tools:layout="@layout/fragment_auth_one" />
     <fragment
         android:id="@+id/authTwo"
         android:name="com.column.roar.authentication.AuthTwo"
         android:label="AuthTwo"
         tools:layout="@layout/fragment_auth_two"
-        >
-        <action
-            android:id="@+id/action_authTwo_to_setUpFragment"
-            app:destination="@id/setUpFragment"
-            app:popUpTo="@id/homeFragment" />
-    </fragment>
+        />
     <fragment
         android:id="@+id/setUpFragment"
         android:name="com.column.roar.dashBoard.SetUpFragment"
         android:label="fragment_set_up"
-        tools:layout="@layout/fragment_set_up" >
-        <action
-            android:id="@+id/action_setUpFragment_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:popUpTo="@id/homeFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_set_up" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.column.roar.dashBoard.lodge.ProfileFragment"
@@ -106,18 +89,23 @@
         tools:layout="@layout/fragment_profile"
         >
         <action
-            android:id="@+id/action_profileFragment_to_manageAccount"
-            app:destination="@id/manageAccount" />
-        <action
-            android:id="@+id/action_profileFragment_to_notifyFragment"
-            app:destination="@id/notifyFragment" />
-        <action
             android:id="@+id/action_profileFragment_to_careerFragment"
-            app:destination="@id/careerFragment" />
+            app:destination="@id/careerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
         <action
-            android:id="@+id/action_profileFragment_to_phoneAuthentication"
-            app:destination="@id/phoneAuthentication"
-            app:popUpTo="@id/homeFragment" />
+            android:id="@+id/action_profileFragment_to_manageAccount"
+            app:destination="@id/manageAccount"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_profileFragment_self"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_termsFragment"
+            app:destination="@id/termsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/manageProperty"
@@ -152,7 +140,13 @@
         android:id="@+id/filterFragment"
         android:name="com.column.roar.home.FilterFragment"
         android:label="fragment_filter"
-        tools:layout="@layout/fragment_filter" />
+        tools:layout="@layout/fragment_filter" >
+        <action
+            android:id="@+id/action_filterFragment_to_lodgeDetail"
+            app:destination="@id/lodgeDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
     <fragment
         android:id="@+id/careerFragment"
         android:name="com.column.roar.dashBoard.lodge.CareerFragment"
@@ -169,12 +163,7 @@
         android:id="@+id/phoneAuthentication"
         android:name="com.column.roar.authentication.PhoneAuthentication"
         android:label="fragment_phone_authentication"
-        tools:layout="@layout/fragment_phone_authentication" >
-        <action
-            android:id="@+id/action_phoneAuthentication_to_setUpFragment"
-            app:destination="@id/setUpFragment"
-            app:popUpTo="@id/homeFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_phone_authentication" />
     <fragment
         android:id="@+id/paymentFragment"
         android:label="fragment_payment"
@@ -205,7 +194,7 @@
             android:autoVerify="true"
             app:action="ACTION_VIEW"
             app:mimeType="text/html"
-            app:uri="https://roar.com.ng/property/{propertyId}"
+            app:uri="https://unnapp.page.link/ads/{propertyId}"
             />
 
         <argument
@@ -230,44 +219,52 @@
         android:label="fragment_become_agent"
         tools:layout="@layout/fragment_become_agent" >
         <action
-            android:id="@+id/action_becomeAgent_to_verifyPassword"
-            app:destination="@id/verifyPassword"
-            app:popUpTo="@id/homeFragment" />
-        <action
             android:id="@+id/action_becomeAgent_to_profileFragment"
             app:destination="@id/profileFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
             app:popUpTo="@id/homeFragment" />
         <action
             android:id="@+id/action_becomeAgent_to_marketProfile"
             app:destination="@id/marketProfile"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
             app:popUpTo="@id/homeFragment" />
         <action
             android:id="@+id/action_becomeAgent_to_adminFragment"
             app:destination="@id/adminFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
             app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_becomeAgent_to_verifyNumber"
+            app:destination="@id/verifyNumber"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/verifyNumber"
         android:name="com.column.roar.authentication.VerifyNumber"
         android:label="VerifyNumber"
         tools:layout="@layout/fragment_verify_number"
-        />
+        >
+        <action
+            android:id="@+id/action_verifyNumber_to_verifyPassword"
+            app:destination="@id/verifyPassword"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_out"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
     <fragment
         android:id="@+id/verifyPassword"
         android:name="com.column.roar.authentication.VerifyPassword"
         android:label="VerifyPassword"
         tools:layout="@layout/fragment_verify_password"
 
-        >
-        <action
-            android:id="@+id/action_verifyPassword_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:popUpTo="@id/homeFragment" />
-        <action
-            android:id="@+id/action_verifyPassword_to_verifyNumber"
-            app:destination="@id/verifyNumber"
-            app:popUpTo="@id/becomeAgent" />
-    </fragment>
+        />
     <fragment
         android:id="@+id/changePassword"
         android:name="com.column.roar.dashBoard.ChangePassword"
@@ -302,7 +299,21 @@
         android:name="com.column.roar.dashBoard.property.MarketProfile"
         android:label="MarketProfile"
         tools:layout="@layout/fragment_market_profile"
-        />
+        >
+        <action
+            android:id="@+id/action_marketProfile_to_broadCastProduct"
+            app:destination="@id/broadCastProduct"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_marketProfile_to_manageAccount"
+            app:destination="@id/manageAccount" />
+        <action
+            android:id="@+id/action_marketProfile_to_termsFragment"
+            app:destination="@id/termsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
     <fragment
         android:id="@+id/accommodationFragment"
         android:name="com.column.roar.home.AccommodationFragment"
@@ -346,7 +357,13 @@
         android:id="@+id/favoriteFragment"
         android:name="com.column.roar.home.FavoriteFragment"
         android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_lodgeDetail"
+            app:destination="@id/lodgeDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
     <fragment
         android:id="@+id/watchTour"
         android:name="com.column.roar.lodgeDetail.WatchTour"
@@ -379,6 +396,12 @@
         android:id="@+id/searchFragment"
         android:name="com.column.roar.home.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_lodgeDetail"
+            app:destination="@id/lodgeDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
 
 </navigation>

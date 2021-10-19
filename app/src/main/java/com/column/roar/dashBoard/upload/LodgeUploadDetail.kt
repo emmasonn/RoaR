@@ -27,8 +27,6 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class LodgeUploadDetail : Fragment() {
 
@@ -84,19 +82,19 @@ class LodgeUploadDetail : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_upload_lodge, container, false)
-        lodgeName = view.findViewById<TextInputEditText>(R.id.lodgeTitle)
-        initialPay = view.findViewById<TextInputEditText>(R.id.initialPay)
-        subPay = view.findViewById<TextInputEditText>(R.id.subPay)
-        lodgeDesc = view.findViewById<TextInputEditText>(R.id.description)
-        water = view.findViewById<TextInputLayout>(R.id.wSpinner)
-        light = view.findViewById<TextInputLayout>(R.id.lightSpinner)
+        lodgeName = view.findViewById(R.id.lodgeTitle)
+        initialPay = view.findViewById(R.id.initialPay)
+        subPay = view.findViewById(R.id.subPay)
+        lodgeDesc = view.findViewById(R.id.description)
+        water = view.findViewById(R.id.wSpinner)
+        light = view.findViewById(R.id.lightSpinner)
         lodgeType = view.findViewById(R.id.type)
         lodgeSize = view.findViewById(R.id.size)
         availableRoom = view.findViewById(R.id.availableRm)
-        network = view.findViewById<TextInputLayout>(R.id.netWorkSpinner)
-        surrounding = view.findViewById<TextInputLayout>(R.id.surroundingSpinner)
-        distanceAway = view.findViewById<TextInputLayout>(R.id.distanceSpinner)
-        address = view.findViewById<TextInputLayout>(R.id.addressSpinner)
+        network = view.findViewById(R.id.netWorkSpinner)
+        surrounding = view.findViewById(R.id.surroundingSpinner)
+        distanceAway = view.findViewById(R.id.distanceSpinner)
+        address = view.findViewById(R.id.addressSpinner)
         val nextBtn = view.findViewById<MaterialButton>(R.id.nextBtn)
         campus = view.findViewById(R.id.campusSpinner)
         parentView = view.findViewById(R.id.parentView)
@@ -187,7 +185,6 @@ class LodgeUploadDetail : Fragment() {
         water.editText?.setText(lodge?.water)
         lodgeName.setText(lodge?.lodgeName)
         initialPay.setText(lodge?.initialPayment)
-        subPay.setText(getString(R.string.format_price_integer,lodge?.subPayment))
         campus.editText?.setText(lodge?.campus)
         lodgeType.editText?.setText(lodge?.type)
         landLordName.setText(lodge?.ownerName)
@@ -195,6 +192,13 @@ class LodgeUploadDetail : Fragment() {
         lodgeDesc.setText(lodge?.description)
         landLordName.setText(lodge?.ownerName)
         landLordPhone.setText(lodge?.ownerPhone)
+        lodgeSize.editText?.setText(lodge?.size)
+        availableRoom.setText(lodge?.availableRoom?.toString())
+        lodge?.let {
+            if(it.subPayment !=null) {
+                subPay.setText(lodge?.subPayment.toString())
+            }
+        }
     }
 
     private fun submitDetails() {
@@ -218,6 +222,7 @@ class LodgeUploadDetail : Fragment() {
         //val randomUserId = generateLodgeId()
 
         nameOfLodge = lodgeName
+        val subPayment = subPay.substringAfter("₦").toInt()
 
         val lodge = FirebaseLodge(
             randomId = lodgeIdentifier,
@@ -233,7 +238,7 @@ class LodgeUploadDetail : Fragment() {
             surrounding = surrounding,
             water = water,
             network = network,
-            subPayment = subPay.toInt(),
+            subPayment = subPayment,
             initialPayment = initialPay,
             distance = distance,
             ownerName = ownerName,
@@ -249,11 +254,10 @@ class LodgeUploadDetail : Fragment() {
                     accountType = it?.accountType
                 }
             }
-
             lodgeCollection.document(documentId!!).set(lodge)
                 .addOnSuccessListener {
                     showDescTemplate("Lodge uploaded successfully")
-                    lifecycleScope.launch(Dispatchers.Main) {
+                    lifecycleScope.launchWhenCreated {
                         val action = R.id.action_lodgeDetailUpload_to_editLodgePager
                         val bundle = bundleOf("Lodge" to lodge)
                         findNavController().navigate(action, bundle)

@@ -15,13 +15,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="UseCompoundDrawables">
-
         <ImageView
             android:id="@+id/becomeBackBtn"
             android:layout_width="@dimen/back_arrow_height"
             android:layout_height="@dimen/back_arrow_height"
             android:focusable="true"
             android:clickable="true"
+            android:layout_marginStart="@dimen/back_button_start_margin"
             android:background="@drawable/ic_backward"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,6 +66,7 @@
                     android:layout_marginTop="20dp"
                     android:text="Join to unlock full experience"
                     android:textAppearance="@style/Widget.Toolbar.title"
+
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20sp"
-                    android:backgroundTint="@color/blue_500"
+                    android:backgroundTint="?attr/colorControlNormal"
                     android:fontFamily="@font/montserrat_bold"
                     android:text="Sell an Item /\n partner with us"
                     android:textAllCaps="false"
@@ -107,8 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:text="We desire partnership"
-                    android:textAppearance="@style/Widget.Roar.textHeadline"
-                    android:textSize="16sp"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/textView38"
                     app:layout_constraintStart_toStartOf="@+id/textView38"

@@ -136,6 +136,7 @@ class BroadCastLodge : Fragment() {
             val editBtn = view.findViewById<TextView>(R.id.dialogEditItem)
             val deleteBtn = view.findViewById<TextView>(R.id.dialogDeleteItem)
             val notifyBtn = view.findViewById<TextView>(R.id.notifyBtn)
+            val approveItem = view.findViewById<TextView>(R.id.approveItem)
 
             editBtn.setOnClickListener {
                 editDialog.dismiss()
@@ -148,6 +149,10 @@ class BroadCastLodge : Fragment() {
                 notifySubscribers(firebaseLodge)
             }
 
+            approveItem.setOnClickListener {
+                approveAction(firebaseLodge.lodgeId!!)
+            }
+
             deleteBtn.setOnClickListener {
                 editDialog.dismiss()
                 deleteCard(firebaseLodge.lodgeId!!)
@@ -157,6 +162,11 @@ class BroadCastLodge : Fragment() {
         }.show()
 
         return editDialog
+    }
+
+    private fun approveAction(id: String) {
+        lodgeCollection.document(id).update("certified",true)
+            .addOnSuccessListener { Toast.makeText(requireContext(),"Item Approved",Toast.LENGTH_SHORT).show() }
     }
 
     @SuppressLint("InflateParams")

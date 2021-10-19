@@ -71,11 +71,24 @@ class SearchFragment : Fragment() {
 
         lodgesAdapter = LodgesAdapter(LodgeClickListener({
             val bundle = bundleOf("Lodge" to it)
-            findNavController().navigate(R.id.lodgeDetail, bundle)
+            val action = R.id.action_searchFragment_to_lodgeDetail
+            findNavController().navigate(action, bundle)
         }, {}), this, false)
 
         recyclerView.adapter = lodgesAdapter
+        initializeAd()
         return view
+    }
+
+
+    private fun initializeAd() {
+        (activity as MainActivity).detailScreenMediumAd.observe(viewLifecycleOwner,{ ad ->
+            lodgesAdapter.postAd2(ad)
+        })
+
+        (activity as MainActivity).detailScreenSmallAd.observe(viewLifecycleOwner,{ ad ->
+            lodgesAdapter.postAd1(ad)
+        })
     }
 
    private fun fetchLodges() {
@@ -86,6 +99,7 @@ class SearchFragment : Fragment() {
                 }.also { lodges ->
                     lifecycleScope.launchWhenCreated {
                         hideConnectionError()
+                        searchView.alpha = 1F
                         hideProgressBar()
                         lodgesList = lodges
                     }

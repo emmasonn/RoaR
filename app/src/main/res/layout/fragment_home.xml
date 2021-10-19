@@ -38,10 +38,10 @@
 
                     <ImageView
                         android:id="@+id/appIcon"
-                        android:layout_width="30dp"
-                        android:layout_height="34dp"
+                        android:layout_width="34dp"
+                        android:layout_height="38dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_emma"
+                        android:src="@drawable/ic_emma_icon"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -119,17 +119,6 @@
 
         <include
             layout="@layout/auto_no_network_layout" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:visibility="gone"
-            android:elevation="10dp"
-            android:layout_marginTop="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

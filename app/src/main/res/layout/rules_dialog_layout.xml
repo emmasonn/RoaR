@@ -30,12 +30,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_dot"
-                    app:layout_constraintEnd_toStartOf="@+id/textView60"
-                    app:layout_constraintTop_toTopOf="@+id/textView60"
+                    app:layout_constraintEnd_toStartOf="@+id/privacyTerms"
+                    app:layout_constraintTop_toTopOf="@+id/privacyTerms"
                     tools:ignore="ContentDescription" />
 
                 <TextView
-                    android:id="@+id/textView60"
+                    android:id="@+id/privacyTerms"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"

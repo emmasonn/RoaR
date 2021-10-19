@@ -14,6 +14,7 @@
             android:layout_marginTop="20dp"
             android:clickable="true"
             android:focusable="true"
+            android:layout_marginStart="@dimen/back_button_start_margin"
             android:src="@drawable/ic_backward"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

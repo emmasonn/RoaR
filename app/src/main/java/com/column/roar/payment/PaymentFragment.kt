@@ -20,10 +20,6 @@ class PaymentFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_payment, container, false)
         val payViaAccount = view.findViewById<MaterialCardView>(R.id.payViaAccount)
 
-        payViaAccount.setOnClickListener {
-            paymentPager.moveForward(1)
-        }
-
         return view
     }
 

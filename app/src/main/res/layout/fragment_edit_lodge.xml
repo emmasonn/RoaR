@@ -23,8 +23,9 @@
                 android:id="@+id/pagerBack"
                 android:layout_width="@dimen/back_arrow_height"
                 android:layout_height="@dimen/back_arrow_height"
-                android:layout_marginVertical="10dp"
                 android:focusable="true"
+                android:clickable="true"
+                android:layout_marginStart="@dimen/back_button_start_margin"
                 android:src="@drawable/ic_backward"
                 app:layout_constraintBottom_toBottomOf="@+id/titleText"
                 app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +36,7 @@
                 android:id="@+id/titleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/start_margin"
+                android:layout_marginStart="@dimen/title_start_margin"
                 android:text="@{lodgeDetail.lodgeName}"
                 android:textAppearance="@style/Widget.Toolbar.title"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -62,9 +63,9 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/blue_card_outline"
-            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -86,7 +87,7 @@
                 android:src="@drawable/ic_locate"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView18"
-                app:tint="@color/blue_300"
+                app:tint="@color/yellow_200"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -94,10 +95,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{lodgeDetail.location}"
-                android:textStyle="bold"
-                android:textAppearance="@style/Widget.Roar.textHeadline"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
                 android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@+id/textView18"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/textView18"
                 tools:text="Green house" />
 
@@ -137,7 +138,7 @@
                 app:layout_constraintHorizontal_bias="0.27"
                 app:layout_constraintStart_toEndOf="@+id/view8"
                 app:layout_constraintTop_toTopOf="@+id/imageView5"
-                app:tint="@color/blue_300"
+                app:tint="@color/yellow_200"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -145,10 +146,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{lodgeDetail.type}"
-                android:textStyle="bold"
-                android:textAppearance="@style/Widget.Roar.textHeadline"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
                 android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@+id/textView8"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/imageView15"
                 app:layout_constraintTop_toBottomOf="@+id/textView18"
                 tools:text="Single room" />
 
@@ -161,7 +162,7 @@
                 app:layout_constraintHorizontal_bias="0.27"
                 app:layout_constraintStart_toEndOf="@+id/view4"
                 app:layout_constraintTop_toTopOf="@+id/textView18"
-                app:tint="@color/blue_300"
+                app:tint="@color/yellow_200"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -177,10 +178,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{lodgeDetail.size}"
-                android:textStyle="bold"
-                android:textAppearance="@style/Widget.Roar.textHeadline"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
                 android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@+id/textView81"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/imageView50"
                 app:layout_constraintTop_toBottomOf="@+id/textView18"
                 tools:text="3.6m" />
 
@@ -276,8 +277,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="House Rent"
                                     android:layout_marginTop="10dp"
-                                    android:textAppearance="@style/Widget.Roar.textHeadline"
-                                    android:textSize="12sp"
+                                    android:textAppearance="?attr/textAppearanceBody2"
                                     app:layout_constraintEnd_toEndOf="@+id/textP"
                                     app:layout_constraintStart_toStartOf="@+id/textP"
                                     app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -288,10 +288,9 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="15dp"
                                     android:text="@{@string/format_price(lodgeDetail.subPayment)}"
-                                    android:textAppearance="@style/Widget.Roar.Toolbar"
+                                    android:textAppearance="?attr/textAppearanceSubtitle1"
                                     android:background="@drawable/blue_card_outline"
                                     android:padding="4dp"
-                                    android:textSize="25sp"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/rentTitle"
                                     tools:text="₦500000" />
@@ -312,8 +311,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="30dp"
                                     android:text="Initial Fee"
-                                    android:textSize="12sp"
-                                    android:textAppearance="@style/Widget.Roar.textHeadline"
+                                    android:textAppearance="?attr/textAppearanceBody2"
                                     app:layout_constraintEnd_toEndOf="@+id/intPrice"
                                     app:layout_constraintStart_toStartOf="@+id/intPrice"
                                     app:layout_constraintTop_toBottomOf="@+id/textP" />
@@ -326,8 +324,7 @@
                                     android:text="@{@string/format_price(lodgeDetail.initialPayment)}"
                                     android:background="@drawable/blue_card_outline"
                                     android:padding="4dp"
-                                    android:textAppearance="@style/Widget.Roar.Toolbar"
-                                    android:textSize="25sp"
+                                    android:textAppearance="?attr/textAppearanceSubtitle1"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/intTitle"
                                     app:layout_constraintVertical_bias="0.7"
@@ -338,8 +335,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="+ Lawyer fee"
-                                    android:textSize="15sp"
-                                    android:textAppearance="@style/Widget.Roar.textHeadline"
+                                    android:textAppearance="?attr/textAppearanceBody2"
                                     app:layout_constraintEnd_toEndOf="@+id/intPrice"
                                     app:layout_constraintStart_toStartOf="@+id/intPrice"
                                     app:layout_constraintTop_toBottomOf="@+id/intPrice" />
@@ -350,8 +346,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="30dp"
                                     android:text="Description"
-                                    android:textAppearance="@style/Widget.Roar.textHeadline"
-                                    android:textSize="19sp"
+                                    android:textAppearance="?attr/textAppearanceSubtitle1"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="@+id/desc"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -368,8 +363,7 @@
                                     android:padding="4dp"
                                     android:text="@{lodgeDetail.description}"
                                     android:textAlignment="center"
-                                    android:textAppearance="@style/Widget.Roar.textHeadline"
-                                    android:textSize="15sp"
+                                    android:textAppearance="?attr/textAppearanceSubtitle2"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toStartOf="@+id/view"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -402,7 +396,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
                                 android:text="Lodge Condition"
-                                android:textAppearance="@style/Widget.Roar.textHeadline"
+                                android:textAppearance="?attr/textAppearanceSubtitle1"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -442,7 +436,7 @@
                                     <TextView
                                         android:padding="3dip"
                                         android:text="@{lodgeDetail.water}"
-                                        android:textAppearance="@style/Widget.Roar.textHeadline"
+                                        android:textAppearance="?attr/textAppearanceSubtitle1"
                                         android:layout_gravity="center"
                                         tools:text="Always" />
                                 </TableRow>
@@ -457,7 +451,7 @@
                                         android:padding="3dip"
                                         android:text="@{lodgeDetail.light}"
                                         android:layout_gravity="center"
-                                        android:textAppearance="@style/Widget.Roar.textHeadline"
+                                        android:textAppearance="?attr/textAppearanceSubtitle1"
                                         tools:text="Often" />
                                 </TableRow>
 
@@ -470,7 +464,7 @@
                                     <TextView
                                         android:padding="3dip"
                                         android:text="@{lodgeDetail.network}"
-                                        android:textAppearance="@style/Widget.Roar.textHeadline"
+                                        android:textAppearance="?attr/textAppearanceSubtitle1"
                                         android:layout_gravity="center"
                                         tools:text="Fair" />
                                 </TableRow>
@@ -485,13 +479,12 @@
                                     <TextView
                                         android:padding="3dip"
                                         android:text="@{lodgeDetail.surrounding}"
-                                        android:textAppearance="@style/Widget.Roar.textHeadline"
+                                        android:textAppearance="?attr/textAppearanceSubtitle1"
                                         tools:text="Good"
                                         android:layout_gravity="center" />
                                 </TableRow>
 
                                 <TableRow>
-
                                     <TextView
                                         android:padding="3dip"
                                         android:layout_gravity="center"
@@ -500,9 +493,10 @@
                                     <TextView
                                         android:padding="3dip"
                                         android:text="@{lodgeDetail.distance}"
-                                        android:textAppearance="@style/Widget.Roar.textHeadline"
+                                        android:textAppearance="?attr/textAppearanceSubtitle1"
+                                        android:layout_gravity="center"
                                         tools:text="Close"
-                                        android:layout_gravity="center" />
+                                        />
                                 </TableRow>
                             </TableLayout>
 

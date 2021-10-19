@@ -29,7 +29,6 @@ class FavoriteFragment : Fragment() {
     lateinit var fireStore: FirebaseFirestore
     private lateinit var lodgesQuery: CollectionReference
     private lateinit var lodgesAdapter: LodgesAdapter
-    private lateinit var progressBar: ProgressBar
     private lateinit var favModelDao: FavModelDao
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
 
@@ -46,7 +45,6 @@ class FavoriteFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_favorite, container, false)
-        progressBar = view.findViewById(R.id.progressBar)
         val favBack = view.findViewById<ImageView>(R.id.favBackBtn)
         val lodgeRecycler = view.findViewById<RecyclerView>(R.id.lodgeList)
         swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
@@ -54,7 +52,8 @@ class FavoriteFragment : Fragment() {
 
         lodgesAdapter = LodgesAdapter(LodgeClickListener({
             val bundle = bundleOf("Lodge" to it)
-            findNavController().navigate(R.id.lodgeDetail, bundle)
+            val action = R.id.action_favoriteFragment_to_lodgeDetail
+            findNavController().navigate(action, bundle)
         }, { id ->
             lifecycleScope.launch {
                 favModelDao.delete(FavModel(id))
@@ -67,8 +66,6 @@ class FavoriteFragment : Fragment() {
         }
         lodgeRecycler.adapter = lodgesAdapter
         initialize()
-        showProgress()
-
         swipeRefreshContainer.setOnRefreshListener {
             lifecycleScope.launch {
                 fetchFavId(favModelDao.getFavOnce())
@@ -91,7 +88,6 @@ class FavoriteFragment : Fragment() {
                     }.also { lodges ->
                         lifecycleScope.launchWhenCreated {
                             lodgesAdapter.addLodgeAndProperty(lodges, false)
-                            hideProgress()
                             swipeRefreshContainer.isRefreshing = false
                         }
                     }
@@ -99,7 +95,6 @@ class FavoriteFragment : Fragment() {
             } else {
                 lifecycleScope.launchWhenCreated {
 
-                    hideProgress()
                     lodgesAdapter.clear()
                     lodgesAdapter.addLodgeAndProperty(emptyList(), false)
                     swipeRefreshContainer.isRefreshing = false
@@ -121,15 +116,5 @@ class FavoriteFragment : Fragment() {
         (activity as MainActivity).detailScreenMediumAd.observe(viewLifecycleOwner,{ ad ->
             lodgesAdapter.postAd2(ad)
         })
-    }
-
-    private fun showProgress() {
-        progressBar.visibility = View.VISIBLE
-    }
-
-    private fun hideProgress() {
-        lifecycleScope.launch {
-            progressBar.visibility = View.GONE
-        }
     }
 }

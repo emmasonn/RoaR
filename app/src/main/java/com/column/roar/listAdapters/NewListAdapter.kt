@@ -130,7 +130,7 @@ class NewListAdapter(
 
           val headerTitle = productCat[position]
           val randomProducts = properties.run {
-              this.filter {it.propertyType == headerTitle }.let {
+              this.filter {it.propertyType == headerTitle }.take(4).let {
                   DataItem.PropertyItem(it)
               }
           }

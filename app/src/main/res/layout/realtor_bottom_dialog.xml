@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:background="?attr/colorPrimaryDark"
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/personSheet"
@@ -12,6 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white_100"
         android:elevation="10dp"
+
         android:orientation="vertical"
         app:behavior_hideable="true"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
@@ -23,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
+            app:cardBackgroundColor="?attr/colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -39,7 +42,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription"
-                    tools:src="@drawable/emma_white" />
+                    tools:src="@drawable/animated_gradient" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/agentImage"
@@ -52,7 +55,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle50"
                     tools:ignore="ContentDescription"
-                    tools:src="@drawable/emma_white" />
+                    tools:src="@drawable/animated_gradient" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
@@ -148,7 +151,28 @@
                             android:id="@+id/view18"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:layout_marginBottom="20dp"
+                            android:background="?attr/colorOnSecondary" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/proceedPayment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:text="Proceed to Payment"
+                            android:textColor="@color/white"
+                            android:textAllCaps="false"
+                            app:cornerRadius="20dp"
+                            android:layout_gravity="end"
+                            android:backgroundTint="@color/blue_500"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            />
+                        <View
+                            android:id="@+id/view1"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
                             android:background="?attr/colorOnSecondary" />
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>

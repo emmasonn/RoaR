@@ -53,7 +53,6 @@ class HomeFragment : Fragment() {
     private lateinit var backDrop: LinearLayout
     private lateinit var menuIcon: ImageView
     private lateinit var roarItemsAdapter: NewListAdapter
-    private lateinit var progressBar: ProgressBar
     private lateinit var fireStore: FirebaseFirestore
     private lateinit var propertiesQuery: Query
     private lateinit var chipsCategory: Array<String>
@@ -66,7 +65,7 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fireStore = FirebaseFirestore.getInstance()
-        propertiesQuery = fireStore.collection("properties")
+        propertiesQuery = fireStore.collection("properties").whereEqualTo("certified",true)
     }
 
     override fun onCreateView(
@@ -92,7 +91,7 @@ class HomeFragment : Fragment() {
 
         menuIcon = view.findViewById<ImageView>(R.id.menuNav)
         chipGroup = view.findViewById<ChipGroup>(R.id.chipGroup)
-        progressBar = view.findViewById(R.id.progressBar)
+        swipeContainer.isRefreshing = true
 
         searchIcon.setOnClickListener {
             findNavController().navigate(R.id.searchFragment)
@@ -104,23 +103,22 @@ class HomeFragment : Fragment() {
         argsNav.lodgeId.let {
             if (it != "roar") {
                 arguments = bundleOf("lodgeId" to "roar")
-                Timber.i("data: ${argsNav.lodgeId}")
+                Timber.i("lodgeId : $argsNav.lodgeId")
                 resolveUrl(argsNav.lodgeId)
             }
         }
 
-        showProgress()
      lifecycleScope.launch (Dispatchers.Main) {
          roarItemsAdapter = NewListAdapter(LodgeClickListener({ lodge ->
              val bundle = bundleOf("Lodge" to lodge)
              findNavController().navigate(R.id.lodgeDetail, bundle)
          }, {}), PropertyClickListener(
              { data ->
-                 showProgress()
+                 swipeContainer.isRefreshing = true
                  if (data.propertyType == "Ads") {
                      showAdDialog(data)
                  } else {
-                     val link = Uri.parse("https://roar.com.ng/property/${data.id}")
+                     val link = Uri.parse("https://unnapp.page.link/ads/${data.id}")
                      findNavController().navigate(link)
                  }
              },
@@ -150,8 +148,7 @@ class HomeFragment : Fragment() {
         )
 
         accountBtn.setOnClickListener {
-            val action = R.id.action_homeFragment_to_becomeAgent
-            findNavController().navigate(action)
+            findNavController().navigate(R.id.becomeAgent)
         }
 
         favBtn.setOnClickListener {
@@ -165,13 +162,13 @@ class HomeFragment : Fragment() {
         luxBtn.setOnClickListener {
             //isBackDropVisible = false
             val bundle = bundleOf("choice" to "classic")
-            val action = R.id.action_homeFragment_to_filterFragment
+            val action = R.id.filterFragment
             findNavController().navigate(action, bundle)
         }
 
         cheapBtn.setOnClickListener {
             val bundle = bundleOf("choice" to "simple")
-            val action = R.id.action_homeFragment_to_filterFragment
+            val action = R.id.filterFragment
             findNavController().navigate(action, bundle)
         }
 
@@ -253,17 +250,20 @@ class HomeFragment : Fragment() {
                 "UNN" -> {
                     chipsCategory = resources.getStringArray(R.array.lodges_location)
                     lodgesRef = fireStore.collection("lodges")
+                        .whereEqualTo("certified",true)
                         .whereEqualTo("campus", campus)
                 }
                 "UNEC" -> {
                     chipsCategory = resources.getStringArray(R.array.unec_campus)
                     lodgesRef = fireStore.collection("lodges")
+                        .whereEqualTo("certified",true)
                         .whereEqualTo("campus", campus)
                 }
 
                 else -> {
                     chipsCategory = resources.getStringArray(R.array.lodges_location)
                     lodgesRef = fireStore.collection("lodges")
+                        .whereEqualTo("certified",true)
                         .whereEqualTo("campus", campus)
                 }
             }
@@ -274,8 +274,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun fetchLodges(filter: String) {
-        showProgress()
-
+        swipeContainer.isRefreshing =  true
         val source = Source.DEFAULT
         propertiesQuery.get(source).addOnSuccessListener { snapShot ->
             snapShot.documents.mapNotNull { docShot ->
@@ -298,7 +297,6 @@ class HomeFragment : Fragment() {
                                         roarItemsAdapter.addLodgeAndProperty(emptyList(), properties)
                                         roarItemsAdapter.clear()
                                         swipeContainer.isRefreshing = false
-                                        hideProgress()
                                     }
                                 return@addSnapshotListener
 
@@ -307,13 +305,13 @@ class HomeFragment : Fragment() {
                                     roarItemsAdapter.addLodgeAndProperty(lodges, properties)
                                     roarItemsAdapter.clear()
                                     swipeContainer.isRefreshing = false
-                                    hideProgress()
                                 }
                             }
                         }
                     }
                 } else {
                     val filterRef = fireStore.collection("lodges")
+                        .whereEqualTo("certified",true)
                         .whereEqualTo("location", filter)
 
                     filterRef.get(source).addOnSuccessListener { result ->
@@ -325,16 +323,13 @@ class HomeFragment : Fragment() {
                                     roarItemsAdapter.addLodgeAndProperty(lodges, properties)
                                     roarItemsAdapter.clear()
                                     swipeContainer.isRefreshing = false
-                                    hideProgress()
                                 }
-
                             } else {
                                 lifecycleScope.launchWhenCreated {
                                     roarItemsAdapter.showEmpty = true
                                     roarItemsAdapter.addLodgeAndProperty(emptyList(), properties)
                                     roarItemsAdapter.clear()
                                     swipeContainer.isRefreshing = false
-                                    hideProgress()
                                 }
                             }
                         }
@@ -359,19 +354,18 @@ class HomeFragment : Fragment() {
                 roarItemsAdapter.submitList(emptyList())
                 roarItemsAdapter.clear()
                 swipeContainer.isRefreshing = false
-                hideProgress()
                 connectionFailure(true)
             }
         }
     }
 
     private fun resolveUrl(id: String?) {
-        showProgress()
+        swipeContainer.isRefreshing = true
         id?.let {
             fireStore.collection("lodges").document(id)
                 .get().addOnSuccessListener {
                     lifecycleScope.launchWhenCreated {
-                        hideProgress()
+                        swipeContainer.isRefreshing = true
 
                         it.toObject(FirebaseLodge::class.java).also { lodge ->
                             val bundle = bundleOf("Lodge" to lodge)
@@ -380,7 +374,7 @@ class HomeFragment : Fragment() {
                     }
                 }.addOnFailureListener {
                     lifecycleScope.launch {
-                        hideProgress()
+                        swipeContainer.isRefreshing = false
                         Toast.makeText(requireContext(),"Failed to Load item, Network failure",
                         Toast.LENGTH_SHORT).show()
                     }
@@ -388,15 +382,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun showProgress() {
-        progressBar.visibility = View.VISIBLE
-    }
-
-    private fun hideProgress() {
-        lifecycleScope.launch {
-            progressBar.visibility = View.GONE
-        }
-    }
 
     private fun connectionFailure(error: Boolean) {
         val connection = (activity as MainActivity).connectivityChecker
@@ -435,7 +420,7 @@ class HomeFragment : Fragment() {
 
         callBtn?.setOnClickListener {}
         bottomSheetLayout.show()
-        hideProgress()
+        swipeContainer.isRefreshing = false
     }
 
     //this function animates the location icon

@@ -17,7 +17,6 @@ import timber.log.Timber
 
 class BecomeAgent : Fragment() {
 
-
     private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +43,8 @@ class BecomeAgent : Fragment() {
         val backBtn = view.findViewById<ImageView>(R.id.becomeBackBtn)
 
         signInBtn.setOnClickListener {
-            findNavController().navigate(R.id.verifyNumber)
+            val action = R.id.action_becomeAgent_to_verifyNumber
+            findNavController().navigate(action)
         }
 
         joinBtn.setOnClickListener {

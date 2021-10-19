@@ -1,5 +1,6 @@
 package com.column.roar
 
+import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -8,20 +9,32 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
+import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
+
 
 class SplashActivity : AppCompatActivity() {
 
@@ -29,8 +42,21 @@ class SplashActivity : AppCompatActivity() {
         this.getPreferences(Context.MODE_PRIVATE)
     }
 
+    companion object {
+        const val RESULT_WRITE_MEMORY = 123
+    }
+
     private lateinit var dialogLayout: AlertDialog
     private lateinit var iconImage: ImageView
+
+    private val requestPermissionResult =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (isGranted) {
+                Toast.makeText(this, "Granted", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Denied", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,15 +69,18 @@ class SplashActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val isShowed = sharedPref.getBoolean("isShowed", false)
 
-            delay(5000)
+            delay(2000)
             if (!isShowed) {
                 slideInDialog()
             } else {
-                lifecycleScope.launch{
+                lifecycleScope.launch {
                     moveToMainActivity()
                 }
-
             }
+        }
+
+        if(!checkPermissionApproved()) {
+            requestExternalStoragePermission()
         }
     }
 
@@ -76,6 +105,7 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("InflateParams")
     private fun showTermAndCondition(): AlertDialog {
         dialogLayout = this.let {
@@ -89,6 +119,9 @@ class SplashActivity : AppCompatActivity() {
                 val checkBtn = view.findViewById<MaterialCheckBox>(R.id.acceptCheckbox)
                 val closeBtn = view.findViewById<ImageView>(R.id.closeBtn)
                 var isChecked = false
+                val privacy = view.findViewById<TextView>(R.id.privacyTerms)
+
+                privacy.text = Html.fromHtml(getString(R.string.privacyAndTerms),FROM_HTML_MODE_LEGACY)
 
                 val animation =
                     AnimationUtils.loadAnimation(this@SplashActivity, R.anim.shake_rotate)
@@ -153,4 +186,49 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkPermissionApproved() = ActivityCompat.checkSelfPermission(
+        this,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
+
+    private fun requestExternalStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                requestPermissionResult.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            } else {
+                requestPermissionResult.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            }
+        } else {
+            requestPermission()
+        }
+    }
+
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), RESULT_WRITE_MEMORY
+        )
+    }
+
+    @SuppressLint("MissingSuperCall")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            RESULT_WRITE_MEMORY -> {
+                if ((grantResults.isNotEmpty() &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                ) {
+                    Timber.i("user accepted location permission")
+                } else {
+                    Timber.i("User canceled location request")
+                }
+                return
+            }
+            else -> { }
+        }
+    }
 }

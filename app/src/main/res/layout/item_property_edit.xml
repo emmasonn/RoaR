@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView3"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginBottom="15dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
-        app:cardElevation="10dp"
         app:cardCornerRadius="5dp"
+        app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,6 +24,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <ImageView
                 android:id="@+id/firstImage"
                 android:layout_width="180dp"
@@ -32,8 +33,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/animated_gradient"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/animated_gradient" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/online"
@@ -41,36 +42,16 @@
                 android:layout_height="40dp"
                 android:text="@string/online"
                 android:textAllCaps="false"
-                android:visibility="gone"
-                android:textColor="@color/green_700"
                 android:textAppearance="@style/Widget.Toolbar.title"
+                android:textColor="@color/green_700"
                 android:textSize="12sp"
+                android:visibility="gone"
                 app:cornerRadius="0dp"
                 app:icon="@drawable/ic_green_dot"
                 app:iconSize="5dp"
                 app:iconTint="@color/green_700"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/notActive"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardElevation="20dp"
-                android:visibility="gone"
-                android:backgroundTint="@color/red_700"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/constraintLayout">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10sp"
-                    android:textColor="@color/white"
-                    android:textAppearance="@style/Widget.Roar.textHeadline"
-                    tools:text="This Item is been reviewed by the admin." />
-            </com.google.android.material.card.MaterialCardView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout7"
@@ -96,11 +77,11 @@
                 android:id="@+id/editBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:elevation="10dp"
-                android:src="@drawable/ic_edit"
                 android:layout_margin="5dp"
                 android:background="@color/white"
+                android:elevation="10dp"
                 android:padding="1dp"
+                android:src="@drawable/ic_edit"
                 android:textAppearance="@style/Widget.Toolbar.title"
                 android:textColor="@color/blue_500"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -129,34 +110,34 @@
                 android:id="@+id/propertyTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="25 litres Gallon"
-                android:textColor="@color/white"
                 android:fontFamily="@font/montserrat_bold"
                 android:textAppearance="?attr/textAppearanceSubtitle2"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/productPrice"
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout7"
-                app:layout_constraintStart_toStartOf="@+id/constraintLayout7" />
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
+                tools:text="25 litres Gallon" />
 
             <TextView
                 android:id="@+id/productPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                tools:text="₦500"
-                android:textColor="@color/yellow_200"
                 android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="@color/yellow_200"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/firstImage"
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout7"
-                app:layout_constraintStart_toStartOf="@+id/constraintLayout7" />
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
+                tools:text="₦500" />
 
             <TextView
                 android:id="@+id/imageView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
                 android:elevation="10dp"
                 android:src="@drawable/ic_locate"
                 android:text="Campus:"
@@ -165,8 +146,8 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/campus"
-                app:layout_constraintHorizontal_bias="0.4"
-/>
+                app:layout_constraintHorizontal_bias="0.4" />
+
             <TextView
                 android:id="@+id/campus"
                 android:layout_width="wrap_content"
@@ -180,7 +161,34 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/propertyDesc"
                 app:layout_constraintTop_toTopOf="@+id/imageView12" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/notActive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red_700"
+        android:visibility="visible"
+        app:cardElevation="20dp"
+        app:cardCornerRadius="0dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="@color/white"
+            android:text="This Item is been reviewed by the admin." />
+    </com.google.android.material.card.MaterialCardView>
+    <View
+        android:id="@+id/view17"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="8dp"
+        android:background="?attr/colorOnSecondary"
+        />
+</LinearLayout>

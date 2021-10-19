@@ -33,6 +33,7 @@
                 android:id="@+id/backBtn"
                 android:layout_width="@dimen/back_arrow_height"
                 android:layout_height="@dimen/back_arrow_height"
+                android:layout_marginStart="@dimen/back_button_start_margin"
                 android:focusable="true"
                 android:clickable="true"
                 android:src="@drawable/ic_backward"
@@ -46,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{lodgeDetail.randomId}"
-                android:layout_marginStart="@dimen/start_margin"
+                android:layout_marginStart="@dimen/title_start_margin"
                 android:textAppearance="@style/Widget.Toolbar.title"
                 app:layout_constraintBottom_toBottomOf="@+id/backBtn"
                 app:layout_constraintStart_toEndOf="@+id/backBtn"
@@ -54,14 +55,26 @@
                 tools:text="God's Doing Lodge" />
 
             <ImageView
+                android:id="@+id/shareBtn"
+                android:layout_width="@dimen/back_arrow_height"
+                android:layout_height="@dimen/back_arrow_height"
+                android:focusable="true"
+                android:clickable="true"
+                android:src="@drawable/ic_share_btn"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/favoriteBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/favoriteBtn"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
                 android:id="@+id/favoriteBtn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginVertical="10dp"
-                android:layout_marginEnd="20dp"
+                android:layout_width="@dimen/back_arrow_height"
+                android:layout_height="@dimen/back_arrow_height"
+                android:layout_marginEnd="15dp"
                 android:src="@drawable/ic_fav_outline"
                 app:layout_constraintBottom_toBottomOf="@+id/backBtn"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/shareBtn"
                 app:layout_constraintTop_toTopOf="@+id/backBtn"
                 tools:ignore="ContentDescription" />
 
@@ -104,7 +117,7 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/textView18"
-                tools:text="Green house" />
+                tools:text="Odim" />
 
             <View
                 android:id="@+id/view4"
@@ -152,7 +165,8 @@
                 android:text="@{lodgeDetail.type}"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/imageView15"
+                app:layout_constraintEnd_toStartOf="@+id/view4"
+                app:layout_constraintStart_toEndOf="@+id/view8"
                 app:layout_constraintTop_toBottomOf="@+id/textView18"
                 tools:text="Single room" />
 
@@ -183,7 +197,8 @@
                 android:text="@{lodgeDetail.size}"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/imageView50"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/view4"
                 app:layout_constraintTop_toBottomOf="@+id/textView18"
                 tools:text="3.6m" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -605,9 +620,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
-                                android:src="@drawable/ic_emma"
-                                android:background="@drawable/light_black_background"
-                                android:scaleType="center"
+                                android:src="@drawable/roar_landscape"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/textView42"
@@ -629,11 +642,12 @@
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:id="@+id/materialCardView"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
                                 android:background="?attr/colorPrimary"
-                                app:layout_constraintStart_toStartOf="@+id/view5"
+                                app:layout_constraintEnd_toEndOf="@+id/playerView"
+                                app:layout_constraintStart_toStartOf="@+id/playerView"
                                 app:layout_constraintTop_toBottomOf="@+id/playerView">
 
                                 <TextView
@@ -641,17 +655,16 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_marginTop="5dp"
-                                    android:layout_marginEnd="10dp"
-                                    android:layout_marginStart="10dp"
                                     android:elevation="10dp"
-                                    android:textStyle="bold"
                                     android:fontFamily="@font/montserrat_extra_bold"
                                     android:text="@{lodgeDetail.brandName}"
                                     android:textAlignment="center"
                                     android:textAppearance="?attr/textAppearanceSubtitle1"
-                                    android:textColor="@color/blue_700"
+                                    android:textColor="@color/blue_100"
+                                    android:textStyle="bold"
                                     app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toEndOf="@+id/agentImageCover"
+                                    app:layout_constraintHorizontal_bias="0.4"
+                                    app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="@+id/agentImageCover"
                                     tools:text="PIPPINHALL" />
 
@@ -674,22 +687,35 @@
                                     android:layout_margin="5dp"
                                     android:elevation="10dp"
                                     android:scaleType="centerCrop"
-                                    android:background="@drawable/ic_round_person"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@+id/brandName"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle50"
                                     app:strokeColor="@color/white"
                                     app:strokeWidth="1dp"
                                     tools:ignore="ContentDescription" />
-
                             </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <ImageView
+                                android:id="@+id/imageView9"
+                                android:layout_width="80dp"
+                                android:layout_height="50dp"
+                                android:layout_marginTop="35dp"
+                                android:elevation="10dp"
+                                android:src="@drawable/certified"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.4"
+                                app:layout_constraintStart_toStartOf="@+id/materialCardView"
+                                app:layout_constraintTop_toTopOf="@+id/materialCardView"
+                                tools:ignore="ContentDescription" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/bookBtn"
                                 android:layout_width="0dp"
                                 android:layout_height="50dp"
                                 android:layout_marginStart="40dp"
-                                android:layout_marginTop="20dp"
+                                android:layout_marginTop="30dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="10dp"
                                 android:backgroundTint="?attr/colorControlNormal"

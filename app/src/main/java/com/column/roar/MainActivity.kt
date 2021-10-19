@@ -1,19 +1,25 @@
 package com.column.roar
 
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.net.ConnectivityManager
 import android.net.Uri
+import android.os.Build
 import android.util.DisplayMetrics
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat
 import androidx.core.content.getSystemService
 import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
@@ -26,15 +32,16 @@ import com.column.roar.database.AppDatabase
 import com.column.roar.util.ConnectivityChecker
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.nativead.NativeAd
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.util.*
-
-//const val TOPIC = "/topics/myTopic"
 
 class MainActivity : AppCompatActivity() {
 
@@ -60,6 +67,8 @@ class MainActivity : AppCompatActivity() {
     var chipState = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseAnalytics.getInstance(this)
+
         setContentView(R.layout.activity_main)
         adViewParent = findViewById(R.id.ad_view_container)
         val cancelBtn = findViewById<ImageView>(R.id.cancelBtn)
@@ -107,7 +116,6 @@ class MainActivity : AppCompatActivity() {
             subscribeUnnLodge(settingsPref)
         }
         connectivityChecker = connectivityChecker(this)
-        //performNetworkAction()
     }
 
     override fun onPause() {
@@ -142,25 +150,61 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun handleFirebaseDynamicLink (intent: Intent?) {
+        intent?.let {
+            FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(intent)
+                .addOnSuccessListener { pendingLink ->
+                    pendingLink?.let {
+                        val deepLink: Uri? = pendingLink.link ?: Uri.parse("")
+                        processDynamicLink(deepLink)
+                    }
+                }.addOnFailureListener(this) { e ->
+                    Timber.e(e, "Error cannot parse dynamic link")
+                }
+        }
+    }
+
+    private fun processDynamicLink(uri: Uri?) {
+        val lodgeId = uri?.getQueryParameter("lodgeId")
+        val productId = uri?.getQueryParameter("productId")
+
+        lodgeId?.let {
+            val deepLink = Uri.parse("https://unnapp.page.link/lodges/$lodgeId")
+            navController.navigate(deepLink)
+        }
+
+        productId?.let {
+            val deepLink = Uri.parse("https://unnapp.page.link/ads/${productId}")
+            navController.navigate(deepLink)
+        }
+    }
+
+    //for now notification clicks are handle in the onNewIntent
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
+
+        intent?.let {
+            handleFirebaseDynamicLink(intent)
+        }
+
+        intent?.let {
+            handleNotificationIntent(intent)
+        }
+    }
+
+    private fun handleNotificationIntent(intent: Intent?) {
         val string = intent?.getStringExtra("notification")
         val lodgeId = intent?.getStringExtra("lodgeId")
         val productId = intent?.getStringExtra("productId")
         when (string) {
             "lodge_notifier" -> {
-                fireStore.collection("lodges").document(lodgeId!!)
-                    .get().addOnSuccessListener { snapShot ->
-                        snapShot.toObject(FirebaseLodge::class.java).also { data ->
-                            lifecycleScope.launch {
-                                val bundle = bundleOf("Lodge" to data!!)
-                                navController.navigate(R.id.lodgeDetail, bundle)
-                            }
-                        }
-                    }
+                val deepLink = Uri.parse("https://unnapp.page.link/lodges/$lodgeId")
+                navController.navigate(deepLink)
             }
+
             "product_notifier" -> {
-                val link = Uri.parse("https://roar.com.ng/property/${productId}")
+                val link = Uri.parse("https://unnapp.page.link/ads/${productId}")
                 navController.navigate(link)
             }
             else -> {
@@ -170,9 +214,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadBannerAd() {
+        lifecycleScope.launch(Dispatchers.Default) {
         val adRequest = AdRequest
             .Builder().build()
-        adView.loadAd(adRequest)
+            delay(1000)
+            withContext(Dispatchers.Main) {
+                adView.loadAd(adRequest)
+            }
+        }
     }
 
     private fun connectivityChecker(activity: Activity): ConnectivityChecker? {
@@ -232,7 +281,6 @@ class MainActivity : AppCompatActivity() {
     private fun subscribeTopics(topic: String) {
         FirebaseMessaging.getInstance().subscribeToTopic(topic)
     }
-
 
     private fun smallAdvertNativeAd() {
         val adLoader = AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110")

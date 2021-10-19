@@ -62,7 +62,8 @@ class VerifyNumber : Fragment() {
                     val user =   it.toObject(FirebaseUser::class.java) as FirebaseUser
                        storeUserId(user.clientId!!,user.clientUrl)
                        val bundle = bundleOf("verify" to user)
-                       findNavController().navigate(R.id.verifyPassword, bundle)
+                       val action = R.id.action_verifyNumber_to_verifyPassword
+                       findNavController().navigate(action, bundle)
                    }
                }else {
                    Toast.makeText(requireContext(),"Phone Number does not exist",Toast.LENGTH_SHORT).show()

@@ -31,19 +31,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="3dp"
                 android:background="@drawable/light_black_background"
                 android:elevation="10dp"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintBottom_toTopOf="@+id/propertyTitle"
+                app:layout_constraintStart_toStartOf="parent">
 
                 <ImageView
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:layout_marginStart="3dp"
                     android:layout_gravity="center"
+                    android:layout_marginStart="3dp"
                     android:src="@drawable/ic_locate"
                     app:tint="@color/yellow_200"
                     tools:ignore="ContentDescription" />
@@ -53,12 +51,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
+                    android:fontFamily="@font/montserrat_regular"
                     android:paddingEnd="8dp"
                     android:textAllCaps="false"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:textSize="12sp"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="@color/white"
+                    android:textSize="12sp"
                     tools:text="Unn" />
             </LinearLayout>
 

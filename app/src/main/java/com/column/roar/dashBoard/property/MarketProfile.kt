@@ -72,7 +72,7 @@ class MarketProfile : Fragment() {
         profileImage.load(imageUrl)
 
         backBtn.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().popBackStack(R.id.homeFragment,false)
         }
 
         sellBtn.setOnClickListener {
@@ -139,7 +139,7 @@ class MarketProfile : Fragment() {
             setPositiveButton("Okay") { dialog, _ ->
                 dialog.dismiss()
                 userLoggedState(false)
-                findNavController().popBackStack(R.id.becomeAgent,false)
+                findNavController().popBackStack(R.id.homeFragment,false)
             }
 
             setNegativeButton("Cancel") { dialog, _ ->

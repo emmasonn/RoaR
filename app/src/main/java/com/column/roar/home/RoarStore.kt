@@ -1,8 +1,10 @@
 package com.column.roar.home
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,11 +26,16 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
+import com.google.firebase.dynamiclinks.ktx.dynamicLinks
+import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.Source
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class RoarStore : Fragment() {
@@ -44,7 +51,6 @@ class RoarStore : Fragment() {
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
     private lateinit var connectionView: MaterialCardView
     private lateinit var emptyItem: MaterialCardView
-
     private val argsNav: RoarStoreArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +58,7 @@ class RoarStore : Fragment() {
         fireStore = FirebaseFirestore.getInstance()
         productRef = fireStore.collection("properties")
         propertyCollection = fireStore.collection("properties")
+            .whereEqualTo("certified",true)
             .whereNotEqualTo("propertyType","Ads")
     }
 
@@ -103,9 +110,9 @@ class RoarStore : Fragment() {
         propertyRecycler.layoutManager = gridLayoutManager
 
         val largePadding =
-            resources.getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_large)
+            resources.getDimensionPixelSize(R.dimen.staggered_product_grid_spacing_large)
         val smallPadding =
-            resources.getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_small)
+            resources.getDimensionPixelSize(R.dimen.staggered_product_grid_spacing_small)
         propertyRecycler.addItemDecoration(ProductGridItemDecoration(largePadding, smallPadding))
         propertyListAdapter = PropertyListAdapter(PropertyClickListener(
             listener = {
@@ -202,18 +209,17 @@ class RoarStore : Fragment() {
             val productImage = this.findViewById<ImageView>(R.id.productImage)
             val productName = this.findViewById<TextView>(R.id.productName)
             val productPrice = this.findViewById<TextView>(R.id.productPrice)
-            val aboutProduct = this.findViewById<TextView>(R.id.productDesc)
+            val aboutProduct = this.findViewById<TextView>(R.id.productInfo)
 
             Glide.with(productImage!!.context)
                 .load(product.firstImage).apply(
-                    RequestOptions().placeholder(R.drawable.loading_animation)
-                        .error(R.drawable.loading_animation)
+                    RequestOptions().placeholder(R.drawable.animated_gradient)
+                        .error(R.drawable.animated_gradient)
                 ).into(productImage)
 
             productName?.text = product.propertyTitle
             productPrice?.text = getString(R.string.format_price,product.propertyPrice)
             aboutProduct?.text = product.propertyDesc
-
             hideProgress()
         }
 
@@ -222,7 +228,7 @@ class RoarStore : Fragment() {
         val callBtn = bottomSheetLayout.findViewById<MaterialButton>(R.id.callBtn)
 
         share?.setOnClickListener {
-            share(product)
+            shareProduct(product)
         }
 
         whatsAppBtn?.setOnClickListener {
@@ -235,24 +241,72 @@ class RoarStore : Fragment() {
         bottomSheetLayout.show()
     }
 
-    private fun share(product: FirebaseProperty) {
-            val message =
-            "Hi, check out this ${product.propertyTitle} on Roar App \n"+
-                    "https://roar.com.ng/property/${product.id}"
+    private fun shareProduct(product: FirebaseProperty) {
 
-            val intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, message)
-                type="text/plain"
-            }
+        val futureTarget = Glide.with(requireContext())
+            .asBitmap()
+            .load(product.firstImage)
+            .submit()
 
-            try {
-                startActivity(intent)
-            }catch (ex: android.content.ActivityNotFoundException){
-                Toast.makeText(requireContext(),"WhatsApp is not Found",
-                    Toast.LENGTH_SHORT).show()
+        lifecycleScope.launch(Dispatchers.Default) {
+            val bitmapImage = futureTarget.get()
+
+            withContext(Dispatchers.Main) {
+                val bitmapUri = getBitmapUri(bitmapImage)
+                val uriInUri = Uri.parse(bitmapUri)
+
+                val shareIntent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TITLE, "Lodge at ${product.campus} Campus")
+                    flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                }
+
+                Firebase.dynamicLinks.shortLinkAsync {
+                    longLink = Uri.parse("https://unnapp.page.link/?link=https://unnapp.page.link/ads?productId%3D${product.id}&apn=com.column.roar&st=RoaR+Store" +
+                                "&sd=Nice+product+for+sale,+review+and+trusted" +
+                                "&si=${product.firstImage}")
+                }.addOnSuccessListener { shortLink ->
+
+                    lifecycleScope.launchWhenCreated {
+                        val message = "Hey, check this ${product.propertyTitle} at RoaR \n" +
+                                "Price: ${getString(R.string.format_price, product.propertyPrice)} \n\n " +
+                                "${shortLink.shortLink}"
+
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, message)
+                        shareIntent.putExtra(Intent.EXTRA_STREAM, uriInUri)
+                        shareIntent.type = "image/*"
+                        shareDynamicLink(shareIntent)
+                    }
+                }.addOnFailureListener { e ->
+                    Timber.e(e, "cannot resolve link")
+                    Toast.makeText(
+                        requireContext(),
+                        "Sharing failed, Network error",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
+        }//end of withContext main
+    }
+
+    private fun shareDynamicLink(shareIntent: Intent) {
+        try {
+            startActivity(Intent.createChooser(shareIntent, null))
+        } catch (ex: android.content.ActivityNotFoundException) {
+            Toast.makeText(
+                requireContext(), "Cannot Share item",
+                Toast.LENGTH_SHORT
+            ).show()
         }
+    }
+
+    private fun getBitmapUri(bitmapImage: Bitmap): String {
+        return MediaStore.Images.Media.insertImage(
+            requireContext().contentResolver,
+            bitmapImage,
+            null, null
+        )
+    }
 
     private fun showEmptyList() {
         emptyItem.visibility = View.VISIBLE

@@ -43,8 +43,7 @@ class ClientListAdapter(private val clickListener: UserClickListener): ListAdapt
 
             Glide.with(coverImage.context)
                 .load(data.clientUrl).apply(
-                    RequestOptions().placeholder(R.drawable.loading_animation)
-                        .error(R.drawable.loading_animation)
+                    RequestOptions().placeholder(R.drawable.ic_person)
                 ).into(coverImage)
 
 

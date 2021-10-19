@@ -2,8 +2,10 @@ package com.column.roar.lodgeDetail
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,18 +35,25 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.dynamiclinks.ktx.dynamicLinks
+import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class LodgeDetail : Fragment() {
 
     private val lodgeData: FirebaseLodge by lazy {
         arguments?.get("Lodge") as FirebaseLodge
     }
+
+    private lateinit var bottomSheetLayout: BottomSheetDialog
 
     private lateinit var favModelDao: FavModelDao
     private lateinit var fireStore: FirebaseFirestore
@@ -99,6 +108,10 @@ class LodgeDetail : Fragment() {
             }
         }
 
+        binding.shareBtn.setOnClickListener {
+            shareLodgeData()
+        }
+
         lockLodge() //call this function to lock lodge
         binding.coverImage.setOnClickListener {
             val photo = FirebaseLodgePhoto(
@@ -114,7 +127,7 @@ class LodgeDetail : Fragment() {
 
         binding.playBtn.setOnClickListener {
             val bundle = bundleOf("Lodge" to lodgeData)
-            findNavController().navigate(R.id.watchTour,bundle)
+            findNavController().navigate(R.id.watchTour, bundle)
         }
 
         favModelDao.getFavString().observe(viewLifecycleOwner, { favIds ->
@@ -137,7 +150,7 @@ class LodgeDetail : Fragment() {
         Glide.with(binding.coverImage.context)
             .load(lodgeData.coverImage)
             .apply(
-                 RequestOptions().placeholder(R.drawable.animated_gradient)
+                RequestOptions().placeholder(R.drawable.animated_gradient)
                     .error(R.drawable.animated_gradient)
             )
             .into(binding.coverImage)
@@ -181,16 +194,16 @@ class LodgeDetail : Fragment() {
             photosSnap.documents.mapNotNull {
                 it.toObject(FirebaseLodgePhoto::class.java)
             }.also { photos ->
-                lifecycleScope.launchWhenStarted{
+                lifecycleScope.launchWhenStarted {
                     if (photos.size <= 3) {
                         photoListRecycler.layoutManager = LinearLayoutManager(
                             requireContext(), LinearLayoutManager.HORIZONTAL, false
                         )
                     } else {
-                            photoListRecycler.layoutManager = GridLayoutManager(
-                                requireContext(),
-                                2, GridLayoutManager.HORIZONTAL, false
-                            )
+                        photoListRecycler.layoutManager = GridLayoutManager(
+                            requireContext(),
+                            2, GridLayoutManager.HORIZONTAL, false
+                        )
 
                     }
                     photosAdapter.submitList(photos)
@@ -204,7 +217,7 @@ class LodgeDetail : Fragment() {
                 it.toObject(FirebaseLodge::class.java)
             }.also { lodges ->
                 lifecycleScope.launchWhenCreated {
-                if(lodges.isNullOrEmpty()) {
+                    if (lodges.isNullOrEmpty()) {
 
                         lodgesAdapter.addLodgeAndProperty(lodges, true)
                         binding.othersRecycler.visibility = View.VISIBLE
@@ -216,13 +229,13 @@ class LodgeDetail : Fragment() {
     }
 
     private fun lockLodge() {
-        if(lodgeData.availableRoom == null) {
+        if (lodgeData.availableRoom == null) {
             binding.lockLodge.alpha = 1F
-        }else {
-            if(lodgeData.availableRoom == 0L) {
+        } else {
+            if (lodgeData.availableRoom == 0L) {
                 binding.lockLodge.alpha = 1F
                 binding.availableRoom.alpha = 0F
-            }else {
+            } else {
                 binding.lockLodge.alpha = 0F
                 binding.availableRoom.alpha = 1F
             }
@@ -246,7 +259,7 @@ class LodgeDetail : Fragment() {
     }
 
     private fun showBottomSheet(lodge: FirebaseLodge) {
-        val bottomSheetLayout = BottomSheetDialog(requireContext()).apply {
+        bottomSheetLayout = BottomSheetDialog(requireContext()).apply {
             setContentView(R.layout.realtor_bottom_dialog)
             val coverImage = this.findViewById<ImageView>(R.id.lodgeImage)
             val agentImage = this.findViewById<ImageView>(R.id.agentImage)
@@ -270,6 +283,13 @@ class LodgeDetail : Fragment() {
 
         val whatsAppBtn = bottomSheetLayout.findViewById<MaterialCardView>(R.id.whatsAppBtn)
         val callBtn = bottomSheetLayout.findViewById<MaterialButton>(R.id.callBtn)
+        val proceedBtn = bottomSheetLayout.findViewById<MaterialButton>(R.id.proceedPayment)
+
+
+        proceedBtn?.setOnClickListener {
+            bottomSheetLayout.dismiss()
+            findNavController().navigate(R.id.paymentPager)
+        }
 
         callBtn?.setOnClickListener {
             dialPhoneNumber(lodge.agentPhone)
@@ -284,14 +304,14 @@ class LodgeDetail : Fragment() {
     private fun chatWhatsApp(pNumber: String?) {
 
         val message = """
-            Hi, Am interested in visiting ${lodgeData.randomId}
-             https://roar.com.ng/lodge/${lodgeData.lodgeId}
+            Hi, Am interested in visiting ${lodgeData.randomId} \n\n
+             https://unnapp.page.link/lodges/${lodgeData.lodgeId}
         """.trimIndent()
 
         val uri =
             "https://api.whatsapp.com/send?phone=+234$pNumber&text=$message"
 
-         val intent = Intent().apply {
+        val intent = Intent().apply {
             action = Intent.ACTION_VIEW
             data = Uri.parse(uri)
         }
@@ -306,13 +326,70 @@ class LodgeDetail : Fragment() {
         }
     }
 
-//    private fun getBitmapUri(bitmapImage: Bitmap): String {
-//        return MediaStore.Images.Media.insertImage(
-//            requireContext().contentResolver,
-//            bitmapImage,
-//            null, null
-//        )
-//    }
+    private fun shareLodgeData() {
+         swipeRefreshContainer.isRefreshing = true
+
+        val futureTarget = Glide.with(requireContext())
+            .asBitmap()
+            .load(lodgeData.coverImage)
+            .submit()
+
+        lifecycleScope.launch(Dispatchers.Default) {
+            val bitmapImage: Bitmap = futureTarget.get()
+
+            withContext(Dispatchers.Main) {
+                val bitmapUri = getBitmapUri(bitmapImage)
+                val uriInUri = Uri.parse(bitmapUri)
+
+                val shareIntent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    flags= Intent.FLAG_GRANT_READ_URI_PERMISSION
+                }
+
+                Firebase.dynamicLinks.shortLinkAsync {
+                    longLink = Uri.parse("https://unnapp.page.link/?link=https://unnapp.page.link/lodges?lodgeId%3D${lodgeData.lodgeId}" +
+                            "&apn=com.column.roar&st=Campus+Lodge&sd=Get+lodges+at+a+better+price+from+trusted+community" +
+                            "&si=${lodgeData.coverImage}")
+                }.addOnSuccessListener { shortLink ->
+
+                    lifecycleScope.launchWhenCreated {
+                        val message = "Hey, check this lodge at ${lodgeData.location} \n" +
+                                "Price: ${getString(R.string.format_price_integer, lodgeData.subPayment)} \n\n " +
+                                "${shortLink.shortLink}"
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, message)
+                        shareIntent.putExtra(Intent.EXTRA_STREAM, uriInUri)
+                        shareIntent.type = "image/*"
+                        shareDynamicLink(shareIntent)
+                    }
+                }.addOnFailureListener { e ->
+                    Timber.e(e,"cannot resolve link")
+                    swipeRefreshContainer.isRefreshing = false
+                    Toast.makeText(requireContext(),"Sharing failed, Network error",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun shareDynamicLink(shareIntent: Intent) {
+        try {
+            swipeRefreshContainer.isRefreshing = false
+            startActivity(Intent.createChooser(shareIntent, null))
+        } catch (ex: android.content.ActivityNotFoundException) {
+            swipeRefreshContainer.isRefreshing = false
+            Toast.makeText(
+                requireContext(), "Cannot Share item",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun getBitmapUri(bitmapImage: Bitmap): String {
+        return MediaStore.Images.Media.insertImage(
+            requireContext().contentResolver,
+            bitmapImage,
+            null, null
+        )
+    }
 
     private fun dialPhoneNumber(phoneNumber: String?) {
         val intent = Intent(Intent.ACTION_DIAL).apply {
@@ -332,7 +409,7 @@ class LodgeDetail : Fragment() {
     }
 
     private fun initializeAd() {
-        (activity as MainActivity).detailScreenSmallAd.observe(viewLifecycleOwner,{ ad ->
+        (activity as MainActivity).detailScreenSmallAd.observe(viewLifecycleOwner, { ad ->
             binding.firstSmallNativeAd.setNativeAd(ad)
         })
 
@@ -340,7 +417,6 @@ class LodgeDetail : Fragment() {
             binding.adNativeMedium.setNativeAd(ad)
         })
     }
-
 }
 //class PhotosPager(private val photos: List<FirebaseLodgePhoto>, fragment: Fragment):
 //        FragmentStateAdapter(fragment) {

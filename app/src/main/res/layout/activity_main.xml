@@ -27,15 +27,15 @@
         android:scaleType="centerCrop"
         android:src="@drawable/ic_emma"
         android:layout_margin="10dp"
-        android:alpha="0.2"
+        android:alpha="0.1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/cancelBtn"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
         android:focusable="true"
         android:src="@drawable/ic_nav_close"
         android:background="@color/white"
@@ -45,8 +45,8 @@
 
     <FrameLayout
         android:id="@+id/ad_view_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

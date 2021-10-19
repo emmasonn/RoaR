@@ -27,8 +27,9 @@
                 android:id="@+id/manageBckBtn"
                 android:layout_width="@dimen/back_arrow_height"
                 android:layout_height="@dimen/back_arrow_height"
-                android:layout_marginVertical="10dp"
                 android:focusable="true"
+                android:clickable="true"
+                android:layout_marginStart="@dimen/back_button_start_margin"
                 android:src="@drawable/ic_backward"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Manage Property"
-                android:layout_marginStart="@dimen/start_margin"
+                android:layout_marginStart="@dimen/title_start_margin"
                 android:textAppearance="@style/Widget.Toolbar.title"
                 app:layout_constraintBottom_toBottomOf="@+id/manageBckBtn"
                 app:layout_constraintStart_toEndOf="@+id/manageBckBtn"
@@ -53,7 +54,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="60dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -217,7 +217,6 @@
                         android:hint="Campus"
                         android:inputType="none"
                         />
-                </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/submitProperty"
@@ -226,12 +225,14 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="20dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="@dimen/bottom_padding_ad"
                         android:fontFamily="@font/montserrat_bold"
                         android:text="Submit"
-                        app:cornerRadius="5dp"
                         android:textColor="@color/white"
-                        app:backgroundTint="?attr/colorControlNormal" />
+                        app:backgroundTint="?attr/colorControlNormal"
+                        app:cornerRadius="5dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

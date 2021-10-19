@@ -5,7 +5,6 @@
     android:id="@+id/personSheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white_100"
     android:elevation="10dp"
     android:orientation="vertical"
     app:behavior_hideable="true"
@@ -14,6 +13,7 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardBackgroundColor="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,60 +22,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView65"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Description"
-                android:textAlignment="center"
-                android:textAppearance="?attr/textAppearanceBody1"
-                android:textSize="16sp"
-                android:elevation="10dp"
-                app:layout_constraintBottom_toTopOf="@+id/productDesc"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/productImage"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/productDesc"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="8dp"
-                android:layout_marginTop="10dp"
-                android:lineSpacingExtra="4dp"
-                android:maxLines="5"
-                android:elevation="10dp"
-                android:textAlignment="center"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/productPrice"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/productImage"
-                app:layout_constraintTop_toBottomOf="@+id/textView65"
-                tools:text="I sell and make shoes, high quality product and sincerly i do business" />
-
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/productImage"
-                android:layout_width="180dp"
-                android:layout_height="220dp"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/store_dialog_image_height"
                 android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius"
                 app:strokeColor="@color/white"
                 app:strokeWidth="1dp"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius"
                 tools:ignore="ContentDescription"
-                tools:src="@drawable/ic_loading_image_small" />
+                tools:src="@drawable/animated_gradient" />
 
             <TextView
                 android:id="@+id/productName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textAppearance="@style/Widget.Toolbar.title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.3"
                 app:layout_constraintStart_toStartOf="parent"
@@ -205,6 +171,43 @@
                         android:layout_height="1dp"
                         android:layout_marginBottom="10dp"
                         android:background="?attr/colorOnSecondary" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/productInfo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:elevation="10dp"
+                            android:lineSpacingExtra="2dp"
+                            android:maxLines="5"
+                            android:textAlignment="center"
+                            android:textAppearance="?attr/textAppearanceBody1"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintBottom_toTopOf="@id/descTitle"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="I sell and make shoes, high quality product and sincerly i do business" />
+
+                        <TextView
+                            android:id="@+id/descTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elevation="10dp"
+                            android:text="Description"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:textAlignment="center"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent" />                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

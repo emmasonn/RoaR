@@ -8,6 +8,7 @@
     <string name="format_price">₦%s</string>
     <string name="format_price_integer">₦%d</string>
     <string name="choice_title">%s \tLodge</string>
+    <string name="emailUs">roar.escrow.mailbox@gmail.com</string>
 
     <!--query strings strings-->
     <string name="lodges_arg_capital">Lodges</string>
@@ -76,6 +77,30 @@
     <string name="term5">Members should not make a payment to any account which is not belong to RoaR, please be aware of being defrauded.</string>
     <string name="term6">The quality of customer service is one of the most foundation of RoaR, if anyone of the customer service hasn\'t served you well, please send feedback to complain about his or her service with their mobile number at Roar@gmail.com</string>
     <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="privacyAndTerms">
+       <![CDATA[
+       <body>
+    <p>&nbsp; &nbsp;To use the services in the RoaR app, you will need to agree to the <strong>Terms of Service</strong> below.</p>
+    <p>You are agreeing to our <strong>Terms of service</strong> to enable the use of the services provided by the app.</p>
+    <p>In, addition when you use our RoaR app, we require that you grant access to the External Storage read and write permission.</p>
+    <p><strong>Why do we require permission access</strong></p>
+    <ul>
+    <li>In other, to enable you share information like images through the app, we require that you grant us access to read and write to your storage memory.</li>
+    <li>
+        The app also requires access to internet state and internet permission in other to perform internet services like loading of internet data and images.
+    </li>
+    </ul>
+    <p><strong>Features that require your attention</strong></p>
+    <ul>
+    <li>we implemented a<strong> notification</strong> feature in our RoaR app which enables us to notify our users of available lodges and products.</li>
+    <li>In other to make payment seamless, we integrated <strong>Flutterwave</strong> API in the RoaR app. During the payment process, some of the user\'s personal and transaction details are required. The details provided by the users are not in any way stored, they are used only once. However, Flutterwave is one of the trusted payment gateways available in Africa. Please do well to try it out in our app.</li>
+    </ul>
+    <p><strong>You\’re in control </strong></p>
+    <p>Depending on your settings, we have given our users control over what kind of notifications to receive from us. You can enable or disable the notification in the settings section of the app<strong>. Note:</strong> the app displays ads from <strong>Google Admob</strong> at specific areas of the app. We are conscious of how we display ads, so as not to interrupt our user activities on the app. <strong>Thank you for trying out our services on RoaR</strong>. Our user\’s satisfaction is what keeps us moving, you can as well reach us at <strong>roar.escrow.mailbox@gmail.com.</strong></p>
+    </body>
+     ]]>
+    </string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="format_brandName">\@%s</string>
     <string name="select_string">Select</string>
@@ -88,6 +113,4 @@
     <string name="campus_top_sales">Campus Top Sales</string>
     <string name="call_now">Call Now</string>
     <string name="about_us_title">About us</string>
-
-
 </resources>

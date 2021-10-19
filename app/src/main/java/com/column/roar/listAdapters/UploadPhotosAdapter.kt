@@ -33,11 +33,13 @@ class UploadPhotosAdapter(private val clickListener: ClickListener) :
           private val imageTitle = itemView.findViewById<TextView>(R.id.imageTitle)
           private val imageView = itemView.findViewById<ImageView>(R.id.imageLink)
 
+          private val resource = itemView.resources
             fun bind(data: FirebaseLodgePhoto, listener: ClickListener) {
                 deleteBtn.setOnClickListener {
                     listener.removeClick(data)
                 }
-                imageTitle.text = data.photoTitle
+
+                imageTitle.text = resource.getString(R.string.format_brandName,data.photoTitle)
 
                 Glide.with(imageView.context)
                     .load(data.photoUrl).apply(

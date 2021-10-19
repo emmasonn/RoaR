@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="true"
-    android:id="@+id/parentView"
-    >
-        <ImageView
-            android:id="@+id/uploadBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="30dp"
-            android:src="@drawable/ic_nav_close"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+    android:clipToPadding="true">
+
+    <ImageView
+        android:id="@+id/uploadBack"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="30dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_nav_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/titleText"
@@ -27,31 +27,25 @@
         android:layout_marginBottom="10dp"
         android:text="Upload Lodge"
         android:textAppearance="@style/Widget.Toolbar.title"
-        android:textSize="29sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/uploadBack"
-        app:layout_constraintHorizontal_bias="0.187"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uploadBack"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/uploadBack" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/titleText">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/bottom_padding_ad"
-            >
+            android:paddingBottom="100dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/campusSpinner"
@@ -174,7 +168,8 @@
                     android:id="@+id/lodgeTitle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Lodge Name" />
+                    android:hint="Lodge Name"
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -193,7 +188,8 @@
                     android:id="@+id/lodgeId"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Lodge Identifier" />
+                    android:hint="Lodge Identifier"
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -363,21 +359,22 @@
                 android:id="@+id/nextBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="@dimen/bottom_padding_ad"
+                android:fontFamily="@font/montserrat_bold"
                 android:text="Save"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:backgroundTint="?attr/colorControlNormal"
-                android:fontFamily="@font/montserrat_bold"
                 app:cornerRadius="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/distanceSpinner"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/distanceSpinner"
-                app:layout_constraintTop_toBottomOf="@+id/distanceSpinner" />
+                app:layout_constraintTop_toBottomOf="@+id/distanceSpinner"
+                />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/owner"
@@ -396,7 +393,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Landlord Name"
-                    android:inputType="number" />
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -419,5 +416,6 @@
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

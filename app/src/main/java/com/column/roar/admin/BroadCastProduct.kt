@@ -38,7 +38,7 @@ class BroadCastProduct : Fragment() {
     private lateinit var productsRef: Query
     private lateinit var swipeContainer: SwipeRefreshLayout
     private lateinit var editDialog: AlertDialog
-    private lateinit var lodgeCollection: CollectionReference
+    private lateinit var productCollection: CollectionReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,7 @@ class BroadCastProduct : Fragment() {
         productsRef = fireStore.collection("properties")
             .orderBy("postDate",Query.Direction.DESCENDING)
 
-        lodgeCollection = fireStore.collection("properties")
+        productCollection = fireStore.collection("properties")
     }
 
     override fun onCreateView(
@@ -140,6 +140,7 @@ class BroadCastProduct : Fragment() {
             val editBtn = view.findViewById<TextView>(R.id.dialogEditItem)
             val deleteBtn = view.findViewById<TextView>(R.id.dialogDeleteItem)
             val notifyBtn = view.findViewById<TextView>(R.id.notifyBtn)
+          val approveBtn = view.findViewById<TextView>(R.id.approveItem)
 
             editBtn.setOnClickListener {
                 editDialog.dismiss()
@@ -150,6 +151,10 @@ class BroadCastProduct : Fragment() {
             notifyBtn.setOnClickListener {
                 editDialog.dismiss()
                 notifySubscribers(firebaseProperty)
+            }
+
+            approveBtn.setOnClickListener {
+                approveItem(firebaseProperty.id!!)
             }
 
             deleteBtn.setOnClickListener {
@@ -164,8 +169,14 @@ class BroadCastProduct : Fragment() {
         return editDialog
     }
 
+
+    private fun approveItem(id: String) {
+        productCollection.document(id).update("certified",true)
+            .addOnSuccessListener { Toast.makeText(requireContext(),"Item Approved",Toast.LENGTH_SHORT).show() }
+    }
+
     private fun deleteCard(id: String) {
-        val document = lodgeCollection.document(id)
+        val document = productCollection.document(id)
         document.delete().addOnSuccessListener {
             Toast.makeText(requireContext(),"Deleted Successfully",Toast.LENGTH_SHORT).show()
         }.addOnFailureListener {

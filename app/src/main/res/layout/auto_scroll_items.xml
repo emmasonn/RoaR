@@ -29,20 +29,18 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginBottom="5dp"
                 android:background="@drawable/light_black_background"
                 android:elevation="10dp"
+                android:layout_marginBottom="5dp"
                 android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/propertyImage"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
+>
                 <ImageView
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:layout_marginStart="3dp"
                     android:layout_gravity="center"
+                    android:layout_marginStart="3dp"
                     android:src="@drawable/ic_locate"
                     app:tint="@color/yellow_200"
                     tools:ignore="ContentDescription" />
@@ -52,13 +50,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
+                    android:fontFamily="@font/montserrat_regular"
                     android:paddingEnd="8dp"
                     android:textAllCaps="false"
-                    android:fontFamily="@font/montserrat_regular"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="@color/white"
-                    tools:text="Unn"
-                    tools:ignore="RtlSymmetry" />
+                    tools:ignore="RtlSymmetry"
+                    tools:text="Unn" />
             </LinearLayout>
 
             <com.google.android.material.imageview.ShapeableImageView
