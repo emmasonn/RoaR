@@ -34,10 +34,10 @@ class ViewLodge: Fragment() {
         }
 
         Glide.with(imageView.context)
-            .load(lodgePicture.photoUrl)
+            .load(lodgePicture.image)
             .into(imageView)
 
-        title.text = lodgePicture.photoTitle
+        title.text = lodgePicture.title
         return view
     }
 

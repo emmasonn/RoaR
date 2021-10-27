@@ -1,8 +1,12 @@
 package com.column.roar.home
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.fragment.app.Fragment
@@ -10,6 +14,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -23,9 +30,15 @@ import com.column.roar.listAdapters.storeAdapter.PropertyListAdapter
 import com.column.roar.listAdapters.storeAdapter.PropertyListAdapter.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.column.roar.SplashActivity
+import com.column.roar.cloudModel.FirebaseLodgePhoto
+import com.column.roar.cloudModel.FirebasePhotoAd
+import com.column.roar.listAdapters.ClickListener
+import com.column.roar.listAdapters.UploadPhotosAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
 import com.google.firebase.firestore.CollectionReference
@@ -51,7 +64,18 @@ class RoarStore : Fragment() {
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
     private lateinit var connectionView: MaterialCardView
     private lateinit var emptyItem: MaterialCardView
+    private lateinit var otherProductAdapter: UploadPhotosAdapter
+    private var emptyList: MaterialCardView? = null
+    private var networkError: MaterialCardView? = null
+    private lateinit var shareBtn: MaterialButton
     private val argsNav: RoarStoreArgs by navArgs()
+
+    private val requestPermissionResult =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (!isGranted) {
+                Toast.makeText(requireContext(), "Accept permission to share item", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +83,7 @@ class RoarStore : Fragment() {
         productRef = fireStore.collection("properties")
         propertyCollection = fireStore.collection("properties")
             .whereEqualTo("certified",true)
-            .whereNotEqualTo("propertyType","Ads")
+            .whereNotEqualTo("type","Ads")
     }
 
     override fun onCreateView(
@@ -68,7 +92,7 @@ class RoarStore : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_store, container, false)
-        propertyRecycler = view.findViewById<RecyclerView>(R.id.propertyRecycler)
+        propertyRecycler = view.findViewById(R.id.propertyRecycler)
         val backBtn = view.findViewById<ImageView>(R.id.propertyBackBtn)
         val filterBtn = view.findViewById<ImageView>(R.id.filterBtn)
         titleText = view.findViewById(R.id.titleText)
@@ -153,7 +177,8 @@ class RoarStore : Fragment() {
         Timber.i("filter: $filter")
 
         showProgress()
-        val source = Source.CACHE
+        val source = Source.DEFAULT
+
         if(filter == "Store") {
             propertyCollection.get(source).addOnCompleteListener { task ->
                 if(task.isSuccessful){
@@ -162,7 +187,6 @@ class RoarStore : Fragment() {
                         it.toObject(FirebaseProperty::class.java)
                     }.also { items ->
                         lifecycleScope.launchWhenCreated {
-
                             if (items.isNullOrEmpty()) {
                                 connectionView(true)
                                 swipeRefreshContainer.isRefreshing = false
@@ -178,7 +202,7 @@ class RoarStore : Fragment() {
                 }
             }
         } else {
-            propertyCollection.whereEqualTo("propertyType", filter)
+            propertyCollection.whereEqualTo("type", filter)
                 .get(source).addOnCompleteListener { task ->
                 if(task.isSuccessful){
                     val document = task.result
@@ -210,42 +234,77 @@ class RoarStore : Fragment() {
             val productName = this.findViewById<TextView>(R.id.productName)
             val productPrice = this.findViewById<TextView>(R.id.productPrice)
             val aboutProduct = this.findViewById<TextView>(R.id.productInfo)
+            val productsRecycler = this.findViewById<RecyclerView>(R.id.productPager)
+            emptyList = this.findViewById(R.id.emptyListView)
+            networkError = this.findViewById(R.id.connectionView)
 
             Glide.with(productImage!!.context)
-                .load(product.firstImage).apply(
+                .load(product.coverImage).apply(
                     RequestOptions().placeholder(R.drawable.animated_gradient)
                         .error(R.drawable.animated_gradient)
                 ).into(productImage)
 
-            productName?.text = product.propertyTitle
-            productPrice?.text = getString(R.string.format_price,product.propertyPrice)
-            aboutProduct?.text = product.propertyDesc
+            otherProductAdapter = UploadPhotosAdapter(ClickListener(
+                {},{
+                   showImageDialog(it.image!!)
+                }
+            ))
+            productsRecycler?.adapter = otherProductAdapter
+            fetchProduct(product.id!!)
+
+            productName?.text = product.productName
+            productPrice?.text = getString(R.string.format_price,product.productPrice)
+            aboutProduct?.text = product.description
             hideProgress()
         }
 
         val whatsAppBtn = bottomSheetLayout.findViewById<MaterialCardView>(R.id.whatsAppBtn)
-        val share = bottomSheetLayout.findViewById<MaterialButton>(R.id.shareBtn)
+        shareBtn = bottomSheetLayout.findViewById<MaterialButton>(R.id.shareBtn)!!
         val callBtn = bottomSheetLayout.findViewById<MaterialButton>(R.id.callBtn)
 
-        share?.setOnClickListener {
-            shareProduct(product)
+        shareBtn.setOnClickListener {
+            if(checkPermissionApproved()) {
+                shareBtn.alpha = 0.5F
+                shareProduct(product)
+            }else {
+                requestExternalStoragePermission()
+            }
         }
 
         whatsAppBtn?.setOnClickListener {
-            chatWhatsApp(product.sellerNumber)
+            //chatWhatsApp(product)
+            whatsAppDialog(product)
         }
 
         callBtn?.setOnClickListener {
-            dialPhoneNumber(product.sellerNumber)
+            //dialPhoneNumber(product.sellerNumber)
+            callDialog(product)
         }
         bottomSheetLayout.show()
+    }
+
+    @SuppressLint("InflateParams")
+    private fun showImageDialog(imageUrl: String) {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            val inflater = LayoutInflater.from(requireContext())
+            val view = inflater.inflate(R.layout.dialog_view_product, null)
+            val imageView = view.findViewById<ImageView>(R.id.fullImage)
+
+            Glide.with(imageView.context)
+                .load(imageUrl)
+                .apply(RequestOptions()
+                    .placeholder(R.drawable.animated_gradient)
+                    .error(R.drawable.animated_gradient)).into(imageView)
+
+            setView(view)
+        }.show()
     }
 
     private fun shareProduct(product: FirebaseProperty) {
 
         val futureTarget = Glide.with(requireContext())
             .asBitmap()
-            .load(product.firstImage)
+            .load(product.coverImage)
             .submit()
 
         lifecycleScope.launch(Dispatchers.Default) {
@@ -262,15 +321,16 @@ class RoarStore : Fragment() {
                 }
 
                 Firebase.dynamicLinks.shortLinkAsync {
-                    longLink = Uri.parse("https://unnapp.page.link/?link=https://unnapp.page.link/ads?productId%3D${product.id}&apn=com.column.roar&st=RoaR+Store" +
-                                "&sd=Nice+product+for+sale,+review+and+trusted" +
-                                "&si=${product.firstImage}")
+                    longLink = Uri.parse("https://unnapp.page.link/?link=https://unnapp.page.link/ads?productId%3D${product.id}" +
+                            "&apn=com.column.roar&st=RoaR+Store" +
+                                "&sd=Nice+product+for+sale,+reviewed+and+trusted" +
+                                "&si=${product.coverImage}")
                 }.addOnSuccessListener { shortLink ->
 
                     lifecycleScope.launchWhenCreated {
-                        val message = "Hey, check this ${product.propertyTitle} at RoaR \n" +
-                                "Price: ${getString(R.string.format_price, product.propertyPrice)} \n\n " +
-                                "${shortLink.shortLink}"
+                        val message = "Hi, checkout this *${product.productName}* at *RoaR* \n" +
+                                "*Price: ${getString(R.string.format_price, product.productPrice)}* \n\n " +
+                                "*Item Link: ${shortLink.shortLink}* \n"
 
                         shareIntent.putExtra(Intent.EXTRA_TEXT, message)
                         shareIntent.putExtra(Intent.EXTRA_STREAM, uriInUri)
@@ -292,6 +352,8 @@ class RoarStore : Fragment() {
     private fun shareDynamicLink(shareIntent: Intent) {
         try {
             startActivity(Intent.createChooser(shareIntent, null))
+            shareBtn.alpha = 1F
+
         } catch (ex: android.content.ActivityNotFoundException) {
             Toast.makeText(
                 requireContext(), "Cannot Share item",
@@ -382,14 +444,97 @@ class RoarStore : Fragment() {
         }
     }
 
-    private fun chatWhatsApp(pNumber: String?) {
+    private fun chatWhatsApp(product: FirebaseProperty) {
         val uri =
-            "https://api.whatsapp.com/send?phone=+234$pNumber"
-        val intent = Intent().apply {
-            action = Intent.ACTION_VIEW
-            data = Uri.parse(uri)
+            "https://api.whatsapp.com/send?phone=+234${product.sellerNumber}"
+
+        lifecycleScope.launch {
+            val imageUri = getImageUri(product.coverImage!!)
+            val intent = Intent().apply {
+                action = Intent.ACTION_VIEW
+                putExtra(Intent.EXTRA_STREAM,imageUri)
+                data = Uri.parse(uri)
+            }
+            startActivity(intent)
         }
-        startActivity(intent)
+    }
+
+    private fun fetchProduct(productId: String) {
+        val otherProductCollection = fireStore.collection("properties")
+            .document(productId).collection("others")
+
+        otherProductCollection.get().addOnSuccessListener { snapShot ->
+            snapShot.documents.mapNotNull {
+                it.toObject(FirebasePhotoAd::class.java)
+            }.also { otherItems ->
+                otherItems.map {
+                    FirebaseLodgePhoto(
+                        id = it.id,
+                        image = it.image
+                    )
+                }.let { result ->
+                    lifecycleScope.launchWhenCreated {
+                        if(result.isNotEmpty()) {
+                            otherProductAdapter.submitList(result)
+                            networkError?.visibility = View.GONE
+                            emptyList?.visibility = View.GONE
+                        }else {
+                            emptyList?.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            }
+        }.addOnFailureListener {
+            networkError?.visibility = View.VISIBLE
+            emptyList?.visibility = View.GONE
+        }
+    }
+
+    private suspend fun getImageUri(product:String): Uri {
+        val futureTarget = Glide.with(requireContext())
+            .asBitmap()
+            .load(product)
+            .submit()
+        return withContext(Dispatchers.Default) {
+            val bitmapImage: Bitmap = futureTarget.get()
+
+            withContext(Dispatchers.Main) {
+                val bitmapUri = getBitmapUri(bitmapImage)
+                val uriInUri = Uri.parse(bitmapUri)
+                uriInUri
+            }
+        }
+    }
+
+    //show dialog for calling realtor
+    private fun callDialog(product: FirebaseProperty) {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("You are about to leave app to make call")
+            setPositiveButton("Okay") {dialog, _ ->
+                dialog.dismiss()
+                dialPhoneNumber(product.sellerNumber)
+            }
+            setNegativeButton("Cancel") {dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
+        }
+    }
+
+    //whats-App dialog
+    private fun whatsAppDialog(product: FirebaseProperty) {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("You are about to leave app to WhatsApp")
+            setPositiveButton("Okay") {dialog, _ ->
+                dialog.dismiss()
+                chatWhatsApp(product)
+            }
+
+            setNegativeButton("Cancel"){dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
+        }
     }
 
     private fun showProgress() {
@@ -399,6 +544,46 @@ class RoarStore : Fragment() {
     private fun hideProgress() {
         lifecycleScope.launch {
             progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun checkPermissionApproved() = ActivityCompat.checkSelfPermission(
+        requireContext(),
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
+
+    private fun requestExternalStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                requestPermissionResult.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            } else {
+                requestPermissionResult.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            }
+        } else {
+            requestPermission()
+        }
+    }
+
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(
+            requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+            SplashActivity.RESULT_WRITE_MEMORY
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            SplashActivity.RESULT_WRITE_MEMORY -> {
+                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(requireContext(), "Accept permission to share item", Toast.LENGTH_SHORT).show()
+                }
+                return
+            }
+            else -> { }
         }
     }
 }

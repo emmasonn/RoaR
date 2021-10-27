@@ -77,22 +77,21 @@
                     android:layout_gravity="center_vertical|end"
                     android:layout_marginEnd="15dp"
                     android:lineSpacingExtra="4dp"
-                    tools:text="@string/privacyAndTerms"
+                    tools:text="Condition premises"
                     android:textAppearance="?attr/textAppearanceBody2"
                     />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/acceptCheckbox"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginBottom="5dp"
                         android:backgroundTint="?attr/colorControlNormal"
                         android:buttonTint="?attr/colorControlNormal"
                         app:layout_constraintBottom_toTopOf="@+id/okayBtn"

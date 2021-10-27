@@ -49,6 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lodgeList"
         android:layout_width="match_parent"

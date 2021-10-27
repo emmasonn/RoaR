@@ -1,15 +1,21 @@
 package com.column.roar.lodgeDetail
 
+import android.Manifest
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -31,16 +37,14 @@ import com.column.roar.listAdapters.LodgesAdapter
 import com.column.roar.listAdapters.PhotosAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.column.roar.SplashActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -54,7 +58,6 @@ class LodgeDetail : Fragment() {
     }
 
     private lateinit var bottomSheetLayout: BottomSheetDialog
-
     private lateinit var favModelDao: FavModelDao
     private lateinit var fireStore: FirebaseFirestore
     private lateinit var photosReference: CollectionReference
@@ -67,13 +70,22 @@ class LodgeDetail : Fragment() {
     private lateinit var sharedPref: SharedPreferences
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
 
+    private val requestPermissionResult =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (!isGranted) {
+                Toast.makeText(requireContext(), "Accept permission to share item", Toast.LENGTH_SHORT).show()
+            }else{
+                shareLodgeData()
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPref = (activity as MainActivity).sharedPref
         favModelDao = (activity as MainActivity).db.favModelDao()
 
         fireStore = FirebaseFirestore.getInstance()
-        photosReference = fireStore.collection("lodges")
+        photosReference = fireStore.collection(getString(R.string.firestore_lodges))
             .document(lodgeData.lodgeId!!).collection("lodgePhotos")
 
         lodgeCollection = fireStore.collection("lodges")
@@ -96,6 +108,13 @@ class LodgeDetail : Fragment() {
         swipeRefreshContainer = binding.swipeContainer
         swipeRefreshContainer.isRefreshing = true
 
+        val accountType = sharedPref.getString("accountType",null)
+        if(accountType!=null) {
+            binding.titleText.text = lodgeData.lodgeName
+        }else {
+            binding.titleText.text = lodgeData.hiddenName
+        }
+
         lodgesAdapter = LodgesAdapter(LodgeClickListener({
             val bundle = bundleOf("Lodge" to it)
             findNavController().navigate(R.id.lodgeDetail, bundle)
@@ -109,25 +128,33 @@ class LodgeDetail : Fragment() {
         }
 
         binding.shareBtn.setOnClickListener {
-            shareLodgeData()
+            if(checkPermissionApproved()) {
+                binding.shareBtn.alpha = 0.5F
+                shareLodgeData()
+            }else {
+                requestExternalStoragePermission()
+            }
         }
 
         lockLodge() //call this function to lock lodge
         binding.coverImage.setOnClickListener {
             val photo = FirebaseLodgePhoto(
-                photoId = clientDocumentRef.id,
-                photoUrl = lodgeData.coverImage,
-                photoTitle = "CoverImage"
+                id = clientDocumentRef.id,
+                image = lodgeData.coverImage,
+                title = "CoverImage"
             )
             val bundle = bundleOf("picture" to photo)
             findNavController().navigate(R.id.viewLodge, bundle)
         }
 
-
-
         binding.playBtn.setOnClickListener {
-            val bundle = bundleOf("Lodge" to lodgeData)
-            findNavController().navigate(R.id.watchTour, bundle)
+            if(lodgeData.tour!=null) {
+                val bundle = bundleOf("Lodge" to lodgeData)
+                findNavController().navigate(R.id.watchTour, bundle)
+            }else{
+               Toast.makeText(requireContext(),"Sorry, their is no tour video for this lodge",
+               Toast.LENGTH_LONG).show()
+            }
         }
 
         favModelDao.getFavString().observe(viewLifecycleOwner, { favIds ->
@@ -155,19 +182,11 @@ class LodgeDetail : Fragment() {
             )
             .into(binding.coverImage)
 
-        val status = sharedPref.getString("accountType", "")
-
-        binding.titleText.setOnClickListener {
-            if (status == "admin") {
-                showLodgeName(lodgeData.lodgeName)
-            }
-        }
-
         Glide.with(binding.agentImageCover.context)
-            .load(lodgeData.agentUrl)
+            .load(lodgeData.agentImage)
             .apply(
-                RequestOptions().placeholder(R.drawable.ic_round_person)
-                    .error(R.drawable.ic_round_person)
+                RequestOptions().placeholder(R.drawable.ic_person)
+                    .error(R.drawable.ic_person)
             )
             .into(binding.agentImageCover)
 
@@ -185,12 +204,12 @@ class LodgeDetail : Fragment() {
         swipeRefreshContainer.setOnRefreshListener {
             fetchLodgeAndPhotos()
         }
-
         return binding.root
     }
 
     private fun fetchLodgeAndPhotos() {
-        photosReference.get().addOnSuccessListener { photosSnap ->
+        val source = Source.DEFAULT
+        photosReference.get(source).addOnSuccessListener { photosSnap ->
             photosSnap.documents.mapNotNull {
                 it.toObject(FirebaseLodgePhoto::class.java)
             }.also { photos ->
@@ -204,35 +223,33 @@ class LodgeDetail : Fragment() {
                             requireContext(),
                             2, GridLayoutManager.HORIZONTAL, false
                         )
-
                     }
                     photosAdapter.submitList(photos)
                     swipeRefreshContainer.isRefreshing = false
                 }
             }
         }
-
-        lodgeCollection.get().addOnSuccessListener { values ->
-            values.documents.mapNotNull {
-                it.toObject(FirebaseLodge::class.java)
-            }.also { lodges ->
-                lifecycleScope.launchWhenCreated {
-                    if (lodges.isNullOrEmpty()) {
-
-                        lodgesAdapter.addLodgeAndProperty(lodges, true)
-                        binding.othersRecycler.visibility = View.VISIBLE
-                        binding.similarLodges.visibility = View.VISIBLE
-                    }
-                }
-            }
-        }
+/*fetching similar lodge here*/
+//        lodgeCollection.get().addOnSuccessListener { values ->
+//            values.documents.mapNotNull {
+//                it.toObject(FirebaseLodge::class.java)
+//            }.also { lodges ->
+//                lifecycleScope.launchWhenCreated {
+//                    if (lodges.isNullOrEmpty()) {
+////                        lodgesAdapter.addLodgeAndProperty(lodges, true)
+////                        binding.othersRecycler.visibility = View.VISIBLE
+////                        binding.similarLodges.visibility = View.VISIBLE
+//                    }
+//                }
+//            }
+//        }
     }
 
     private fun lockLodge() {
-        if (lodgeData.availableRoom == null) {
+        if (lodgeData.rooms == null) {
             binding.lockLodge.alpha = 1F
         } else {
-            if (lodgeData.availableRoom == 0L) {
+            if (lodgeData.rooms == 0L) {
                 binding.lockLodge.alpha = 1F
                 binding.availableRoom.alpha = 0F
             } else {
@@ -273,10 +290,10 @@ class LodgeDetail : Fragment() {
                 .into(coverImage)
 
             Glide.with(agentImage!!.context)
-                .load(lodge.agentUrl)
+                .load(lodge.agentImage)
                 .apply(
-                    RequestOptions().placeholder(R.drawable.ic_round_person)
-                        .error(R.drawable.ic_round_person)
+                    RequestOptions().placeholder(R.drawable.ic_person)
+                        .error(R.drawable.ic_person)
                 )
                 .into(agentImage)
         }
@@ -288,47 +305,56 @@ class LodgeDetail : Fragment() {
 
         proceedBtn?.setOnClickListener {
             bottomSheetLayout.dismiss()
-            findNavController().navigate(R.id.paymentPager)
+            moveToPaymentLink()
         }
 
         callBtn?.setOnClickListener {
-            dialPhoneNumber(lodge.agentPhone)
+            //dialPhoneNumber(lodge.agentPhone)
+            callDialog()
         }
 
         whatsAppBtn?.setOnClickListener {
-            chatWhatsApp(lodge.agentPhone)
+            //chatWhatsApp(lodge.agentPhone)
+            whatsAppDialog()
         }
         bottomSheetLayout.show()
     }
 
-    private fun chatWhatsApp(pNumber: String?) {
 
-        val message = """
-            Hi, Am interested in visiting ${lodgeData.randomId} \n\n
-             https://unnapp.page.link/lodges/${lodgeData.lodgeId}
-        """.trimIndent()
+    //this function is used to directly check with the Roar agent
+    private fun chatWhatsApp(pNumber: String?) {
+        val message = "Hello, Am interested in ${lodgeData.hiddenName} \n\n" +
+                "https://unnapp.page.link/lodges/${lodgeData.lodgeId}"
+        .trimIndent()
 
         val uri =
             "https://api.whatsapp.com/send?phone=+234$pNumber&text=$message"
 
-        val intent = Intent().apply {
-            action = Intent.ACTION_VIEW
-            data = Uri.parse(uri)
-        }
+        lifecycleScope.launch {
+            val imageUri = getImageUri()
 
-        try {
-            startActivity(intent)
-        } catch (ex: android.content.ActivityNotFoundException) {
-            Toast.makeText(
-                requireContext(), "WhatsApp is not Found",
-                Toast.LENGTH_SHORT
-            ).show()
+            val intent = Intent().apply {
+                action = Intent.ACTION_VIEW
+                putExtra(Intent.EXTRA_STREAM, imageUri)
+                type = "image/*"
+
+                data = Uri.parse(uri)
+            }
+
+            try {
+                startActivity(intent)
+            } catch (ex: android.content.ActivityNotFoundException) {
+                Toast.makeText(
+                    requireContext(), "WhatsApp is not Found",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
+    //this function is used to share on whatsapp
     private fun shareLodgeData() {
-         swipeRefreshContainer.isRefreshing = true
-
+        swipeRefreshContainer.isRefreshing = true
         val futureTarget = Glide.with(requireContext())
             .asBitmap()
             .load(lodgeData.coverImage)
@@ -343,28 +369,46 @@ class LodgeDetail : Fragment() {
 
                 val shareIntent = Intent().apply {
                     action = Intent.ACTION_SEND
-                    flags= Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
                 }
 
                 Firebase.dynamicLinks.shortLinkAsync {
-                    longLink = Uri.parse("https://unnapp.page.link/?link=https://unnapp.page.link/lodges?lodgeId%3D${lodgeData.lodgeId}" +
-                            "&apn=com.column.roar&st=Campus+Lodge&sd=Get+lodges+at+a+better+price+from+trusted+community" +
-                            "&si=${lodgeData.coverImage}")
+                    longLink = Uri.parse(
+                        "https://unnapp.page.link/?link=https://unnapp.page.link/lodges?lodgeId%3D${lodgeData.lodgeId}" +
+                                "&apn=com.column.roar&st=Campus+Lodge&sd=Get+lodges+at+a+better+price+from+trusted+community" +
+                                "&si=${lodgeData.coverImage}"
+                    )
                 }.addOnSuccessListener { shortLink ->
 
                     lifecycleScope.launchWhenCreated {
-                        val message = "Hey, check this lodge at ${lodgeData.location} \n" +
-                                "Price: ${getString(R.string.format_price_integer, lodgeData.subPayment)} \n\n " +
-                                "${shortLink.shortLink}"
+                        val message =
+                            "*Hi, checkout this lodge i found at RoaR* " +
+                                    "*Location: ${lodgeData.location}* \n" +
+                                    "*Price: ${
+                                        getString(
+                                            R.string.format_price_integer,
+                                            lodgeData.payment
+                                        )
+                                    }* \n\n " +
+                                    "*Lodge Url: ${shortLink.shortLink}* \n\n" +
+                                    "*WhatsApp Group Link*\n" +
+                                    "*https://chat.whatsapp.com/KUws1EjUdlmG9j6JhYrepH*  \n\n" +
+                                    "*Telegram Group Link*\n" +
+                                    "*http://t.me/roarAccommodation*"
+
                         shareIntent.putExtra(Intent.EXTRA_TEXT, message)
                         shareIntent.putExtra(Intent.EXTRA_STREAM, uriInUri)
                         shareIntent.type = "image/*"
                         shareDynamicLink(shareIntent)
                     }
                 }.addOnFailureListener { e ->
-                    Timber.e(e,"cannot resolve link")
+                    Timber.e(e, "cannot resolve link")
                     swipeRefreshContainer.isRefreshing = false
-                    Toast.makeText(requireContext(),"Sharing failed, Network error",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Sharing failed, Network error",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -383,28 +427,14 @@ class LodgeDetail : Fragment() {
         }
     }
 
+    //this function requires memory write access permission
     private fun getBitmapUri(bitmapImage: Bitmap): String {
         return MediaStore.Images.Media.insertImage(
             requireContext().contentResolver,
             bitmapImage,
             null, null
-        )
-    }
+        ).also {
 
-    private fun dialPhoneNumber(phoneNumber: String?) {
-        val intent = Intent(Intent.ACTION_DIAL).apply {
-            data = Uri.parse("tel:$phoneNumber") //or use Uri.fromParts()
-        }
-        if (intent.resolveActivity(requireActivity().packageManager) != null) {
-            startActivity(intent)
-        }
-    }
-
-    private fun showLodgeName(lodgeName: String?) {
-        MaterialAlertDialogBuilder(requireContext()).apply {
-            setTitle(lodgeName)
-            setCancelable(false)
-            show()
         }
     }
 
@@ -417,6 +447,115 @@ class LodgeDetail : Fragment() {
             binding.adNativeMedium.setNativeAd(ad)
         })
     }
+
+    //this function read the memory in other to share image
+    private suspend fun getImageUri(): Uri {
+        val futureTarget = Glide.with(requireContext())
+            .asBitmap()
+            .load(lodgeData.coverImage)
+            .submit()
+        return withContext(Dispatchers.Default) {
+            val bitmapImage: Bitmap = futureTarget.get()
+
+            withContext(Dispatchers.Main) {
+                val bitmapUri = getBitmapUri(bitmapImage)
+                val uriInUri = Uri.parse(bitmapUri)
+                uriInUri
+            }
+        }
+    }
+
+    private fun moveToPaymentLink() {
+        val intent = Intent(Intent.ACTION_VIEW).apply{
+            data = Uri.parse("https://ravesandbox.flutterwave.com/pay/roar_escrow?_ga=2.140849394.1352586159.1635301045-1618191853.1629456518")
+        }
+        startActivity(intent)
+    }
+
+    //show dialog for calling realtor
+    private fun callDialog() {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("You are about to leave app to call realtor")
+            setPositiveButton("Okay") {dialog, _ ->
+                dialog.dismiss()
+                dialPhoneNumber(lodgeData.agentPhone)
+            }
+            setNegativeButton("Cancel") {dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
+        }
+    }
+
+    //whats-App dialog
+    private fun whatsAppDialog() {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("You are about leave app to chat with realtor")
+            setPositiveButton("Okay") {dialog, _ ->
+                dialog.dismiss()
+                chatWhatsApp(lodgeData.agentPhone)
+            }
+
+            setNegativeButton("Cancel"){dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
+        }
+    }
+
+    //function for making calls
+    private fun dialPhoneNumber(phoneNumber: String?) {
+        val intent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phoneNumber") //or use Uri.fromParts()
+        }
+        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(intent)
+        }
+    }
+
+/*Below handle the permission before share */
+    private fun checkPermissionApproved() = ActivityCompat.checkSelfPermission(
+        requireContext(),
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
+
+    private fun requestExternalStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                requestPermissionResult.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            } else {
+                requestPermissionResult.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            }
+        } else {
+            requestPermission()
+        }
+    }
+
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(
+            requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+            SplashActivity.RESULT_WRITE_MEMORY
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            SplashActivity.RESULT_WRITE_MEMORY -> {
+                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(requireContext(), "Accept permission to share item", Toast.LENGTH_SHORT).show()
+                }else{
+                    shareLodgeData()
+                }
+                return
+            }
+            else -> { }
+        }
+    }
+
 }
 //class PhotosPager(private val photos: List<FirebaseLodgePhoto>, fragment: Fragment):
 //        FragmentStateAdapter(fragment) {

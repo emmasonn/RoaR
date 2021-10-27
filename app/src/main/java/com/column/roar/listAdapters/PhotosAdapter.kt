@@ -34,12 +34,12 @@ class PhotosAdapter(private val clickListener: ClickListener) : ListAdapter<Fire
         fun bind(data: FirebaseLodgePhoto, listener: ClickListener) {
 
             Glide.with(photoView.context)
-                .load(data.photoUrl).apply(
+                .load(data.image).apply(
                     RequestOptions().placeholder(R.drawable.animated_gradient)
                         .error(R.drawable.animated_gradient)
                 ).into(photoView)
 
-            photoTitle.text = data.photoTitle
+            photoTitle.text = data.title
 
             itemView.setOnClickListener {
                 photoView.setBackgroundColor(R.drawable.blue_card_outline)
@@ -54,7 +54,7 @@ class PhotosAdapter(private val clickListener: ClickListener) : ListAdapter<Fire
                 oldItem: FirebaseLodgePhoto,
                 newItem: FirebaseLodgePhoto
             ): Boolean {
-               return oldItem.photoId == newItem.photoId
+               return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(

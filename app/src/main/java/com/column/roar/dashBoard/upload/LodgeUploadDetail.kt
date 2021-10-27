@@ -55,6 +55,8 @@ class LodgeUploadDetail : Fragment() {
     private lateinit var landLordPhone: TextInputEditText
     private lateinit var landLordName: TextInputEditText
     private lateinit var lodgeIdentifier: TextInputEditText
+    private lateinit var progressBar: ProgressBar
+    private lateinit var nextBtn: MaterialButton
 
     private val lodge: FirebaseLodge? by lazy {
         arguments?.get("Lodge") as FirebaseLodge?
@@ -95,18 +97,19 @@ class LodgeUploadDetail : Fragment() {
         surrounding = view.findViewById(R.id.surroundingSpinner)
         distanceAway = view.findViewById(R.id.distanceSpinner)
         address = view.findViewById(R.id.addressSpinner)
-        val nextBtn = view.findViewById<MaterialButton>(R.id.nextBtn)
         campus = view.findViewById(R.id.campusSpinner)
         parentView = view.findViewById(R.id.parentView)
         val uploadBack = view.findViewById<ImageView>(R.id.uploadBack)
         landLordName = view.findViewById(R.id.houseOwner)
         landLordPhone = view.findViewById(R.id.housePhone)
         lodgeIdentifier = view.findViewById(R.id.lodgeId)
+        progressBar = view.findViewById(R.id.progressBar)
+        nextBtn = view.findViewById(R.id.nextBtn)
 
         nextBtn.setOnClickListener {
-            //submitDetails()
             val lodgeName = lodgeName.text.toString()
             if (lodgeName.isNotBlank()) {
+                showProgress()
                 submitDetails()
             }
         }
@@ -176,7 +179,7 @@ class LodgeUploadDetail : Fragment() {
     }
 
     private fun updateFields() {
-        lodgeIdentifier.setText(lodge?.randomId)
+        lodgeIdentifier.setText(lodge?.hiddenName)
         address.editText?.setText(lodge?.location)
         distanceAway.editText?.setText(lodge?.distance)
         surrounding.editText?.setText(lodge?.surrounding)
@@ -184,19 +187,19 @@ class LodgeUploadDetail : Fragment() {
         network.editText?.setText(lodge?.network)
         water.editText?.setText(lodge?.water)
         lodgeName.setText(lodge?.lodgeName)
-        initialPay.setText(lodge?.initialPayment)
+        initialPay.setText(lodge?.rent)
         campus.editText?.setText(lodge?.campus)
         lodgeType.editText?.setText(lodge?.type)
-        landLordName.setText(lodge?.ownerName)
+        landLordName.setText(lodge?.landLord)
         landLordPhone.setText(lodge?.ownerPhone)
         lodgeDesc.setText(lodge?.description)
-        landLordName.setText(lodge?.ownerName)
+        landLordName.setText(lodge?.landLord)
         landLordPhone.setText(lodge?.ownerPhone)
         lodgeSize.editText?.setText(lodge?.size)
-        availableRoom.setText(lodge?.availableRoom?.toString())
+        availableRoom.setText(lodge?.rooms?.toString())
         lodge?.let {
-            if(it.subPayment !=null) {
-                subPay.setText(lodge?.subPayment.toString())
+            if(it.payment !=null) {
+                subPay.setText(lodge?.payment.toString())
             }
         }
     }
@@ -225,7 +228,7 @@ class LodgeUploadDetail : Fragment() {
         val subPayment = subPay.substringAfter("₦").toInt()
 
         val lodge = FirebaseLodge(
-            randomId = lodgeIdentifier,
+            hiddenName = lodgeIdentifier,
             lodgeId = documentId,
             lodgeName = lodgeName,
             location = address,
@@ -234,29 +237,32 @@ class LodgeUploadDetail : Fragment() {
             campus = campus,
             type = type,
             size = size,
-            availableRoom = availableRooms.toLong(),
+            rooms = availableRooms.toLong(),
             surrounding = surrounding,
             water = water,
+            coverImage = lodge?.coverImage,
+            tour = lodge?.tour,
             network = network,
-            subPayment = subPayment,
-            initialPayment = initialPay,
+            payment = subPayment,
+            rent = initialPay,
             distance = distance,
-            ownerName = ownerName,
+            landLord = ownerName,
             ownerPhone = ownerPhone
         )
 
         clientDocument.get().addOnSuccessListener {
             it.toObject(FirebaseUser::class.java).also {
                 lodge.apply {
-                    agentUrl = it?.clientUrl
+                    agentImage = it?.clientImage
                     agentId = it?.clientId
                     agentName = it?.clientName
-                    accountType = it?.accountType
+                    account = it?.account
                 }
             }
             lodgeCollection.document(documentId!!).set(lodge)
                 .addOnSuccessListener {
                     showDescTemplate("Lodge uploaded successfully")
+                    hideProgress()
                     lifecycleScope.launchWhenCreated {
                         val action = R.id.action_lodgeDetailUpload_to_editLodgePager
                         val bundle = bundleOf("Lodge" to lodge)
@@ -264,9 +270,11 @@ class LodgeUploadDetail : Fragment() {
                     }
                 }.addOnFailureListener {
                     showDescTemplate("Unable to upload lodge")
+                    hideProgress()
                 }
         }.addOnFailureListener {
             showDescTemplate("Unable to upload Lodge")
+            hideProgress()
         }
     }
 
@@ -281,6 +289,18 @@ class LodgeUploadDetail : Fragment() {
         view.layoutParams = params
         snackBar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
         snackBar.show()
+    }
+
+    private fun showProgress() {
+        nextBtn.alpha = 0.5F
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgress(){
+        lifecycleScope.launchWhenCreated {
+            progressBar.visibility = View.GONE
+            nextBtn.alpha = 1F
+        }
     }
 
     companion object {

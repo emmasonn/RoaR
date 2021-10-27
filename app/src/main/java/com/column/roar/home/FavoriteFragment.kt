@@ -36,7 +36,7 @@ class FavoriteFragment : Fragment() {
         super.onCreate(savedInstanceState)
         fireStore = FirebaseFirestore.getInstance()
         favModelDao = (activity as MainActivity).db.favModelDao()
-        lodgesQuery = fireStore.collection("lodges")
+        lodgesQuery = fireStore.collection(getString(R.string.firestore_lodges))
     }
 
     override fun onCreateView(
@@ -94,7 +94,6 @@ class FavoriteFragment : Fragment() {
                 }
             } else {
                 lifecycleScope.launchWhenCreated {
-
                     lodgesAdapter.clear()
                     lodgesAdapter.addLodgeAndProperty(emptyList(), false)
                     swipeRefreshContainer.isRefreshing = false

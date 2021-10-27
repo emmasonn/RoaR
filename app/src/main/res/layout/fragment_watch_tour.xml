@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_700"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".lodgeDetail.WatchTour">
 
@@ -31,7 +30,6 @@
             android:layout_marginStart="@dimen/title_start_margin"
             android:textAppearance="@style/Widget.Toolbar.title"
             android:textSize="20sp"
-            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/backBtn"
             app:layout_constraintStart_toEndOf="@+id/backBtn"
             app:layout_constraintTop_toTopOf="@+id/backBtn"
@@ -44,5 +42,6 @@
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:layout_gravity="center"
+        app:resize_mode="fill"
         />
 </FrameLayout>

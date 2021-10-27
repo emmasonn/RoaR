@@ -12,6 +12,12 @@
         <item name="android:textAppearance">?attr/textAppearanceSubtitle2</item>
     </style>
 
+    <style name="ShapeAppearanceOverlay.App.cut" parent="">
+        <item name="cornerFamily">cut</item>
+        <item name="android:padding">0dp</item>
+        <item name="cornerSizeTopRight">10dp</item>
+    </style>
+
     <style name="MyCustomTheme" parent="RaveAppTheme.NoActionBar">
         <item name="colorPrimary">#046d86</item>
         <item name="colorPrimaryDark">#ffffff</item>

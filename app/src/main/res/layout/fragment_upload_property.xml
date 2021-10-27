@@ -129,7 +129,7 @@
                         android:id="@+id/propertyTitle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@{lodgeProperty.propertyTitle}"
+                        android:text="@{lodgeProperty.productName}"
                         android:hint="Property Name" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -150,7 +150,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="Property Price"
-                        android:text="@{lodgeProperty.propertyPrice}"
+                        android:text="@{lodgeProperty.productPrice}"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -171,7 +171,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="Property Description"
-                        android:text="@{lodgeProperty.propertyDesc}"
+                        android:text="@{lodgeProperty.description}"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 

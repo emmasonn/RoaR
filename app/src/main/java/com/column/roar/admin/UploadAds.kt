@@ -199,13 +199,13 @@ class UploadAds : Fragment() {
 
                     val lodgePhoto = FirebaseProperty(
                         id = uid,
-                        firstImage = imageUri,
-                        brandName = title,
+                        coverImage = imageUri,
+                        brand = title,
                         campus = campus,
                         sellerNumber = phone,
-                        specials = offer,
+                        promo = offer,
                         certified = true,
-                        propertyType = "Ads"
+                        type = "Ads"
                     )
                     businessPhotos.document(uid).set(lodgePhoto).addOnSuccessListener {
                         if(!isDetached){

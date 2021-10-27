@@ -2,6 +2,7 @@ package com.column.roar.payment
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,7 +14,9 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.column.roar.R
+import com.column.roar.home.RoarStoreArgs
 import com.flutterwave.raveandroid.RavePayActivity
 import com.flutterwave.raveandroid.RaveUiManager
 import com.flutterwave.raveandroid.rave_java_commons.RaveConstants
@@ -33,6 +36,8 @@ class PaymentPager : Fragment() {
     private lateinit var phoneNumberView: TextInputEditText
     private lateinit var alertDialog: AlertDialog
 
+    private val argsNav: PaymentPagerArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,6 +52,14 @@ class PaymentPager : Fragment() {
         amountView = view.findViewById(R.id.amount)
         paymentView = view.findViewById(R.id.descriptionSpinner)
         phoneNumberView = view.findViewById(R.id.phoneNumber)
+
+        argsNav.status.let {
+            if(it!="roar"){
+                successDialog()
+            }else {
+                moveToPaymentLink()
+            }
+        }
 
         backBtn.setOnClickListener {
            findNavController().popBackStack()
@@ -120,6 +133,14 @@ class PaymentPager : Fragment() {
             .onStagingEnv(true)
             .withTheme(R.style.MyCustomTheme)
             .initialize()
+    }
+
+
+    private fun moveToPaymentLink() {
+        val intent = Intent(Intent.ACTION_VIEW).apply{
+            data = Uri.parse("https://ravesandbox.flutterwave.com/pay/roar_escrow?_ga=2.140849394.1352586159.1635301045-1618191853.1629456518")
+        }
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

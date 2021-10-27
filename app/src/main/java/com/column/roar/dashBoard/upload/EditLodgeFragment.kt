@@ -15,11 +15,15 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.media.MediaBrowserServiceCompat.RESULT_OK
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.column.roar.R
+import com.column.roar.cloudModel.FirebaseLodge
 import com.column.roar.databinding.FragmentEditLodgeBinding
 import com.column.roar.notification.Constant.Companion.PICK_VIDEO
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.launch
@@ -34,9 +38,10 @@ class EditLodgeFragment : Fragment() {
     private lateinit var storage: FirebaseStorage
     private lateinit var fireStore: FirebaseFirestore
     private lateinit var lodgeCollection: CollectionReference
+    private lateinit var lodgeFirebaseListener: ListenerRegistration
 
-    override fun onStart() {
-        super.onStart()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         storage = FirebaseStorage.getInstance()
         fireStore = FirebaseFirestore.getInstance()
         lodgeCollection = fireStore.collection("lodges")
@@ -66,9 +71,9 @@ class EditLodgeFragment : Fragment() {
         }
 
         binding.pagerBack.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().popBackStack(R.id.lodgeDetailUpload,true)
         }
-
+        setupListener()
         return binding.root
     }
 
@@ -93,6 +98,26 @@ class EditLodgeFragment : Fragment() {
         }
     }
 
+    private fun setupListener() {
+        lodgeFirebaseListener = lodgeCollection.document(editLodgePager.lodgesData.lodgeId!!)
+            .addSnapshotListener { value, _ ->
+                value?.toObject(FirebaseLodge::class.java).also {
+                    Glide.with(binding.coverImage.context)
+                        .load(it?.coverImage).apply(
+                            RequestOptions().placeholder(R.drawable.animated_gradient)
+                                .error(R.drawable.animated_gradient)
+                        ).into(binding.coverImage)
+                }
+            }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lodgeFirebaseListener.remove()  //check if onDestroy best for removing listener
+    }
+
+
+
     private fun getExt(uri: Uri): String? {
         val contentResolver = requireContext().contentResolver
         val mimeTypeMap = MimeTypeMap.getSingleton()
@@ -103,10 +128,11 @@ class EditLodgeFragment : Fragment() {
         loadVideoToFirebase()
        // val uid = lodgeCollection.document().id
         val lodgeDocument = lodgeCollection.document(editLodgePager.lodgesData.lodgeId!!)
+        val itemId = editLodgePager.lodgesData.lodgeId!!
 
         val storageRef: StorageReference =
             storage.reference.child(
-                "video/Tour/${editLodgePager.lodgesData.randomId!!}/tour.${getExt(videoUri)}"
+                "videos/${itemId}.${getExt(videoUri)}"
             )
 
         val uploadTask = storageRef.putFile(videoUri)

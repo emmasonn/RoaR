@@ -68,7 +68,7 @@ class AdminRealtorDetails : Fragment() {
         val toolbar = view.findViewById<MaterialToolbar>(R.id.materialToolbar)
         val backBtn = view.findViewById<ImageView>(R.id.realtorBack)
         emptyLayout = view.findViewById(R.id.emptyListView)
-        brandName.text = client.brandName
+        brandName.text = client.brand
         swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
 
         swipeRefreshContainer.isRefreshing = true
@@ -219,7 +219,7 @@ class AdminRealtorDetails : Fragment() {
             val view = inflater.inflate(R.layout.edit_room_dialog, null)
             val roomField = view.findViewById<TextInputEditText>(R.id.roomNumber)
             roomField.hint = "Available Room Number"
-            roomField.setText(lodge.availableRoom.toString())
+            roomField.setText(lodge.rooms.toString())
 
             setPositiveButton("Submit") { _, _ ->
                 val number = roomField.text.toString()

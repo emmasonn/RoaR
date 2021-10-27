@@ -252,11 +252,11 @@ class SetUpFragment : Fragment() {
             clientId = clientId,
             clientPhone = phoneNumber,
             clientName = fullName,
-            clientUrl = image,
-            accountType = accountType,
+            clientImage = image,
+            account = accountType,
             password = password,
             campus = campus,
-            brandName = brandName,
+            brand = brandName,
             adminId = admin.clientId
         )
 

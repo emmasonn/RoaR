@@ -68,7 +68,7 @@ class AdminManageMarketers : Fragment() {
         emptyLayout = view.findViewById(R.id.emptyListView)
         swipeRefreshContainer.isRefreshing = true
 
-        productTitle.text = client.brandName
+        productTitle.text = client.brand
 
         backBtn.setOnClickListener {
             findNavController().popBackStack()

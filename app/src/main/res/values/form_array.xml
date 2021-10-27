@@ -3,15 +3,14 @@
 
     <string-array name="lodges_location">
         <item>Lodges</item>
-        <item>Odim</item>
         <item>Beach</item>
+        <item>Behind-Flat</item>
+        <item>Boys-Quarters</item>
         <item>Odenigwe</item>
         <item>HillTop</item>
         <item>Green-House</item>
-        <item>Beach</item>
         <item>Onuiyi</item>
-        <item>Boys-Quarters</item>
-        <item>Behind-Flat</item>
+        <item>Odim</item>
         <item>Eze-Opi</item>
         <item>First-Gate</item>
     </string-array>
@@ -104,9 +103,9 @@
         <item>Boys-Quarters</item>
         <item>Behind-Flat</item>
         <item>Eze-Opi</item>
+        <item>HillTop</item>
         <item>First-Gate</item>
         <item>Green House</item>
-        <item>HillTop</item>
         <item>Odim</item>
         <item>Odenigwe</item>
         <item>Onuiyi</item>
@@ -174,7 +173,4 @@
         <item>Foot-Wear</item>
         <item>Stationary</item>
     </string-array>
-
-
-
 </resources>

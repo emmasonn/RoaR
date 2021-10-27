@@ -37,7 +37,7 @@ class AdminListAdapter(private val adminClickListener: AdminClickListener)
             fun bind(data: FirebaseUser, listener: AdminClickListener) {
 
                 Glide.with(adminImage.context)
-                    .load(data.clientUrl).apply(
+                    .load(data.clientImage).apply(
                         RequestOptions().placeholder(R.drawable.loading_animation)
                             .error(R.drawable.loading_animation)
                     ).into(adminImage)

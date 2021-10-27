@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/yellow_200"
             app:cardElevation="20dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            app:cardCornerRadius="0dp"
+            android:layout_margin="10dp"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout5">
@@ -90,6 +90,28 @@
                     app:layout_constraintTop_toTopOf="@+id/viewFlipper"
                     tools:ignore="ContentDescription" />
 
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="10dp"
+                    android:layout_marginEnd="20dp"
+                    app:cardCornerRadius="0dp"
+                    app:cardBackgroundColor="@color/yellow_200"
+                    app:layout_constraintBottom_toBottomOf="@+id/viewFlipper"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewFlipper">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="New!"
+                        android:textAlignment="center"
+                        android:textColor="@color/black_700"
+                        android:textAppearance="?attr/textAppearanceSubtitle1"
+                        />
+                </com.google.android.material.card.MaterialCardView>
+
                 <ImageView
                     android:id="@+id/viewFlipper"
                     android:layout_width="0dp"
@@ -130,6 +152,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
+                    android:textStyle="bold"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                     app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -196,7 +219,7 @@
                         android:id="@+id/campus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:elevation="10dp"
+                        android:textStyle="bold"
                         android:textAppearance="?attr/textAppearanceSubtitle2"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView18"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -210,6 +233,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:fontFamily="@font/montserrat_bold"
+                    app:elevation="10dp"
                     android:text="Explore"
                     android:textAllCaps="false"
                     android:textColor="@color/white"

@@ -80,7 +80,6 @@ class SearchFragment : Fragment() {
         return view
     }
 
-
     private fun initializeAd() {
         (activity as MainActivity).detailScreenMediumAd.observe(viewLifecycleOwner,{ ad ->
             lodgesAdapter.postAd2(ad)
@@ -141,7 +140,7 @@ class SearchFragment : Fragment() {
                     lodgesAdapter.submitList(emptyList())
                 }else {
                     showProgressBar()
-                    lodgesList.filter { it.randomId!!.contains("$newText") }.also { result ->
+                    lodgesList.filter { it.hiddenName!!.contains("$newText") }.also { result ->
                         lodgesAdapter.addLodgeAndProperty(result, false).also {
                             hideProgressBar()
                         }

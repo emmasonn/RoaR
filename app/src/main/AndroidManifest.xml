@@ -4,8 +4,8 @@
     package="com.column.roar"
     android:installLocation="auto"
     android:requestLegacyExternalStorage="true"
-    android:versionCode="2"
-    android:versionName="1.0.1">
+    android:versionCode="3"
+    android:versionName="1.0.0">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -22,6 +22,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RoarHousing"
         tools:ignore="AllowBackup">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4621350369277741~3004740273" />
 
         <activity
             android:name="com.column.roar.SplashActivity"
@@ -69,10 +73,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.products_notification_channel"
             android:value="@string/product_notification_channel_id" />
-
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
 
     </application>
 

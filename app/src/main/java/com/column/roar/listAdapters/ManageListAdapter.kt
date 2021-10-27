@@ -52,9 +52,9 @@ class ManageListAdapter (private val manageAdapterListener: ManageAdapterListene
             lodgeTitle.text = data.lodgeName
             location.text = data.location
             campus.text = data.campus
-            ownerName.text = data.ownerName
+            ownerName.text = data.landLord
             ownerPhone.text = data.ownerPhone
-            availableRoom.text = data.availableRoom.toString()
+            availableRoom.text = data.rooms.toString()
 
             if(data.certified!=null && data.certified == true) {
                 onLine.visibility = View.VISIBLE

@@ -2,9 +2,10 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.gms.google-services'
-    id("kotlin-parcelize")
+    id ("kotlin-parcelize")
     id 'kotlin-kapt'
-    id("androidx.navigation.safeargs.kotlin")
+    id ("androidx.navigation.safeargs.kotlin")
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -14,8 +15,8 @@ android {
         applicationId "com.column.roar"
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -57,7 +58,8 @@ dependencies {
     //Firebase bom
     implementation platform('com.google.firebase:firebase-bom:28.3.0')
     // Declare the dependency for the Firebase SDK for Google Analytics
-    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
     //firebase auth
     implementation 'com.google.firebase:firebase-auth-ktx'
     //firebase fireStore

@@ -1,9 +1,7 @@
 package com.column.roar.home
 
-import android.animation.ArgbEvaluator
-import android.animation.ValueAnimator
 import android.annotation.SuppressLint
-import android.graphics.Color
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,6 +11,7 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -24,14 +23,17 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.column.roar.MainActivity
 import com.column.roar.R
-import com.column.roar.cloudModel.FirebaseLodge
-import com.column.roar.cloudModel.FirebaseProperty
 import com.column.roar.listAdapters.LodgeClickListener
 import com.column.roar.listAdapters.NewListAdapter
 import com.column.roar.listAdapters.storeAdapter.PropertyListAdapter.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-
+import com.column.roar.cloudModel.*
+import com.column.roar.listAdapters.ClickListener
+import com.column.roar.listAdapters.UploadPhotosAdapter
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -44,10 +46,8 @@ import com.google.firebase.firestore.Source
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 class HomeFragment : Fragment() {
-
     private lateinit var homeRecycler: RecyclerView
     private lateinit var chipGroup: ChipGroup
     private lateinit var backDrop: LinearLayout
@@ -60,12 +60,19 @@ class HomeFragment : Fragment() {
     private lateinit var connectionView: MaterialCardView
     private lateinit var swipeContainer: SwipeRefreshLayout
     private lateinit var callback: OnBackPressedCallback
+    private lateinit var otherProductAdapter: UploadPhotosAdapter
+    private var emptyList: MaterialCardView? = null
+    private var networkError: MaterialCardView? = null
+    private var player: SimpleExoPlayer? = null
+    private lateinit var playerView: PlayerView
     private var counter = 0
+    private lateinit var retryBtn: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fireStore = FirebaseFirestore.getInstance()
-        propertiesQuery = fireStore.collection("properties").whereEqualTo("certified",true)
+        propertiesQuery = fireStore.collection(getString(R.string.firestore_products))
+            .whereEqualTo("certified", true)
     }
 
     override fun onCreateView(
@@ -88,46 +95,52 @@ class HomeFragment : Fragment() {
         connectionView = view.findViewById(R.id.connectionView)
         swipeContainer = view.findViewById(R.id.swipeContainer)
         val searchIcon = view.findViewById<ImageView>(R.id.searchIcon)
+        retryBtn = view.findViewById(R.id.retryBtn)
 
-        menuIcon = view.findViewById<ImageView>(R.id.menuNav)
-        chipGroup = view.findViewById<ChipGroup>(R.id.chipGroup)
+        menuIcon = view.findViewById(R.id.menuNav)
+        chipGroup = view.findViewById(R.id.chipGroup)
         swipeContainer.isRefreshing = true
 
         searchIcon.setOnClickListener {
             findNavController().navigate(R.id.searchFragment)
         }
 
+        retryBtn.setOnClickListener {
+            fetchLodges(chipsCategory[counter])
+        }
+
         setUpOnBackPressedCallback()
 
+       // resolve the implicit link
         val argsNav: HomeFragmentArgs by navArgs()
         argsNav.lodgeId.let {
             if (it != "roar") {
                 arguments = bundleOf("lodgeId" to "roar")
-                Timber.i("lodgeId : $argsNav.lodgeId")
                 resolveUrl(argsNav.lodgeId)
             }
         }
 
-     lifecycleScope.launch (Dispatchers.Main) {
-         roarItemsAdapter = NewListAdapter(LodgeClickListener({ lodge ->
-             val bundle = bundleOf("Lodge" to lodge)
-             findNavController().navigate(R.id.lodgeDetail, bundle)
-         }, {}), PropertyClickListener(
-             { data ->
-                 swipeContainer.isRefreshing = true
-                 if (data.propertyType == "Ads") {
-                     showAdDialog(data)
-                 } else {
-                     val link = Uri.parse("https://unnapp.page.link/ads/${data.id}")
-                     findNavController().navigate(link)
-                 }
-             },
-             {}, justClick = {
-                 findNavController().navigate(R.id.productStore)
-             }), this@HomeFragment,resources)
-         homeRecycler.adapter = roarItemsAdapter
-     }
-        connectionFailure(false) //this function calls the ads when internet is available
+        lifecycleScope.launch(Dispatchers.Main) {
+            roarItemsAdapter = NewListAdapter(LodgeClickListener({ lodge ->
+                val bundle = bundleOf("Lodge" to lodge)
+                findNavController().navigate(R.id.lodgeDetail, bundle)
+            }, {}), PropertyClickListener(
+                { data ->
+                    swipeContainer.isRefreshing = true
+                    if (data.type == "Ads") {
+                        showAdDialog(data)
+                    } else {
+                        val link = Uri.parse("https://unnapp.page.link/ads/${data.id}")
+                        findNavController().navigate(link)
+                    }
+                },
+                {}, justClick = {
+                    findNavController().navigate(R.id.productStore)
+                }), this@HomeFragment, resources
+            )
+            homeRecycler.adapter = roarItemsAdapter
+        }
+//        connectionFailure(false) //this function calls the ads when internet is available
 
         swipeContainer.setOnRefreshListener {
             if (::chipsCategory.isInitialized) {
@@ -189,12 +202,12 @@ class HomeFragment : Fragment() {
 
 
     private fun setUpOnBackPressedCallback() {
-    callback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            showExitDialog()
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                showExitDialog()
+            }
         }
     }
-}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -227,7 +240,7 @@ class HomeFragment : Fragment() {
                     (activity as MainActivity).chipState = query
 
                     roarItemsAdapter.showEmpty = false
-                    roarItemsAdapter.submitList(emptyList())
+//                    roarItemsAdapter.submitList(emptyList())
                     roarItemsAdapter.clear()
                     fetchLodges(chipsCategory[query])
                 }
@@ -245,25 +258,23 @@ class HomeFragment : Fragment() {
     private suspend fun initializeHome() {
         withContext(Dispatchers.Main) {
             val settingP = PreferenceManager.getDefaultSharedPreferences(requireContext())
-            val campus = settingP.getString("campus", "UNN")
-            when (campus) {
+            when (val campus = settingP.getString("campus", "UNN")) {
                 "UNN" -> {
                     chipsCategory = resources.getStringArray(R.array.lodges_location)
-                    lodgesRef = fireStore.collection("lodges")
-                        .whereEqualTo("certified",true)
+                    lodgesRef = fireStore.collection(getString(R.string.firestore_lodges))
+                        .whereEqualTo("certified", true)
                         .whereEqualTo("campus", campus)
                 }
                 "UNEC" -> {
                     chipsCategory = resources.getStringArray(R.array.unec_campus)
-                    lodgesRef = fireStore.collection("lodges")
-                        .whereEqualTo("certified",true)
+                    lodgesRef = fireStore.collection(getString(R.string.firestore_lodges))
+                        .whereEqualTo("certified", true)
                         .whereEqualTo("campus", campus)
                 }
-
                 else -> {
                     chipsCategory = resources.getStringArray(R.array.lodges_location)
-                    lodgesRef = fireStore.collection("lodges")
-                        .whereEqualTo("certified",true)
+                    lodgesRef = fireStore.collection(getString(R.string.firestore_lodges))
+                        .whereEqualTo("certified", true)
                         .whereEqualTo("campus", campus)
                 }
             }
@@ -274,44 +285,42 @@ class HomeFragment : Fragment() {
     }
 
     private fun fetchLodges(filter: String) {
-        swipeContainer.isRefreshing =  true
+        swipeContainer.isRefreshing = true
         val source = Source.DEFAULT
         propertiesQuery.get(source).addOnSuccessListener { snapShot ->
             snapShot.documents.mapNotNull { docShot ->
                 docShot.toObject(FirebaseProperty::class.java)
             }.also { properties ->
                 if (filter == "Lodges") {
-                    lodgesRef.addSnapshotListener { value, error ->
-                        if (error != null) {
-                            connectionFailure(true) //error view
-                            return@addSnapshotListener
-                        }
-                        value?.documents?.mapNotNull { snapShot ->
+                    lodgesRef.get(source).addOnSuccessListener { value ->
+                        value.documents.mapNotNull { snapShot ->
                             snapShot.toObject(FirebaseLodge::class.java)
-                        }.also { lodges ->
-
-                            if (lodges.isNullOrEmpty()) {
+                        }.also { dataResult ->
+                            if (dataResult.isNullOrEmpty()) {
                                 //Show empty view
-                                    lifecycleScope.launchWhenCreated {
-                                        roarItemsAdapter.showEmpty = true
-                                        roarItemsAdapter.addLodgeAndProperty(emptyList(), properties)
-                                        roarItemsAdapter.clear()
-                                        swipeContainer.isRefreshing = false
-                                    }
-                                return@addSnapshotListener
-
+                                lifecycleScope.launchWhenCreated {
+                                    showNetworkError(false)
+                                    roarItemsAdapter.showEmpty = true
+                                    roarItemsAdapter.addLodgeAndProperty(emptyList(), properties)
+//                                    roarItemsAdapter.clear()
+                                    swipeContainer.isRefreshing = false
+                                }
                             } else {
                                 lifecycleScope.launchWhenCreated {
-                                    roarItemsAdapter.addLodgeAndProperty(lodges, properties)
-                                    roarItemsAdapter.clear()
-                                    swipeContainer.isRefreshing = false
+                                    showNetworkError(false)
+                                roarItemsAdapter.addLodgeAndProperty(dataResult, properties)
+                                swipeContainer.isRefreshing = false
+//                                roarItemsAdapter.clear()
                                 }
                             }
                         }
-                    }
+                    }.addOnFailureListener {
+                           showNetworkError(true) //error view
+                            swipeContainer.isRefreshing = false
+                        }
                 } else {
-                    val filterRef = fireStore.collection("lodges")
-                        .whereEqualTo("certified",true)
+                    val filterRef = fireStore.collection(getString(R.string.firestore_lodges))
+                        .whereEqualTo("certified", true)
                         .whereEqualTo("location", filter)
 
                     filterRef.get(source).addOnSuccessListener { result ->
@@ -320,53 +329,67 @@ class HomeFragment : Fragment() {
                         }.also { lodges ->
                             if (lodges.isNotEmpty()) {
                                 lifecycleScope.launchWhenCreated {
+                                    showNetworkError(false)
                                     roarItemsAdapter.addLodgeAndProperty(lodges, properties)
-                                    roarItemsAdapter.clear()
+//                                    roarItemsAdapter.clear()
                                     swipeContainer.isRefreshing = false
                                 }
                             } else {
                                 lifecycleScope.launchWhenCreated {
                                     roarItemsAdapter.showEmpty = true
+                                    showNetworkError(false)
                                     roarItemsAdapter.addLodgeAndProperty(emptyList(), properties)
-                                    roarItemsAdapter.clear()
+//                                    roarItemsAdapter.clear()
                                     swipeContainer.isRefreshing = false
                                 }
                             }
                         }
                     }.addOnFailureListener {
-
                         lifecycleScope.launchWhenCreated {
-                            Toast.makeText(
-                                requireContext(),
-                                "${it.message} no internet",
-                                Toast.LENGTH_LONG
-                            ).show()
-
                             roarItemsAdapter.clear()
                             swipeContainer.isRefreshing = false
-                            connectionFailure(true)
+                            showNetworkError(true)
                         }
                     }
                 }
             }
         }.addOnFailureListener {
             lifecycleScope.launchWhenCreated {
-                roarItemsAdapter.submitList(emptyList())
                 roarItemsAdapter.clear()
                 swipeContainer.isRefreshing = false
-                connectionFailure(true)
+                showNetworkError(true)
             }
+        }
+    }
+/*connection Error*/
+//    private fun connectionFailure(error: Boolean) {
+//        val connection = (activity as MainActivity).connectivityChecker
+//        connection?.apply {
+//            lifecycle.addObserver(this)
+//            connectedStatus.observe(viewLifecycleOwner, { network ->
+//                if (!network && error) {
+//                    connectionView.visibility = View.VISIBLE
+//                }
+//            })
+//        }
+//    }
+
+    private fun showNetworkError(error:Boolean) {
+        if(error){
+            connectionView.visibility = View.VISIBLE
+            retryBtn.visibility = View.VISIBLE
+        }else {
+            connectionView.visibility = View.GONE
         }
     }
 
     private fun resolveUrl(id: String?) {
         swipeContainer.isRefreshing = true
         id?.let {
-            fireStore.collection("lodges").document(id)
+            fireStore.collection(getString(R.string.firestore_lodges)).document(id)
                 .get().addOnSuccessListener {
-                    lifecycleScope.launchWhenCreated {
+                    lifecycleScope.launch {   //this was launch when created
                         swipeContainer.isRefreshing = true
-
                         it.toObject(FirebaseLodge::class.java).also { lodge ->
                             val bundle = bundleOf("Lodge" to lodge)
                             findNavController().navigate(R.id.lodgeDetail, bundle)
@@ -375,70 +398,113 @@ class HomeFragment : Fragment() {
                 }.addOnFailureListener {
                     lifecycleScope.launch {
                         swipeContainer.isRefreshing = false
-                        Toast.makeText(requireContext(),"Failed to Load item, Network failure",
-                        Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(), "Failed to Load item, Network failure",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
         }
     }
 
-
-    private fun connectionFailure(error: Boolean) {
-        val connection = (activity as MainActivity).connectivityChecker
-        connection?.apply {
-            lifecycle.addObserver(this)
-            connectedStatus.observe(viewLifecycleOwner, { network ->
-
-                if (!network && error) {
-                    connectionView.visibility = View.VISIBLE
-                } else {
-                    connectionView.visibility = View.GONE
-                }
-            })
-        }
-    }
-
+    //dialog for business advert
     @SuppressLint("InflateParams")
-    fun showAdDialog(property: FirebaseProperty) {
+    fun showAdDialog(product: FirebaseProperty) {
         val bottomSheetLayout = BottomSheetDialog(requireContext()).apply {
-            setContentView(R.layout.dialog_show_ad)
+            setContentView(R.layout.home_dialog_full)
             val adImage = this.findViewById<ImageView>(R.id.adImage)
+            val productsRecycler = this.findViewById<RecyclerView>(R.id.productPager)
+            playerView = this.findViewById(R.id.videoCover)!!
+            val noVideo = this.findViewById<TextView>(R.id.noVideo)
+
+            otherProductAdapter = UploadPhotosAdapter(ClickListener(
+                {}, {
+                    showImageDialog(it.image!!)
+                }
+            ))
+            productsRecycler?.adapter = otherProductAdapter
+
+            fetchProduct(product.id!!)
+            if(product.video!=null){
+                setUpExoPlayer(product.video)
+            }else {
+                noVideo?.visibility = View.VISIBLE
+            }
 
             adImage?.let {
                 Glide.with(adImage.context)
-                    .load(property.firstImage)
-                    .apply(RequestOptions()
-                        .placeholder(R.drawable.animated_gradient)
-                        .error(R.drawable.animated_gradient)).into(adImage)
+                    .load(product.coverImage)
+                    .apply(
+                        RequestOptions()
+                            .placeholder(R.drawable.animated_gradient)
+                            .error(R.drawable.animated_gradient)
+                    ).into(adImage)
             }
         }
         val callBtn = bottomSheetLayout.findViewById<MaterialButton>(R.id.callNow)
+        val whatsAppBtn = bottomSheetLayout.findViewById<MaterialCardView>(R.id.whatsAppBtn)
+        networkError = bottomSheetLayout.findViewById(R.id.connectionView)
+        emptyList = bottomSheetLayout.findViewById(R.id.emptyListView)
 
-        lifecycleScope.launchWhenCreated {
-            animateWarning(callBtn!!)
-        }
-
-        callBtn?.setOnClickListener {}
+        callBtn?.setOnClickListener { product.sellerNumber?.let { it1 -> callDialog(it1) } }
+        whatsAppBtn?.setOnClickListener { product.sellerNumber?.let { it1 -> whatsAppDialog(it1) } }
         bottomSheetLayout.show()
         swipeContainer.isRefreshing = false
     }
 
-    //this function animates the location icon
-    private fun animateWarning(icon: MaterialButton) {
-        val prevColor = Color.parseColor("#046d86")
-        val newColor = Color.parseColor("#d32f2f")
-        ValueAnimator.ofObject(ArgbEvaluator(), newColor, prevColor).apply {
-            repeatCount = 10000000
-            duration = 200
-            addUpdateListener { valueAnimator ->
-                val background = valueAnimator.animatedValue as Int
-                icon.setBackgroundColor(background)
-                icon.setTextColor(Color.WHITE)
+    //this function fetches the products of every business person
+    private fun fetchProduct(productId: String) {
+        swipeContainer.isRefreshing = true
+
+        val otherProductCollection = fireStore.collection(getString(R.string.firestore_products))
+            .document(productId).collection(getString(R.string.firestore_others))
+
+        otherProductCollection.get().addOnSuccessListener { snapShot ->
+            snapShot.documents.mapNotNull {
+                it.toObject(FirebasePhotoAd::class.java)
+            }.also { otherItems ->
+                otherItems.map {
+                    FirebaseLodgePhoto(
+                        id = it.id,
+                        image = it.image
+                    )
+                }.let { result ->
+                    lifecycleScope.launchWhenCreated {
+                        if (result.isNotEmpty()) {
+                            otherProductAdapter.submitList(result)
+                            swipeContainer.isRefreshing = false
+                            networkError?.visibility = View.GONE
+                            emptyList?.visibility = View.GONE
+                        } else {
+                            emptyList?.visibility = View.VISIBLE
+                        }
+                    }
+                }
             }
-            start()
+        }.addOnFailureListener {
+            swipeContainer.isRefreshing = false
+            networkError?.visibility = View.VISIBLE
+            emptyList?.visibility = View.GONE
         }
     }
 
+    //this function animates the location icon
+//    private fun animateWarning(icon: MaterialButton) {
+//        val prevColor = Color.parseColor("#046d86")
+//        val newColor = Color.parseColor("#d32f2f")
+//        ValueAnimator.ofObject(ArgbEvaluator(), newColor, prevColor).apply {
+//            repeatCount = 10000000
+//            duration = 200
+//            addUpdateListener { valueAnimator ->
+//                val background = valueAnimator.animatedValue as Int
+//                icon.setBackgroundColor(background)
+//                icon.setTextColor(Color.WHITE)
+//            }
+//            start()
+//        }
+//    }
+
+    //app exit dialog
     private fun showExitDialog() {
         MaterialAlertDialogBuilder(requireContext()).apply {
             setTitle("You're about to exit app")
@@ -452,6 +518,101 @@ class HomeFragment : Fragment() {
             }
             show()
         }
+    }
+
+    //dial phone number
+    private fun dialPhoneNumber(phoneNumber: String?) {
+        val intent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phoneNumber") //or use Uri.fromParts()
+        }
+        startActivity(intent)
+    }
+
+    //what chat
+    private fun chatWhatsApp(pNumber: String?) {
+        val message = """
+             Hi, from *RoaR*
+            """
+        val uri =
+            "https://api.whatsapp.com/send?phone=+234$pNumber&text=$message"
+
+        val intent = Intent().apply {
+            action = Intent.ACTION_VIEW
+            data = Uri.parse(uri)
+        }
+
+        try {
+            startActivity(intent)
+        } catch (ex: android.content.ActivityNotFoundException) {
+            Toast.makeText(
+                requireContext(), "WhatsApp is not Found",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun callDialog(number: String) {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("You are about to leave app to make call")
+            setPositiveButton("Okay") { dialog, _ ->
+                dialog.dismiss()
+                dialPhoneNumber(number)
+            }
+            setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
+        }
+    }
+
+    //whats-App dialog
+    private fun whatsAppDialog(data: String) {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("You are about leave app to WhatsApp")
+            setPositiveButton("Okay") { dialog, _ ->
+                dialog.dismiss()
+                chatWhatsApp(data)
+            }
+
+            setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
+        }
+    }
+
+    @SuppressLint("InflateParams")
+    private fun showImageDialog(imageUrl: String) {
+        AlertDialog.Builder(requireContext()).apply {
+            val inflater = LayoutInflater.from(requireContext())
+            val view = inflater.inflate(R.layout.dialog_view_product, null)
+            val imageView = view.findViewById<ImageView>(R.id.fullImage)
+
+            Glide.with(imageView.context)
+                .load(imageUrl)
+                .apply(
+                    RequestOptions()
+                        .placeholder(R.drawable.animated_gradient)
+                        .error(R.drawable.animated_gradient)
+                ).into(imageView)
+
+            setView(view)
+        }.show()
+    }
+
+    //created exo player
+    private fun setUpExoPlayer(videoUrl: String?) {
+        player = SimpleExoPlayer.Builder(requireContext())
+            .build()
+            .also { exoPlayer ->
+                playerView.player = exoPlayer
+                videoUrl?.let {
+                    val mediaItem = MediaItem.fromUri(Uri.parse(it))
+                    exoPlayer.setMediaItem(mediaItem)
+                }
+                exoPlayer.playWhenReady = true
+                exoPlayer.prepare()
+            }
     }
 
 //    class HomePager(

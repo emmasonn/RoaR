@@ -178,7 +178,7 @@ class BroadCastLodge : Fragment() {
             val view = inflater.inflate(R.layout.edit_room_dialog, null)
             val roomField = view.findViewById<TextInputEditText>(R.id.roomNumber)
             roomField.hint = "Available Room Number"
-            roomField.setText(lodge.availableRoom.toString())
+            roomField.setText(lodge.rooms.toString())
             val updates = hashMapOf<String,Any>("timeStamp" to FieldValue.serverTimestamp())
 
             setPositiveButton("Submit") { _, _ ->

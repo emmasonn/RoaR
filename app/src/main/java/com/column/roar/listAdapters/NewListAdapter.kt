@@ -63,7 +63,8 @@ class NewListAdapter(
         val propertyView = layoutInflater.inflate(R.layout.item_advert_property, parent, false)
         val itemHeader = layoutInflater.inflate(R.layout.item_advert_header, parent, false)
         val businessAdView = layoutInflater.inflate(R.layout.business_ads_layout, parent, false)
-        val businessAdHeader = layoutInflater.inflate(R.layout.business_item_header, parent, false) as ConstraintLayout
+        val businessAdHeader =
+            layoutInflater.inflate(R.layout.business_item_header, parent, false) as ConstraintLayout
 
         val adView = layoutInflater.inflate(
             R.layout.native_small_advert_layout,
@@ -103,7 +104,7 @@ class NewListAdapter(
             }
             is BusinessAdsViewHolder -> {
                 val businessItems = getItem(position) as DataItem.BusinessAdsItem
-                holder.bind(businessItems.property,propertyListener)
+                holder.bind(businessItems.property, propertyListener)
             }
             is HeaderViewHolder -> {
                 val item = getItem(position) as DataItem.Header
@@ -124,25 +125,24 @@ class NewListAdapter(
         properties: List<FirebaseProperty>
     ): NewListAdapter {
 
-      adapterScope.launch {
+        adapterScope.launch {
+            val position: Int = (0..5).random()
 
-          val position: Int = (0..5).random()
+            val catTitle = productCat[position]
+            val randomProducts = properties.run {
+                this.filter { it.type == catTitle }.take(5).let {
+                    DataItem.PropertyItem(it)
+                }
+            }
 
-          val headerTitle = productCat[position]
-          val randomProducts = properties.run {
-              this.filter {it.propertyType == headerTitle }.take(4).let {
-                  DataItem.PropertyItem(it)
-              }
-          }
-          val result: List<DataItem> = when (lodges.size) {
-
+            val result: List<DataItem> = when (lodges.size) {
                 0 -> {
-                    if(showEmpty) {
-                       listOf(DataItem.AdHeader) +
+                    if (showEmpty) {
+                        listOf(DataItem.AdHeader) +
                                 listOf(DataItem.EmptyCard) +
-                               listOf(DataItem.Header(headerTitle)) +
-                               randomProducts +
-                               listOf(DataItem.MediumAd)
+                                listOf(DataItem.Header(catTitle)) +
+                                randomProducts +
+                                listOf(DataItem.MediumAd)
                     } else {
                         return@launch
                     }
@@ -150,11 +150,13 @@ class NewListAdapter(
                 else -> {
                     lodges.take(1).map { DataItem.LodgeItem(it) } +
                             listOf(DataItem.CampusBusinessHeader) +
-                            properties.run { this.filter{ it.propertyType == "Ads" }.let{
-                                DataItem.BusinessAdsItem(it)
-                            }} +
+                            properties.run {
+                                this.filter { it.type == "Ads" }.take(5).let {
+                                    DataItem.BusinessAdsItem(it)
+                                }
+                            } +
                             lodges.drop(1).take(3).map { DataItem.LodgeItem(it) } +
-                            listOf(DataItem.Header(headerTitle)) +
+                            listOf(DataItem.Header(catTitle)) +
                             randomProducts + //first items for sale
                             lodges.drop(4).map { DataItem.LodgeItem(it) }
                 }
@@ -168,6 +170,7 @@ class NewListAdapter(
     }
 
     fun clear() {
+        submitList(emptyList())
         notifyDataSetChanged()
     }
 
@@ -213,30 +216,30 @@ sealed class DataItem {
 
     data class Header(val title: String) : DataItem() {
         override val id: String
-            get() = "xkdskrkewjrk"
+            get() = Random.nextDouble().toString()
     }
 
     object AdHeader : DataItem() {
         override val id: String
-            get() = "yreiewuxixixu"
+            get() = Random.nextDouble().toString()
     }
 
     object CampusBusinessHeader : DataItem() {
         override val id: String
-            get() = "yrwxiescfdedd"
+            get() = Random.nextDouble().toString()
     }
 
     object MediumAd : DataItem() {
         override val id: String
-            get() = "xresdfsesrerw"
+            get() = Random.nextDouble().toString()
 
     }
 
     object EmptyCard : DataItem() {
         override val id: String
-            get() = "woersdfwer3idiskd"
-
+            get() = Random.nextDouble().toString()
     }
+
     abstract val id: String?
 }
 
@@ -257,34 +260,3 @@ class HeaderViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
 class BusinessHeaderViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView)
 
 class EmptyViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView)
-
-
-/*
-* listOf(DataItem.Header("Accessory")) +
-                            properties.run {
-                                this.filter { it.propertyType == "Accessory" }.let {
-                                    DataItem.PropertyItem(it)
-                                }
-                            } +    //second property
-                            lodges.drop(5).take(3).map { DataItem.LodgeItem(it) } +
-                            listOf(DataItem.Header("Jewellery")) +
-                            properties.run {
-                                this.filter { it.propertyType == "Jewellery" }.let {
-                                    DataItem.PropertyItem(it)
-                                }
-                            } +    //third property
-                            lodges.drop(8).take(2).map { DataItem.LodgeItem(it) } +
-                            listOf(DataItem.Header("Stationary")) +
-                            properties.run {
-                                this.filter { it.propertyType == "Stationary" }.let {
-                                    DataItem.PropertyItem(it)
-                                }
-                            } +   //forth property
-                            lodges.drop(10).take(4).map { DataItem.LodgeItem(it) } +
-                            lodges.drop(14).map { DataItem.LodgeItem(it) } +
-                            * properties.run {
-                                   this.filter { it.propertyType == "Property" }.let {
-                                       DataItem.PropertyItem(it)
-                                   }
-                               }
-**/

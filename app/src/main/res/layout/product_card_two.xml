@@ -41,7 +41,6 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:textAppearance="?attr/textAppearanceSubtitle2"
-                    android:textSize="14sp"
                     tools:text="Garri" />
 
                 <TextView

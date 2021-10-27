@@ -7,8 +7,8 @@ import kotlinx.parcelize.Parcelize
 @IgnoreExtraProperties
 @Parcelize
 data class FirebaseLodgePhoto(
-    var photoId: String? = null,
-    var photoUrl: String? = null,
-    var photoTitle: String? = null
+    var id: String? = null,
+    var image: String? = null,
+    var title: String? = null,
+    var video: String? = null
 ): Parcelable
-

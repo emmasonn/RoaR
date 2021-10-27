@@ -36,7 +36,6 @@ class EditLodgePager : Fragment() {
 
     fun moveBackward() {
         pager.currentItem = pager.currentItem - 1
-
     }
 
     class EditPagerAdapter(fragment: Fragment,

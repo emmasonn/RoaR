@@ -10,13 +10,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.column.roar.R
 import com.column.roar.cloudModel.FirebaseLodge
 import com.column.roar.listAdapters.DataItem.*
 import com.column.roar.listAdapters.adViewHolders.MediumAdViewHolder
 import com.column.roar.listAdapters.adViewHolders.NativeAdViewHolder
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.CoroutineScope
@@ -181,7 +181,6 @@ class LodgesAdapter(
         private val campus = itemView.findViewById<TextView>(R.id.campus)
         private val favBtn = itemView.findViewById<ImageView>(R.id.favBtn)
         private val lock = itemView.findViewById<ImageView>(R.id.lockLodge)
-
         private val resource = itemView.resources
 
         fun bind(data: FirebaseLodge, listener: LodgeClickListener) {
@@ -191,20 +190,20 @@ class LodgesAdapter(
                     RequestOptions().placeholder(R.drawable.animated_gradient)).into(lodgeImage)
 
 
-            initialPrice.text = resource.getString(R.string.format_price_integer, data.subPayment)
-            lodgeName.text = data.lodgeName
+            initialPrice.text = resource.getString(R.string.format_price_integer, data.payment)
+            lodgeName.text = data.hiddenName
             location.text = data.location
             campus.text = data.campus
-            if(data.availableRoom == null) {
+            if(data.rooms == null) {
                 lock.alpha = 1F
             }else {
-                if(data.availableRoom == 0L) {
+                if(data.rooms == 0L) {
                     lock.alpha = 1F
                     available.alpha = 0F
                 }else {
                     lock.alpha = 0F
                     available.alpha = 1F
-                    available.text = data.availableRoom.toString()
+                    available.text = data.rooms.toString()
                 }
             }
 

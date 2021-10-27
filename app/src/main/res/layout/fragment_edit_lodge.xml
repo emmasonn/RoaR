@@ -223,7 +223,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingEnd="5dp"
-                        android:text="@{lodgeDetail.availableRoom.toString()}"
+                        android:text="@{lodgeDetail.rooms.toString()}"
                         android:textAppearance="?attr/textAppearanceHeadline4"
                         android:textColor="@color/blue_700"
                         android:textStyle="bold"
@@ -287,7 +287,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="15dp"
-                                    android:text="@{@string/format_price(lodgeDetail.subPayment)}"
+                                    android:text="@{@string/format_price(lodgeDetail.payment)}"
                                     android:textAppearance="?attr/textAppearanceSubtitle1"
                                     android:background="@drawable/blue_card_outline"
                                     android:padding="4dp"
@@ -321,7 +321,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="15dp"
-                                    android:text="@{@string/format_price(lodgeDetail.initialPayment)}"
+                                    android:text="@{@string/format_price(lodgeDetail.rent)}"
                                     android:background="@drawable/blue_card_outline"
                                     android:padding="4dp"
                                     android:textAppearance="?attr/textAppearanceSubtitle1"
@@ -340,16 +340,24 @@
                                     app:layout_constraintStart_toStartOf="@+id/intPrice"
                                     app:layout_constraintTop_toBottomOf="@+id/intPrice" />
 
+                                <com.google.android.material.imageview.ShapeableImageView
+                                    android:id="@+id/coverImage"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="200dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
                                 <TextView
                                     android:id="@+id/title"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="30dp"
+                                    android:layout_marginTop="10dp"
                                     android:text="Description"
                                     android:textAppearance="?attr/textAppearanceSubtitle1"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="@+id/desc"
-                                    app:layout_constraintTop_toTopOf="parent" />
+                                    app:layout_constraintTop_toBottomOf="@+id/coverImage" />
 
                                 <TextView
                                     android:id="@+id/desc"
@@ -367,7 +375,7 @@
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toStartOf="@+id/view"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@+id/rentTitle"
+                                    app:layout_constraintTop_toBottomOf="@+id/title"
                                     app:layout_constraintVertical_bias="0.2"
                                     tools:text="This apartment has 1 bedroom, a kitchen with a dishwasher and a microwave, a flat-screen Tv, a seating area and 1 bathroom fitted with a shower." />
                             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,14 +42,14 @@ class ClientListAdapter(private val clickListener: UserClickListener): ListAdapt
         fun bind(data: FirebaseUser, clickListener: UserClickListener) {
 
             Glide.with(coverImage.context)
-                .load(data.clientUrl).apply(
+                .load(data.clientImage).apply(
                     RequestOptions().placeholder(R.drawable.ic_person)
                 ).into(coverImage)
 
 
             fullName.text = data.clientName
             phoneNumber.text = data.clientPhone
-            brandName.text = data.brandName
+            brandName.text = data.brand
             val condition = data.certified ?: false
 
             if (condition) {

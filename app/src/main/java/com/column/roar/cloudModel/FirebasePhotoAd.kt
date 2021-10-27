@@ -7,5 +7,6 @@ import kotlinx.parcelize.Parcelize
 @IgnoreExtraProperties
 @Parcelize data class FirebasePhotoAd (
     val id: String? = null,
-    val adUrl: String? = null
+    val image: String? = null,
+    val video: String? = null
 ): Parcelable

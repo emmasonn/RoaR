@@ -12,29 +12,48 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import com.column.roar.R
+import com.column.roar.cloudModel.FirebaseUser
 import com.column.roar.databinding.FragmentAccommodationBinding
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Source
 
 
 class AccommodationFragment : Fragment() {
-
     private lateinit var dialog: AlertDialog
+    private var customerAgent: FirebaseUser? = null
+    private lateinit var fireStore: FirebaseFirestore
+    private lateinit var customerDoc: DocumentReference
+    private lateinit var connectionError: MaterialCardView
+
+    override fun onStart() {
+        super.onStart()
+        fireStore = FirebaseFirestore.getInstance()
+        customerDoc = fireStore.collection("clients").document("customer")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         val binding = FragmentAccommodationBinding.inflate(inflater, container, false)
+
         showMessageDialog()
         binding.rulesBtn.setOnClickListener {
             showMessageDialog()
         }
+
         binding.textBtn.setOnClickListener {
             showMessageDialog()
         }
 
         binding.whatsAppCustomer.setOnClickListener {
-            chatWhatsAppCustomer("+23407060461403")
+            customerAgent?.let {
+                chatWhatsAppCustomer(it.lodgeService!!)
+            }
         }
 
         binding.telegramCustomer.setOnClickListener {
@@ -42,7 +61,9 @@ class AccommodationFragment : Fragment() {
         }
 
         binding.whatsAppStore.setOnClickListener {
-            productWhatsAppCustomer("+23407060461403")
+            customerAgent?.let {
+                productWhatsAppCustomer(it.productService!!)
+            }
         }
 
         binding.whatsAppGroup.setOnClickListener {
@@ -59,6 +80,16 @@ class AccommodationFragment : Fragment() {
         return binding.root
     }
 
+    private fun fetchCustomer() {
+        val source = Source.DEFAULT
+        customerDoc.get(source).addOnSuccessListener {
+            it.toObject(FirebaseUser::class.java).also { user ->
+                customerAgent = user
+            }
+        }.addOnFailureListener {
+
+        }
+    }
 
     @SuppressLint("InflateParams")
     private fun showMessageDialog() {
@@ -70,6 +101,7 @@ class AccommodationFragment : Fragment() {
                     val submit = view.findViewById<MaterialButton>(R.id.confirmBtn)
 
                     submit.setOnClickListener {
+                        fetchCustomer()
                         dialog.dismiss()
                     }
                     setView(view)
@@ -78,6 +110,7 @@ class AccommodationFragment : Fragment() {
         dialog.show()
     }
 
+    //Group whats app group
     private fun joinWhatAppGroup() {
         val groupIntent = Intent().apply {
             action = Intent.ACTION_VIEW
@@ -92,8 +125,9 @@ class AccommodationFragment : Fragment() {
         }
     }
 
+    //chat customer whats-app group
     private fun chatWhatsAppCustomer(number: String) { //chat accommodation customer care
-        val uri = "https://api.whatsapp.com/send?phone=$number"
+        val uri = "https://api.whatsapp.com/send?phone=+234$number"
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(uri)
         try {
@@ -104,6 +138,7 @@ class AccommodationFragment : Fragment() {
         }
     }
 
+    //chat group link
     private fun chatTelegramCustomer() { //chat telegram accommodation customer service
         val intent = Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse("https://t.me/StrongCode") //or http://telegram.me/userId
@@ -116,7 +151,7 @@ class AccommodationFragment : Fragment() {
         }
     }
 
-
+    //Telegram group link
     private fun joinTelegramGroup() {  //join accommodation telegram group
         val intent = Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse("http://t.me/roarAccommodation")
@@ -129,9 +164,12 @@ class AccommodationFragment : Fragment() {
         }
     }
 
+    //product group link
     private fun productWhatsAppCustomer(number: String) { //chat with product customer care
+        val uri = "https://api.whatsapp.com/send?phone=+234$number"
+
         val intent = Intent(Intent.ACTION_VIEW).apply {
-            data = Uri.parse("https://api.whatsapp.com/send?phone$number")
+            data = Uri.parse(uri)
         }
         try {
             startActivity(intent)
@@ -140,5 +178,4 @@ class AccommodationFragment : Fragment() {
                 Toast.LENGTH_SHORT).show()
         }
     }
-
 }

@@ -118,7 +118,7 @@ class MarketProfile : Fragment() {
                 it.toObject(FirebaseUser::class.java).also { user ->
                     client = user!!
                     phoneNumber.text = user.clientPhone
-                    profileImage.load(client.clientUrl)
+                    profileImage.load(client.clientImage)
                     computeRemainingDay(client.expired!!)
                     hideProgress()
                 }

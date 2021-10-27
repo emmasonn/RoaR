@@ -9,18 +9,19 @@ import java.util.*
 @IgnoreExtraProperties
 @Parcelize data class FirebaseProperty (
     var id: String? = null,
-    var propertyTitle: String? = null,
-    var propertyPrice: String? = null,
-    var firstImage: String? = null,
-    var propertyDesc : String? = null,
-    var propertyType: String? = null,
+    var productName: String? = null,
+    var productPrice: String? = null,
+    var coverImage: String? = null,
+    var description : String? = null,
+    var type: String? = null,
     var sellerName: String? = null,
     var sellerNumber: String? = null,
     var sellerId: String? = null,
-    var sellerUrl: String? = null,
-    var specials: String? = null,
-    var brandName: String? = null,
+    var sellerImage: String? = null,
+    var promo: String? = null,
+    var brand: String? = null,
     var certified: Boolean? = null,
+    var video: String? = null,
     var campus: String? = null,
     @ServerTimestamp var postDate: Date? = null
     ): Parcelable

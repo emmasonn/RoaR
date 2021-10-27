@@ -60,7 +60,7 @@
     <string name="estate_pro">Professional</string>
     <string name="format_property_header">%s  for sale</string>
     <string name="tour_title">%s\tTour</string>
-    <string name="about_us">We provide digital platform where  geniune businesses  and enterpreneur can engage their audience with their products and services.</string>
+    <string name="about_us">We provide real estate services on lodges within University of Nigeria, campus. We also provide digital platform where  genuine businesses  and entrepreneur can engage their audience with their products and services.</string>
     <string name="customer_rule1">Direct question pertaining to your personal temporary accommodation to our WhatsApp accommodation customer service and not in the WhatsApp group</string>
     <string name="customer_rule2">Members are not allowed to make calls to customer service anytime, please tell your questions and problems directly, they can identify and answer back as soon as possible</string>
     <string name="customer_rule3">The WhatsApp and Telegram group on this screen are the only groups which are officially authorized by RoaR, members should join at least one of the community groups to keep pace with other members.</string>
@@ -74,8 +74,8 @@
     <string name="term2">Members are not allowed to make calls to customer service anytime, please tell your questions and problems directly, they can identify and answer back as soon as possible</string>
     <string name="term3">The WhatsApp and Telegram group on this screen are the only groups which are officially authorized by RoaR, members should join at least one of the community groups to keep pace with other members.</string>
     <string name="term4">Members should not believe any other platforms or links which are posted in our groups by some people who have an ulterior motive, you will bear the consequences of all such acts take if you do so.</string>
-    <string name="term5">Members should not make a payment to any account which is not belong to RoaR, please be aware of being defrauded.</string>
-    <string name="term6">The quality of customer service is one of the most foundation of RoaR, if anyone of the customer service hasn\'t served you well, please send feedback to complain about his or her service with their mobile number at Roar@gmail.com</string>
+    <string name="term5">Members should not make a payment to any account which does not belong to RoaR, please be aware of being defrauded.</string>
+    <string name="term6">The quality of customer service is one of the most foundation of RoaR, if anyone of the customer service hasn\'t served you well, please send feedback to complain about his or her service with their mobile number at roar.escrow.mailbox@gmail.com</string>
     <!-- TODO: Remove or change this placeholder text -->
 
     <string name="privacyAndTerms">
@@ -106,11 +106,14 @@
     <string name="select_string">Select</string>
     <string name="select_admin">Select Admin</string>
     <string name="online">Online</string>
-    <string name="no_item_string">No item has been added here yet.</string>
-    <string name="failed_to_load_item">Failed to load item</string>
+    <string name="no_item_string">No item has been added here.</string>
+    <string name="failed_to_load_item">No internet connection</string>
     <string name="check_your_internet_connection">Check your Internet Connection</string>
     <string name="ads">ads</string>
     <string name="campus_top_sales">Campus Top Sales</string>
     <string name="call_now">Call Now</string>
     <string name="about_us_title">About us</string>
+    <string name="firestore_products">properties</string>
+    <string name="firestore_lodges">lodges</string>
+    <string name="firestore_others">others</string>
 </resources>

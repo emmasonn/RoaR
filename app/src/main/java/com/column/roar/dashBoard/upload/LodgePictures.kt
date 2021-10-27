@@ -12,6 +12,7 @@ import com.column.roar.cloudModel.FirebaseLodgePhoto
 import com.column.roar.listAdapters.ClickListener
 import com.column.roar.listAdapters.UploadPhotosAdapter
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -48,11 +49,8 @@ class LodgePictures : Fragment() {
         val uploadRecycler = view.findViewById<RecyclerView>(R.id.uploaded)
         val uploadBtn = view.findViewById<MaterialButton>(R.id.uploadBtn)
         uploadPhotosAdapter = UploadPhotosAdapter(ClickListener ({
-            lodgePhotos.document(it.photoId!!).delete().addOnCompleteListener {
-                Toast.makeText(requireContext(),
-                    "Photo has Deleted successfully", Toast.LENGTH_SHORT).show()
-            }
-        }))
+            showDeleteDialog(it.id!!)
+        },{}))
         uploadBtn.setOnClickListener {
             pagerObject.moveForward()
         }
@@ -68,6 +66,34 @@ class LodgePictures : Fragment() {
             }.also {
                 uploadPhotosAdapter.submitList(it)
             }
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        registration.remove() //is detach best for removing listener
+    }
+
+    private fun deleteCard(id: String) {
+        val document = lodgePhotos.document(id)
+        document.delete().addOnSuccessListener {
+            Toast.makeText(requireContext(),"Deleted Successfully",Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener {
+            Toast.makeText(requireContext(),"Failed Successfully",Toast.LENGTH_SHORT).show()
+        }
+    }
+
+   private fun showDeleteDialog(stringId: String) {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("Do you want to delete Photo")
+            setPositiveButton("Yes") { dialog, _ ->
+                dialog.dismiss()
+                deleteCard(stringId)
+            }
+            setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
         }
     }
 

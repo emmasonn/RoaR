@@ -9,20 +9,21 @@ import java.util.*
 @IgnoreExtraProperties
 @Parcelize
 data class FirebaseUser (
-    var clientId: String? = null,
-    var clientUrl: String? = null,
-    var clientName: String? = null,
-    var visitCounter: Long? = null,
-    var clientPhone: String? = null,
-    var slots: String? = null,
-    var certified: Boolean? = null,
-    var identityCard: String? = null,
-    var whySuspended: String? = null,
-    var accountType: String? = null,
-    var brandName: String? = null,
-    var password: String? = null,
-    var campus: String? = null,
+    var account: String? = null,
     var adminId: String? = null,//store id of admin that manages the account
+    var campus: String? = null,
+    var clientId: String? = null,
+    var clientImage: String? = null,
+    var clientName: String? = null,
+    var clientPhone: String? = null,
+    var counter: Long? = null,
+    var certified: Boolean? = null,
+    var productService: String? = null, //stores customer service contact for product
+    var lodgeService: String? = null,
+    var slots: String? = null,
+    var report: String? = null,
+    var brand: String? = null,
+    var password: String? = null,
     @ServerTimestamp var expired: Date? = null,
     @ServerTimestamp var date: Date? = null
     ):Parcelable

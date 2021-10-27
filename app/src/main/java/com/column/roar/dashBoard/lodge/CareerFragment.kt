@@ -118,7 +118,7 @@ class CareerFragment : Fragment() {
             val view = inflater.inflate(R.layout.edit_room_dialog,null)
             val roomField = view.findViewById<TextInputEditText>(R.id.roomNumber)
             roomField.hint = "Available Room Number"
-            roomField.setText(lodge.availableRoom.toString())
+            roomField.setText(lodge.rooms.toString())
 
             setPositiveButton("Submit") { _, _ ->
                 val number = roomField.text.toString()

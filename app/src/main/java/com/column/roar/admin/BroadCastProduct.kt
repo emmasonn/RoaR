@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.column.roar.R
+import com.column.roar.cloudModel.FirebaseLodgePhoto
 import com.column.roar.cloudModel.FirebaseProperty
 import com.column.roar.listAdapters.ManagePropertyListAdapter
 import com.column.roar.listAdapters.storeAdapter.PropertyListAdapter.*
@@ -44,7 +45,7 @@ class BroadCastProduct : Fragment() {
         super.onCreate(savedInstanceState)
         fireStore = FirebaseFirestore.getInstance()
         productsRef = fireStore.collection("properties")
-            .orderBy("postDate",Query.Direction.DESCENDING)
+            .orderBy("postDate", Query.Direction.DESCENDING)
 
         productCollection = fireStore.collection("properties")
     }
@@ -66,11 +67,12 @@ class BroadCastProduct : Fragment() {
 
         managePropertyAdapter = ManagePropertyListAdapter(
             PropertyClickListener(
-            {},{}, { product ->
-                    product?.let {
-                        editDialog(product)
-                    }
-                }))
+                {}, { product ->
+                    editDialog(product)
+                }, { products ->
+                    navigateToAddOthers(products!!)
+                })
+        )
         manageProductsRecycler.adapter = managePropertyAdapter
 
         swipeContainer.setOnRefreshListener {
@@ -90,17 +92,28 @@ class BroadCastProduct : Fragment() {
             snapShot.documents.mapNotNull {
                 it.toObject(FirebaseProperty::class.java)
             }.also { properties ->
-                managePropertyAdapter.submitList(properties.filter { it.propertyType != "Ads" })
+                managePropertyAdapter.submitList(properties.filter { it.type != "Ads" })
                 swipeContainer.isRefreshing = false
             }
         }
     }
 
+    private fun navigateToAddOthers(others: FirebaseProperty) {
+        val firebaseLodgePhoto = FirebaseLodgePhoto(
+            id = others.id,
+            image = others.coverImage,
+            title = others.productName,
+            video = "none",
+        )
+        val bundle = bundleOf("property" to firebaseLodgePhoto)
+        findNavController().navigate(R.id.addBusinessProduct, bundle)
+    }
+
     //use this function to notify user on any update on lodges
     private fun notifySubscribers(firebaseProperty: FirebaseProperty) {
         val title = getString(R.string.product_notification_channel_name)
-        val message = "Check this Product: ${firebaseProperty.propertyTitle}"
-        Timber.i("Message: /topics/${firebaseProperty.propertyType}")
+        val message = "Check this Product: ${firebaseProperty.productName}"
+        Timber.i("Message: /topics/${firebaseProperty.type}")
 
         val pushNotification = PushNotification(
             NotificationData(
@@ -108,43 +121,45 @@ class BroadCastProduct : Fragment() {
                 title,
                 message,
                 "Product",
-                firebaseProperty.firstImage
+                firebaseProperty.coverImage
             ),
-            "/topics/${firebaseProperty.propertyType}"
+            "/topics/${firebaseProperty.type}"
         )
         sendNotification(pushNotification)
     }
 
-    private fun sendNotification(notification: PushNotification)
-    = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            RetrofitInstance.api.postNotification(notification).also {
+    private fun sendNotification(notification: PushNotification) =
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                RetrofitInstance.api.postNotification(notification).also {
+                    lifecycleScope.launch {
+                        Toast.makeText(requireContext(), "Notification Sent", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            } catch (e: Exception) {
+                Timber.e(e, "failed to send request")
                 lifecycleScope.launch {
-                    Toast.makeText(requireContext(),"Notification Sent",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Cannot send Notification", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
-        }catch (e: Exception) {
-            Timber.e(e,"failed to send request")
-            lifecycleScope.launch {
-                Toast.makeText(requireContext(),"Cannot send Notification",Toast.LENGTH_SHORT).show()
-            }
         }
-    }
 
     @SuppressLint("InflateParams")
     private fun editDialog(firebaseProperty: FirebaseProperty): AlertDialog {
-      editDialog =  MaterialAlertDialogBuilder(requireContext()).apply {
+        editDialog = MaterialAlertDialogBuilder(requireContext()).apply {
             val inflater = LayoutInflater.from(requireContext())
-            val view = inflater.inflate(R.layout.item_edit_product_dialog,null)
+            val view = inflater.inflate(R.layout.item_edit_product_dialog, null)
 
             val editBtn = view.findViewById<TextView>(R.id.dialogEditItem)
             val deleteBtn = view.findViewById<TextView>(R.id.dialogDeleteItem)
             val notifyBtn = view.findViewById<TextView>(R.id.notifyBtn)
-          val approveBtn = view.findViewById<TextView>(R.id.approveItem)
+            val approveBtn = view.findViewById<TextView>(R.id.approveItem)
 
             editBtn.setOnClickListener {
                 editDialog.dismiss()
-                val bundle = bundleOf("product" to firebaseProperty )
+                val bundle = bundleOf("product" to firebaseProperty)
                 findNavController().navigate(R.id.uploadProperty, bundle)
             }
 
@@ -171,16 +186,22 @@ class BroadCastProduct : Fragment() {
 
 
     private fun approveItem(id: String) {
-        productCollection.document(id).update("certified",true)
-            .addOnSuccessListener { Toast.makeText(requireContext(),"Item Approved",Toast.LENGTH_SHORT).show() }
+        productCollection.document(id).update("certified", true)
+            .addOnSuccessListener {
+                Toast.makeText(
+                    requireContext(),
+                    "Item Approved",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
     }
 
     private fun deleteCard(id: String) {
         val document = productCollection.document(id)
         document.delete().addOnSuccessListener {
-            Toast.makeText(requireContext(),"Deleted Successfully",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Deleted Successfully", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener {
-            Toast.makeText(requireContext(),"Failed Successfully",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Failed Successfully", Toast.LENGTH_SHORT).show()
         }
     }
 }

@@ -46,7 +46,6 @@
                 android:id="@+id/titleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{lodgeDetail.randomId}"
                 android:layout_marginStart="@dimen/title_start_margin"
                 android:textAppearance="@style/Widget.Toolbar.title"
                 app:layout_constraintBottom_toBottomOf="@+id/backBtn"
@@ -186,7 +185,7 @@
                 android:id="@+id/textView81"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Area"
+                android:text="Size"
                 app:layout_constraintStart_toEndOf="@+id/imageView50"
                 app:layout_constraintTop_toTopOf="@+id/textView8" />
 
@@ -212,6 +211,7 @@
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/yellow_200"
                 app:cardElevation="20dp"
+                app:cardCornerRadius="0dp"
                 android:layout_margin="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -251,7 +251,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
-                        android:text="@{lodgeDetail.availableRoom.toString()}"
+                        android:text="@{lodgeDetail.rooms.toString()}"
                         android:textAppearance="?attr/textAppearanceHeadline6"
                         android:textColor="@color/blue_700"
                         android:alpha="0"
@@ -378,7 +378,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="15dp"
-                                    android:text="@{@string/format_price_integer(lodgeDetail.subPayment)}"
+                                    android:text="@{@string/format_price_integer(lodgeDetail.payment)}"
                                     android:textAppearance="?attr/textAppearanceHeadline5"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/rentTitle"
@@ -410,7 +410,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="15dp"
-                                    android:text="@{@string/format_price(lodgeDetail.initialPayment)}"
+                                    android:text="@{@string/format_price(lodgeDetail.rent)}"
                                     android:textAppearance="?attr/textAppearanceHeadline5"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/intTitle"
@@ -433,6 +433,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="20dp"
                                     android:text="Description"
+                                    android:textStyle="bold"
                                     android:textAppearance="?attr/textAppearanceBody1"
                                     app:layout_constraintEnd_toStartOf="@+id/view"
                                     app:layout_constraintHorizontal_bias="0.3"
@@ -482,6 +483,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
+                                android:textStyle="bold"
                                 android:text="Lodge Condition"
                                 android:textAppearance="?attr/textAppearanceBody1"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -657,7 +659,7 @@
                                     android:layout_marginTop="5dp"
                                     android:elevation="10dp"
                                     android:fontFamily="@font/montserrat_extra_bold"
-                                    android:text="@{lodgeDetail.brandName}"
+                                    android:text="@{lodgeDetail.brand}"
                                     android:textAlignment="center"
                                     android:textAppearance="?attr/textAppearanceSubtitle1"
                                     android:textColor="@color/blue_100"
@@ -738,37 +740,92 @@
                             android:layout_height="wrap_content"
                             android:elevation="10dp"
                             android:layout_marginEnd="20dp"
-                            android:layout_marginBottom="70dp"
+                            android:layout_marginBottom="20dp"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="15dp"
                             app:gnt_template_type="@layout/gnt_medium_template_view"
                             />
-
                         <TextView
                             android:id="@+id/similarLodges"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="15dp"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             android:textStyle="bold"
                             android:text="Other similar lodges"
                             android:textAppearance="?attr/textAppearanceBody1"
                             />
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/othersRecycler"
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="5dp"
-                            android:orientation="horizontal"
-                            android:visibility="gone"
-                            android:scrollbarStyle="outsideOverlay"
-                            android:scrollbars="horizontal"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            tools:listitem="@layout/item_lodges_layout" />
+                            android:layout_height="wrap_content">
 
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/othersRecycler"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="100dp"
+                                android:orientation="horizontal"
+                                android:visibility="visible"
+                                android:scrollbarStyle="outsideOverlay"
+                                android:scrollbars="horizontal"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                tools:listitem="@layout/item_lodges_layout"
+                                tools:ignore="TooManyViews" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/emptyListView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:cardCornerRadius="2dp"
+                                android:visibility="visible"
+                                android:layout_margin="20dp"
+                                app:layout_constraintVertical_bias="0.3"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:strokeColor="@color/white_300"
+                                app:strokeWidth="0.5dp">
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <ImageView
+                                    android:id="@+id/imageView25"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:src="@drawable/ic_empty_list"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_bias="0.19"
+                                    tools:ignore="ContentDescription" />
+                                <TextView
+                                    android:id="@+id/textView"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginEnd="20dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:fontFamily="@font/montserrat_extra_bold"
+                                    android:text="@string/no_item_string"
+                                    android:textAlignment="center"
+                                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/imageView25" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                            </com.google.android.material.card.MaterialCardView>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
             </com.google.android.material.card.MaterialCardView>

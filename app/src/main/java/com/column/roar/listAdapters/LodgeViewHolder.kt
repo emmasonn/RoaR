@@ -15,30 +15,29 @@ class LodgeViewHolder (val itemView: View):
 
     private val lodgeImage = itemView.findViewById<ImageView>(R.id.viewFlipper)
     private val initialPrice = itemView.findViewById<TextView>(R.id.lodgePrice)
-    private val lodgeName = itemView.findViewById<TextView>(R.id.lodgeTitle)
+    private val lodgeTitle = itemView.findViewById<TextView>(R.id.lodgeTitle)
     private val location = itemView.findViewById<TextView>(R.id.location)
     private val exploreBtn =  itemView.findViewById<MaterialButton>(R.id.exploreBtn)
     private val available = itemView.findViewById<TextView>(R.id.availableRoom)
     private val campus = itemView.findViewById<TextView>(R.id.campus)
     private val lock = itemView.findViewById<ImageView>(R.id.lockLodge)
-
     private val resource = itemView.resources
 
     fun bind(data: FirebaseLodge, listener: LodgeClickListener) {
-        initialPrice.text = resource.getString(R.string.format_price_integer, data.subPayment)
-        lodgeName.text = data.randomId
+        initialPrice.text = resource.getString(R.string.format_price_integer, data.payment)
+        lodgeTitle.text = data.hiddenName
         location.text = data.location
         campus.text = data.campus
-        if(data.availableRoom == null) {
+        if(data.rooms == null) {
             lock.alpha = 1F
         }else {
-            if(data.availableRoom == 0L) {
+            if(data.rooms == 0L) {
                 lock.alpha = 1F
                  available.alpha = 0F
             }else {
                 lock.alpha = 0F
                 available.alpha = 1F
-                available.text = data.availableRoom.toString()
+                available.text = data.rooms.toString()
             }
         }
 

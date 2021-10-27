@@ -55,7 +55,7 @@ class LodgeUploadImage : Fragment() {
         super.onCreate(savedInstanceState)
         fireStore = Firebase.firestore
         storage = FirebaseStorage.getInstance()
-        lodgeDocument = fireStore.collection("lodges").document(pagerObject.lodgesData.lodgeId!!)
+        lodgeDocument = fireStore.collection(getString(R.string.firestore_lodges)).document(pagerObject.lodgesData.lodgeId!!)
         lodgePhotos = lodgeDocument.collection("lodgePhotos")
     }
 
@@ -86,7 +86,6 @@ class LodgeUploadImage : Fragment() {
 
             lifecycleScope.launch(Dispatchers.Main){
                 if(lodgeView!!.isNotBlank()) {
-                    Timber.i(("view: $lodgeView"))
                     showLoadingBar()
                     processLodgeImage(lodgeImage!!)
                 }else {
@@ -164,7 +163,7 @@ class LodgeUploadImage : Fragment() {
         Timber.i("Storing image on Storage")
         val storageRef: StorageReference =
             storage.reference.child(
-                "images/Realtor/${pagerObject.lodgesData.lodgeName!!}/${uid}/"
+                "images/houses/${uid}.jpg"
             )
         //var imageUri: String? = null
         imageByte?.let { imageByteArray ->
@@ -184,25 +183,30 @@ class LodgeUploadImage : Fragment() {
                     if(lodgeView == "Cover Image") {
                         lodgeDocument.update("coverImage", imageUri).addOnSuccessListener {
                             Toast.makeText(requireContext(),"Cover Image Uploaded",Toast.LENGTH_SHORT).show()
+                            hideLoadingBar()
+                            selectedImage.clear()
                         }
-                    }else {
+                    } else{
 
                         val lodgePhoto = FirebaseLodgePhoto(
-                            photoId = uid,
-                            photoUrl = imageUri,
-                            photoTitle = lodgeView
+                            id = uid,
+                            image = imageUri,
+                            title = lodgeView
                         )
+
                         lodgePhotos.document(uid).set(lodgePhoto).addOnSuccessListener {
                             Toast.makeText(requireContext(),
                                 "Picture has uploaded",Toast.LENGTH_SHORT).show()
+
                             hideLoadingBar()
                             pagerObject.moveBackward()
+
                         }.addOnFailureListener {
                             Toast.makeText(requireContext(),
                                 "Upload Failed",Toast.LENGTH_SHORT).show()
+                            hideLoadingBar()
                         }
                         selectedImage.clear()
-
                     }
                 }
             }//end complete listener

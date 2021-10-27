@@ -26,33 +26,40 @@ class UploadPhotosAdapter(private val clickListener: ClickListener) :
         holder.bind(item, clickListener)
     }
 
-    class UploadPhotosViewHolder (private val itemView: View)
-        : RecyclerView.ViewHolder(itemView){
+    class UploadPhotosViewHolder (itemView: View)
+        : RecyclerView.ViewHolder(itemView) {
 
-          private val deleteBtn = itemView.findViewById<ImageView>(R.id.deleteBtn)
           private val imageTitle = itemView.findViewById<TextView>(R.id.imageTitle)
           private val imageView = itemView.findViewById<ImageView>(R.id.imageLink)
-
           private val resource = itemView.resources
             fun bind(data: FirebaseLodgePhoto, listener: ClickListener) {
-                deleteBtn.setOnClickListener {
-                    listener.removeClick(data)
+                imageTitle.text = resource.getString(R.string.format_brandName,data.title)
+
+                data.title?.let {
+                    imageTitle.alpha = 1F
                 }
 
-                imageTitle.text = resource.getString(R.string.format_brandName,data.photoTitle)
-
                 Glide.with(imageView.context)
-                    .load(data.photoUrl).apply(
+                    .load(data.image).apply(
                         RequestOptions().placeholder(R.drawable.animated_gradient)
                             .error(R.drawable.animated_gradient)
                     ).into(imageView)
+
+                itemView.setOnLongClickListener {
+                    listener.removeClick(data)
+                    true
+                }
+
+                itemView.setOnClickListener {
+                    listener.clickAction(data)
+                }
             }
     }
 
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<FirebaseLodgePhoto>() {
             override fun areItemsTheSame(oldItem: FirebaseLodgePhoto, newItem: FirebaseLodgePhoto): Boolean {
-                return oldItem.photoId == newItem.photoId
+                return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(oldItem: FirebaseLodgePhoto, newItem: FirebaseLodgePhoto): Boolean {
@@ -60,7 +67,6 @@ class UploadPhotosAdapter(private val clickListener: ClickListener) :
             }
         }
     }
-
 }
 
 class ClickListener(

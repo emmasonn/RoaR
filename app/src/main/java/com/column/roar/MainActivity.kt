@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.mainNavHost)
 
         adView = AdView(this)
-        adView.adUnitId = "ca-app-pub-3940256099942544/6300978111"
+        adView.adUnitId = "ca-app-pub-4621350369277741/4437657701"
         adViewParent.addView(adView)
         adView.adSize = getScreenSize()
 
@@ -202,7 +202,6 @@ class MainActivity : AppCompatActivity() {
                 val deepLink = Uri.parse("https://unnapp.page.link/lodges/$lodgeId")
                 navController.navigate(deepLink)
             }
-
             "product_notifier" -> {
                 val link = Uri.parse("https://unnapp.page.link/ads/${productId}")
                 navController.navigate(link)
@@ -217,7 +216,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.Default) {
         val adRequest = AdRequest
             .Builder().build()
-            delay(1000)
+            delay(2000)
             withContext(Dispatchers.Main) {
                 adView.loadAd(adRequest)
             }
@@ -257,9 +256,9 @@ class MainActivity : AppCompatActivity() {
         withContext(Dispatchers.Default) {
             val products = sharedPreferences.getStringSet("product_topics", null)
              Timber.i("products: $products")
-            products?.forEach { myTopic ->
+             products?.forEach { myTopic ->
                 subscribeTopics("/topics/${myTopic}")
-            }
+             }
         }
     }
 
@@ -283,7 +282,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun smallAdvertNativeAd() {
-        val adLoader = AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110")
+        val adLoader = AdLoader.Builder(this, "ca-app-pub-4621350369277741/2666600409")
             .forNativeAd { ad: NativeAd ->
                 run {
                     lifecycleScope.launch(Dispatchers.Main){
@@ -300,7 +299,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun otherSmallNativeAds() {
-        val adLoader = AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110")
+        val adLoader = AdLoader.Builder(this, "ca-app-pub-4621350369277741/4881700209")
             .forNativeAd { ad: NativeAd ->
                 run {
                     lifecycleScope.launch(Dispatchers.Main){
@@ -317,7 +316,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun mediumAdvertNativeAd() {
-        val adLoader = AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110")
+        val adLoader = AdLoader.Builder(this, "ca-app-pub-4621350369277741/2802331770")
             .forNativeAd { ad: NativeAd ->
                 run {
                     lifecycleScope.launch(Dispatchers.Main){

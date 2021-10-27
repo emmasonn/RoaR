@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,7 @@ import com.column.roar.cloudModel.FirebaseLodgePhoto
 import com.column.roar.cloudModel.FirebaseProperty
 import com.column.roar.listAdapters.ClickListener
 import com.column.roar.listAdapters.UploadPhotosAdapter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -35,8 +37,9 @@ class ManageAds : Fragment() {
         super.onCreate(savedInstanceState)
         fireStore = FirebaseFirestore.getInstance()
         productCollection = fireStore.collection("properties")
-        productsRef = productCollection.whereEqualTo("propertyType","Ads")
-            .orderBy("postDate",Query.Direction.DESCENDING)
+        productsRef = productCollection.whereEqualTo("type","Ads")
+            .orderBy("postDate", Query.Direction.DESCENDING)
+
         lodgeCollection = fireStore.collection("properties")
     }
 
@@ -61,11 +64,13 @@ class ManageAds : Fragment() {
         }
 
         uploadPhotosAdapter = UploadPhotosAdapter(ClickListener ({
-            deleteCard(it.photoId!!)
+            showDeleteDialog(it.id!!)
+        },{
+            val bundle = bundleOf("property" to it)
+            findNavController().navigate(R.id.addBusinessProduct, bundle)
         }))
 
         manageProductsRecycler.adapter = uploadPhotosAdapter
-
         swipeContainer.setOnRefreshListener {
             fetchProducts()
         }
@@ -97,9 +102,10 @@ class ManageAds : Fragment() {
             }.also { properties ->
                 properties.map {
                     FirebaseLodgePhoto(
-                        photoId = it.id,
-                        photoTitle = it.brandName,
-                        photoUrl = it.firstImage
+                        id = it.id,
+                        title = it.brand,
+                        image = it.coverImage,
+                        video = it.video
                     )
                 }.let {
                     lifecycleScope.launchWhenCreated {
@@ -115,4 +121,18 @@ class ManageAds : Fragment() {
         }
     }
 
+
+    private fun showDeleteDialog(stringId: String) {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("Do you Want to delete Photo")
+            setPositiveButton("Yes") { dialog, _ ->
+                dialog.dismiss()
+                deleteCard(stringId)
+            }
+            setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            show()
+        }
+    }
 }

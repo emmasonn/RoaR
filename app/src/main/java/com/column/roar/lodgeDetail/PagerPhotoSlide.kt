@@ -33,8 +33,8 @@ class PagerPhotoSlide : Fragment() {
         mediumNativeAdView = view.findViewById(R.id.pagerMediumAd)
 
         Toast.makeText(requireContext(),
-            "imgUrl: ${adPhoto.adUrl}",Toast.LENGTH_SHORT).show()
-        adImageView.load(adPhoto.adUrl)
+            "imgUrl: ${adPhoto.image}",Toast.LENGTH_SHORT).show()
+        adImageView.load(adPhoto.image)
 
         mediumNativeAdView.setNativeAd(nativeAd)
         if(isDetached) {

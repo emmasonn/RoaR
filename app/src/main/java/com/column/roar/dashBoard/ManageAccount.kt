@@ -82,7 +82,7 @@ class ManageAccount : Fragment() {
 
         //load the current data from bundle
         fullName.text = client.clientName
-        clientImage.load(client.clientUrl)
+        clientImage.load(client.clientImage)
         phoneNumber.text = client.clientPhone
 
         backBtn.setOnClickListener {
@@ -230,7 +230,7 @@ class ManageAccount : Fragment() {
             value?.toObject(FirebaseUser::class.java).also { client ->
                 arguments = bundleOf("Client" to client)
                 fullName.text = client?.clientName
-                clientImage.load(client?.clientUrl)
+                clientImage.load(client?.clientImage)
                 phoneNumber.text = client?.clientPhone
             }
         }
