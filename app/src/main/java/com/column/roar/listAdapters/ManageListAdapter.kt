@@ -52,8 +52,8 @@ class ManageListAdapter (private val manageAdapterListener: ManageAdapterListene
             lodgeTitle.text = data.lodgeName
             location.text = data.location
             campus.text = data.campus
-            ownerName.text = data.landLord
-            ownerPhone.text = data.ownerPhone
+            ownerName.text = data.owner
+            ownerPhone.text = data.number
             availableRoom.text = data.rooms.toString()
 
             if(data.certified!=null && data.certified == true) {

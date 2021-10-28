@@ -34,8 +34,7 @@
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="@+id/propertyImage"
-                app:layout_constraintStart_toStartOf="parent"
->
+                app:layout_constraintStart_toStartOf="parent">
                 <ImageView
                     android:layout_width="10dp"
                     android:layout_height="10dp"

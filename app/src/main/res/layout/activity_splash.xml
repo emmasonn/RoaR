@@ -8,19 +8,22 @@
     tools:context=".SplashActivity">
 
   <com.google.android.material.card.MaterialCardView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
+      app:cardElevation="10dp"
+      app:cardBackgroundColor="?attr/colorPrimary"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent">
+      app:layout_constraintTop_toTopOf="parent"
+      app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle100"
+      >
     <ImageView
         android:id="@+id/iconView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/ic_emma_icon"
-        android:scaleType="fitXY"
-        android:elevation="10dp"
+        android:scaleType="centerCrop"
         tools:ignore="ContentDescription" />
   </com.google.android.material.card.MaterialCardView>
 

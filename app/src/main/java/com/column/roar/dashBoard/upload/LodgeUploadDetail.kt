@@ -190,11 +190,11 @@ class LodgeUploadDetail : Fragment() {
         initialPay.setText(lodge?.rent)
         campus.editText?.setText(lodge?.campus)
         lodgeType.editText?.setText(lodge?.type)
-        landLordName.setText(lodge?.landLord)
-        landLordPhone.setText(lodge?.ownerPhone)
+        landLordName.setText(lodge?.owner)
+        landLordPhone.setText(lodge?.number)
         lodgeDesc.setText(lodge?.description)
-        landLordName.setText(lodge?.landLord)
-        landLordPhone.setText(lodge?.ownerPhone)
+        landLordName.setText(lodge?.owner)
+        landLordPhone.setText(lodge?.number)
         lodgeSize.editText?.setText(lodge?.size)
         availableRoom.setText(lodge?.rooms?.toString())
         lodge?.let {
@@ -246,8 +246,8 @@ class LodgeUploadDetail : Fragment() {
             payment = subPayment,
             rent = initialPay,
             distance = distance,
-            landLord = ownerName,
-            ownerPhone = ownerPhone
+            owner = ownerName,
+            number = ownerPhone
         )
 
         clientDocument.get().addOnSuccessListener {

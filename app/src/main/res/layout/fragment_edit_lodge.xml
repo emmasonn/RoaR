@@ -344,6 +344,7 @@
                                     android:id="@+id/coverImage"
                                     android:layout_width="match_parent"
                                     android:layout_height="200dp"
+                                    android:scaleType="centerCrop"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -354,6 +355,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
                                     android:text="Description"
+                                    android:textStyle="bold"
                                     android:textAppearance="?attr/textAppearanceSubtitle1"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="@+id/desc"
@@ -404,6 +406,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp"
                                 android:text="Lodge Condition"
+                                android:textStyle="bold"
                                 android:textAppearance="?attr/textAppearanceSubtitle1"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"

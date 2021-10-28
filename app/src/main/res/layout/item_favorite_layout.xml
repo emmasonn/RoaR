@@ -19,44 +19,28 @@
         android:layout_marginBottom="10dp">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/yellow_200"
-            app:cardElevation="20dp"
-            app:cardCornerRadius="0dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_margin="10dp"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius"
+            app:cardBackgroundColor="@color/white_100"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle50"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout5">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-
-                <TextView
-                    android:id="@+id/textView58"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:text="Vacant\nRooms"
-                    android:textColor="@color/black_700"
-                    app:layout_constraintEnd_toEndOf="@+id/availableRoom"
-                    app:layout_constraintStart_toStartOf="@+id/availableRoom"
-                    app:layout_constraintTop_toTopOf="parent" />
-
+                android:layout_gravity="center">
                 <ImageView
                     android:id="@+id/lockLodge"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/ic_lock"
+                    android:padding="3dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView58"
-                    app:tint="@color/red_700"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription" />
 
                 <TextView
@@ -64,13 +48,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/blue_700"
-                    android:textSize="22sp"
+                    android:textStyle="bold"
                     android:alpha="0"
-                    android:textAppearance="@style/Widget.Toolbar.title"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:fontFamily="@font/montserrat_extra_bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView58"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="20" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -86,11 +71,14 @@
                     android:src="@drawable/ic_fav_red"
                     android:layout_margin="20dp"
                     android:elevation="20dp"
+                    android:padding="5dp"
+                    android:background="@drawable/white_circle_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/viewFlipper"
                     tools:ignore="ContentDescription" />
 
                 <com.google.android.material.card.MaterialCardView
+                   android:id="@+id/newCard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:cardElevation="10dp"
@@ -106,6 +94,7 @@
                         android:layout_height="wrap_content"
                         android:padding="5dp"
                         android:text="New!"
+                        android:fontFamily="@font/montserrat_bold"
                         android:textAlignment="center"
                         android:textColor="@color/black_700"
                         android:textAppearance="?attr/textAppearanceSubtitle1"
@@ -118,10 +107,8 @@
                     android:layout_height="190dp"
                     android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
                     tools:ignore="ContentDescription"
                     tools:src="@drawable/animated_gradient" />
 
@@ -138,7 +125,7 @@
                     android:id="@+id/lodgePrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceHeadline5"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/montserrat_extra_bold"
                     android:textStyle="bold"
@@ -166,10 +153,10 @@
                     android:layout_height="14dp"
                     android:layout_marginBottom="20dp"
                     android:scaleType="centerCrop"
+                    android:background="@drawable/white_circle_background"
                     android:src="@drawable/ic_locate"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/imageView2"
-                    app:tint="@color/yellow_300"
                     tools:ignore="ContentDescription" />
 
                 <TextView
@@ -237,6 +224,7 @@
                     android:text="Explore"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
                     app:backgroundTint="?attr/colorControlNormal"
                     app:cornerRadius="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -249,10 +237,10 @@
                     android:layout_height="14dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="5dp"
+                    android:background="@drawable/white_circle_background"
                     android:src="@drawable/ic_home"
                     app:layout_constraintBottom_toTopOf="@+id/location"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:tint="@color/yellow_300"
                     tools:ignore="ContentDescription" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

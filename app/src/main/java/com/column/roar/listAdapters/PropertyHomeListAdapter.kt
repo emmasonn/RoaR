@@ -42,13 +42,13 @@ class PropertyHomeListAdapter(private val propertyListener: PropertyClickListene
         fun bind(data: FirebaseProperty, propertyListener: PropertyClickListener) {
 
             Glide.with(firstImage.context)
-                .load(data.coverImage).apply(
+                .load(data.cover).apply(
                     RequestOptions().placeholder(R.drawable.animated_gradient)
                         .error(R.drawable.animated_gradient)
                 ).into(firstImage)
 
-            propertyTitle.text = data.productName
-            propertyPrice.text = resource.getString(R.string.format_price, data.productPrice)
+            propertyTitle.text = data.product
+            propertyPrice.text = resource.getString(R.string.format_price, data.price)
             campus.text = data.campus
 
             itemView.setOnClickListener {

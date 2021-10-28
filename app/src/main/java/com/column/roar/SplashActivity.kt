@@ -30,16 +30,8 @@ class SplashActivity : AppCompatActivity() {
     companion object {
         const val RESULT_WRITE_MEMORY = 123
     }
-    private lateinit var dialogLayout: AlertDialog
-//    private val requestPermissionResult =
-//        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-//            if (isGranted) {
-//                Toast.makeText(this, "Granted", Toast.LENGTH_SHORT).show()
-//            } else {
-//                Toast.makeText(this, "Denied", Toast.LENGTH_SHORT).show()
-//            }
-//        }
 
+    private lateinit var dialogLayout: AlertDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -56,10 +48,6 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
         }
-//
-//        if(!checkPermissionApproved()) {
-//            requestExternalStoragePermission()
-//        }
     }
 
     @SuppressLint("InflateParams")
@@ -144,46 +132,4 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-//    private fun checkPermissionApproved() = ActivityCompat.checkSelfPermission(
-//        this,
-//        Manifest.permission.WRITE_EXTERNAL_STORAGE
-//    ) == PackageManager.PERMISSION_GRANTED
-//
-//    private fun requestExternalStoragePermission() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-//                requestPermissionResult.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//            } else {
-//                requestPermissionResult.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//            }
-//        } else {
-//            requestPermission()
-//        }
-//    }
-//
-//    private fun requestPermission() {
-//        ActivityCompat.requestPermissions(
-//            this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), RESULT_WRITE_MEMORY)
-//    }
-
-//    @SuppressLint("MissingSuperCall")
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        when (requestCode) {
-//            RESULT_WRITE_MEMORY -> {
-//                if ((grantResults.isNotEmpty() &&
-//                            grantResults[0] == PackageManager.PERMISSION_GRANTED)
-//                ) {
-//                    Timber.i("user accepted location permission")
-//                } else {
-//                    Timber.i("User canceled location request")
-//                }
-//                return
-//            }
-//            else -> { }
-//        }
-//    }
 }

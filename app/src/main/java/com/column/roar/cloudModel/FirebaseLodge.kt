@@ -26,13 +26,14 @@ import java.util.*
     var lodgeId: String? = null,
     var lodgeName: String? = null,
     var network: String? = null,
-    var landLord: String? = null,
-    var ownerPhone: String? = null,
+    var owner: String? = null,
+    var number: String? = null,
     var hiddenName: String? = null, //the hidden Name
     var size: String? = null,
     var slots: Int? = null,
     var payment: Int? = null, //the payment name
     var surrounding: String? = null,
+    var seen: Boolean? = null,
     @ServerTimestamp var timeStamp: Date? = null,
     var tour: String? = null, //tour Name
     var type: String? = null, //house

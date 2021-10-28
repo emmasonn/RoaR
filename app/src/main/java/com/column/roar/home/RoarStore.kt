@@ -239,7 +239,7 @@ class RoarStore : Fragment() {
             networkError = this.findViewById(R.id.connectionView)
 
             Glide.with(productImage!!.context)
-                .load(product.coverImage).apply(
+                .load(product.cover).apply(
                     RequestOptions().placeholder(R.drawable.animated_gradient)
                         .error(R.drawable.animated_gradient)
                 ).into(productImage)
@@ -252,8 +252,8 @@ class RoarStore : Fragment() {
             productsRecycler?.adapter = otherProductAdapter
             fetchProduct(product.id!!)
 
-            productName?.text = product.productName
-            productPrice?.text = getString(R.string.format_price,product.productPrice)
+            productName?.text = product.product
+            productPrice?.text = getString(R.string.format_price,product.price)
             aboutProduct?.text = product.description
             hideProgress()
         }
@@ -304,7 +304,7 @@ class RoarStore : Fragment() {
 
         val futureTarget = Glide.with(requireContext())
             .asBitmap()
-            .load(product.coverImage)
+            .load(product.cover)
             .submit()
 
         lifecycleScope.launch(Dispatchers.Default) {
@@ -324,12 +324,12 @@ class RoarStore : Fragment() {
                     longLink = Uri.parse("https://unnapp.page.link/?link=https://unnapp.page.link/ads?productId%3D${product.id}" +
                             "&apn=com.column.roar&st=RoaR+Store" +
                                 "&sd=Nice+product+for+sale,+reviewed+and+trusted" +
-                                "&si=${product.coverImage}")
+                                "&si=${product.cover}")
                 }.addOnSuccessListener { shortLink ->
 
                     lifecycleScope.launchWhenCreated {
-                        val message = "Hi, checkout this *${product.productName}* at *RoaR* \n" +
-                                "*Price: ${getString(R.string.format_price, product.productPrice)}* \n\n " +
+                        val message = "Hi, checkout this *${product.product}* at *RoaR* \n" +
+                                "*Price: ${getString(R.string.format_price, product.price)}* \n\n " +
                                 "*Item Link: ${shortLink.shortLink}* \n"
 
                         shareIntent.putExtra(Intent.EXTRA_TEXT, message)
@@ -446,10 +446,10 @@ class RoarStore : Fragment() {
 
     private fun chatWhatsApp(product: FirebaseProperty) {
         val uri =
-            "https://api.whatsapp.com/send?phone=+234${product.sellerNumber}"
+            "https://api.whatsapp.com/send?phone=+234${product.number}"
 
         lifecycleScope.launch {
-            val imageUri = getImageUri(product.coverImage!!)
+            val imageUri = getImageUri(product.cover!!)
             val intent = Intent().apply {
                 action = Intent.ACTION_VIEW
                 putExtra(Intent.EXTRA_STREAM,imageUri)
@@ -512,7 +512,7 @@ class RoarStore : Fragment() {
             setTitle("You are about to leave app to make call")
             setPositiveButton("Okay") {dialog, _ ->
                 dialog.dismiss()
-                dialPhoneNumber(product.sellerNumber)
+                dialPhoneNumber(product.number)
             }
             setNegativeButton("Cancel") {dialog, _ ->
                 dialog.dismiss()

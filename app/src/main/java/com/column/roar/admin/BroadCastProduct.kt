@@ -46,7 +46,6 @@ class BroadCastProduct : Fragment() {
         fireStore = FirebaseFirestore.getInstance()
         productsRef = fireStore.collection("properties")
             .orderBy("postDate", Query.Direction.DESCENDING)
-
         productCollection = fireStore.collection("properties")
     }
 
@@ -78,7 +77,6 @@ class BroadCastProduct : Fragment() {
         swipeContainer.setOnRefreshListener {
             fetchProducts()
         }
-
         return view
     }
 
@@ -101,8 +99,8 @@ class BroadCastProduct : Fragment() {
     private fun navigateToAddOthers(others: FirebaseProperty) {
         val firebaseLodgePhoto = FirebaseLodgePhoto(
             id = others.id,
-            image = others.coverImage,
-            title = others.productName,
+            image = others.cover,
+            title = others.product,
             video = "none",
         )
         val bundle = bundleOf("property" to firebaseLodgePhoto)
@@ -112,7 +110,7 @@ class BroadCastProduct : Fragment() {
     //use this function to notify user on any update on lodges
     private fun notifySubscribers(firebaseProperty: FirebaseProperty) {
         val title = getString(R.string.product_notification_channel_name)
-        val message = "Check this Product: ${firebaseProperty.productName}"
+        val message = "Check this Product: ${firebaseProperty.product}"
         Timber.i("Message: /topics/${firebaseProperty.type}")
 
         val pushNotification = PushNotification(
@@ -121,7 +119,7 @@ class BroadCastProduct : Fragment() {
                 title,
                 message,
                 "Product",
-                firebaseProperty.coverImage
+                firebaseProperty.cover
             ),
             "/topics/${firebaseProperty.type}"
         )
@@ -159,7 +157,7 @@ class BroadCastProduct : Fragment() {
 
             editBtn.setOnClickListener {
                 editDialog.dismiss()
-                val bundle = bundleOf("product" to firebaseProperty)
+                val bundle = bundleOf("property" to firebaseProperty)
                 findNavController().navigate(R.id.uploadProperty, bundle)
             }
 

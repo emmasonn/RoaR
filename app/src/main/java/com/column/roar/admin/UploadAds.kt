@@ -199,10 +199,10 @@ class UploadAds : Fragment() {
 
                     val lodgePhoto = FirebaseProperty(
                         id = uid,
-                        coverImage = imageUri,
+                        cover = imageUri,
                         brand = title,
                         campus = campus,
-                        sellerNumber = phone,
+                        number = phone,
                         promo = offer,
                         certified = true,
                         type = "Ads"

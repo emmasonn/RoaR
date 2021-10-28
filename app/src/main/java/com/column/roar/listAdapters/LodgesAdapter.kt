@@ -19,6 +19,7 @@ import com.column.roar.listAdapters.adViewHolders.MediumAdViewHolder
 import com.column.roar.listAdapters.adViewHolders.NativeAdViewHolder
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -181,6 +182,7 @@ class LodgesAdapter(
         private val campus = itemView.findViewById<TextView>(R.id.campus)
         private val favBtn = itemView.findViewById<ImageView>(R.id.favBtn)
         private val lock = itemView.findViewById<ImageView>(R.id.lockLodge)
+        private val newCard = itemView.findViewById<MaterialCardView>(R.id.newCard)
         private val resource = itemView.resources
 
         fun bind(data: FirebaseLodge, listener: LodgeClickListener) {
@@ -205,6 +207,11 @@ class LodgesAdapter(
                     available.alpha = 1F
                     available.text = data.rooms.toString()
                 }
+            }
+
+            if(data.seen!=null &&
+                data.seen == true) {
+                newCard.visibility = View.GONE
             }
 
             favBtn?.setOnClickListener {

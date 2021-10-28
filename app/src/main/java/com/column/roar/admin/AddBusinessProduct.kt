@@ -104,7 +104,6 @@ class AddBusinessProduct : Fragment() {
         }
 
         imageBtn.setOnClickListener {
-
         }
 
         othersPhotoAdapter = UploadPhotosAdapter(ClickListener ({

@@ -88,10 +88,15 @@ class LodgeDetail : Fragment() {
         photosReference = fireStore.collection(getString(R.string.firestore_lodges))
             .document(lodgeData.lodgeId!!).collection("lodgePhotos")
 
-        lodgeCollection = fireStore.collection("lodges")
+        lodgeCollection = fireStore.collection(getString(R.string.firestore_lodges))
             .whereNotEqualTo("lodgeId", lodgeData.lodgeId)
         //replace lodgeId with agentId when it is not null
         clientDocumentRef = fireStore.collection("clients").document(lodgeData.agentId!!)
+    }
+
+    private fun updateSeen() {
+        fireStore.collection(getString(R.string.firestore_lodges)).document(lodgeData.lodgeId!!)
+            .update("seen",true)
     }
 
     override fun onCreateView(
@@ -125,6 +130,12 @@ class LodgeDetail : Fragment() {
                 favIcon.visibility = View.GONE
                 storeFavId(favModelDao.getFavOnce())
             }
+        }
+
+        if (lodgeData.seen==null){
+            updateSeen()
+        }else if(!lodgeData.seen!!) {
+            updateSeen()
         }
 
         binding.shareBtn.setOnClickListener {
@@ -206,6 +217,8 @@ class LodgeDetail : Fragment() {
         }
         return binding.root
     }
+
+
 
     private fun fetchLodgeAndPhotos() {
         val source = Source.DEFAULT

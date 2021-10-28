@@ -433,7 +433,7 @@ class HomeFragment : Fragment() {
 
             adImage?.let {
                 Glide.with(adImage.context)
-                    .load(product.coverImage)
+                    .load(product.cover)
                     .apply(
                         RequestOptions()
                             .placeholder(R.drawable.animated_gradient)
@@ -446,8 +446,8 @@ class HomeFragment : Fragment() {
         networkError = bottomSheetLayout.findViewById(R.id.connectionView)
         emptyList = bottomSheetLayout.findViewById(R.id.emptyListView)
 
-        callBtn?.setOnClickListener { product.sellerNumber?.let { it1 -> callDialog(it1) } }
-        whatsAppBtn?.setOnClickListener { product.sellerNumber?.let { it1 -> whatsAppDialog(it1) } }
+        callBtn?.setOnClickListener { product.number?.let { it1 -> callDialog(it1) } }
+        whatsAppBtn?.setOnClickListener { product.number?.let { it1 -> whatsAppDialog(it1) } }
         bottomSheetLayout.show()
         swipeContainer.isRefreshing = false
     }
@@ -568,7 +568,7 @@ class HomeFragment : Fragment() {
     //whats-App dialog
     private fun whatsAppDialog(data: String) {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle("You are about leave app to WhatsApp")
+            setTitle("You are about to leave app to WhatsApp")
             setPositiveButton("Okay") { dialog, _ ->
                 dialog.dismiss()
                 chatWhatsApp(data)

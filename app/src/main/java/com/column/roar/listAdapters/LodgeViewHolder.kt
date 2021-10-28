@@ -9,6 +9,7 @@ import com.column.roar.cloudModel.FirebaseLodge
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 
 class LodgeViewHolder (val itemView: View):
     RecyclerView.ViewHolder(itemView) {
@@ -21,6 +22,7 @@ class LodgeViewHolder (val itemView: View):
     private val available = itemView.findViewById<TextView>(R.id.availableRoom)
     private val campus = itemView.findViewById<TextView>(R.id.campus)
     private val lock = itemView.findViewById<ImageView>(R.id.lockLodge)
+    private val newCard = itemView.findViewById<MaterialCardView>(R.id.newCard)
     private val resource = itemView.resources
 
     fun bind(data: FirebaseLodge, listener: LodgeClickListener) {
@@ -39,6 +41,11 @@ class LodgeViewHolder (val itemView: View):
                 available.alpha = 1F
                 available.text = data.rooms.toString()
             }
+        }
+
+        if(data.seen!=null &&
+            data.seen == true) {
+            newCard.visibility = View.GONE
         }
 
         Glide.with(lodgeImage.context)

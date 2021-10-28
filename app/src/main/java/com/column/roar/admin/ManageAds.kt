@@ -104,7 +104,7 @@ class ManageAds : Fragment() {
                     FirebaseLodgePhoto(
                         id = it.id,
                         title = it.brand,
-                        image = it.coverImage,
+                        image = it.cover,
                         video = it.video
                     )
                 }.let {
