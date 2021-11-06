@@ -75,11 +75,12 @@
 
             <ImageView
                 android:id="@+id/editBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/back_arrow_height"
+                android:layout_height="@dimen/back_arrow_height"
                 android:layout_margin="5dp"
                 android:background="@color/white"
                 android:elevation="10dp"
+                android:scaleType="centerInside"
                 android:padding="1dp"
                 android:src="@drawable/ic_edit"
                 android:textAppearance="@style/Widget.Toolbar.title"

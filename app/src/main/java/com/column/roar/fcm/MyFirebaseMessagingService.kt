@@ -17,16 +17,17 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        Timber.i("Cloud Token: $token")
+//        Timber.i("Cloud Token: $token")
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        Timber.i("onMessage receive Called")
+//        Timber.i("onMessage receive Called")
 
         val notificationManager = ContextCompat.getSystemService(
             applicationContext,
             NotificationManager::class.java,
         )
+
         if(remoteMessage.data["itemType"] == "Lodge"){
             createLodgeChannel( notificationManager!!,
                 getString(R.string.lodges_notification_channel_id),
@@ -40,8 +41,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             )
             notificationManager.sendProductNotification(remoteMessage,this)
         }
-
-        Timber.i("message: ${remoteMessage.data["message"]},title: ${remoteMessage.data["title"]},imageUrl: ${remoteMessage.data["imageUrl"]},itemType: ${remoteMessage.data["itemType"]}")
+//        Timber.i("message: ${remoteMessage.data["message"]},title: ${remoteMessage.data["title"]},imageUrl: ${remoteMessage.data["imageUrl"]},itemType: ${remoteMessage.data["itemType"]}")
     }
 
     private fun createLodgeChannel(
@@ -59,7 +59,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             notificationChannel.lightColor = Color.RED
             notificationChannel.enableVibration(true)
             notificationChannel.description = "lodge update notification"
-
             notificationManager.createNotificationChannel(notificationChannel)
         }
     }

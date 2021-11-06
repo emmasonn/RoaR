@@ -223,7 +223,7 @@ class AdminRealtorDetails : Fragment() {
 
             setPositiveButton("Submit") { _, _ ->
                 val number = roomField.text.toString()
-                documentReference.update("availableRoom", number.toLong())
+                documentReference.update("rooms", number.toLong())
                     .addOnSuccessListener {
                         Toast.makeText(
                             requireContext(), "Update is Successfully",
@@ -261,6 +261,7 @@ class AdminRealtorDetails : Fragment() {
             switchBtn.setOnCheckedChangeListener { _, isChecked ->
                     documentReference.update("certified",isChecked)
             }
+
             setPositiveButton("Save") { dialog,_ ->
                 dialog.dismiss()
                 fetchLodges()

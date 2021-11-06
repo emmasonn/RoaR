@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="lodge_nav_menu_height">100dp</dimen>
-    <dimen name="back_arrow_height">20dp</dimen>
+    <dimen name="back_arrow_height">48dp</dimen>
     <dimen name="campus_margin_Top">130dp</dimen>
     <dimen name="bottom_padding_ad">70dp</dimen>
     <dimen name="title_start_margin">0dp</dimen>
-    <dimen name="back_button_start_margin">5dp</dimen>
+    <dimen name="back_button_start_margin">0dp</dimen>
 
     <!--start dialog-->
-    <dimen name="start_dialog">300dp</dimen>
+    <dimen name="start_dialog">180dp</dimen>
     <dimen name="staggered_product_grid_spacing_large">30dp</dimen>
     <dimen name="staggered_product_grid_spacing_small">26dp</dimen>
     <dimen name="staggered_product_grid_margin_top_first">72dp</dimen>
     <dimen name="staggered_product_grid_margin_top_second">56dp</dimen>
     <dimen name="roar_product_grid_margin_top_third">50dp</dimen>
-    <dimen name="staggered_product_grid_card_width_portrait">165dp</dimen>
+    <dimen name="staggered_product_grid_card_width_portrait">250dp</dimen>
     <dimen name="staggered_product_grid_card_height_portrait">247dp</dimen>
-    <dimen name="staggered_product_grid_card_width_landscape">120dp</dimen>
+    <dimen name="staggered_product_grid_card_width_landscape">200dp</dimen>
     <dimen name="staggered_product_grid_card_height_landscape">150dp</dimen>
 </resources>

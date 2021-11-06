@@ -46,6 +46,7 @@ import com.google.firebase.firestore.Source
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class HomeFragment : Fragment() {
     private lateinit var homeRecycler: RecyclerView
@@ -111,7 +112,7 @@ class HomeFragment : Fragment() {
 
         setUpOnBackPressedCallback()
 
-       // resolve the implicit link
+        // resolve the implicit link
         val argsNav: HomeFragmentArgs by navArgs()
         argsNav.lodgeId.let {
             if (it != "roar") {
@@ -286,7 +287,8 @@ class HomeFragment : Fragment() {
 
     private fun fetchLodges(filter: String) {
         swipeContainer.isRefreshing = true
-        val source = Source.DEFAULT
+       val  isDataFetched = (activity as MainActivity).isDataFetched
+        val source = if (isDataFetched) Source.CACHE else Source.DEFAULT
         propertiesQuery.get(source).addOnSuccessListener { snapShot ->
             snapShot.documents.mapNotNull { docShot ->
                 docShot.toObject(FirebaseProperty::class.java)
@@ -307,17 +309,17 @@ class HomeFragment : Fragment() {
                                 }
                             } else {
                                 lifecycleScope.launchWhenCreated {
+                                    (activity as MainActivity).isDataFetched = true
                                     showNetworkError(false)
-                                roarItemsAdapter.addLodgeAndProperty(dataResult, properties)
-                                swipeContainer.isRefreshing = false
-//                                roarItemsAdapter.clear()
+                                    roarItemsAdapter.addLodgeAndProperty(dataResult, properties)
+                                    swipeContainer.isRefreshing = false
                                 }
                             }
                         }
                     }.addOnFailureListener {
-                           showNetworkError(true) //error view
-                            swipeContainer.isRefreshing = false
-                        }
+                        showNetworkError(true) //error view
+                        swipeContainer.isRefreshing = false
+                    }
                 } else {
                     val filterRef = fireStore.collection(getString(R.string.firestore_lodges))
                         .whereEqualTo("certified", true)
@@ -374,11 +376,11 @@ class HomeFragment : Fragment() {
 //        }
 //    }
 
-    private fun showNetworkError(error:Boolean) {
-        if(error){
+    private fun showNetworkError(error: Boolean) {
+        if (error) {
             connectionView.visibility = View.VISIBLE
             retryBtn.visibility = View.VISIBLE
-        }else {
+        } else {
             connectionView.visibility = View.GONE
         }
     }
@@ -425,9 +427,9 @@ class HomeFragment : Fragment() {
             productsRecycler?.adapter = otherProductAdapter
 
             fetchProduct(product.id!!)
-            if(product.video!=null){
+            if (product.video != null) {
                 setUpExoPlayer(product.video)
-            }else {
+            } else {
                 noVideo?.visibility = View.VISIBLE
             }
 

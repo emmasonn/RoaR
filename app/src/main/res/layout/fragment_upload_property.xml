@@ -30,6 +30,7 @@
                 android:focusable="true"
                 android:clickable="true"
                 android:layout_marginStart="@dimen/back_button_start_margin"
+                android:scaleType="centerInside"
                 android:src="@drawable/ic_backward"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

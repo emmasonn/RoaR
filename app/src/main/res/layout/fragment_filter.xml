@@ -22,6 +22,7 @@
             android:layout_height="@dimen/back_arrow_height"
             android:focusable="true"
             android:clickable="true"
+            android:scaleType="centerInside"
             android:layout_marginStart="@dimen/back_button_start_margin"
             android:src="@drawable/ic_backward"
             app:layout_constraintBottom_toBottomOf="parent"

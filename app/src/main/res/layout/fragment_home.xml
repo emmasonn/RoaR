@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
-    android:clipToPadding="false"
-    >
+    android:clipToPadding="false">
+
     <LinearLayout
         android:id="@+id/backDrop"
         android:layout_width="match_parent"
@@ -20,8 +20,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/bottom_padding_ad"
-            >
+            android:paddingBottom="@dimen/bottom_padding_ad">
         <include layout="@layout/lodge_back_drop" />
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
@@ -50,10 +49,11 @@
 
                     <ImageView
                         android:id="@+id/menuNav"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="@dimen/back_arrow_height"
+                        android:layout_height="@dimen/back_arrow_height"
                         android:clickable="true"
                         android:focusable="true"
+                        android:scaleType="centerInside"
                         android:layout_marginStart="8dp"
                         android:src="@drawable/ic_menu_icon"
                         app:layout_constraintBottom_toBottomOf="@+id/appIcon"
@@ -63,12 +63,13 @@
 
                     <ImageView
                         android:id="@+id/searchIcon"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="@dimen/back_arrow_height"
+                        android:layout_height="@dimen/back_arrow_height"
                         android:layout_marginEnd="10dp"
                         android:clickable="true"
                         android:focusable="true"
-                        android:src="@drawable/ic_search_blue"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_round_search"
                         app:layout_constraintBottom_toBottomOf="@+id/appIcon"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/appIcon"

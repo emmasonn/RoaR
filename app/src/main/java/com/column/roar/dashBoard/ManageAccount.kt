@@ -20,6 +20,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.bumptech.glide.Glide
 import com.column.roar.R
 import com.column.roar.cloudModel.FirebaseUser
 import com.column.roar.util.MB
@@ -186,10 +187,9 @@ class ManageAccount : Fragment() {
     private fun startUploadingProfileImage(
         imageByte: ByteArray?,
     ) {
-
         val storageRef: StorageReference =
             storage.reference.child(
-                "images/${client.clientName}/profile/${client.clientId}/"
+                "images/profile/${client.clientId}/"
             )
         //var imageUri: String? = null
         imageByte?.let { imageByteArray ->
@@ -208,14 +208,15 @@ class ManageAccount : Fragment() {
                 if (task.isSuccessful) {
                     val imageUri = task.result.toString()
 
-                    clientDocument.update("clientUrl", imageUri).addOnSuccessListener {
+                    clientDocument.update("clientImage", imageUri).addOnSuccessListener {
                         lifecycleScope.launch {
-                            clientImage.load(imageUri)
+                            Glide.with(clientImage.context)
+                                .load(imageUri)
+                                .into(clientImage)
                             progressBar.visibility = View.GONE
                         }
                     }.addOnFailureListener {
                         progressBar.visibility = View.VISIBLE
-
                         Toast.makeText(requireContext(),
                             "Check your Internet Connection: $it",
                             Toast.LENGTH_SHORT).show()

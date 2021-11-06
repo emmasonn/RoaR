@@ -22,7 +22,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="10dp"
-            app:cardBackgroundColor="@color/white_100"
+            app:cardBackgroundColor="@color/yellow_300"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle50"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout5">
@@ -36,6 +36,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/ic_lock"
+                    app:tint="@color/white"
                     android:padding="3dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +85,7 @@
                     app:cardElevation="10dp"
                     android:layout_marginEnd="20dp"
                     app:cardCornerRadius="0dp"
-                    app:cardBackgroundColor="@color/yellow_200"
+                    app:cardBackgroundColor="@color/red_700"
                     app:layout_constraintBottom_toBottomOf="@+id/viewFlipper"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/viewFlipper">
@@ -96,7 +97,7 @@
                         android:text="New!"
                         android:fontFamily="@font/montserrat_bold"
                         android:textAlignment="center"
-                        android:textColor="@color/black_700"
+                        android:textColor="@color/white"
                         android:textAppearance="?attr/textAppearanceSubtitle1"
                         />
                 </com.google.android.material.card.MaterialCardView>
@@ -149,11 +150,10 @@
 
                 <ImageView
                     android:id="@+id/imageView1"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:layout_marginBottom="20dp"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/white_circle_background"
+                    android:scaleType="fitXY"
                     android:src="@drawable/ic_locate"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/imageView2"
@@ -233,11 +233,11 @@
 
                 <ImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="5dp"
-                    android:background="@drawable/white_circle_background"
+                    android:scaleType="fitXY"
                     android:src="@drawable/ic_home"
                     app:layout_constraintBottom_toTopOf="@+id/location"
                     app:layout_constraintStart_toStartOf="parent"

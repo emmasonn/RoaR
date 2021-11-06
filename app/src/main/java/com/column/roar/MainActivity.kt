@@ -1,33 +1,26 @@
 package com.column.roar
 
-
-import android.Manifest
 import android.app.Activity
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.net.ConnectivityManager
 import android.net.Uri
-import android.os.Build
 import android.util.DisplayMetrics
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.getSystemService
-import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
-import com.column.roar.cloudModel.FirebaseLodge
 import com.column.roar.database.AppDatabase
 import com.column.roar.util.ConnectivityChecker
 import com.google.android.gms.ads.*
@@ -51,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adViewParent: FrameLayout
     private lateinit var adView: AdView
     private var initialLayoutComplete = false
+    var isDataFetched = false
     private lateinit var isAddInitialized: String //we want to load ads once
 
     val homeScreenAd = MutableLiveData<NativeAd>()
@@ -68,8 +62,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FirebaseAnalytics.getInstance(this)
-
         setContentView(R.layout.activity_main)
+
         adViewParent = findViewById(R.id.ad_view_container)
         val cancelBtn = findViewById<ImageView>(R.id.cancelBtn)
 

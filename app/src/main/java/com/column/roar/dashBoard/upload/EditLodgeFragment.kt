@@ -146,7 +146,7 @@ class EditLodgeFragment : Fragment() {
               if(task.isSuccessful) {
                  val imageUri:String = task.result.toString()
 
-                lodgeDocument.update("tourVideo",imageUri)
+                lodgeDocument.update("tour",imageUri)
                     .addOnSuccessListener {
                         lifecycleScope.launch {
                             Toast.makeText(requireContext(),

@@ -7,25 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".SplashActivity">
 
-  <com.google.android.material.card.MaterialCardView
+  <ImageView
+      android:id="@+id/iconView"
       android:layout_width="100dp"
       android:layout_height="100dp"
+      android:scaleType="centerCrop"
+      android:src="@drawable/ic_emma_icon"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:cardElevation="10dp"
-      app:cardBackgroundColor="?attr/colorPrimary"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle100"
-      >
-    <ImageView
-        android:id="@+id/iconView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/ic_emma_icon"
-        android:scaleType="centerCrop"
-        tools:ignore="ContentDescription" />
-  </com.google.android.material.card.MaterialCardView>
-
+      tools:ignore="ContentDescription" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>

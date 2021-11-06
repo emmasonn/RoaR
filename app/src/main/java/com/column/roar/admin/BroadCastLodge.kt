@@ -101,19 +101,19 @@ class BroadCastLodge : Fragment() {
     private fun notifySubscribers(firebaseLodge: FirebaseLodge) {
         val title = getString(R.string.lodges_notification_channel_name)
         val message = "Check this vacant room at ${firebaseLodge.location}"
-        Timber.i("Message: /topics/${firebaseLodge.location}")
-
-        val pushNotification = PushNotification(
-            NotificationData(
-                firebaseLodge.lodgeId!!,
-                title,
-                message,
-                "Lodge",
-                firebaseLodge.coverImage
-            ),
-            "/topics/${firebaseLodge.location}"
-        )
-        sendNotification(pushNotification)
+         firebaseLodge.coverImage?.let {
+             val pushNotification = PushNotification(
+                 NotificationData(
+                     firebaseLodge.lodgeId!!,
+                     title,
+                     message,
+                     "Lodge",
+                     firebaseLodge.coverImage
+                 ),
+                 "/topics/${firebaseLodge.location}"
+             )
+             sendNotification(pushNotification)
+         }
     }
 
     private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
@@ -150,6 +150,7 @@ class BroadCastLodge : Fragment() {
             }
 
             approveItem.setOnClickListener {
+                editDialog.dismiss()
                 approveAction(firebaseLodge.lodgeId!!)
             }
 

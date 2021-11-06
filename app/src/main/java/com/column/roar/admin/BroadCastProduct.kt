@@ -111,19 +111,20 @@ class BroadCastProduct : Fragment() {
     private fun notifySubscribers(firebaseProperty: FirebaseProperty) {
         val title = getString(R.string.product_notification_channel_name)
         val message = "Check this Product: ${firebaseProperty.product}"
-        Timber.i("Message: /topics/${firebaseProperty.type}")
 
-        val pushNotification = PushNotification(
-            NotificationData(
-                firebaseProperty.id!!,
-                title,
-                message,
-                "Product",
-                firebaseProperty.cover
-            ),
-            "/topics/${firebaseProperty.type}"
-        )
-        sendNotification(pushNotification)
+        firebaseProperty.cover?.let {
+            val pushNotification = PushNotification(
+                NotificationData (
+                    firebaseProperty.id!!,
+                    title,
+                    message,
+                    "Product",
+                    firebaseProperty.cover
+                ),
+                "/topics/${firebaseProperty.type}"
+            )
+            sendNotification(pushNotification)
+        }
     }
 
     private fun sendNotification(notification: PushNotification) =
@@ -167,6 +168,7 @@ class BroadCastProduct : Fragment() {
             }
 
             approveBtn.setOnClickListener {
+                editDialog.dismiss()
                 approveItem(firebaseProperty.id!!)
             }
 

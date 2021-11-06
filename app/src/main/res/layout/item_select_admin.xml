@@ -38,8 +38,9 @@
         <TextView
             android:id="@+id/selectBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/back_arrow_height"
             android:text="@string/select_string"
+            android:gravity="center"
             android:textAppearance="?attr/textAppearanceSubtitle1"
             android:textColor="?attr/colorControlNormal"
             android:textStyle="bold"

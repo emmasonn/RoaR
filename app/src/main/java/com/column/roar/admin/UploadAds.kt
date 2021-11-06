@@ -172,12 +172,11 @@ class UploadAds : Fragment() {
         imageByte: ByteArray?,
     ) {
         val uid = businessPhotos.document().id
-        val time = System.currentTimeMillis()
 
         Timber.i("Storing image on Storage")
         val storageRef: StorageReference =
             storage.reference.child(
-                "images/BusinessAd/${time}/${uid}/"
+                "images/BusinessAd/${uid}/"
             )
         //var imageUri: String? = null
         imageByte?.let { imageByteArray ->

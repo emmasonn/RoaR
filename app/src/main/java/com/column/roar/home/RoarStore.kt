@@ -2,6 +2,8 @@ package com.column.roar.home
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -17,6 +19,7 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.content.getSystemService
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -35,6 +38,7 @@ import com.column.roar.cloudModel.FirebaseLodgePhoto
 import com.column.roar.cloudModel.FirebasePhotoAd
 import com.column.roar.listAdapters.ClickListener
 import com.column.roar.listAdapters.UploadPhotosAdapter
+import com.column.roar.notification.PRODUCT_NOTIFICATION_ID
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -154,6 +158,8 @@ class RoarStore : Fragment() {
             //val action = R.id.action_homeFragment_to_profileFragment
             filterSpinner.performClick()
         }
+
+        clearNotification()
         return view
     }
 
@@ -524,7 +530,7 @@ class RoarStore : Fragment() {
     //whats-App dialog
     private fun whatsAppDialog(product: FirebaseProperty) {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle("You are about to leave app to WhatsApp")
+            setTitle("We're taking you to WhatsApp")
             setPositiveButton("Okay") {dialog, _ ->
                 dialog.dismiss()
                 chatWhatsApp(product)
@@ -545,6 +551,13 @@ class RoarStore : Fragment() {
         lifecycleScope.launch {
             progressBar.visibility = View.GONE
         }
+    }
+
+    //cancels notification
+    private fun clearNotification() {
+        val notificationManager =
+            requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancel(PRODUCT_NOTIFICATION_ID)
     }
 
     private fun checkPermissionApproved() = ActivityCompat.checkSelfPermission(

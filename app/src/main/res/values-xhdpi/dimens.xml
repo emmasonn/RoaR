@@ -4,6 +4,6 @@
     <dimen name="start_dialog">400dp</dimen>
     <dimen name="title_start_margin">10dp</dimen>
     <dimen name="store_dialog_image_height">400dp</dimen>
-    <dimen name="back_button_start_margin">10dp</dimen>
+    <dimen name="back_button_start_margin">5dp</dimen>
 
 </resources>

@@ -19,6 +19,7 @@
             android:id="@+id/setUpBack"
             android:layout_width="@dimen/back_arrow_height"
             android:layout_height="@dimen/back_arrow_height"
+            android:scaleType="centerInside"
             android:focusable="true"
             android:clickable="true"
             android:layout_marginStart="@dimen/back_button_start_margin"

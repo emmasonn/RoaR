@@ -20,7 +20,6 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
 
-
 class AccommodationFragment : Fragment() {
     private lateinit var dialog: AlertDialog
     private var customerAgent: FirebaseUser? = null
@@ -42,9 +41,6 @@ class AccommodationFragment : Fragment() {
         val binding = FragmentAccommodationBinding.inflate(inflater, container, false)
 
         showMessageDialog()
-        binding.rulesBtn.setOnClickListener {
-            showMessageDialog()
-        }
 
         binding.textBtn.setOnClickListener {
             showMessageDialog()

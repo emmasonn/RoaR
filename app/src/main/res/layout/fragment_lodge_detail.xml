@@ -36,6 +36,7 @@
                     android:layout_marginStart="@dimen/back_button_start_margin"
                     android:clickable="true"
                     android:focusable="true"
+                    android:scaleType="centerInside"
                     android:src="@drawable/ic_backward"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -51,13 +52,13 @@
                     app:layout_constraintBottom_toBottomOf="@+id/backBtn"
                     app:layout_constraintStart_toEndOf="@+id/backBtn"
                     app:layout_constraintTop_toTopOf="@+id/backBtn"
-                    tools:text="God's Doing Lodge" />
+                    tools:text="God's Doing" />
 
                 <ImageView
                     android:id="@+id/shareBtn"
                     android:layout_width="@dimen/back_arrow_height"
                     android:layout_height="@dimen/back_arrow_height"
-                    android:layout_marginEnd="10dp"
+                    android:scaleType="centerInside"
                     android:clickable="true"
                     android:focusable="true"
                     android:src="@drawable/ic_share_btn"
@@ -70,7 +71,8 @@
                     android:id="@+id/favoriteBtn"
                     android:layout_width="@dimen/back_arrow_height"
                     android:layout_height="@dimen/back_arrow_height"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:scaleType="centerInside"
                     android:src="@drawable/ic_fav_outline"
                     app:layout_constraintBottom_toBottomOf="@+id/backBtn"
                     app:layout_constraintEnd_toStartOf="@+id/shareBtn"
@@ -98,7 +100,7 @@
 
                 <ImageView
                     android:id="@+id/imageView5"
-                    android:layout_width="20dp"
+                    android:layout_width="25dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="15dp"
                     android:src="@drawable/ic_locate"
@@ -146,7 +148,7 @@
 
                 <ImageView
                     android:id="@+id/imageView15"
-                    android:layout_width="20dp"
+                    android:layout_width="25dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_border"
                     app:layout_constraintEnd_toStartOf="@+id/view4"
@@ -169,7 +171,7 @@
 
                 <ImageView
                     android:id="@+id/imageView50"
-                    android:layout_width="20dp"
+                    android:layout_width="25dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_border"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -197,6 +199,18 @@
                     app:layout_constraintStart_toEndOf="@+id/view4"
                     app:layout_constraintTop_toBottomOf="@+id/textView18"
                     tools:text="3.6m" />
+
+                <View
+                    android:id="@+id/view10"
+                    android:layout_width="0dp"
+                    android:layout_height="0.5dp"
+                    android:background="?attr/colorOnSecondary"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -207,8 +221,8 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_margin="5dp"
-                    app:cardBackgroundColor="@color/white_300"
-                    app:cardElevation="40dp"
+                    app:cardBackgroundColor="@color/yellow_300"
+                    app:cardElevation="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle50">
@@ -222,12 +236,13 @@
                             android:id="@+id/lockLodge"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:padding="3dp"
+                            android:padding="2dp"
                             android:src="@drawable/ic_lock"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/white"
                             tools:ignore="ContentDescription" />
 
                         <TextView
@@ -239,7 +254,7 @@
                             android:fontFamily="@font/montserrat_extra_bold"
                             android:text="@{lodgeDetail.rooms.toString()}"
                             android:textAppearance="?attr/textAppearanceHeadline6"
-                            android:textColor="@color/blue_700"
+                            android:textColor="@color/white"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -249,20 +264,10 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/materialCardView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    app:cardElevation="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
                     <androidx.core.widget.NestedScrollView
                         android:id="@+id/nestedScrollView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
                         android:background="?attr/colorPrimary"
                         android:scrollbarSize="1dp"
                         android:scrollbars="vertical"
@@ -277,50 +282,54 @@
                             android:layout_marginBottom="80dp"
                             android:orientation="vertical">
 
-                            <androidx.constraintlayout.widget.ConstraintLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+<!--                            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content">-->
 
-                                <com.google.android.material.imageview.ShapeableImageView
-                                    android:id="@+id/coverImage"
-                                    android:layout_width="0dp"
-                                    android:layout_height="200dp"
-                                    android:padding="2dp"
-                                    android:scaleType="centerCrop"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintHorizontal_bias="1.0"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:strokeColor="@color/white_300"
-                                    app:strokeWidth="0.5dp"
-                                    tools:ignore="ContentDescription"
-                                    tools:src="@drawable/animated_gradient" />
+<!--                                <com.google.android.material.imageview.ShapeableImageView-->
+<!--                                    android:id="@+id/coverImage"-->
+<!--                                    android:layout_width="0dp"-->
+<!--                                    android:layout_height="200dp"-->
+<!--                                    android:padding="2dp"-->
+<!--                                    android:scaleType="centerCrop"-->
+<!--                                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                                    app:layout_constraintHorizontal_bias="1.0"-->
+<!--                                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                                    app:strokeColor="@color/white_300"-->
+<!--                                    app:strokeWidth="0.5dp"-->
+<!--                                    tools:ignore="ContentDescription"-->
+<!--                                    tools:src="@drawable/animated_gradient" />-->
 
-                                <TextView
-                                    android:id="@+id/itemTitle"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/background_black"
-                                    android:padding="4dp"
-                                    android:text="Cover Image"
-                                    android:textAppearance="?attr/textAppearanceBody2"
-                                    android:textColor="@color/white"
-                                    android:textStyle="bold"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintVertical_bias="0.8" />
-                            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                                <TextView-->
+<!--                                    android:id="@+id/itemTitle"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:background="@drawable/background_black"-->
+<!--                                    android:padding="4dp"-->
+<!--                                    android:text="Cover Image"-->
+<!--                                    android:textAppearance="?attr/textAppearanceBody2"-->
+<!--                                    android:textColor="@color/white"-->
+<!--                                    android:textStyle="bold"-->
+<!--                                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                                    app:layout_constraintVertical_bias="0.8" />-->
+<!--                            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/listPhotos"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginRight="16dp"
                                 android:clipToPadding="false"
+                                android:orientation="horizontal"
                                 android:paddingEnd="10dp"
                                 android:scrollbarSize="0.5dp"
                                 android:scrollbarStyle="outsideOverlay"
-                                android:scrollbars="horizontal" />
+                                android:scrollbars="horizontal"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                tools:listitem="@layout/item_detail_photos" />
 
                             <com.google.android.ads.nativetemplates.TemplateView
                                 android:id="@+id/firstSmallNativeAd"
@@ -347,21 +356,22 @@
                                         android:id="@+id/rentTitle"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginTop="20dp"
                                         android:text="House Rent"
                                         android:textAppearance="?attr/textAppearanceBody2"
-                                        app:layout_constraintEnd_toEndOf="@+id/textP"
-                                        app:layout_constraintStart_toStartOf="@+id/textP"
-                                        app:layout_constraintTop_toTopOf="@+id/title"
+                                        app:layout_constraintEnd_toStartOf="@+id/view"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
                                         tools:ignore="TooDeepLayout" />
 
                                     <TextView
                                         android:id="@+id/textP"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginEnd="15dp"
                                         android:text="@{@string/format_price_integer(lodgeDetail.payment)}"
                                         android:textAppearance="?attr/textAppearanceHeadline5"
-                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintEnd_toStartOf="@+id/view"
+                                        app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toBottomOf="@+id/rentTitle"
                                         tools:text="₦500000" />
 
@@ -369,9 +379,9 @@
                                         android:id="@+id/view"
                                         android:layout_width="2dp"
                                         android:layout_height="0dp"
-                                        android:layout_marginEnd="4dp"
                                         app:layout_constraintBottom_toBottomOf="@+id/textP"
-                                        app:layout_constraintEnd_toStartOf="@+id/intPrice"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="@+id/rentTitle"
                                         app:layout_constraintVertical_bias="1.0" />
 
@@ -379,23 +389,21 @@
                                         android:id="@+id/intTitle"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="30dp"
                                         android:text="Initial Payment"
                                         android:textAppearance="?attr/textAppearanceBody2"
-                                        app:layout_constraintEnd_toEndOf="@+id/intPrice"
-                                        app:layout_constraintStart_toStartOf="@+id/intPrice"
-                                        app:layout_constraintTop_toBottomOf="@+id/textP" />
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toEndOf="@+id/view"
+                                        app:layout_constraintTop_toTopOf="@+id/rentTitle" />
 
                                     <TextView
                                         android:id="@+id/intPrice"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginEnd="15dp"
                                         android:text="@{@string/format_price(lodgeDetail.rent)}"
                                         android:textAppearance="?attr/textAppearanceHeadline5"
                                         app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toEndOf="@+id/view"
                                         app:layout_constraintTop_toBottomOf="@+id/intTitle"
-                                        app:layout_constraintVertical_bias="0.7"
                                         tools:text="₦400000" />
 
                                     <TextView
@@ -412,14 +420,14 @@
                                         android:id="@+id/title"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="20dp"
                                         android:text="Description"
                                         android:textAppearance="?attr/textAppearanceBody1"
                                         android:textStyle="bold"
+                                        android:layout_marginTop="20dp"
                                         app:layout_constraintEnd_toStartOf="@+id/view"
                                         app:layout_constraintHorizontal_bias="0.3"
                                         app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent" />
+                                        app:layout_constraintTop_toBottomOf="@+id/textP" />
 
                                     <TextView
                                         android:id="@+id/desc"
@@ -427,6 +435,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="5dp"
                                         android:layout_marginEnd="15dp"
+                                        android:layout_marginStart="15dp"
                                         android:layout_marginBottom="10dp"
                                         android:lineSpacingExtra="4dp"
                                         android:lineSpacingMultiplier="1"
@@ -434,7 +443,7 @@
                                         android:textAlignment="textStart"
                                         android:textAppearance="?attr/textAppearanceBody1"
                                         app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintEnd_toStartOf="@+id/view"
+                                        app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toBottomOf="@+id/title"
                                         app:layout_constraintVertical_bias="0.2"
@@ -811,7 +820,6 @@
                             </androidx.constraintlayout.widget.ConstraintLayout>
                         </LinearLayout>
                     </androidx.core.widget.NestedScrollView>
-                </com.google.android.material.card.MaterialCardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

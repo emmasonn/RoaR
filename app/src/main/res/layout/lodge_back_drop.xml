@@ -38,7 +38,7 @@
             android:id="@+id/luxBtn"
             style="@style/Widget.Roar.Button.TextButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/back_arrow_height"
             android:layout_marginTop="10dp"
             android:text="Classic Lodge" />
 
@@ -46,21 +46,21 @@
             android:id="@+id/cheapBtn"
             style="@style/Widget.Roar.Button.TextButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/back_arrow_height"
             android:text="Simple Lodge" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/favBtn"
             style="@style/Widget.Roar.Button.TextButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/back_arrow_height"
             android:text="Favorite Lodge" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/accommodationBtn"
             style="@style/Widget.Roar.Button.TextButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/back_arrow_height"
             android:text="Looking for accommodation" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -72,7 +72,7 @@
                 android:id="@+id/propertyBtn"
                 style="@style/Widget.Roar.Button.TextButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/back_arrow_height"
                 android:text="Store"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -93,14 +93,14 @@
             android:id="@+id/settingsBtn"
             style="@style/Widget.Roar.Button.TextButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/back_arrow_height"
             android:text="Settings" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/aboutUs"
             style="@style/Widget.Roar.Button.TextButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/back_arrow_height"
             android:text="About us" />
 
         <View
@@ -113,7 +113,7 @@
             android:id="@+id/accountBtn"
             style="@style/Widget.Roar.Button.TextButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/back_arrow_height"
             android:layout_marginBottom="10dp"
             android:text="My Account"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -123,6 +123,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/blue_700" />
+            android:background="?attr/colorOnSecondary" />
     </LinearLayout>
 </merge>

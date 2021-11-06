@@ -25,6 +25,7 @@
                 android:layout_height="@dimen/back_arrow_height"
                 android:focusable="true"
                 android:clickable="true"
+                android:scaleType="centerInside"
                 android:layout_marginStart="@dimen/back_button_start_margin"
                 android:src="@drawable/ic_backward"
                 app:layout_constraintBottom_toBottomOf="@+id/titleText"
@@ -87,7 +88,6 @@
                 android:src="@drawable/ic_locate"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView18"
-                app:tint="@color/yellow_200"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -138,7 +138,6 @@
                 app:layout_constraintHorizontal_bias="0.27"
                 app:layout_constraintStart_toEndOf="@+id/view8"
                 app:layout_constraintTop_toTopOf="@+id/imageView5"
-                app:tint="@color/yellow_200"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -162,7 +161,6 @@
                 app:layout_constraintHorizontal_bias="0.27"
                 app:layout_constraintStart_toEndOf="@+id/view4"
                 app:layout_constraintTop_toTopOf="@+id/textView18"
-                app:tint="@color/yellow_200"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -197,7 +195,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                app:cardBackgroundColor="@color/yellow_200"
+                app:cardBackgroundColor="@color/yellow_300"
                 app:cardElevation="40dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -207,30 +205,17 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/textView66"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="3dp"
-                        android:text="Vacant\nRooms"
-                        android:textAppearance="?attr/textAppearanceBody2"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
                         android:id="@+id/textView59"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingEnd="5dp"
                         android:text="@{lodgeDetail.rooms.toString()}"
                         android:textAppearance="?attr/textAppearanceHeadline4"
-                        android:textColor="@color/blue_700"
+                        android:textColor="@color/white"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView66"
                         tools:text="10" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -275,23 +260,23 @@
                                     android:id="@+id/rentTitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="13dp"
                                     android:text="House Rent"
-                                    android:layout_marginTop="10dp"
                                     android:textAppearance="?attr/textAppearanceBody2"
-                                    app:layout_constraintEnd_toEndOf="@+id/textP"
-                                    app:layout_constraintStart_toStartOf="@+id/textP"
-                                    app:layout_constraintTop_toBottomOf="@+id/title" />
+                                    app:layout_constraintEnd_toStartOf="@+id/view"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/coverImage" />
 
                                 <TextView
                                     android:id="@+id/textP"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="15dp"
-                                    android:text="@{@string/format_price(lodgeDetail.payment)}"
-                                    android:textAppearance="?attr/textAppearanceSubtitle1"
                                     android:background="@drawable/blue_card_outline"
                                     android:padding="4dp"
-                                    app:layout_constraintEnd_toEndOf="parent"
+                                    android:text="@{@string/format_price(lodgeDetail.payment)}"
+                                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                                    app:layout_constraintEnd_toEndOf="@+id/view"
+                                    app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/rentTitle"
                                     tools:text="₦500000" />
 
@@ -301,7 +286,8 @@
                                     android:layout_height="0dp"
                                     android:layout_marginEnd="4dp"
                                     app:layout_constraintBottom_toBottomOf="@+id/textP"
-                                    app:layout_constraintEnd_toStartOf="@+id/intPrice"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="@+id/rentTitle"
                                     app:layout_constraintVertical_bias="1.0" />
 
@@ -309,25 +295,24 @@
                                     android:id="@+id/intTitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="30dp"
                                     android:text="Initial Fee"
                                     android:textAppearance="?attr/textAppearanceBody2"
-                                    app:layout_constraintEnd_toEndOf="@+id/intPrice"
-                                    app:layout_constraintStart_toStartOf="@+id/intPrice"
-                                    app:layout_constraintTop_toBottomOf="@+id/textP" />
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/view"
+                                    app:layout_constraintTop_toTopOf="@+id/rentTitle" />
 
                                 <TextView
                                     android:id="@+id/intPrice"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="15dp"
-                                    android:text="@{@string/format_price(lodgeDetail.rent)}"
                                     android:background="@drawable/blue_card_outline"
                                     android:padding="4dp"
+                                    android:text="@{@string/format_price(lodgeDetail.rent)}"
                                     android:textAppearance="?attr/textAppearanceSubtitle1"
                                     app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="@+id/intTitle"
                                     app:layout_constraintTop_toBottomOf="@+id/intTitle"
-                                    app:layout_constraintVertical_bias="0.7"
                                     tools:text="₦400000" />
 
                                 <TextView
@@ -353,13 +338,13 @@
                                     android:id="@+id/title"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginStart="20dp"
                                     android:text="Description"
-                                    android:textStyle="bold"
                                     android:textAppearance="?attr/textAppearanceSubtitle1"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="@+id/desc"
-                                    app:layout_constraintTop_toBottomOf="@+id/coverImage" />
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/textP" />
 
                                 <TextView
                                     android:id="@+id/desc"
@@ -371,11 +356,12 @@
                                     android:lineSpacingExtra="4dp"
                                     android:lineSpacingMultiplier="1"
                                     android:padding="4dp"
+                                    android:layout_marginTop="10dp"
                                     android:text="@{lodgeDetail.description}"
                                     android:textAlignment="center"
                                     android:textAppearance="?attr/textAppearanceSubtitle2"
                                     app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toStartOf="@+id/view"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/title"
                                     app:layout_constraintVertical_bias="0.2"

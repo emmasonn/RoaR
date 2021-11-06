@@ -1,6 +1,8 @@
 package com.column.roar.lodgeDetail
 
 import android.Manifest
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -38,6 +40,8 @@ import com.column.roar.listAdapters.PhotosAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.column.roar.SplashActivity
+import com.column.roar.notification.LODGE_NOTIFICATION_ID
+import com.column.roar.notification.PRODUCT_NOTIFICATION_ID
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -148,15 +152,16 @@ class LodgeDetail : Fragment() {
         }
 
         lockLodge() //call this function to lock lodge
-        binding.coverImage.setOnClickListener {
-            val photo = FirebaseLodgePhoto(
-                id = clientDocumentRef.id,
-                image = lodgeData.coverImage,
-                title = "CoverImage"
-            )
-            val bundle = bundleOf("picture" to photo)
-            findNavController().navigate(R.id.viewLodge, bundle)
-        }
+
+//        binding.coverImage.setOnClickListener {
+//            val photo = FirebaseLodgePhoto(
+//                id = clientDocumentRef.id,
+//                image = lodgeData.coverImage,
+//                title = "CoverImage"
+//            )
+//            val bundle = bundleOf("picture" to photo)
+//            findNavController().navigate(R.id.viewLodge, bundle)
+//        }
 
         binding.playBtn.setOnClickListener {
             if(lodgeData.tour!=null) {
@@ -185,13 +190,14 @@ class LodgeDetail : Fragment() {
             showBottomSheet(lodgeData)
         }
 
-        Glide.with(binding.coverImage.context)
-            .load(lodgeData.coverImage)
-            .apply(
-                RequestOptions().placeholder(R.drawable.animated_gradient)
-                    .error(R.drawable.animated_gradient)
-            )
-            .into(binding.coverImage)
+//
+//        Glide.with(binding.coverImage.context)
+//            .load(lodgeData.coverImage)
+//            .apply(
+//                RequestOptions().placeholder(R.drawable.animated_gradient)
+//                    .error(R.drawable.animated_gradient)
+//            )
+//            .into(binding.coverImage)
 
         Glide.with(binding.agentImageCover.context)
             .load(lodgeData.agentImage)
@@ -215,6 +221,8 @@ class LodgeDetail : Fragment() {
         swipeRefreshContainer.setOnRefreshListener {
             fetchLodgeAndPhotos()
         }
+
+        clearNotification()
         return binding.root
     }
 
@@ -365,7 +373,7 @@ class LodgeDetail : Fragment() {
         }
     }
 
-    //this function is used to share on whatsapp
+    //this function is used to share on whats-app
     private fun shareLodgeData() {
         swipeRefreshContainer.isRefreshing = true
         val futureTarget = Glide.with(requireContext())
@@ -375,7 +383,6 @@ class LodgeDetail : Fragment() {
 
         lifecycleScope.launch(Dispatchers.Default) {
             val bitmapImage: Bitmap = futureTarget.get()
-
             withContext(Dispatchers.Main) {
                 val bitmapUri = getBitmapUri(bitmapImage)
                 val uriInUri = Uri.parse(bitmapUri)
@@ -567,6 +574,12 @@ class LodgeDetail : Fragment() {
             }
             else -> { }
         }
+    }
+
+    private fun clearNotification() {
+        val notificationManager =
+            requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancel(LODGE_NOTIFICATION_ID)
     }
 
 }

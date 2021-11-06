@@ -27,13 +27,15 @@
 
             <ImageView
                 android:id="@+id/adminMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/back_arrow_height"
+                android:layout_height="@dimen/back_arrow_height"
                 android:layout_marginVertical="10dp"
                 android:layout_marginStart="8dp"
-                android:focusable="true"
                 android:clickable="true"
+                android:focusable="true"
+                android:scaleType="centerInside"
                 android:src="@drawable/ic_menu"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />

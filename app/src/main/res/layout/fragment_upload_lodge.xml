@@ -9,13 +9,14 @@
 
     <ImageView
         android:id="@+id/uploadBack"
-        android:layout_width="38dp"
-        android:layout_height="38dp"
+        android:layout_width="@dimen/back_arrow_height"
+        android:layout_height="@dimen/back_arrow_height"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="30dp"
+        android:scaleType="centerInside"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/ic_nav_close"
+        android:src="@drawable/ic_cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
