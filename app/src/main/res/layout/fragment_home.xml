@@ -86,6 +86,7 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/childLayout"
         android:layout_width="match_parent"
@@ -104,8 +105,8 @@
                 android:elevation="10dp"
                 android:visibility="gone"
                 android:textAlignment="center"
-                android:textColor="?attr/colorPrimary"
-                android:background="?attr/colorOnPrimary"
+                android:textColor="?attr/colorOnPrimary"
+                android:background="?attr/colorPrimary"
                 android:textStyle="bold"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:textAppearance="?attr/textAppearanceSubtitle2"
