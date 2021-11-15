@@ -22,6 +22,8 @@ data class FirebaseUser (
     var realtorPhone: String? = null,
     var businessComplaint: String? = null,
     var realtorComplaint: String? = null,
+    var errand: String? = null,
+    var marquee: String? = null,
     var partner: String? = null,
     var slots: String? = null,
     var report: String? = null,

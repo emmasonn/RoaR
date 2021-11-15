@@ -61,7 +61,7 @@
             style="@style/Widget.Roar.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/back_arrow_height"
-            android:text="Looking for accommodation" />
+            android:text="Customer Services" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"

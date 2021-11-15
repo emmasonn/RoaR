@@ -2,6 +2,7 @@ package com.column.roar.home
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -68,12 +69,15 @@ class HomeFragment : Fragment() {
     private lateinit var playerView: PlayerView
     private var counter = 0
     private lateinit var retryBtn: MaterialButton
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fireStore = FirebaseFirestore.getInstance()
         propertiesQuery = fireStore.collection(getString(R.string.firestore_products))
             .whereEqualTo("certified", true)
+
+        sharedPref = (activity as MainActivity).sharedPref
     }
 
     override fun onCreateView(
@@ -97,10 +101,22 @@ class HomeFragment : Fragment() {
         swipeContainer = view.findViewById(R.id.swipeContainer)
         val searchIcon = view.findViewById<ImageView>(R.id.searchIcon)
         retryBtn = view.findViewById(R.id.retryBtn)
+        val marqueeText = view.findViewById<TextView>(R.id.marqueeText)
 
         menuIcon = view.findViewById(R.id.menuNav)
         chipGroup = view.findViewById(R.id.chipGroup)
         swipeContainer.isRefreshing = true
+        marqueeText.isSelected = true
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            val marqueeInfo = sharedPref.getString("marquee_text", null)
+            if (marqueeInfo.isNullOrEmpty()) {
+                marqueeText.visibility = View.GONE
+            }else {
+                marqueeText.visibility = View.VISIBLE
+                marqueeText.text = marqueeInfo
+            }
+        }
 
         searchIcon.setOnClickListener {
             findNavController().navigate(R.id.searchFragment)

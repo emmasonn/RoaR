@@ -632,6 +632,7 @@
                                         android:textAppearance="?attr/textAppearanceSubtitle1"
                                         android:textColor="@color/blue_100"
                                         android:textStyle="bold"
+                                        android:textAllCaps="true"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintHorizontal_bias="0.4"
                                         app:layout_constraintStart_toStartOf="parent"

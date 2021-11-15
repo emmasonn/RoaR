@@ -24,16 +24,11 @@ import com.google.firebase.firestore.Source
 
 class AccommodationFragment : Fragment() {
     private lateinit var dialog: AlertDialog
-//    private var customerAgent: FirebaseUser? = null
-//    private lateinit var fireStore: FirebaseFirestore
-//    private lateinit var customerDoc: DocumentReference
     private lateinit var sharedPref: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        fireStore = FirebaseFirestore.getInstance()
-//        customerDoc = fireStore.collection("clients").document("customer")
         sharedPref = (activity as MainActivity).sharedPref
     }
 
@@ -47,6 +42,7 @@ class AccommodationFragment : Fragment() {
 
         val realtorComplaint = sharedPref.getString("realtor_complaint","")
         val businessComplaint = sharedPref.getString("business_complaint","")
+        val errandComplaint = sharedPref.getString("errand_complaint","")
 
 
         binding.textBtn.setOnClickListener {
@@ -54,11 +50,15 @@ class AccommodationFragment : Fragment() {
         }
 
         binding.whatsAppCustomer.setOnClickListener {
-                chatWhatsAppCustomer(realtorComplaint)
+            chatWhatsAppCustomer(realtorComplaint)
+        }
+
+        binding.errandService.setOnClickListener {
+            whatsAppErrands(errandComplaint)
         }
 
         binding.telegramCustomer.setOnClickListener {
-            chatTelegramCustomer()
+            chatTelegramCustomer(null)
         }
 
         binding.whatsAppStore.setOnClickListener {
@@ -77,6 +77,24 @@ class AccommodationFragment : Fragment() {
             findNavController().navigateUp()
         }
         return binding.root
+    }
+
+    private fun whatsAppErrands(errandsNumber: String?) {
+        if(errandsNumber != null) {
+            val uri = "https://api.whatsapp.com/send?phone=+234$errandsNumber"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(uri)
+            try {
+                startActivity(intent)
+            }catch (ex: android.content.ActivityNotFoundException){
+                Toast.makeText(requireContext(),"WhatsApp is not Found",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }else
+        {
+            Toast.makeText(requireContext(),"Not available at the moment",Toast.LENGTH_SHORT).show()
+        }
+
     }
 
 //    private fun fetchCustomer() {
@@ -126,32 +144,44 @@ class AccommodationFragment : Fragment() {
 
     //chat customer whats-app group
     private fun chatWhatsAppCustomer(number: String?) { //chat accommodation customer care
-        val uri = "https://api.whatsapp.com/send?phone=+234$number"
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(uri)
-        try {
-            startActivity(intent)
-        }catch (ex: android.content.ActivityNotFoundException){
-            Toast.makeText(requireContext(),"WhatsApp is not Found",
-                Toast.LENGTH_SHORT).show()
+        if(number!=null) {
+            val uri = "https://api.whatsapp.com/send?phone=+234$number"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(uri)
+            try {
+                startActivity(intent)
+            }catch (ex: android.content.ActivityNotFoundException){
+                Toast.makeText(requireContext(),"WhatsApp is not Found",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }else {
+            Toast.makeText(requireContext(),"Not available at the moment",Toast.LENGTH_SHORT).show()
         }
+
     }
 
     //chat group link
-    private fun chatTelegramCustomer() { //chat telegram accommodation customer service
-        val intent = Intent(Intent.ACTION_VIEW).apply {
-            data = Uri.parse("https://t.me/StrongCode") //or http://telegram.me/userId
-        }
-        try {
-            startActivity(intent)
-        }catch (ex: android.content.ActivityNotFoundException){
-            Toast.makeText(requireContext(),"Telegram is not Found",
-                Toast.LENGTH_SHORT).show()
+    private fun chatTelegramCustomer(chatLink: String?) { //ch// at telegram accommodation customer service
+        if(chatLink == null) {
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data =
+                    Uri.parse(chatLink) //or http://telegram.me/userId or "https://t.me/StrongCode"
+            }
+            try {
+                startActivity(intent)
+            } catch (ex: android.content.ActivityNotFoundException) {
+                Toast.makeText(
+                    requireContext(), "Telegram is not Found",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }else {
+            Toast.makeText(requireContext(),"Not available at the moment",Toast.LENGTH_SHORT).show()
         }
     }
 
     //Telegram group link
-    private fun joinTelegramGroup() {  //join accommodation telegram group
+    private fun joinTelegramGroup() { //join accommodation telegram group
         val intent = Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse("http://t.me/roarAccommodation")
         }
@@ -165,16 +195,20 @@ class AccommodationFragment : Fragment() {
 
     //product group link
     private fun productWhatsAppCustomer(number: String?) { //chat with product customer care
-        val uri = "https://api.whatsapp.com/send?phone=+234$number"
+        if(number!=null) {
+            val uri = "https://api.whatsapp.com/send?phone=+234$number"
 
-        val intent = Intent(Intent.ACTION_VIEW).apply {
-            data = Uri.parse(uri)
-        }
-        try {
-            startActivity(intent)
-        }catch (ex: android.content.ActivityNotFoundException){
-            Toast.makeText(requireContext(),"Telegram is not Found",
-                Toast.LENGTH_SHORT).show()
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(uri)
+            }
+            try {
+                startActivity(intent)
+            }catch (ex: android.content.ActivityNotFoundException){
+                Toast.makeText(requireContext(),"Telegram is not Found",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }else {
+            Toast.makeText(requireContext(),"Not available at the moment",Toast.LENGTH_SHORT).show()
         }
     }
 }

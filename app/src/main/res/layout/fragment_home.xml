@@ -93,6 +93,27 @@
         android:background="?attr/colorPrimaryVariant"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
+            <TextView
+                android:id="@+id/marqueeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:padding="2dp"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:elevation="10dp"
+                android:visibility="gone"
+                android:textAlignment="center"
+                android:textColor="?attr/colorPrimary"
+                android:background="?attr/colorOnPrimary"
+                android:textStyle="bold"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                tools:text="Start | Lunch 20.00 | Dinner 20:00"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeContainer"
             android:layout_width="match_parent"

@@ -199,7 +199,9 @@ class MainActivity : AppCompatActivity() {
                             roar.realtorPhone,
                             roar.partner,
                             roar.businessComplaint,
-                            roar.realtorComplaint
+                            roar.realtorComplaint,
+                            roar.errand,
+                            roar.marquee
                         )
                     }
                 }
@@ -217,7 +219,9 @@ class MainActivity : AppCompatActivity() {
         realtor: String?,
         partner: String?,
         businessComplaint: String?,
-        realtorComplaint: String?
+        realtorComplaint: String?,
+        errandComplaint: String?,
+        marqueeInfo: String?
     ) {
         with(sharedPref.edit()) {
             putString("business_phone", business)
@@ -225,6 +229,8 @@ class MainActivity : AppCompatActivity() {
             putString("partner_phone", partner)
             putString("realtor_complaint",businessComplaint)
             putString("business_complaint",realtorComplaint)
+            putString("errand_complaint",errandComplaint)
+            putString("marquee_text", marqueeInfo)
             apply()
         }
     }
