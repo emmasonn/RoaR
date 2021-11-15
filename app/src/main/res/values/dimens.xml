@@ -2,7 +2,7 @@
 <resources>
     <dimen name="lodge_nav_menu_height">100dp</dimen>
     <dimen name="back_arrow_height">48dp</dimen>
-    <dimen name="campus_margin_Top">130dp</dimen>
+    <dimen name="campus_margin_Top">110dp</dimen>
     <dimen name="bottom_padding_ad">70dp</dimen>
     <dimen name="title_start_margin">0dp</dimen>
     <dimen name="back_button_start_margin">0dp</dimen>

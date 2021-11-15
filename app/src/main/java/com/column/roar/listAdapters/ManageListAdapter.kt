@@ -45,8 +45,8 @@ class ManageListAdapter (private val manageAdapterListener: ManageAdapterListene
 
             Glide.with(imageView.context)
                 .load(data.coverImage).apply(
-                    RequestOptions().placeholder(R.drawable.animated_gradient)
-                        .error(R.drawable.animated_gradient)
+                    RequestOptions().placeholder(R.drawable.loading_background)
+                        .error(R.drawable.loading_background)
                 ).into(imageView)
 
             lodgeTitle.text = data.lodgeName

@@ -26,7 +26,6 @@ class BecomeAgent : Fragment() {
         val status = sharedPref.getBoolean("logged", false)
         val accountType = sharedPref.getString("accountType", "")
 
-        Timber.i("status: $status, accountType: $accountType")
         if (status) {
             navigateToScreen(accountType)
         }
@@ -47,8 +46,9 @@ class BecomeAgent : Fragment() {
             findNavController().navigate(action)
         }
 
+        val partnerPhone = sharedPref.getString("partner_phone","")
         joinBtn.setOnClickListener {
-          chatWhatsApp("+23407060461403")
+          chatWhatsApp(partnerPhone)
         }
 
         backBtn.setOnClickListener {
@@ -58,7 +58,7 @@ class BecomeAgent : Fragment() {
         return view
     }
 
-    private fun chatWhatsApp(pNumber:String) {
+    private fun chatWhatsApp(pNumber: String?) {
         val uri =
             "https://api.whatsapp.com/send?phone=+234$pNumber"
         val intent = Intent().apply {

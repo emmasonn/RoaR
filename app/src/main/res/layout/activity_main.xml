@@ -6,6 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+<!--    <TextView-->
+<!--        android:id="@+id/marqueeText"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ellipsize="marquee"-->
+<!--        android:padding="2dp"-->
+<!--        android:scrollHorizontally="true"-->
+<!--        android:singleLine="true"-->
+<!--        android:elevation="10dp"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@color/red_700"-->
+<!--        android:background="@color/white_300"-->
+<!--        android:textStyle="bold"-->
+<!--        android:marqueeRepeatLimit="marquee_forever"-->
+<!--        android:textAppearance="?attr/textAppearanceSubtitle2"-->
+<!--        android:text="Start | Lunch 20.00 | Dinner 20:00"-->
+<!--        android:layout_marginTop="?attr/actionBarSize"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
     <fragment
         android:id="@+id/mainNavHost"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -38,7 +59,7 @@
         android:layout_height="18dp"
         android:focusable="true"
         android:src="@drawable/ic_nav_close"
-        android:background="@color/white"
+        android:background="?attr/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/ad_view_container"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="ContentDescription" />
@@ -46,7 +67,7 @@
     <FrameLayout
         android:id="@+id/ad_view_container"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

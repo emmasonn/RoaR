@@ -190,14 +190,12 @@ class LodgeDetail : Fragment() {
             showBottomSheet(lodgeData)
         }
 
-//
-//        Glide.with(binding.coverImage.context)
-//            .load(lodgeData.coverImage)
-//            .apply(
-//                RequestOptions().placeholder(R.drawable.animated_gradient)
-//                    .error(R.drawable.animated_gradient)
-//            )
-//            .into(binding.coverImage)
+        Glide.with(binding.coverImage.context)
+            .load(lodgeData.coverImage)
+            .apply(
+                RequestOptions().placeholder(R.drawable.animated_gradient)
+                    .error(R.drawable.animated_gradient)
+            ).into(binding.coverImage)
 
         Glide.with(binding.agentImageCover.context)
             .load(lodgeData.agentImage)
@@ -305,16 +303,16 @@ class LodgeDetail : Fragment() {
             Glide.with(coverImage!!.context)
                 .load(lodge.coverImage)
                 .apply(
-                    RequestOptions().placeholder(R.drawable.animated_gradient)
-                        .error(R.drawable.animated_gradient)
+                    RequestOptions().placeholder(R.drawable.loading_background)
+                        .error(R.drawable.loading_background)
                 )
                 .into(coverImage)
 
             Glide.with(agentImage!!.context)
                 .load(lodge.agentImage)
                 .apply(
-                    RequestOptions().placeholder(R.drawable.ic_person)
-                        .error(R.drawable.ic_person)
+                    RequestOptions().placeholder(R.drawable.ic_round_person)
+                        .error(R.drawable.ic_round_person)
                 )
                 .into(agentImage)
         }
@@ -344,6 +342,7 @@ class LodgeDetail : Fragment() {
 
     //this function is used to directly check with the Roar agent
     private fun chatWhatsApp(pNumber: String?) {
+
         val message = "Hello, Am interested in ${lodgeData.hiddenName} \n\n" +
                 "https://unnapp.page.link/lodges/${lodgeData.lodgeId}"
         .trimIndent()

@@ -21,7 +21,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:cardBackgroundColor="@color/yellow_500"
+            app:cardBackgroundColor="@color/blue_grey_100"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             app:cardElevation="20dp"
@@ -75,7 +75,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription"
-                tools:src="@drawable/animated_gradient" />
+                tools:src="@drawable/loading_background" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/newCard"
@@ -176,18 +176,18 @@
                     app:layout_constraintStart_toEndOf="@+id/location"
                     app:layout_constraintTop_toTopOf="@+id/location">
 
-                    <ImageView
-                        android:id="@+id/imageView18"
-                        android:layout_width="5dp"
-                        android:layout_height="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:elevation="10dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/circle_black_drawable"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/campus"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="ContentDescription" />
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imageView18"-->
+<!--                        android:layout_width="5dp"-->
+<!--                        android:layout_height="5dp"-->
+<!--                        android:layout_marginEnd="5dp"-->
+<!--                        android:elevation="10dp"-->
+<!--                        android:scaleType="centerCrop"-->
+<!--                        android:src="@drawable/circle_black_drawable"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toStartOf="@+id/campus"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        tools:ignore="ContentDescription" />-->
 
                     <TextView
                         android:id="@+id/campus"
@@ -195,9 +195,9 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?attr/textAppearanceSubtitle2"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView18"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imageView18"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:text="UNN" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

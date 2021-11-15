@@ -13,14 +13,15 @@ import android.util.DisplayMetrics
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.getSystemService
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
+import com.column.roar.cloudModel.FirebaseUser
 import com.column.roar.database.AppDatabase
 import com.column.roar.util.ConnectivityChecker
 import com.google.android.gms.ads.*
@@ -28,6 +29,7 @@ import com.google.android.gms.ads.nativead.NativeAd
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -46,6 +48,8 @@ class MainActivity : AppCompatActivity() {
     private var initialLayoutComplete = false
     var isDataFetched = false
     private lateinit var isAddInitialized: String //we want to load ads once
+//    private lateinit var marqueeText: TextView
+    private lateinit var registration: ListenerRegistration
 
     val homeScreenAd = MutableLiveData<NativeAd>()
     val storeScreenAd = MutableLiveData<NativeAd>()
@@ -66,12 +70,14 @@ class MainActivity : AppCompatActivity() {
 
         adViewParent = findViewById(R.id.ad_view_container)
         val cancelBtn = findViewById<ImageView>(R.id.cancelBtn)
+//        marqueeText = findViewById<TextView>(R.id.marqueeText)
 
         MobileAds.initialize(this)
         MobileAds.setRequestConfiguration(
             RequestConfiguration.Builder()
                 .setTestDeviceIds(listOf("1FDC32B9CBE3CDABBE6B40D81394FA10"))
                 .build())
+//        marqueeText.isSelected = true
 
         cancelBtn.setOnClickListener {
             adViewParent.visibility = View.GONE
@@ -110,6 +116,13 @@ class MainActivity : AppCompatActivity() {
             subscribeUnnLodge(settingsPref)
         }
         connectivityChecker = connectivityChecker(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(!isDataFetched) {
+            setupContact()
+        }
     }
 
     override fun onPause() {
@@ -171,6 +184,48 @@ class MainActivity : AppCompatActivity() {
         productId?.let {
             val deepLink = Uri.parse("https://unnapp.page.link/ads/${productId}")
             navController.navigate(deepLink)
+        }
+    }
+
+    private fun setupContact() {
+        val fireStore = FirebaseFirestore.getInstance()
+        val document = fireStore.collection("clients").document("customer")
+        registration = document.addSnapshotListener { value, _ ->
+            value?.toObject(FirebaseUser::class.java).also { roar ->
+                roar?.let {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        cacheRoarInfo(
+                            roar.businessPhone,
+                            roar.realtorPhone,
+                            roar.partner,
+                            roar.businessComplaint,
+                            roar.realtorComplaint
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        registration.remove()
+    }
+
+    private fun cacheRoarInfo(
+        business: String?,
+        realtor: String?,
+        partner: String?,
+        businessComplaint: String?,
+        realtorComplaint: String?
+    ) {
+        with(sharedPref.edit()) {
+            putString("business_phone", business)
+            putString("realtor_phone", realtor)
+            putString("partner_phone", partner)
+            putString("realtor_complaint",businessComplaint)
+            putString("business_complaint",realtorComplaint)
+            apply()
         }
     }
 

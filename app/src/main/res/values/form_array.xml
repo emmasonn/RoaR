@@ -132,6 +132,7 @@
     <string-array name="surrounding">
         <item>Calm</item>
         <item>Quite</item>
+        <item>Busy</item>
     </string-array>
 
     <!--Lodges view-->

@@ -46,7 +46,6 @@ class ClientListAdapter(private val clickListener: UserClickListener): ListAdapt
                     RequestOptions().placeholder(R.drawable.ic_person)
                 ).into(coverImage)
 
-
             fullName.text = data.clientName
             phoneNumber.text = data.clientPhone
             brandName.text = data.brand

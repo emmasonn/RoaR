@@ -18,8 +18,11 @@ data class FirebaseUser (
     var clientPhone: String? = null,
     var counter: Long? = null,
     var certified: Boolean? = null,
-    var productService: String? = null, //stores customer service contact for product
-    var lodgeService: String? = null,
+    var businessPhone: String? = null,
+    var realtorPhone: String? = null,
+    var businessComplaint: String? = null,
+    var realtorComplaint: String? = null,
+    var partner: String? = null,
     var slots: String? = null,
     var report: String? = null,
     var brand: String? = null,

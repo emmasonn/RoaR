@@ -184,7 +184,7 @@ class BroadCastLodge : Fragment() {
 
             setPositiveButton("Submit") { _, _ ->
                 val number = roomField.text.toString()
-                documentReference.update("availableRoom", number.toLong())
+                documentReference.update("rooms", number.toLong())
                     .addOnSuccessListener {
 
                         documentReference.update(updates)

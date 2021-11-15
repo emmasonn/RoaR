@@ -194,7 +194,7 @@ class LodgeUploadImage : Fragment() {
                             hideLoadingBar()
                             selectedImage.clear()
                         }
-
+                        pagerObject.moveBackward()
                     } else{
 
                         val lodgePhoto = FirebaseLodgePhoto(

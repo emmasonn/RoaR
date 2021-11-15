@@ -41,7 +41,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="3dp"
                     android:src="@drawable/ic_locate"
-                    app:tint="@color/yellow_200"
+                    app:tint="@color/white"
                     tools:ignore="ContentDescription" />
 
                 <TextView

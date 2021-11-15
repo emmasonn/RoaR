@@ -50,8 +50,8 @@ class LodgeViewHolder (val itemView: View):
 
         Glide.with(lodgeImage.context)
             .load(data.coverImage).apply(
-                RequestOptions().placeholder(R.drawable.animated_gradient)
-                    .error(R.drawable.animated_gradient)).into(lodgeImage)
+                RequestOptions().placeholder(R.drawable.loading_background)
+                    .error(R.drawable.loading_background)).into(lodgeImage)
 
         exploreBtn.setOnClickListener {
             listener.clickAction(data)

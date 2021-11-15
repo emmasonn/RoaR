@@ -122,7 +122,7 @@ class CareerFragment : Fragment() {
 
             setPositiveButton("Submit") { _, _ ->
                 val number = roomField.text.toString()
-                documentReference.update("availableRoom", number.toLong())
+                documentReference.update("rooms", number.toLong())
                     .addOnSuccessListener {
                     Toast.makeText(requireContext(),"Update is Successfully",
                     Toast.LENGTH_SHORT).show()

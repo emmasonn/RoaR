@@ -8,7 +8,7 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/black_100</item>
         <item name="colorSecondaryVariant">@color/yellow_500</item> <!--used for ad title color-->
-        <item name="colorOnSecondary">@color/black_200</item> <!--become agent fade buttons-->
+        <item name="colorOnSecondary">@color/black_500</item> <!--become agent fade buttons-->
 
         <item name="fontFamily">@font/montserrat_bold</item>
         <item name="font">@font/montserrat_bold</item>

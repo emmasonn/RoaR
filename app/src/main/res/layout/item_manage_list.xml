@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    app:cardBackgroundColor="@color/yellow_300"
+                    app:cardBackgroundColor="@color/blue_grey_100"
                     app:cardCornerRadius="5dp"
                     app:cardElevation="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -116,7 +116,7 @@
                     android:src="@drawable/ic_home"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/online"
-                    app:tint="@color/yellow_500"
+                    app:tint="@color/white"
                     tools:ignore="ContentDescription" />
 
                 <View
@@ -140,7 +140,7 @@
                     android:src="@drawable/ic_locate"
                     app:layout_constraintStart_toStartOf="@+id/imageView6"
                     app:layout_constraintTop_toBottomOf="@+id/lodgeTitle"
-                    app:tint="@color/yellow_500"
+                    app:tint="@color/white"
                     tools:ignore="ContentDescription" />
 
                 <TextView

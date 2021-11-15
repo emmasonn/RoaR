@@ -451,6 +451,7 @@ class RoarStore : Fragment() {
     }
 
     private fun chatWhatsApp(product: FirebaseProperty) {
+
         val uri =
             "https://api.whatsapp.com/send?phone=+234${product.number}"
 

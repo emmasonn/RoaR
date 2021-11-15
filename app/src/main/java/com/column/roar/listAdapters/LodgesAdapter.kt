@@ -170,9 +170,7 @@ class LodgesAdapter(
         }
     }
 
-
     class FavViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         private val lodgeImage = itemView.findViewById<ImageView>(R.id.viewFlipper)
         private val initialPrice = itemView.findViewById<TextView>(R.id.lodgePrice)
         private val lodgeName = itemView.findViewById<TextView>(R.id.lodgeTitle)
@@ -189,8 +187,7 @@ class LodgesAdapter(
 
             Glide.with(lodgeImage.context)
                 .load(data.coverImage).apply(
-                    RequestOptions().placeholder(R.drawable.animated_gradient)).into(lodgeImage)
-
+                    RequestOptions().placeholder(R.drawable.loading_background)).into(lodgeImage)
 
             initialPrice.text = resource.getString(R.string.format_price_integer, data.payment)
             lodgeName.text = data.hiddenName
