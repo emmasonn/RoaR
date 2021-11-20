@@ -41,20 +41,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription"
-                    tools:src="@drawable/animated_gradient" />
+                    tools:src="@drawable/loading_background" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/agentImage"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:layout_marginEnd="3dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_margin="10dp"
                     android:scaleType="centerCrop"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/lodgeImage"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle50"
                     tools:ignore="ContentDescription"
-                    tools:src="@drawable/animated_gradient" />
+                    tools:src="@drawable/ic_person" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"

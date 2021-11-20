@@ -180,8 +180,6 @@ class RoarStore : Fragment() {
     }
 
     private fun initializeFetch(filter: String) {
-        Timber.i("filter: $filter")
-
         showProgress()
         val source = Source.DEFAULT
 
@@ -334,9 +332,9 @@ class RoarStore : Fragment() {
                 }.addOnSuccessListener { shortLink ->
 
                     lifecycleScope.launchWhenCreated {
-                        val message = "Hi, checkout this *${product.product}* at *RoaR* \n" +
+                        val message = "Hi, checkout this *${product.product}* at *Roar* \n" +
                                 "*Price: ${getString(R.string.format_price, product.price)}* \n\n " +
-                                "*Item Link: ${shortLink.shortLink}* \n"
+                                "*Product Link: ${shortLink.shortLink}* \n"
 
                         shareIntent.putExtra(Intent.EXTRA_TEXT, message)
                         shareIntent.putExtra(Intent.EXTRA_STREAM, uriInUri)
@@ -344,7 +342,6 @@ class RoarStore : Fragment() {
                         shareDynamicLink(shareIntent)
                     }
                 }.addOnFailureListener { e ->
-                    Timber.e(e, "cannot resolve link")
                     Toast.makeText(
                         requireContext(),
                         "Sharing failed, Network error",
@@ -516,7 +513,7 @@ class RoarStore : Fragment() {
     //show dialog for calling realtor
     private fun callDialog(product: FirebaseProperty) {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle("You are about to leave app to make call")
+            setTitle("You are about to leave app to make phone call")
             setPositiveButton("Okay") {dialog, _ ->
                 dialog.dismiss()
                 dialPhoneNumber(product.number)
@@ -531,7 +528,7 @@ class RoarStore : Fragment() {
     //whats-App dialog
     private fun whatsAppDialog(product: FirebaseProperty) {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle("We're taking you to WhatsApp")
+            setTitle("You are about to leave app to WhatsApp")
             setPositiveButton("Okay") {dialog, _ ->
                 dialog.dismiss()
                 chatWhatsApp(product)

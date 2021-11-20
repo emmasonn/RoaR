@@ -320,7 +320,6 @@ class HomeFragment : Fragment() {
                                     showNetworkError(false)
                                     roarItemsAdapter.showEmpty = true
                                     roarItemsAdapter.addLodgeAndProperty(emptyList(), properties)
-//                                    roarItemsAdapter.clear()
                                     swipeContainer.isRefreshing = false
                                 }
                             } else {
@@ -364,7 +363,7 @@ class HomeFragment : Fragment() {
                         }
                     }.addOnFailureListener {
                         lifecycleScope.launchWhenCreated {
-                            roarItemsAdapter.clear()
+//                            roarItemsAdapter.clear()
                             swipeContainer.isRefreshing = false
                             showNetworkError(true)
                         }
@@ -373,24 +372,11 @@ class HomeFragment : Fragment() {
             }
         }.addOnFailureListener {
             lifecycleScope.launchWhenCreated {
-                roarItemsAdapter.clear()
                 swipeContainer.isRefreshing = false
                 showNetworkError(true)
             }
         }
     }
-/*connection Error*/
-//    private fun connectionFailure(error: Boolean) {
-//        val connection = (activity as MainActivity).connectivityChecker
-//        connection?.apply {
-//            lifecycle.addObserver(this)
-//            connectedStatus.observe(viewLifecycleOwner, { network ->
-//                if (!network && error) {
-//                    connectionView.visibility = View.VISIBLE
-//                }
-//            })
-//        }
-//    }
 
     private fun showNetworkError(error: Boolean) {
         if (error) {
@@ -549,7 +535,7 @@ class HomeFragment : Fragment() {
     //what chat
     private fun chatWhatsApp(pNumber: String?) {
         val message = """
-             Hi, from *RoaR*
+             Hi, from *Roar*
             """
         val uri =
             "https://api.whatsapp.com/send?phone=+234$pNumber&text=$message"

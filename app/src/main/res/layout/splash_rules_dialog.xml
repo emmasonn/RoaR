@@ -15,7 +15,7 @@
         android:id="@+id/iconSmall"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/ic_emma"
+        android:src="@drawable/ic_emma_icon"
         android:layout_marginTop="10dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,8 +94,8 @@
                         android:layout_height="@dimen/back_arrow_height"
                         android:layout_marginStart="20dp"
                         android:layout_gravity="end"
-                        android:backgroundTint="?attr/colorControlNormal"
-                        android:buttonTint="?attr/colorControlNormal"
+                        android:backgroundTint="?attr/colorOnPrimary"
+                        android:buttonTint="?attr/colorOnPrimary"
                         app:layout_constraintBottom_toTopOf="@+id/okayBtn"
                         app:layout_constraintStart_toStartOf="parent" />
 
@@ -121,7 +121,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:alpha="0.2"
-            android:backgroundTint="?attr/colorControlNormal"
+            android:backgroundTint="?attr/colorAccent"
             android:text="Continue"
             android:textAllCaps="false"
             android:textAppearance="?attr/textAppearanceSubtitle1"

@@ -79,6 +79,7 @@
             android:layout_marginTop="@dimen/campus_margin_Top"
             android:elevation="10dp"
             android:orientation="vertical"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <ImageView

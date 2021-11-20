@@ -102,7 +102,7 @@
                 android:padding="2dp"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:elevation="10dp"
+                android:elevation="2dp"
                 android:visibility="gone"
                 android:textAlignment="center"
                 android:textColor="?attr/colorOnPrimary"
@@ -141,6 +141,7 @@
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <include
+            android:elevation="10dp"
             layout="@layout/auto_no_network_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

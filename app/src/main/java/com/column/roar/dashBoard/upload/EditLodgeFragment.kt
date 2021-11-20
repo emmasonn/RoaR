@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.media.MediaBrowserServiceCompat.RESULT_OK
 import androidx.navigation.fragment.findNavController
@@ -27,7 +27,6 @@ import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 
 class EditLodgeFragment : Fragment() {
@@ -136,11 +135,7 @@ class EditLodgeFragment : Fragment() {
             )
 
         val uploadTask = storageRef.putFile(videoUri)
-        uploadTask.continueWithTask { task ->
-            if(!task.isSuccessful) {
-                task.exception?.let { e ->
-                    Timber.e(e,"Error uploading Video file") }
-            }
+        uploadTask.continueWithTask {
             storageRef.downloadUrl
         }.addOnCompleteListener { task  ->
               if(task.isSuccessful) {

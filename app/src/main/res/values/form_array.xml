@@ -149,19 +149,13 @@
     <string-array name="product_type">
         <item>Property</item>
         <item>Accessory</item>
-        <item>Jewellery</item>
-        <item>Stationary</item>
-        <item>Clothing</item>
-        <item>Foot-Wear</item>
+        <item>Others</item>
     </string-array>
 
     <string-array name="product_type_form">
         <item>Property</item>
         <item>Accessory</item>
-        <item>Jewellery</item>
-        <item>Stationary</item>
-        <item>Clothing</item>
-        <item>Foot-Wear</item>
+        <item>Others</item>
         <item>Ads</item>
     </string-array>
 
@@ -169,9 +163,6 @@
         <item>Store</item>
         <item>Property</item>
         <item>Accessory</item>
-        <item>Jewellery</item>
-        <item>Clothing</item>
-        <item>Foot-Wear</item>
-        <item>Stationary</item>
+        <item>Others</item>
     </string-array>
 </resources>

@@ -225,7 +225,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
-                    app:backgroundTint="?attr/colorControlNormal"
+                    app:backgroundTint="?attr/colorAccent"
                     app:cornerRadius="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

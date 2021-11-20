@@ -77,8 +77,12 @@ class LodgeDetail : Fragment() {
     private val requestPermissionResult =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (!isGranted) {
-                Toast.makeText(requireContext(), "Accept permission to share item", Toast.LENGTH_SHORT).show()
-            }else{
+                Toast.makeText(
+                    requireContext(),
+                    "Accept permission to share item",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
                 shareLodgeData()
             }
         }
@@ -100,7 +104,7 @@ class LodgeDetail : Fragment() {
 
     private fun updateSeen() {
         fireStore.collection(getString(R.string.firestore_lodges)).document(lodgeData.lodgeId!!)
-            .update("seen",true)
+            .update("seen", true)
     }
 
     override fun onCreateView(
@@ -117,10 +121,10 @@ class LodgeDetail : Fragment() {
         swipeRefreshContainer = binding.swipeContainer
         swipeRefreshContainer.isRefreshing = true
 
-        val accountType = sharedPref.getString("accountType",null)
-        if(accountType!=null) {
+        val accountType = sharedPref.getString("accountType", null)
+        if (accountType != null) {
             binding.titleText.text = lodgeData.lodgeName
-        }else {
+        } else {
             binding.titleText.text = lodgeData.hiddenName
         }
 
@@ -136,17 +140,17 @@ class LodgeDetail : Fragment() {
             }
         }
 
-        if (lodgeData.seen==null){
+        if (lodgeData.seen == null) {
             updateSeen()
-        }else if(!lodgeData.seen!!) {
+        } else if (!lodgeData.seen!!) {
             updateSeen()
         }
 
         binding.shareBtn.setOnClickListener {
-            if(checkPermissionApproved()) {
+            if (checkPermissionApproved()) {
                 binding.shareBtn.alpha = 0.5F
                 shareLodgeData()
-            }else {
+            } else {
                 requestExternalStoragePermission()
             }
         }
@@ -164,12 +168,14 @@ class LodgeDetail : Fragment() {
 //        }
 
         binding.playBtn.setOnClickListener {
-            if(lodgeData.tour!=null) {
+            if (lodgeData.tour != null) {
                 val bundle = bundleOf("Lodge" to lodgeData)
                 findNavController().navigate(R.id.watchTour, bundle)
-            }else{
-               Toast.makeText(requireContext(),"Sorry, their is no tour video for this lodge",
-               Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(
+                    requireContext(), "Sorry, their is no tour video for this lodge",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
 
@@ -193,9 +199,16 @@ class LodgeDetail : Fragment() {
         Glide.with(binding.coverImage.context)
             .load(lodgeData.coverImage)
             .apply(
-                RequestOptions().placeholder(R.drawable.animated_gradient)
+                RequestOptions().placeholder(R.drawable.loading_background)
                     .error(R.drawable.animated_gradient)
             ).into(binding.coverImage)
+
+        Glide.with(binding.frontView.context)
+            .load(lodgeData.coverImage)
+            .apply(
+                RequestOptions().placeholder(R.drawable.loading_background)
+                    .error(R.drawable.animated_gradient)
+            ).into(binding.frontView)
 
         Glide.with(binding.agentImageCover.context)
             .load(lodgeData.agentImage)
@@ -225,7 +238,6 @@ class LodgeDetail : Fragment() {
     }
 
 
-
     private fun fetchLodgeAndPhotos() {
         val source = Source.DEFAULT
         photosReference.get(source).addOnSuccessListener { photosSnap ->
@@ -233,7 +245,10 @@ class LodgeDetail : Fragment() {
                 it.toObject(FirebaseLodgePhoto::class.java)
             }.also { photos ->
                 lifecycleScope.launchWhenStarted {
-                    if (photos.size <= 3) {
+                    if (photos.size == 1) {
+                        photoListRecycler.visibility = View.GONE
+                        binding.frontView.visibility = View.VISIBLE
+                    }else if (photos.size <= 3) {
                         photoListRecycler.layoutManager = LinearLayoutManager(
                             requireContext(), LinearLayoutManager.HORIZONTAL, false
                         )
@@ -311,8 +326,8 @@ class LodgeDetail : Fragment() {
             Glide.with(agentImage!!.context)
                 .load(lodge.agentImage)
                 .apply(
-                    RequestOptions().placeholder(R.drawable.ic_round_person)
-                        .error(R.drawable.ic_round_person)
+                    RequestOptions().placeholder(R.drawable.ic_person)
+                        .error(R.drawable.ic_person)
                 )
                 .into(agentImage)
         }
@@ -345,7 +360,7 @@ class LodgeDetail : Fragment() {
 
         val message = "Hello, Am interested in ${lodgeData.hiddenName} \n\n" +
                 "https://unnapp.page.link/lodges/${lodgeData.lodgeId}"
-        .trimIndent()
+                    .trimIndent()
 
         val uri =
             "https://api.whatsapp.com/send?phone=+234$pNumber&text=$message"
@@ -401,19 +416,19 @@ class LodgeDetail : Fragment() {
 
                     lifecycleScope.launchWhenCreated {
                         val message =
-                            "*Hi, checkout this lodge i found at RoaR* " +
+                            "*Hi, checkout this lodge at Roar* " +
                                     "*Location: ${lodgeData.location}* \n" +
-                                    "*Price: ${
+                                    "*Rent: ${
                                         getString(
                                             R.string.format_price_integer,
                                             lodgeData.payment
                                         )
                                     }* \n\n " +
-                                    "*Lodge Url: ${shortLink.shortLink}* \n\n" +
-                                    "*WhatsApp Group Link*\n" +
-                                    "*https://chat.whatsapp.com/KUws1EjUdlmG9j6JhYrepH*  \n\n" +
-                                    "*Telegram Group Link*\n" +
-                                    "*http://t.me/roarAccommodation*"
+                                    "*Lodge Link: ${shortLink.shortLink}* \n\n"
+//                                    "*WhatsApp Group Link*\n" +
+//                                    "*https://chat.whatsapp.com/KUws1EjUdlmG9j6JhYrepH*  \n\n" +
+//                                    "*Telegram Group Link*\n" +
+//                                    "*http://t.me/roarAccommodation*"
 
                         shareIntent.putExtra(Intent.EXTRA_TEXT, message)
                         shareIntent.putExtra(Intent.EXTRA_STREAM, uriInUri)
@@ -421,7 +436,6 @@ class LodgeDetail : Fragment() {
                         shareDynamicLink(shareIntent)
                     }
                 }.addOnFailureListener { e ->
-                    Timber.e(e, "cannot resolve link")
                     swipeRefreshContainer.isRefreshing = false
                     Toast.makeText(
                         requireContext(),
@@ -485,8 +499,9 @@ class LodgeDetail : Fragment() {
     }
 
     private fun moveToPaymentLink() {
-        val intent = Intent(Intent.ACTION_VIEW).apply{
-            data = Uri.parse("https://ravesandbox.flutterwave.com/pay/roar_escrow?_ga=2.140849394.1352586159.1635301045-1618191853.1629456518")
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data =
+                Uri.parse("https://ravesandbox.flutterwave.com/pay/roar_escrow?_ga=2.140849394.1352586159.1635301045-1618191853.1629456518")
         }
         startActivity(intent)
     }
@@ -494,12 +509,12 @@ class LodgeDetail : Fragment() {
     //show dialog for calling realtor
     private fun callDialog() {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle("You are about to leave app to call realtor")
-            setPositiveButton("Okay") {dialog, _ ->
+            setTitle("You are about to leave app to call Roar Escrow")
+            setPositiveButton("Okay") { dialog, _ ->
                 dialog.dismiss()
                 dialPhoneNumber(lodgeData.agentPhone)
             }
-            setNegativeButton("Cancel") {dialog, _ ->
+            setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
             }
             show()
@@ -509,13 +524,13 @@ class LodgeDetail : Fragment() {
     //whats-App dialog
     private fun whatsAppDialog() {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle("You are about leave app to chat with realtor")
-            setPositiveButton("Okay") {dialog, _ ->
+            setTitle("You are about to leave app to chat with Roar Escrow")
+            setPositiveButton("Okay") { dialog, _ ->
                 dialog.dismiss()
                 chatWhatsApp(lodgeData.agentPhone)
             }
 
-            setNegativeButton("Cancel"){dialog, _ ->
+            setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
             }
             show()
@@ -532,7 +547,7 @@ class LodgeDetail : Fragment() {
         }
     }
 
-/*Below handle the permission before share */
+    /*Below handle the permission before share */
     private fun checkPermissionApproved() = ActivityCompat.checkSelfPermission(
         requireContext(),
         Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -565,13 +580,18 @@ class LodgeDetail : Fragment() {
         when (requestCode) {
             SplashActivity.RESULT_WRITE_MEMORY -> {
                 if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(requireContext(), "Accept permission to share item", Toast.LENGTH_SHORT).show()
-                }else{
+                    Toast.makeText(
+                        requireContext(),
+                        "Accept permission to share item",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
                     shareLodgeData()
                 }
                 return
             }
-            else -> { }
+            else -> {
+            }
         }
     }
 

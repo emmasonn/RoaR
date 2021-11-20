@@ -54,7 +54,7 @@ class LodgeUploadDetail : Fragment() {
     private lateinit var parentView: ConstraintLayout
     private lateinit var landLordPhone: TextInputEditText
     private lateinit var landLordName: TextInputEditText
-    private lateinit var lodgeIdentifier: TextInputEditText
+//    private lateinit var lodgeIdentifier: TextInputEditText //commented out manuel inputting  lodgeIdentifier
     private lateinit var progressBar: ProgressBar
     private lateinit var nextBtn: MaterialButton
 
@@ -102,7 +102,7 @@ class LodgeUploadDetail : Fragment() {
         val uploadBack = view.findViewById<ImageView>(R.id.uploadBack)
         landLordName = view.findViewById(R.id.houseOwner)
         landLordPhone = view.findViewById(R.id.housePhone)
-        lodgeIdentifier = view.findViewById(R.id.lodgeId)
+//        lodgeIdentifier = view.findViewById(R.id.lodgeId)
         progressBar = view.findViewById(R.id.progressBar)
         nextBtn = view.findViewById(R.id.nextBtn)
 
@@ -179,7 +179,7 @@ class LodgeUploadDetail : Fragment() {
     }
 
     private fun updateFields() {
-        lodgeIdentifier.setText(lodge?.hiddenName)
+//        lodgeIdentifier.setText(lodge?.hiddenName)
         address.editText?.setText(lodge?.location)
         distanceAway.editText?.setText(lodge?.distance)
         surrounding.editText?.setText(lodge?.surrounding)
@@ -205,7 +205,7 @@ class LodgeUploadDetail : Fragment() {
     }
 
     private fun submitDetails() {
-        val lodgeIdentifier = lodgeIdentifier.text.toString()
+//        val lodgeIdentifier = lodgeIdentifier.text.toString()
         val address = address.editText?.text.toString()
         val distance = distanceAway.editText?.text.toString()
         val surrounding = surrounding.editText?.text.toString()
@@ -222,13 +222,13 @@ class LodgeUploadDetail : Fragment() {
         val campus = campus.editText?.text.toString()
         val ownerName = landLordName.text.toString()
         val ownerPhone = landLordPhone.text.toString()
-        //val randomUserId = generateLodgeId()
+        val randomUserId = generateLodgeId()
 
         nameOfLodge = lodgeName
         val subPayment = subPay.substringAfter("₦").toInt()
 
         val lodge = FirebaseLodge(
-            hiddenName = lodgeIdentifier,
+            hiddenName = randomUserId,
             lodgeId = documentId,
             lodgeName = lodgeName,
             location = address,
@@ -279,7 +279,7 @@ class LodgeUploadDetail : Fragment() {
     }
 
     private fun generateLodgeId(): String =
-        (0..9).shuffled().take(4).joinToString("").let { "Lodge$it" }
+        (0..9).shuffled().take(5).joinToString("").let { "Lodge$it" }
 
     private fun showDescTemplate(message: String?) {
         val snackBar = Snackbar.make(parentView, "$message", Snackbar.LENGTH_SHORT)

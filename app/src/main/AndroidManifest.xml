@@ -64,7 +64,7 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_emma" />
+            android:resource="@drawable/ic_emma_icon" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"

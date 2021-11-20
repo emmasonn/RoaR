@@ -166,8 +166,6 @@ class MainActivity : AppCompatActivity() {
                         val deepLink: Uri? = pendingLink.link ?: Uri.parse("")
                         processDynamicLink(deepLink)
                     }
-                }.addOnFailureListener(this) { e ->
-                    Timber.e(e, "Error cannot parse dynamic link")
                 }
         }
     }
@@ -310,7 +308,6 @@ class MainActivity : AppCompatActivity() {
     private suspend fun subscribeProductLodge(sharedPreferences: SharedPreferences) {
         withContext(Dispatchers.Default) {
             val products = sharedPreferences.getStringSet("product_topics", null)
-             Timber.i("products: $products")
              products?.forEach { myTopic ->
                 subscribeTopics("/topics/${myTopic}")
              }

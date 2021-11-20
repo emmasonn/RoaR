@@ -282,6 +282,16 @@
                             android:layout_marginBottom="80dp"
                             android:orientation="vertical">
 
+                            <ImageView
+                                android:id="@+id/frontView"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:layout_margin="8dp"
+                                android:scaleType="centerCrop"
+                                android:visibility="gone"
+                                tools:src="@drawable/hiltop"
+                                android:contentDescription="Lodge Front view" />
+
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/listPhotos"
                                 android:layout_width="match_parent"
@@ -644,7 +654,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:elevation="10dp"
-                                        android:text="Escrow Agent"
+                                        android:text="Officer"
                                         android:textAppearance="?attr/textAppearanceBody2"
                                         android:textSize="14sp"
                                         app:layout_constraintEnd_toEndOf="@+id/brandName"
@@ -676,7 +686,7 @@
                                     android:layout_marginTop="30dp"
                                     android:layout_marginEnd="20dp"
                                     android:layout_marginBottom="10dp"
-                                    android:backgroundTint="?attr/colorControlNormal"
+                                    android:backgroundTint="?attr/colorAccent"
                                     android:text="Contact Realtor"
                                     android:textAllCaps="false"
                                     android:textAppearance="?attr/textAppearanceBody2"

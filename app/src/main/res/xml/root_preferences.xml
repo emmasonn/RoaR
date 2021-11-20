@@ -19,7 +19,7 @@
         app:entries ="@array/unn_array"
         app:entryValues="@array/unn_array"
         app:key="unn_topics"
-        app:title="Unn lodges notification"
+        app:title="UNN lodges notification"
         app:summary=" Pick interested areas"
         app:iconSpaceReserved="false"
         app:allowDividerBelow="true"
@@ -31,7 +31,7 @@
         app:entries ="@array/unec_array"
         app:entryValues="@array/unec_array"
         app:key="unec_topics"
-        app:title="Unec lodges notification"
+        app:title="UNEC lodges notification"
         app:summary=" Pick interested areas"
         app:iconSpaceReserved="false"
         app:allowDividerBelow="true"
@@ -68,7 +68,7 @@
 
     <PreferenceCategory>
         <Preference
-            app:title="©RoaR2021"
+            app:title="©Roar2021"
             app:summary="\tversion1.0.0"
             app:iconSpaceReserved="false"
             />

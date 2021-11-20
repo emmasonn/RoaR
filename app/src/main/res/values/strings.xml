@@ -60,7 +60,7 @@
     <string name="estate_pro">Professional</string>
     <string name="format_property_header">%s  for sale</string>
     <string name="tour_title">%s\tTour</string>
-    <string name="about_us">We provide real estate services on lodges within University of Nigeria, campus. We also provide digital platform where  genuine businesses  and entrepreneur can engage their audience with their products and services.</string>
+    <string name="about_us">Roar is an escrow service platform, that provides you with the lodges with in the University of Nigeria campuses( UNN and UNEC). it also enable students to sell their fairly used property or item. We scrutinize products that are sold on this platform and also ensures transparency in products and services with in the campuses.</string>
     <string name="customer_rule1">Direct question pertaining to your personal temporary accommodation to our WhatsApp accommodation customer service and not in the WhatsApp group</string>
     <string name="customer_rule2">Members are not allowed to make calls to customer service anytime, please tell your questions and problems directly, they can identify and answer back as soon as possible</string>
     <string name="customer_rule3">The WhatsApp and Telegram group on this screen are the only groups which are officially authorized by RoaR, members should join at least one of the community groups to keep pace with other members.</string>
@@ -69,7 +69,7 @@
     <string name="customer_rule6">The quality of customer service is one of the most foundation of Roar, if anyone of the customer service hasn\'t served you well, please send feedback to complain about his or her service with their mobile number at roar.escrow.mailbox@gmail.com</string>
     <string name="call_text">Call</string>
     <string name="upload_video_file">Upload video file…</string>
-    <string name="no_lodge_has_been_added_here_yet">No lodge has been added</string>
+    <string name="no_lodge_has_been_added_here_yet">No lodge has been added \n or \n Check your internet connection</string>
     <string name="term1">Direct question pertaining to your personal temporary accommodation to our WhatsApp accommodation customer service and not in the WhatsApp group</string>
     <string name="term2">Members are not allowed to make calls to customer service anytime, please tell your questions and problems directly, they can identify and answer back as soon as possible</string>
     <string name="term3">The WhatsApp and Telegram group on this screen are the only groups which are officially authorized by Roar, members should join at least one of the community groups to keep pace with other members.</string>

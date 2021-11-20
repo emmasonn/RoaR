@@ -13,7 +13,7 @@
 
         <item name="colorSurface">@color/white</item>
         <item name="colorAccent">@color/blue_300</item>
-        <item name="colorControlNormal">@color/blue_300</item>
+        <item name="colorControlNormal">?attr/colorOnPrimary</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
         <item name="alertDialogTheme">@style/DialogStyle</item>
 

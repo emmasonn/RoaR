@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/light_black_background"
                 android:elevation="10dp"
+                android:visibility="gone"
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="@+id/propertyImage"
@@ -68,7 +69,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription"
-                tools:src="@drawable/animated_gradient" />
+                tools:src="@drawable/loading_background" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 

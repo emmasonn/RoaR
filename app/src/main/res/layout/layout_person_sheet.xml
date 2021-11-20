@@ -49,7 +49,7 @@
                                 app:strokeColor="@color/white"
                                 app:strokeWidth="1dp"
                                 tools:ignore="ContentDescription"
-                                tools:src="@drawable/animated_gradient" />
+                                tools:src="@drawable/loading_background" />
 
                             <TextView
                                 android:id="@+id/productName"

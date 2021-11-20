@@ -11,7 +11,7 @@
       android:id="@+id/iconView"
       android:layout_width="100dp"
       android:layout_height="100dp"
-      android:scaleType="centerCrop"
+      android:scaleType="fitXY"
       android:src="@drawable/ic_emma_icon"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"

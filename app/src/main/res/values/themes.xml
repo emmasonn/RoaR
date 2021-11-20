@@ -9,12 +9,11 @@
         <item name="colorSecondary">@color/black_100</item>
         <item name="colorSecondaryVariant">@color/yellow_500</item> <!--used for ad title color-->
         <item name="colorOnSecondary">@color/black_500</item> <!--become agent fade buttons-->
-
         <item name="fontFamily">@font/montserrat_bold</item>
         <item name="font">@font/montserrat_bold</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorAccent">@color/blue_300</item>
-        <item name="colorControlNormal">@color/blue_500</item>
+        <item name="colorControlNormal">?attr/colorOnPrimary</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
 
         <!-- Status bar color. -->

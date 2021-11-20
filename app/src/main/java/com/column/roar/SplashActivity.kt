@@ -82,10 +82,6 @@ class SplashActivity : AppCompatActivity() {
                     privacy.text = Html.fromHtml(getString(R.string.privacyAndTerms)).toString()
                 }
 
-                val animation =
-                    AnimationUtils.loadAnimation(this@SplashActivity, R.anim.shake_rotate)
-                iconSmall.startAnimation(animation)
-
                 checkBtn.setOnCheckedChangeListener { _, checked ->
                     if (checked) {
                         okayBtn.alpha = 1F

@@ -11,7 +11,7 @@
         <item name="colorOnSecondary">@color/white_300</item> <!--become agent fade buttons-->
 
         <item name="colorAccent">@color/blue_300</item>
-        <item name="colorControlNormal">@color/blue_300</item>
+        <item name="colorControlNormal">?attr/colorOnPrimary</item>
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="font">@font/montserrat_regular</item>
 
