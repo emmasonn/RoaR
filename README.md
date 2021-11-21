@@ -1,2 +1,4 @@
 # RoaR
-Platform for Escrow services
+A real estate android application,
+Designed for Escrow services business.
+
