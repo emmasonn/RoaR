@@ -18,6 +18,7 @@ import com.column.roar.cloudModel.FirebaseLodge
 import com.column.roar.listAdapters.ManageAdapterListener
 import com.column.roar.listAdapters.ManageListAdapter
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.*
@@ -30,6 +31,7 @@ class CareerFragment : Fragment() {
     private lateinit var visitDocument: CollectionReference
     private lateinit var registration: ListenerRegistration
     private lateinit var sharedPref: SharedPreferences
+    private lateinit var noConnectionView: MaterialCardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,41 +53,19 @@ class CareerFragment : Fragment() {
         val toolBar = view.findViewById<MaterialToolbar>(R.id.toolBar)
         manageRecycler = view.findViewById<RecyclerView>(R.id.manageRecycler)
         val backBtn = view.findViewById<ImageView>(R.id.pagerBack)
+        noConnectionView = view.findViewById(R.id.emptyListView)
 
         manageListAdapter = ManageListAdapter(
-            ManageAdapterListener ({ lodgeData ->
-            val action = R.id.action_careerFragment_to_editLodgePager
-            val bundle = bundleOf("Lodge" to lodgeData ) //modify lodge details
-            findNavController().navigate(action,bundle)
+            ManageAdapterListener ({
         },{
             editRoomDialog(it)
-        },{}))
+        },{}),true)
 
         manageRecycler.adapter = manageListAdapter
         backBtn.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        toolBar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.uploadCareer -> {
-                    val action = R.id.action_careerFragment_to_lodgeDetailUpload
-                    findNavController().navigate(action)
-                    true
-                }
-
-                R.id.notifyBtn -> {
-                    findNavController().navigate(R.id.notifyFragment)
-                    true
-                }
-
-                R.id.callAdmin -> {
-
-                    true
-                }
-                else -> false
-            }
-        }
         return view
     }
 
@@ -99,7 +79,12 @@ class CareerFragment : Fragment() {
             value?.documents?.mapNotNull {
                 it.toObject(FirebaseLodge::class.java)
             }.also {
-                manageListAdapter.submitList(it)
+                if (it.isNullOrEmpty()) {
+                    noConnectionView.visibility = View.VISIBLE
+                }else {
+                    noConnectionView.visibility = View.GONE
+                    manageListAdapter.submitList(it)
+                }
             }
         }
     }

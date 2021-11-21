@@ -68,7 +68,7 @@ class ManageAds : Fragment() {
         },{
             val bundle = bundleOf("property" to it)
             findNavController().navigate(R.id.addBusinessProduct, bundle)
-        }))
+        }),true)
 
         manageProductsRecycler.adapter = uploadPhotosAdapter
         swipeContainer.setOnRefreshListener {
@@ -91,7 +91,33 @@ class ManageAds : Fragment() {
                 fetchProducts()
             }
         }.addOnFailureListener {
-            Toast.makeText(requireContext(),"Failed Successfully",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),"Failed to delete",Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun suspendCard(id: String) {
+        val document = lodgeCollection.document(id)
+        document.update("certified",false).addOnSuccessListener {
+            Toast.makeText(requireContext(),"suspended Successfully",Toast.LENGTH_SHORT).show()
+            lifecycleScope.launch {
+                swipeContainer.isRefreshing = true
+                fetchProducts()
+            }
+        }.addOnFailureListener {
+            Toast.makeText(requireContext(),"Failed to suspend",Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun approveCard(id: String) {
+        val document = lodgeCollection.document(id)
+        document.update("certified",true).addOnSuccessListener {
+            Toast.makeText(requireContext(),"Approved Successfully",Toast.LENGTH_SHORT).show()
+            lifecycleScope.launch {
+                swipeContainer.isRefreshing = true
+                fetchProducts()
+            }
+        }.addOnFailureListener {
+            Toast.makeText(requireContext(),"Failed to Approve",Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -105,7 +131,8 @@ class ManageAds : Fragment() {
                         id = it.id,
                         title = it.brand,
                         image = it.cover,
-                        video = it.video
+                        video = it.video,
+                        certified = it.certified
                     )
                 }.let {
                     lifecycleScope.launchWhenCreated {
@@ -124,14 +151,20 @@ class ManageAds : Fragment() {
 
     private fun showDeleteDialog(stringId: String) {
         MaterialAlertDialogBuilder(requireContext()).apply {
-            setTitle("Do you Want to delete Photo")
-            setPositiveButton("Yes") { dialog, _ ->
+            setTitle("Choose action to perform")
+            setPositiveButton("Delete") { dialog, _ ->
                 dialog.dismiss()
                 deleteCard(stringId)
             }
-            setNegativeButton("No") { dialog, _ ->
+
+            setNeutralButton("Approve") { dialog,_ ->
                 dialog.dismiss()
+                approveCard(stringId)
             }
+
+            setNegativeButton("Suspend") { dialog, _ ->
+                dialog.dismiss()
+                suspendCard(stringId)            }
             show()
         }
     }

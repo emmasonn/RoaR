@@ -15,7 +15,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 
-class ManageListAdapter (private val manageAdapterListener: ManageAdapterListener): ListAdapter<FirebaseLodge, ManageListAdapter.ManageViewHolder>(diffUtil) {
+class ManageListAdapter (
+    private val manageAdapterListener: ManageAdapterListener,
+    private val hideDetailButton: Boolean? = null
+):
+    ListAdapter<FirebaseLodge, ManageListAdapter.ManageViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManageViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -24,7 +28,8 @@ class ManageListAdapter (private val manageAdapterListener: ManageAdapterListene
 
     override fun onBindViewHolder(holder: ManageViewHolder, position: Int) {
         val data = getItem(position)
-        holder.bind(data, manageAdapterListener)
+        holder.bind(data, manageAdapterListener,
+            hideDetailButton)
     }
 
     class ManageViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -41,13 +46,23 @@ class ManageListAdapter (private val manageAdapterListener: ManageAdapterListene
         private val notActive = itemView.findViewById<MaterialCardView>(R.id.notActive)
         private val onLine = itemView.findViewById<MaterialButton>(R.id.online)
 
-        fun bind(data: FirebaseLodge, listener: ManageAdapterListener) {
+        fun bind(data: FirebaseLodge,
+                 listener: ManageAdapterListener,
+                 hideDetailButton: Boolean?
+        ) {
 
             Glide.with(imageView.context)
                 .load(data.coverImage).apply(
                     RequestOptions().placeholder(R.drawable.loading_background)
                         .error(R.drawable.loading_background)
                 ).into(imageView)
+
+            hideDetailButton?.let {
+                if(it){
+                    viewBtn.alpha = 0F
+                    viewBtn.isEnabled = false
+                }
+            }
 
             lodgeTitle.text = data.lodgeName
             location.text = data.location

@@ -76,7 +76,7 @@ class RealtorFragment : Fragment() {
 
     private fun fetchRealtors() {
         realtorsRef.get().addOnSuccessListener { value ->
-            value?.documents?.mapNotNull {
+            value.documents.mapNotNull {
                 it.toObject(FirebaseUser::class.java)
             }.also {
                 clientListAdapter.submitList(it)
@@ -96,16 +96,10 @@ class RealtorFragment : Fragment() {
 
 
     private fun setUpQuery(accountType: String?) {
-        val clientId = sharedPref.getString("user_id", "")
-
         when (accountType) {
             "Admin" -> {
                 realtorsRef = fireStore.collection("clients")
-                    .whereEqualTo("accountType", "Realtor")
-                    .whereEqualTo("adminId", clientId)
-            }
-            "Super Admin" -> { //replace to super Admin
-                realtorsRef = fireStore.collection("clients").whereEqualTo("accountType", "Realtor")
+                    .whereNotEqualTo("account", "Business")
             }
         }
     }

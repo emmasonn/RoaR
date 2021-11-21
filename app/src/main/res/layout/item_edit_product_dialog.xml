@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="300dp">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/textView34"
@@ -53,6 +53,22 @@
         app:layout_constraintTop_toBottomOf="@+id/approveItem" />
 
     <TextView
+        android:id="@+id/suspendItem"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/back_arrow_height"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="Suspend Item"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        android:textColor="@color/red_700"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/dialogDeleteItem"
+        app:layout_constraintEnd_toEndOf="@+id/dialogEditItem"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/dialogEditItem"
+        app:layout_constraintTop_toBottomOf="@+id/notifyBtn" />
+
+    <TextView
         android:id="@+id/dialogDeleteItem"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/back_arrow_height"
@@ -66,7 +82,8 @@
         app:layout_constraintEnd_toEndOf="@+id/dialogEditItem"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/dialogEditItem"
-        app:layout_constraintTop_toBottomOf="@+id/notifyBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/suspendItem"
+        />
 
     <TextView
         android:id="@+id/notifyBtn"
@@ -78,7 +95,7 @@
         android:textColor="?attr/colorControlNormal"
         android:textStyle="bold"
         android:textAppearance="?attr/textAppearanceSubtitle1"
-        app:layout_constraintBottom_toTopOf="@+id/dialogDeleteItem"
+        app:layout_constraintBottom_toTopOf="@+id/suspendItem"
         app:layout_constraintEnd_toEndOf="@+id/dialogEditItem"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/dialogEditItem"

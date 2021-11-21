@@ -212,6 +212,7 @@ class UploadAds : Fragment() {
                                 requireContext(),
                                 "Picture is uploaded successfully", Toast.LENGTH_SHORT
                             ).show()
+
                             hideLoadingBar()
                             findNavController().popBackStack()
                         }

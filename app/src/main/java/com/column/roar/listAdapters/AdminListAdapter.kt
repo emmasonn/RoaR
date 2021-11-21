@@ -62,7 +62,6 @@ class AdminListAdapter(private val adminClickListener: AdminClickListener)
                 ): Boolean {
                     return oldItem == newItem
                 }
-
             }
         }
 

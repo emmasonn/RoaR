@@ -46,7 +46,7 @@ class NewListAdapter(
 
     private val mutableNativeAd1 = MutableLiveData<NativeAd>()
     private val mutableNativeAd2 = MutableLiveData<NativeAd>()
-    private val productCat = resource.getStringArray(R.array.product_type_form)
+    private val productCat = resource.getStringArray(R.array.product_type)
     var showEmpty: Boolean = false
 
     fun postAd1(_nativeAd: NativeAd) {
@@ -126,8 +126,7 @@ class NewListAdapter(
     ): NewListAdapter {
 
         adapterScope.launch {
-            val position: Int = (0..5).random()
-
+            val position: Int = (0..2).random()
             val catTitle = productCat[position]
             val randomProducts = properties.run {
                 this.filter { it.type == catTitle }.take(5).let {

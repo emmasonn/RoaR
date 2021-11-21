@@ -153,7 +153,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="?attr/colorControlNormal"
+                android:backgroundTint="?attr/colorAccent"
                 android:text="Pay"
                 android:textAppearance="?attr/textAppearanceSubtitle1"
                 android:textColor="@color/white"

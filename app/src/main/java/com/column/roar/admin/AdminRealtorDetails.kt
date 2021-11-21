@@ -55,6 +55,7 @@ class AdminRealtorDetails : Fragment() {
         fireStore = FirebaseFirestore.getInstance()
         clientRef = fireStore.collection("clients").document(client.clientId!!)
         lodgeCollection = fireStore.collection("lodges")
+            .whereEqualTo("agentId", client.clientId)
     }
 
     override fun onCreateView(
@@ -70,7 +71,6 @@ class AdminRealtorDetails : Fragment() {
         emptyLayout = view.findViewById(R.id.emptyListView)
         brandName.text = client.brand
         swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
-
         swipeRefreshContainer.isRefreshing = true
 
         backBtn.setOnClickListener {
@@ -79,13 +79,12 @@ class AdminRealtorDetails : Fragment() {
 
         manageListAdapter = ManageListAdapter(ManageAdapterListener({
                  val bundle = bundleOf("Lodge" to it)
-                findNavController().navigate(R.id.editLodgePager, bundle)
+                 findNavController().navigate(R.id.editLodgePager, bundle)
         },{
             editRoomDialog(it)
         },{ lodge ->
             activateAccount(lodge)
         }))
-
         lodgeRecycler.adapter = manageListAdapter
 
         swipeRefreshContainer.setOnRefreshListener {
@@ -103,6 +102,11 @@ class AdminRealtorDetails : Fragment() {
                     editPasswordDialog(client)
                     true
                 }
+                R.id.approveAccount -> {
+                    approveAccount()
+                    true
+                }
+
                 R.id.suspendAccount -> {
                     suspendAccount()
                     true
@@ -122,7 +126,7 @@ class AdminRealtorDetails : Fragment() {
 
     private fun fetchLodges () {
         lodgeCollection.get().addOnSuccessListener { value ->
-            value?.documents?.mapNotNull {
+            value.documents.mapNotNull {
                 it.toObject(FirebaseLodge::class.java)
             }.also { lodges ->
                 manageListAdapter.submitList(lodges)
@@ -143,6 +147,20 @@ class AdminRealtorDetails : Fragment() {
             setPositiveButton("Continue") { dialog, _ ->
                 clientRef.update("certified", false).addOnSuccessListener {
                     lifecycleScope.launch {
+                        dialog.dismiss()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun approveAccount() {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("You're about to approve account")
+            setPositiveButton("Continue") { dialog, _ ->
+                clientRef.update("certified", true).addOnSuccessListener {
+                    lifecycleScope.launch {
+                        Toast.makeText(requireContext(),"Account Approved",Toast.LENGTH_SHORT).show()
                         dialog.dismiss()
                     }
                 }
@@ -274,7 +292,5 @@ class AdminRealtorDetails : Fragment() {
             show()
         }
     }
-
-
 
 }

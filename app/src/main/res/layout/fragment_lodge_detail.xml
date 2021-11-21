@@ -223,7 +223,7 @@
                     android:layout_margin="10dp"
                     app:cardBackgroundColor="@color/blue_grey_100"
                     app:cardElevation="20dp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle50">
 
@@ -637,7 +637,7 @@
                                         android:layout_marginTop="5dp"
                                         android:elevation="10dp"
                                         android:fontFamily="@font/montserrat_extra_bold"
-                                        android:text="@{lodgeDetail.brand}"
+                                        android:text="ROAR ESCROW SERVICE"
                                         android:textAlignment="center"
                                         android:textAppearance="?attr/textAppearanceSubtitle1"
                                         android:textColor="@color/blue_100"
@@ -647,13 +647,14 @@
                                         app:layout_constraintHorizontal_bias="0.4"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="@+id/agentImageCover"
-                                        tools:text="PIPPINHALL" />
+                                         />
 
                                     <TextView
                                         android:id="@+id/textView7"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:elevation="10dp"
+                                        android:layout_marginTop="10dp"
                                         android:text="Officer"
                                         android:textAppearance="?attr/textAppearanceBody2"
                                         android:textSize="14sp"
@@ -683,11 +684,11 @@
                                     android:layout_width="0dp"
                                     android:layout_height="50dp"
                                     android:layout_marginStart="40dp"
-                                    android:layout_marginTop="30dp"
+                                    android:layout_marginTop="20dp"
                                     android:layout_marginEnd="20dp"
                                     android:layout_marginBottom="10dp"
                                     android:backgroundTint="?attr/colorAccent"
-                                    android:text="Contact Realtor"
+                                    android:text="Contact Officer"
                                     android:textAllCaps="false"
                                     android:textAppearance="?attr/textAppearanceBody2"
                                     android:textColor="@color/white"

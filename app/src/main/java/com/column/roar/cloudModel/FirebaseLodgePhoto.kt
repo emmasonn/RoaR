@@ -10,5 +10,6 @@ data class FirebaseLodgePhoto(
     var id: String? = null,
     var image: String? = null,
     var title: String? = null,
+    var certified: Boolean? = null,
     var video: String? = null
 ): Parcelable

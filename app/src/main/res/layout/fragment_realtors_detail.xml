@@ -60,6 +60,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Capital Housing" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </com.google.android.material.appbar.MaterialToolbar>
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeContainer"

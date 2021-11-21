@@ -11,6 +11,12 @@
          android:title="Change Password"
          app:showAsAction="never"
         />
+
+    <item android:id="@+id/approveAccount"
+        android:title="Approve Account"
+        app:showAsAction="never"
+        />
+
     <item android:id="@+id/suspendAccount"
         android:title="Suspend Account"
         app:showAsAction="never"

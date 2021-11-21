@@ -155,6 +155,7 @@ class BroadCastProduct : Fragment() {
             val deleteBtn = view.findViewById<TextView>(R.id.dialogDeleteItem)
             val notifyBtn = view.findViewById<TextView>(R.id.notifyBtn)
             val approveBtn = view.findViewById<TextView>(R.id.approveItem)
+            val suspendItem = view.findViewById<TextView>(R.id.suspendItem)
 
             editBtn.setOnClickListener {
                 editDialog.dismiss()
@@ -170,6 +171,11 @@ class BroadCastProduct : Fragment() {
             approveBtn.setOnClickListener {
                 editDialog.dismiss()
                 approveItem(firebaseProperty.id!!)
+            }
+
+            suspendItem.setOnClickListener {
+                editDialog.dismiss()
+                suspendAccount(firebaseProperty.id!!)
             }
 
             deleteBtn.setOnClickListener {
@@ -194,6 +200,20 @@ class BroadCastProduct : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+    }
+
+    private fun suspendAccount(id: String) {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("You're about to suspend Product")
+            setPositiveButton("Continue") { dialog, _ ->
+                productCollection.document(id).update("certified", false)
+                    .addOnSuccessListener {
+                    lifecycleScope.launch {
+                        dialog.dismiss()
+                    }
+                }
+            }
+        }
     }
 
     private fun deleteCard(id: String) {

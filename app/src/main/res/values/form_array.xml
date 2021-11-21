@@ -126,6 +126,7 @@
     <string-array name="distance_level">
         <item>Close</item>
         <item>Far</item>
+        <item>Not Far</item>
         <item>Very Far</item>
     </string-array>
 

@@ -143,7 +143,7 @@ class AdminFragment : Fragment() {
 
     private fun fetchClients() {
         clientRef.get().addOnSuccessListener { value ->
-            value?.toObject(FirebaseUser::class.java).also { firebaseUser ->
+            value.toObject(FirebaseUser::class.java).also { firebaseUser ->
                 client = firebaseUser!!
 
                 Glide.with(binding.profilePics.context)

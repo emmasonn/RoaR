@@ -48,10 +48,8 @@ class AdminManageMarketers : Fragment() {
         super.onCreate(savedInstanceState)
         fireStore = FirebaseFirestore.getInstance()
         clientRef = fireStore.collection("clients").document(client.clientId!!)
-
         productsRef = fireStore.collection("properties")
-            .whereEqualTo("sellerId",client.clientId)
-
+            .whereEqualTo("ownerId",client.clientId)
     }
 
     override fun onCreateView(
@@ -67,7 +65,6 @@ class AdminManageMarketers : Fragment() {
         swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
         emptyLayout = view.findViewById(R.id.emptyListView)
         swipeRefreshContainer.isRefreshing = true
-
         productTitle.text = client.brand
 
         backBtn.setOnClickListener {
@@ -103,8 +100,12 @@ class AdminManageMarketers : Fragment() {
                     editPasswordDialog(client)
                     true
                 }
+                R.id.approveAccount -> {
+                    approveAccount()
+                    true
+                }
                 R.id.suspendAccount -> {
-
+                    suspendAccount()
                     true
                 }
 
@@ -117,12 +118,26 @@ class AdminManageMarketers : Fragment() {
     }
 
 
-    fun suspendAccount() {
+   private fun suspendAccount() {
         MaterialAlertDialogBuilder(requireContext()).apply {
             setTitle("You're about to suspend account")
             setPositiveButton("Continue") { dialog, _ ->
                 clientRef.update("certified", false).addOnSuccessListener {
                     lifecycleScope.launch {
+                        dialog.dismiss()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun approveAccount() {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("You're about to approve account")
+            setPositiveButton("Continue") { dialog, _ ->
+                clientRef.update("certified", true).addOnSuccessListener {
+                    lifecycleScope.launch {
+                        Toast.makeText(requireContext(),"Account Approved",Toast.LENGTH_SHORT).show()
                         dialog.dismiss()
                     }
                 }
@@ -150,8 +165,8 @@ class AdminManageMarketers : Fragment() {
         }.addOnFailureListener {
             emptyLayout.visibility = View.VISIBLE
         }
-
     }
+
     @SuppressLint("InflateParams")
     private fun editPasswordDialog(client: FirebaseUser) {
         val documentReference = fireStore.collection("clients").document(client.clientId!!)

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/exitProfile"
+        android:title="Back"
+        android:icon="@drawable/ic_admin_back"
+        />
+
+    <item tools:ignore="MenuTitle">
+        <menu>
+            <group>
+                <item android:id="@+id/career"
+                    android:title="My Lodges"/>
+
+                <item android:id="@+id/termsAndCondition"
+                    android:title="Terms And Condition" />
+
+            </group>
+        </menu>
+    </item>
+
+    <item tools:ignore="MenuTitle">
+        <menu>
+            <group>
+                <item android:title="Manage Account"
+                    android:id="@+id/manageAccount"
+                    />
+                <item android:id="@+id/callAdmin"
+                    android:title="Help desk"
+                    />
+                <item
+                    android:title="Sign out"
+                    android:id="@+id/signOut"
+                    />
+            </group>
+        </menu>
+    </item>
+</menu>

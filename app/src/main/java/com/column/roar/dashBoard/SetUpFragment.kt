@@ -64,9 +64,6 @@ class SetUpFragment : Fragment() {
     private lateinit var saveBtn: MaterialButton
     private lateinit var progressBar: ProgressBar
     private lateinit var adminsRef: Query
-    private lateinit var bottomSheetLayout: BottomSheetDialog
-    private lateinit var admin: FirebaseUser
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,13 +102,13 @@ class SetUpFragment : Fragment() {
 
         saveBtn.setOnClickListener {
             if (profileBitmap !=null  ) {
-                selectAdminBottomSheet()
+                lifecycleScope.launchWhenStarted {
+                    processProfileImage(profileBitmap!!)
+                }
             }else {
                 Toast.makeText(requireContext(),"Please Select Profile Image First", Toast.LENGTH_SHORT).show()
             }
         }
-
-
 
         brownBtn.setOnClickListener {
              openStorageIntent()
@@ -232,14 +229,6 @@ class SetUpFragment : Fragment() {
         }
     }
 
-    private fun finishSetUp(firebaseUser: FirebaseUser?) {
-            firebaseUser?.let {
-                lifecycleScope.launch {
-                    processProfileImage(profileBitmap!!)
-                }
-            }
-    }
-
     private fun saveDetails(image: String) {
         val fullName = fullNameView.text.toString()
         val phoneNumber = phoneTextView.text.toString()
@@ -257,7 +246,6 @@ class SetUpFragment : Fragment() {
             password = password,
             campus = campus,
             brand = brandName,
-            adminId = admin.clientId
         )
 
         clientDocument.set(client).addOnSuccessListener {
@@ -271,35 +259,6 @@ class SetUpFragment : Fragment() {
             Toast.makeText(requireContext(),
                 "Check your Internet Connection: $it", Toast.LENGTH_SHORT).show()
         }
-    }
-
-
-   private fun selectAdminBottomSheet() {
-        bottomSheetLayout = BottomSheetDialog(requireContext()).apply {
-            setContentView(R.layout.admin_bottom_sheet)
-            val progressBar = this.findViewById<ProgressBar>(R.id.progressBar)
-            val adminRecycler = this.findViewById<RecyclerView>(R.id.adminRecyclerView)
-            progressBar?.visibility = View.VISIBLE
-
-            val adminListAdapter = AdminListAdapter(AdminClickListener { adminUser ->
-                  bottomSheetLayout.dismiss()
-                  admin = adminUser
-                  finishSetUp(adminUser)
-            })
-            adminRecycler?.adapter = adminListAdapter
-
-            adminsRef.get().addOnSuccessListener { snapShots ->
-                snapShots.documents.mapNotNull {
-                    it.toObject(FirebaseUser::class.java)
-                }.also {
-                    adminListAdapter.submitList(it)
-                    lifecycleScope.launch {
-                        progressBar?.visibility = View.GONE
-                    }
-                }
-            }
-        }
-        bottomSheetLayout.show()
     }
 
     private fun showProgress() {

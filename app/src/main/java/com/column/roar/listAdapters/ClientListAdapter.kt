@@ -70,14 +70,11 @@ class ClientListAdapter(private val clickListener: UserClickListener): ListAdapt
                     subscription.text = resource.getString(R.string.business_default)
                 }
             }
-
-
             viewAccount.setOnClickListener {
                 clickListener.listener(data)
             }
         }
     }
-
 
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<FirebaseUser>() {
@@ -93,5 +90,4 @@ class ClientListAdapter(private val clickListener: UserClickListener): ListAdapt
     }
 
     class UserClickListener(val listener: (user: FirebaseUser) -> Unit)
-
 }

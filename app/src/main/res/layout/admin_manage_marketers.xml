@@ -27,6 +27,7 @@
                 android:focusable="true"
                 android:layout_marginVertical="10dp"
                 android:src="@drawable/ic_backward"
+                android:scaleType="centerInside"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

@@ -24,7 +24,20 @@
         app:layout_constraintVertical_bias="1.0"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius"
         tools:ignore="ContentDescription"
-        tools:src="@drawable/animated_gradient" />
+        tools:src="@drawable/loading_background" />
+
+    <TextView
+        android:id="@+id/suspendView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="5dp"
+        android:text="Suspended"
+        android:visibility="gone"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/red_700"
+        app:layout_constraintStart_toStartOf="@+id/imageLink"
+        app:layout_constraintTop_toTopOf="@+id/imageLink" />
 
     <TextView
         android:id="@+id/imageTitle"

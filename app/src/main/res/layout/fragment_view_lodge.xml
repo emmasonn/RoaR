@@ -55,6 +55,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
         tools:ignore="ContentDescription"
-        tools:src="@drawable/animated_gradient" />
+        tools:src="@drawable/loading_background" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

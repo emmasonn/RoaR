@@ -273,15 +273,17 @@ class ManageAccount : Fragment() {
             val inflater = LayoutInflater.from(requireContext())
             val view = inflater.inflate(R.layout.edit_room_dialog,null)
             val roomField = view.findViewById<TextInputEditText>(R.id.roomNumber)
-            roomField.hint = "Brand"
+            roomField.hint = "Full Name"
             roomField.setText(client.clientName.toString())
 
             setPositiveButton("Submit") { _, _ ->
                 val fullName = roomField.text.toString()
-                documentReference.update("brand", fullName)
+                documentReference.update("clientName", fullName)
                     .addOnSuccessListener {
-                        Toast.makeText(requireContext(),"Update is Successfully",
-                            Toast.LENGTH_SHORT).show()
+                        lifecycleScope.launchWhenStarted {
+                            Toast.makeText(requireContext(),"Update is Successfully",
+                                Toast.LENGTH_SHORT).show()
+                        }
                     }.addOnFailureListener {
                         Toast.makeText(requireContext(),"Failed to Update",
                             Toast.LENGTH_SHORT).show()

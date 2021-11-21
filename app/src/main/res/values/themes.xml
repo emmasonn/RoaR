@@ -124,7 +124,9 @@
         <item name="colorOnPrimary">@color/blue_500</item>
         <item name="buttonBarPositiveButtonStyle">@style/Widget.Roar.textHeadline</item>
         <item name="buttonBarNegativeButtonStyle">@style/Widget.Roar.textHeadline</item>
-<!--        <item name="materialAlertDialogTitleTextStyle">@style/Widget.Roar.dialogTitle</item>-->
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.Roar.textHeadline</item>
+
+        <!--        <item name="materialAlertDialogTitleTextStyle">@style/Widget.Roar.dialogTitle</item>-->
 <!--        <item name="materialAlertDialogBodyTextStyle">@style/Widget.Roar.dialogBody</item>-->
         <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
     </style>

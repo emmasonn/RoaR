@@ -14,12 +14,12 @@ import java.util.*
     var cover: String? = null,
     var description : String? = null,
     var type: String? = null,
-    var owner: String? = null,
-    var number: String? = null,
-    var ownerId: String? = null,
+    var owner: String? = null, //owner implies the contact of the owner
+    var number: String? = null, //number implies the contact of the agent
+    var ownerId: String? = null, //implies agent id
     var image: String? = null,
     var promo: String? = null,
-    var brand: String? = null,
+    var brand: String? = null, //this implies the name of the agent
     var certified: Boolean? = null,
     var video: String? = null,
     var campus: String? = null,

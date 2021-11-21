@@ -32,7 +32,6 @@ import com.google.firebase.firestore.Query
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 
 class BroadCastLodge : Fragment() {
@@ -137,6 +136,8 @@ class BroadCastLodge : Fragment() {
             val deleteBtn = view.findViewById<TextView>(R.id.dialogDeleteItem)
             val notifyBtn = view.findViewById<TextView>(R.id.notifyBtn)
             val approveItem = view.findViewById<TextView>(R.id.approveItem)
+            val suspendLodge = view.findViewById<TextView>(R.id.suspendItem)
+
 
             editBtn.setOnClickListener {
                 editDialog.dismiss()
@@ -154,11 +155,15 @@ class BroadCastLodge : Fragment() {
                 approveAction(firebaseLodge.lodgeId!!)
             }
 
+            suspendLodge.setOnClickListener {
+                editDialog.dismiss()
+                suspendLodge(firebaseLodge.lodgeId!!)
+            }
+
             deleteBtn.setOnClickListener {
                 editDialog.dismiss()
                 deleteCard(firebaseLodge.lodgeId!!)
             }
-
             setView(view)
         }.show()
 
@@ -167,7 +172,22 @@ class BroadCastLodge : Fragment() {
 
     private fun approveAction(id: String) {
         lodgeCollection.document(id).update("certified",true)
-            .addOnSuccessListener { Toast.makeText(requireContext(),"Item Approved",Toast.LENGTH_SHORT).show() }
+            .addOnSuccessListener { Toast.makeText(requireContext(),"Lodge Approved",Toast.LENGTH_SHORT).show() }
+    }
+
+    private fun suspendLodge(id: String) {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("You're about to suspend Lodge")
+            setPositiveButton("Continue") { dialog, _ ->
+                lodgeCollection.document(id).update("certified", false)
+                    .addOnSuccessListener {
+                        lifecycleScope.launch {
+                            dialog.dismiss()
+                        }
+                    }
+                show()
+            }
+        }
     }
 
     @SuppressLint("InflateParams")

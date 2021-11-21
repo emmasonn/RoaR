@@ -74,7 +74,7 @@ class BusinessFragment : Fragment() {
 
     private fun fetchBusiness () {
         businessRef.get().addOnSuccessListener { value ->
-            value?.documents?.mapNotNull {
+            value.documents.mapNotNull {
                 it.toObject(FirebaseUser::class.java)
             }.also {
                 clientListAdapter.submitList(it)
@@ -90,19 +90,10 @@ class BusinessFragment : Fragment() {
     }
 
     private fun setUpQuery(accountType: String?){
-        val clientId = sharedPref.getString("user_id","")
-        Timber.i("client: $clientId, accountType: $accountType")
-
         when(accountType) {
             "Admin" -> {
                 businessRef = fireStore.collection("clients")
-                    .whereEqualTo("accountType","Business")
-                    .whereEqualTo("adminId", clientId)
-            }
-
-            "Super Admin" -> { //replace to super admin
-                businessRef = fireStore.collection("clients")
-                    .whereEqualTo("accountType","Business")
+                    .whereNotEqualTo("account","Realtor")
             }
         }
     }

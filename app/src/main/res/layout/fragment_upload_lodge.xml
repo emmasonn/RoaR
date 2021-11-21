@@ -368,7 +368,7 @@
                 android:text="Save"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                app:backgroundTint="?attr/colorControlNormal"
+                app:backgroundTint="?attr/colorAccent"
                 app:cornerRadius="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/distanceSpinner"

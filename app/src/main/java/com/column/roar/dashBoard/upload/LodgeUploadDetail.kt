@@ -12,11 +12,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.column.roar.MainActivity
 import com.column.roar.home.HomeFragment
 import com.column.roar.R
 import com.column.roar.cloudModel.FirebaseLodge
 import com.column.roar.cloudModel.FirebaseUser
+import com.column.roar.listAdapters.AdminListAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -25,8 +28,10 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
 class LodgeUploadDetail : Fragment() {
 
@@ -54,9 +59,14 @@ class LodgeUploadDetail : Fragment() {
     private lateinit var parentView: ConstraintLayout
     private lateinit var landLordPhone: TextInputEditText
     private lateinit var landLordName: TextInputEditText
-//    private lateinit var lodgeIdentifier: TextInputEditText //commented out manuel inputting  lodgeIdentifier
+
+    //private lateinit var lodgeIdentifier: TextInputEditText //commented out manuel inputting  lodgeIdentifier
     private lateinit var progressBar: ProgressBar
     private lateinit var nextBtn: MaterialButton
+    private lateinit var bottomSheetLayout: BottomSheetDialog
+    private lateinit var admin: FirebaseUser
+    private lateinit var clientCollection: CollectionReference
+
 
     private val lodge: FirebaseLodge? by lazy {
         arguments?.get("Lodge") as FirebaseLodge?
@@ -70,10 +80,11 @@ class LodgeUploadDetail : Fragment() {
 
         lodgeCollection = firebase.collection("lodges")
         clientDocument = firebase.collection("clients").document(clientId!!)
+        clientCollection = firebase.collection("clients")
 
-        documentId = if(lodge == null) {
+        documentId = if (lodge == null) {
             lodgeCollection.document().id
-        }else {
+        } else {
             lodge?.lodgeId
         }
     }
@@ -109,8 +120,7 @@ class LodgeUploadDetail : Fragment() {
         nextBtn.setOnClickListener {
             val lodgeName = lodgeName.text.toString()
             if (lodgeName.isNotBlank()) {
-                showProgress()
-                submitDetails()
+                selectAccountBottomSheet()
             }
         }
 
@@ -198,14 +208,16 @@ class LodgeUploadDetail : Fragment() {
         lodgeSize.editText?.setText(lodge?.size)
         availableRoom.setText(lodge?.rooms?.toString())
         lodge?.let {
-            if(it.payment !=null) {
+            if (it.payment != null) {
                 subPay.setText(lodge?.payment.toString())
             }
         }
     }
 
-    private fun submitDetails() {
+    private fun submitDetails(client: FirebaseUser?) {
 //        val lodgeIdentifier = lodgeIdentifier.text.toString()
+        showProgress()
+
         val address = address.editText?.text.toString()
         val distance = distanceAway.editText?.text.toString()
         val surrounding = surrounding.editText?.text.toString()
@@ -250,32 +262,27 @@ class LodgeUploadDetail : Fragment() {
             number = ownerPhone
         )
 
-        clientDocument.get().addOnSuccessListener {
-            it.toObject(FirebaseUser::class.java).also {
-                lodge.apply {
-                    agentImage = it?.clientImage
-                    agentId = it?.clientId
-                    agentName = it?.clientName
-                    account = it?.account
-                }
+        client?.let {
+            lodge.apply {
+                agentImage = it.clientImage
+                agentId = it.clientId
+                agentName = it.clientName
+                account = it.account
             }
-            lodgeCollection.document(documentId!!).set(lodge)
-                .addOnSuccessListener {
-                    showDescTemplate("Lodge uploaded successfully")
-                    hideProgress()
-                    lifecycleScope.launchWhenCreated {
-                        val action = R.id.action_lodgeDetailUpload_to_editLodgePager
-                        val bundle = bundleOf("Lodge" to lodge)
-                        findNavController().navigate(action, bundle)
-                    }
-                }.addOnFailureListener {
-                    showDescTemplate("Unable to upload lodge")
-                    hideProgress()
-                }
-        }.addOnFailureListener {
-            showDescTemplate("Unable to upload Lodge")
-            hideProgress()
         }
+        lodgeCollection.document(documentId!!).set(lodge)
+            .addOnSuccessListener {
+                showDescTemplate("Lodge uploaded successfully")
+                hideProgress()
+                lifecycleScope.launchWhenCreated {
+                    val action = R.id.action_lodgeDetailUpload_to_editLodgePager
+                    val bundle = bundleOf("Lodge" to lodge)
+                    findNavController().navigate(action, bundle)
+                }
+            }.addOnFailureListener {
+                showDescTemplate("Unable to upload lodge")
+                hideProgress()
+            }
     }
 
     private fun generateLodgeId(): String =
@@ -291,12 +298,52 @@ class LodgeUploadDetail : Fragment() {
         snackBar.show()
     }
 
+    private fun selectAccountBottomSheet() {
+        bottomSheetLayout = BottomSheetDialog(requireContext()).apply {
+            setContentView(R.layout.admin_bottom_sheet)
+            val progressBar = this.findViewById<ProgressBar>(R.id.progressBar)
+            val adminRecycler = this.findViewById<RecyclerView>(R.id.adminRecyclerView)
+            progressBar?.visibility = View.VISIBLE
+
+            val adminListAdapter =
+                AdminListAdapter(AdminListAdapter.AdminClickListener { adminUser ->
+                    bottomSheetLayout.dismiss()
+                    admin = adminUser
+                    finishSetUp(adminUser)
+                })
+            adminRecycler?.adapter = adminListAdapter
+
+            clientCollection.get().addOnSuccessListener { snapShots ->
+                snapShots.documents.mapNotNull {
+                    it.toObject(FirebaseUser::class.java)
+                }.also {
+                    adminListAdapter.submitList(it)
+                    lifecycleScope.launch {
+                        progressBar?.visibility = View.GONE
+                    }
+                }
+            }.addOnFailureListener {
+                showDescTemplate("Unable to Load accounts")
+                hideProgress()
+            }
+        }
+        bottomSheetLayout.show()
+    }
+
+    private fun finishSetUp(firebaseUser: FirebaseUser?) {
+        firebaseUser?.let {
+            lifecycleScope.launch {
+             submitDetails(it)
+            }
+        }
+    }
+
     private fun showProgress() {
         nextBtn.alpha = 0.5F
         progressBar.visibility = View.VISIBLE
     }
 
-    private fun hideProgress(){
+    private fun hideProgress() {
         lifecycleScope.launchWhenCreated {
             progressBar.visibility = View.GONE
             nextBtn.alpha = 1F
