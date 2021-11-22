@@ -5,31 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/adImage"
-        android:layout_width="0dp"
-        android:layout_height="450dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/loading_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius"
-        />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/callNow"
+    <TextView
+        android:id="@+id/textView29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:elevation="10dp"
-        android:backgroundTint="@color/blue_300"
-        android:padding="3dp"
-        app:cornerRadius="12dp"
-        android:text="@string/call_now"
-        android:textAppearance="?attr/textAppearanceSubtitle1"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/adImage"
+        android:layout_marginTop="20dp"
+        android:text="Select Campus"
+        android:textStyle="bold"
+        android:textAppearance="?attr/textAppearanceHeadline5"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView29">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/unn_header_logo"
+            android:contentDescription="" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:text="UNN Campus"
+            android:textAppearance="?attr/textAppearanceHeadline6" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:layout_marginStart="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/unn_header_logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:text="UNEC Campus"
+            android:textAppearance="?attr/textAppearanceHeadline6" />
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

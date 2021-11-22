@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-ldpi-v4\\values-ldpi-v4.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\src\\main\\res\\values-ldpi\\dimens.xml",
+                    "from": {
+                        "startLines": "5,3,4,2",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "201,105,151,57",
+                        "endColumns": "54,44,48,46",
+                        "endOffsets": "251,145,195,99"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,110,155,204",
+                        "endColumns": "54,44,48,46",
+                        "endOffsets": "105,150,199,246"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -585,24 +585,24 @@ class HomeFragment : Fragment() {
         }
     }
 
-    @SuppressLint("InflateParams")
-    private fun showImageDialog(imageUrl: String) {
-        AlertDialog.Builder(requireContext()).apply {
-            val inflater = LayoutInflater.from(requireContext())
-            val view = inflater.inflate(R.layout.dialog_view_product, null)
-            val imageView = view.findViewById<ImageView>(R.id.fullImage)
-
-            Glide.with(imageView.context)
-                .load(imageUrl)
-                .apply(
-                    RequestOptions()
-                        .placeholder(R.drawable.animated_gradient)
-                        .error(R.drawable.animated_gradient)
-                ).into(imageView)
-
-            setView(view)
-        }.show()
-    }
+//    @SuppressLint("InflateParams")
+//    private fun showImageDialog(imageUrl: String) {
+//        AlertDialog.Builder(requireContext()).apply {
+//            val inflater = LayoutInflater.from(requireContext())
+//            val view = inflater.inflate(R.layout.dialog_view_product, null)
+//            val imageView = view.findViewById<ImageView>(R.id.fullImage)
+//
+//            Glide.with(imageView.context)
+//                .load(imageUrl)
+//                .apply(
+//                    RequestOptions()
+//                        .placeholder(R.drawable.animated_gradient)
+//                        .error(R.drawable.animated_gradient)
+//                ).into(imageView)
+//
+//            setView(view)
+//        }.show()
+//    }
 
     //created exo player
     private fun setUpExoPlayer(videoUrl: String?) {

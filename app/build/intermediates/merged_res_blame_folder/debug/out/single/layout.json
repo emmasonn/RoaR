@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_accommodation.xml",
+        "source": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\src\\main\\res\\layout\\fragment_accommodation.xml"
+    },
+    {
+        "merged": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_verify_password.xml",
+        "source": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\src\\main\\res\\layout\\fragment_verify_password.xml"
+    },
+    {
+        "merged": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_edit_lodge.xml",
+        "source": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\src\\main\\res\\layout\\fragment_edit_lodge.xml"
+    },
+    {
+        "merged": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_upload_property.xml",
+        "source": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\src\\main\\res\\layout\\fragment_upload_property.xml"
+    },
+    {
+        "merged": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_admin.xml",
+        "source": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\src\\main\\res\\layout\\fragment_admin.xml"
+    },
+    {
+        "merged": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_lodge_detail.xml",
+        "source": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\src\\main\\res\\layout\\fragment_lodge_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_verify_number.xml",
+        "source": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\src\\main\\res\\layout\\fragment_verify_number.xml"
+    },
+    {
+        "merged": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_change_password.xml",
+        "source": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\src\\main\\res\\layout\\fragment_change_password.xml"
+    },
+    {
+        "merged": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_lodges.xml",
+        "source": "C:\\Users\\WEYUP\\Udacity\\RoarHousing\\app\\src\\main\\res\\layout\\fragment_lodges.xml"
+    }
+]

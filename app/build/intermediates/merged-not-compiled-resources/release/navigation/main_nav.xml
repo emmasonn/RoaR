@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/lodgeDetailUpload"
+        android:name="com.column.roar.dashBoard.upload.LodgeUploadDetail"
+        android:label="fragment_upload_lodge"
+        tools:layout="@layout/fragment_upload_lodge" >
+        <action
+            android:id="@+id/action_lodgeDetailUpload_to_editLodgePager"
+            app:destination="@id/editLodgePager"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/lodgeImageUpload"
+        android:name="com.column.roar.dashBoard.upload.LodgeUploadImage"
+        android:label="fragment_upload_image"
+        tools:layout="@layout/fragment_upload_image" />
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.column.roar.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+
+        <argument
+            android:name="lodgeId"
+            app:argType="string"
+            android:defaultValue="roar"
+            />
+
+        <deepLink
+            app:uri="https://unnapp.page.link/lodges/{lodgeId}"
+            android:autoVerify="true"
+            app:action="ACTION_VIEW"
+            app:mimeType="text/html"
+           />
+
+        <action
+            android:id="@+id/action_homeFragment_to_lodgeDetail"
+            app:destination="@id/lodgeDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/lodgeDetail"
+        android:name="com.column.roar.lodgeDetail.LodgeDetail"
+        android:label="LodgeDetail"
+        tools:layout="@layout/fragment_lodge_detail">
+        <action
+            android:id="@+id/action_lodgeDetail_to_paymentPager"
+            app:destination="@id/paymentPager" />
+        <action
+            android:id="@+id/action_lodgeDetail_to_watchTour"
+            app:destination="@id/watchTour"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_lodgeDetail_to_viewLodge"
+            app:destination="@id/viewLodge"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentPager"
+        android:name="com.column.roar.payment.PaymentPager"
+        android:label="fragment_payment_pager"
+        tools:layout="@layout/fragment_payment_pager">
+
+        <argument
+            android:name="status"
+            app:argType="string"
+            android:defaultValue="roar"
+            />
+
+        <deepLink
+            android:id="@+id/deepLink"
+            android:autoVerify="true"
+            app:action="ACTION_VIEW"
+            app:mimeType="text/html"
+            app:uri="https://unnapp.page.link/payment/{status}" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/authOne"
+        android:name="com.column.roar.authentication.AuthOne"
+        android:label="fragment_auth_two"
+        tools:layout="@layout/fragment_auth_one" />
+    <fragment
+        android:id="@+id/authTwo"
+        android:name="com.column.roar.authentication.AuthTwo"
+        android:label="AuthTwo"
+        tools:layout="@layout/fragment_auth_two"
+        />
+    <fragment
+        android:id="@+id/setUpFragment"
+        android:name="com.column.roar.dashBoard.SetUpFragment"
+        android:label="fragment_set_up"
+        tools:layout="@layout/fragment_set_up" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.column.roar.dashBoard.lodge.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile"
+        >
+        <action
+            android:id="@+id/action_profileFragment_to_careerFragment"
+            app:destination="@id/careerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_profileFragment_to_manageAccount"
+            app:destination="@id/manageAccount"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_profileFragment_self"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_termsFragment"
+            app:destination="@id/termsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageProperty"
+        android:name="com.column.roar.dashBoard.property.ManageProperty"
+        android:label="fragment_manage_lodge"
+        tools:layout="@layout/fragment_manage_property" >
+        <action
+            android:id="@+id/action_manageProperty_to_uploadProperty"
+            app:destination="@id/uploadProperty" />
+    </fragment>
+    <fragment
+        android:id="@+id/lodgesFragment"
+        android:name="com.column.roar.home.LodgesFragment"
+        android:label="fragment_lodges"
+        tools:layout="@layout/fragment_lodges" />
+    <fragment
+        android:id="@+id/manageAccount"
+        android:name="com.column.roar.dashBoard.ManageAccount"
+        android:label="ManageAccount"
+        tools:layout="@layout/fragment_manage_account"
+        >
+        <action
+            android:id="@+id/action_manageAccount_to_changePassword"
+            app:destination="@id/changePassword" />
+    </fragment>
+    <fragment
+        android:id="@+id/notifyFragment"
+        android:name="com.column.roar.admin.BroadCastLodge"
+        android:label="fragment_notify"
+        tools:layout="@layout/fragment_notify" />
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.column.roar.home.FilterFragment"
+        android:label="fragment_filter"
+        tools:layout="@layout/fragment_filter" >
+        <action
+            android:id="@+id/action_filterFragment_to_lodgeDetail"
+            app:destination="@id/lodgeDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/careerFragment"
+        android:name="com.column.roar.dashBoard.lodge.CareerFragment"
+        android:label="CareerFragment"
+        tools:layout="@layout/fragment_career">
+        <action
+            android:id="@+id/action_careerFragment_to_lodgeDetailUpload"
+            app:destination="@id/lodgeDetailUpload" />
+        <action
+            android:id="@+id/action_careerFragment_to_editLodgePager"
+            app:destination="@id/editLodgePager" />
+    </fragment>
+    <fragment
+        android:id="@+id/phoneAuthentication"
+        android:name="com.column.roar.authentication.PhoneAuthentication"
+        android:label="fragment_phone_authentication"
+        tools:layout="@layout/fragment_phone_authentication" />
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.column.roar.home.AboutFragment"
+        android:label="AboutFragment"
+        tools:layout="@layout/fragment_about"
+        />
+    <fragment
+        android:id="@+id/productStore"
+        android:name="com.column.roar.home.RoarStore"
+        android:label="fragment_property"
+        tools:layout="@layout/fragment_store">
+
+        <deepLink
+            android:id="@+id/deepLink3"
+            android:autoVerify="true"
+            app:action="ACTION_VIEW"
+            app:mimeType="text/html"
+            app:uri="https://unnapp.page.link/ads/{propertyId}"
+            />
+
+        <argument
+            android:name="propertyId"
+            app:argType="string"
+            app:defaultValue="roar" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsPager"
+        android:name="com.column.roar.home.SettingsPager"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/uploadProperty"
+        android:name="com.column.roar.dashBoard.upload.UploadProperty"
+        android:label="fragment_upload_property"
+        tools:layout="@layout/fragment_upload_property" />
+    <fragment
+        android:id="@+id/becomeAgent"
+        android:name="com.column.roar.authentication.BecomeAgent"
+        android:label="fragment_become_agent"
+        tools:layout="@layout/fragment_become_agent" >
+        <action
+            android:id="@+id/action_becomeAgent_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_becomeAgent_to_marketProfile"
+            app:destination="@id/marketProfile"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_becomeAgent_to_adminFragment"
+            app:destination="@id/adminFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_becomeAgent_to_verifyNumber"
+            app:destination="@id/verifyNumber"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyNumber"
+        android:name="com.column.roar.authentication.VerifyNumber"
+        android:label="VerifyNumber"
+        tools:layout="@layout/fragment_verify_number"
+        >
+        <action
+            android:id="@+id/action_verifyNumber_to_verifyPassword"
+            app:destination="@id/verifyPassword"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_out"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyPassword"
+        android:name="com.column.roar.authentication.VerifyPassword"
+        android:label="VerifyPassword"
+        tools:layout="@layout/fragment_verify_password"
+
+        />
+    <fragment
+        android:id="@+id/changePassword"
+        android:name="com.column.roar.dashBoard.ChangePassword"
+        android:label="ChangePassword"
+        tools:layout="@layout/fragment_change_password"
+        />
+    <fragment
+        android:id="@+id/viewLodge"
+        android:name="com.column.roar.lodgeDetail.ViewLodge"
+        android:label="ExploreLodge"
+        tools:layout="@layout/fragment_view_lodge"
+        />
+    <fragment
+        android:id="@+id/editLodgePager"
+        android:name="com.column.roar.dashBoard.upload.EditLodgePager"
+        android:label="fragment_edit_lodge_pager"
+        tools:layout="@layout/fragment_edit_lodge_pager" />
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="com.column.roar.admin.AdminFragment"
+        android:label="AdminFragment"
+        tools:layout="@layout/fragment_admin"
+        />
+    <fragment
+        android:id="@+id/adminRealtors"
+        android:name="com.column.roar.admin.AdminRealtorDetails"
+        android:label="ClientDetail"
+        tools:layout="@layout/fragment_realtors_detail"
+        />
+    <fragment
+        android:id="@+id/marketProfile"
+        android:name="com.column.roar.dashBoard.property.MarketProfile"
+        android:label="MarketProfile"
+        tools:layout="@layout/fragment_market_profile"
+        >
+        <action
+            android:id="@+id/action_marketProfile_to_broadCastProduct"
+            app:destination="@id/broadCastProduct"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_marketProfile_to_manageAccount"
+            app:destination="@id/manageAccount" />
+        <action
+            android:id="@+id/action_marketProfile_to_termsFragment"
+            app:destination="@id/termsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/accommodationFragment"
+        android:name="com.column.roar.home.AccommodationFragment"
+        android:label="AccommodationFragment"
+        tools:layout="@layout/fragment_accommodation"
+        />
+    <fragment
+        android:id="@+id/subscriptionFragment"
+        android:name="com.column.roar.dashBoard.SubscriptionFragment"
+        android:label="fragment_subscription"
+        tools:layout="@layout/fragment_subscription" />
+    <fragment
+        android:id="@+id/termsFragment"
+        android:name="com.column.roar.dashBoard.TermsFragment"
+        android:label="fragment_terms"
+        tools:layout="@layout/fragment_terms" />
+    <fragment
+        android:id="@+id/businessFragment"
+        android:name="com.column.roar.admin.BusinessFragment"
+        android:label="fragment_business"
+        tools:layout="@layout/fragment_business" >
+        <action
+            android:id="@+id/action_businessFragment_to_adminManageMarketers"
+            app:destination="@id/adminManageMarketers" />
+    </fragment>
+    <fragment
+        android:id="@+id/realtorFragment"
+        android:name="com.column.roar.admin.RealtorFragment"
+        android:label="fragment_realtor"
+        tools:layout="@layout/fragment_realtor" >
+        <action
+            android:id="@+id/action_realtorFragment_to_adminRealtors"
+            app:destination="@id/adminRealtors" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminManageMarketers"
+        android:name="com.column.roar.admin.AdminManageMarketers"
+        android:label="admin_manage_marketers"
+        tools:layout="@layout/admin_manage_marketers" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.column.roar.home.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_lodgeDetail"
+            app:destination="@id/lodgeDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/watchTour"
+        android:name="com.column.roar.lodgeDetail.WatchTour"
+        android:label="fragment_watch_tour"
+        tools:layout="@layout/fragment_watch_tour" />
+    <fragment
+        android:id="@+id/broadCastProduct"
+        android:name="com.column.roar.admin.BroadCastProduct"
+        android:label="BroadCastProduct"
+        tools:layout="@layout/fragment_broadcast_products"
+        />
+    <fragment
+        android:id="@+id/manageAds"
+        android:name="com.column.roar.admin.ManageAds"
+        android:label="ManageAds"
+        tools:layout="@layout/fragment_manage_ads"
+
+        >
+        <action
+            android:id="@+id/action_manageAds_to_uploadAds2"
+            app:destination="@id/uploadAds" />
+    </fragment>
+    <fragment
+        android:id="@+id/uploadAds"
+        android:name="com.column.roar.admin.UploadAds"
+        android:label="UploadAds"
+        tools:layout="@layout/fragment_upload_ads"
+        />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.column.roar.home.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_lodgeDetail"
+            app:destination="@id/lodgeDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/addBusinessProduct"
+        android:name="com.column.roar.admin.AddBusinessProduct"
+        android:label="fragment_add_business_product"
+        tools:layout="@layout/fragment_add_business_product" />
+    <fragment
+        android:id="@+id/viewProduct"
+        android:name="com.column.roar.lodgeDetail.ViewProduct"
+        android:label="fragment_view_product"
+        tools:layout="@layout/fragment_view_product" />
+
+</navigation>
