@@ -11,33 +11,29 @@ import com.column.roar.listAdapters.storeAdapter.PropertyListAdapter.*
 import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.*
 
-class BusinessAdsViewHolder (val itemView: View): RecyclerView.ViewHolder(itemView) {
+class BusinessAdsViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val businessRecycler = itemView.findViewById<RecyclerView>(R.id.businessAdRecycler)
     private val emptyList = itemView.findViewById<MaterialCardView>(R.id.emptyListView)
 
-    fun bind(data: List<FirebaseProperty>,
-             propertyListener: PropertyClickListener
+    fun bind(
+        data: List<FirebaseProperty>,
+        propertyListener: PropertyClickListener
     ) {
         val adapter = AutoScrollListAdapter(
             PropertyClickListener({
                 propertyListener.onAction(it)
-            },{})
+            }, {})
         )
 
-        if (data.size <= 3) {
-            businessRecycler.layoutManager = LinearLayoutManager(
-                itemView.context, LinearLayoutManager.HORIZONTAL, false
-            )
-        } else {
-            businessRecycler.layoutManager = GridLayoutManager(
-                itemView.context,
-                2, GridLayoutManager.HORIZONTAL, false
-            )
-        }
+//        businessRecycler.layoutManager = GridLayoutManager(
+//            itemView.context,
+//            2, GridLayoutManager.VERTICAL, false
+//        )
 
-        if(data.isEmpty()){
+
+        if (data.isEmpty()) {
             emptyList.visibility = View.VISIBLE
-        }else{
+        } else {
             emptyList.visibility = View.GONE
         }
         businessRecycler.adapter = adapter
@@ -53,22 +49,25 @@ class BusinessAdsViewHolder (val itemView: View): RecyclerView.ViewHolder(itemVi
 
     }
 
-    private tailrec suspend fun autoScrollFeature(recyclerView: RecyclerView, adapter: AutoScrollListAdapter) {
-        if(recyclerView.canScrollHorizontally(1)){
-            recyclerView.smoothScrollBy(5,0)
-        }else {
+    private tailrec suspend fun autoScrollFeature(
+        recyclerView: RecyclerView,
+        adapter: AutoScrollListAdapter
+    ) {
+        if (recyclerView.canScrollHorizontally(1)) {
+            recyclerView.smoothScrollBy(5, 0)
+        } else {
             val firstPosition =
                 (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-            if(firstPosition != RecyclerView.NO_POSITION) {
+            if (firstPosition != RecyclerView.NO_POSITION) {
                 val currentList = adapter.currentList
                 val secondPart = currentList.subList(0, firstPosition)
-                val firstPart= currentList.subList(firstPosition,currentList.size)
+                val firstPart = currentList.subList(firstPosition, currentList.size)
                 adapter.submitList(firstPart + secondPart)
             }
         }
 
         delay(25L)
-        autoScrollFeature(recyclerView,adapter)
+        autoScrollFeature(recyclerView, adapter)
 
     }
 }

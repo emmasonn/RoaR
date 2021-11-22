@@ -2,11 +2,12 @@ package com.column.roar.cloudModel
 
 import android.os.Parcelable
 import com.google.firebase.firestore.IgnoreExtraProperties
+import com.google.firebase.firestore.PropertyName
 import kotlinx.parcelize.Parcelize
 
 @IgnoreExtraProperties
 @Parcelize data class FirebasePhotoAd (
-    val id: String? = null,
-    val image: String? = null,
-    val video: String? = null
+    @PropertyName("id") val id: String? = null,
+    @PropertyName("image") val image: String? = null,
+    @PropertyName("video") val video: String? = null
 ): Parcelable

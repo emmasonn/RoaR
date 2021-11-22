@@ -199,7 +199,11 @@ class MainActivity : AppCompatActivity() {
                             roar.businessComplaint,
                             roar.realtorComplaint,
                             roar.errand,
-                            roar.marquee
+                            roar.marquee,
+                            roar.enuguPhone,
+                            roar.nsukkaPhone,
+                            roar.enuguImg,
+                            roar.nsukkaImg
                         )
                     }
                 }
@@ -219,7 +223,11 @@ class MainActivity : AppCompatActivity() {
         businessComplaint: String?,
         realtorComplaint: String?,
         errandComplaint: String?,
-        marqueeInfo: String?
+        marqueeInfo: String?,
+        enuguPhone: String?,
+        nsukkaPhone: String?,
+        enuguImage: String?,
+        nsukkaImage: String?
     ) {
         with(sharedPref.edit()) {
             putString("business_phone", business)
@@ -229,6 +237,10 @@ class MainActivity : AppCompatActivity() {
             putString("business_complaint",realtorComplaint)
             putString("errand_complaint",errandComplaint)
             putString("marquee_text", marqueeInfo)
+            putString("nsukka_img",nsukkaImage)
+            putString("enugu_img",enuguImage)
+            putString("nsukka_phone",nsukkaPhone)
+            putString("enugu_phone",enuguPhone)
             apply()
         }
     }

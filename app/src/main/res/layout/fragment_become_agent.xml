@@ -96,7 +96,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/joinBtn"
                         app:layout_constraintStart_toEndOf="@+id/joinBtn"
                         app:layout_constraintTop_toTopOf="@+id/joinBtn"
-                        app:strokeColor="?attr/colorControlNormal"
+                        app:strokeColor="?attr/colorAccent"
                         app:strokeWidth="1dp" />
 
                     <TextView

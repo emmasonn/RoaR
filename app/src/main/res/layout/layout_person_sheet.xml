@@ -100,7 +100,7 @@
                                         android:text="WhatApp"
                                         android:textAllCaps="false"
                                         android:textColor="@color/white"
-                                        app:cardBackgroundColor="@color/green_700"
+                                        app:cardBackgroundColor="@color/green_300"
                                         app:cardCornerRadius="5dp"
                                         app:layout_constraintBottom_toBottomOf="@+id/callBtn"
                                         app:layout_constraintEnd_toStartOf="@+id/callBtn"

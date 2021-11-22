@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator_Layout"
@@ -24,6 +23,7 @@
                 android:background="?attr/colorPrimary"
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="parallax">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -44,6 +44,7 @@
                         android:id="@+id/constraintLayout14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -56,11 +57,11 @@
                             android:layout_marginStart="25dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="15dp"
+                            android:elevation="20dp"
                             android:text="WhatsApp"
                             android:textAllCaps="false"
-                            android:elevation="20dp"
                             android:textColor="@color/white"
-                            app:cardBackgroundColor="@color/green_700"
+                            app:cardBackgroundColor="@color/green_300"
                             app:cardCornerRadius="5dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/callNow"
@@ -117,9 +118,16 @@
                             app:layout_constraintStart_toEndOf="@+id/whatsAppBtn"
                             app:layout_constraintTop_toTopOf="@+id/whatsAppBtn" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="?attr/colorOnSecondary" />
                 </LinearLayout>
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -131,90 +139,56 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="?attr/colorOnSecondary"
-                    />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Our video advert"
+                    android:text="Video Advert"
                     android:textAppearance="?attr/textAppearanceSubtitle1" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.exoplayer2.ui.PlayerView
-                        android:id="@+id/videoCover"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:resize_mode="fit"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:id="@+id/noVideo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Video not available"
-                        android:elevation="20dp"
-                        android:padding="10dp"
-                        android:visibility="gone"
-                        android:textColor="@color/white_300"
-                        android:background="@drawable/white_background_outline"
-                        android:textAppearance="?attr/textAppearanceSubtitle1"
-                        app:layout_constraintBottom_toBottomOf="@+id/videoCover"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginBottom="10dp"
-                    android:background="?attr/colorOnSecondary"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="Products"
-                    android:textAppearance="?attr/textAppearanceSubtitle1" />
+                    android:background="?attr/colorOnSecondary" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="?attr/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/colorPrimary"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/productPager"
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/videoCover"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            android:paddingTop="20dp"
-            android:scrollbarStyle="outsideOverlay"
-            android:scrollbars="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/layout_lodge_image" />
+            app:layout_constraintTop_toBottomOf="parent"
+            app:resize_mode="fit" />
+
+        <TextView
+            android:id="@+id/noVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_background_outline"
+            android:elevation="20dp"
+            android:padding="10dp"
+            android:text="Video not available"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="@color/white_300"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
         <include layout="@layout/auto_no_item_found" />
-        <include layout="@layout/auto_no_network_layout"/>
+
+        <include layout="@layout/auto_no_network_layout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

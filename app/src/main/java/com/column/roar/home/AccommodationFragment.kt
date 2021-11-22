@@ -44,7 +44,6 @@ class AccommodationFragment : Fragment() {
         val businessComplaint = sharedPref.getString("business_complaint","")
         val errandComplaint = sharedPref.getString("errand_complaint","")
 
-
         binding.textBtn.setOnClickListener {
             showMessageDialog()
         }

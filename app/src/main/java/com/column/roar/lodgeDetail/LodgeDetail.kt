@@ -74,6 +74,14 @@ class LodgeDetail : Fragment() {
     private lateinit var sharedPref: SharedPreferences
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
 
+    private val enuguImg: String? by lazy {
+        sharedPref.getString("enugu_img", "")
+    }
+
+    private val nsukkaImage: String? by lazy {
+        sharedPref.getString("nsukka_img", "")
+    }
+
     private val requestPermissionResult =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (!isGranted) {
@@ -122,7 +130,7 @@ class LodgeDetail : Fragment() {
         swipeRefreshContainer.isRefreshing = true
 
         val accountType = sharedPref.getString("accountType", null)
-        if (accountType != null) {
+        if (accountType != null && accountType == "Admin") {
             binding.titleText.text = lodgeData.lodgeName
         } else {
             binding.titleText.text = lodgeData.hiddenName
@@ -157,15 +165,6 @@ class LodgeDetail : Fragment() {
 
         lockLodge() //call this function to lock lodge
 
-//        binding.coverImage.setOnClickListener {
-//            val photo = FirebaseLodgePhoto(
-//                id = clientDocumentRef.id,
-//                image = lodgeData.coverImage,
-//                title = "CoverImage"
-//            )
-//            val bundle = bundleOf("picture" to photo)
-//            findNavController().navigate(R.id.viewLodge, bundle)
-//        }
 
         binding.playBtn.setOnClickListener {
             if (lodgeData.tour != null) {
@@ -200,18 +199,18 @@ class LodgeDetail : Fragment() {
             .load(lodgeData.coverImage)
             .apply(
                 RequestOptions().placeholder(R.drawable.loading_background)
-                    .error(R.drawable.animated_gradient)
+                    .error(R.drawable.loading_background)
             ).into(binding.coverImage)
 
         Glide.with(binding.frontView.context)
             .load(lodgeData.coverImage)
             .apply(
                 RequestOptions().placeholder(R.drawable.loading_background)
-                    .error(R.drawable.animated_gradient)
+                    .error(R.drawable.loading_background)
             ).into(binding.frontView)
 
         Glide.with(binding.agentImageCover.context)
-            .load(lodgeData.agentImage)
+            .load(if (lodgeData.campus == "UNN") nsukkaImage else enuguImg)
             .apply(
                 RequestOptions().placeholder(R.drawable.ic_person)
                     .error(R.drawable.ic_person)
@@ -248,7 +247,7 @@ class LodgeDetail : Fragment() {
                     if (photos.size == 1) {
                         photoListRecycler.visibility = View.GONE
                         binding.frontView.visibility = View.VISIBLE
-                    }else if (photos.size <= 3) {
+                    } else if (photos.size <= 3) {
                         photoListRecycler.layoutManager = LinearLayoutManager(
                             requireContext(), LinearLayoutManager.HORIZONTAL, false
                         )
@@ -323,8 +322,9 @@ class LodgeDetail : Fragment() {
                 )
                 .into(coverImage)
 
+
             Glide.with(agentImage!!.context)
-                .load(lodge.agentImage)
+                .load(if (lodgeData.campus == "UNN") nsukkaImage else enuguImg)
                 .apply(
                     RequestOptions().placeholder(R.drawable.ic_person)
                         .error(R.drawable.ic_person)
@@ -348,8 +348,14 @@ class LodgeDetail : Fragment() {
         }
 
         whatsAppBtn?.setOnClickListener {
-            //chatWhatsApp(lodge.agentPhone)
-            whatsAppDialog()
+            if (checkPermissionApproved()) {
+                whatsAppBtn.alpha = 0.5F
+                whatsAppDialog()
+                bottomSheetLayout.dismiss()
+            } else {
+                whatsAppBtn.alpha = 1F
+                requestExternalStoragePermission()
+            }
         }
         bottomSheetLayout.show()
     }
@@ -358,21 +364,16 @@ class LodgeDetail : Fragment() {
     //this function is used to directly check with the Roar agent
     private fun chatWhatsApp(pNumber: String?) {
 
-        val message = "Hello, Am interested in ${lodgeData.hiddenName} \n\n" +
-                "https://unnapp.page.link/lodges/${lodgeData.lodgeId}"
+        val message = "Hello, am interested in ${lodgeData.hiddenName} \n\n" +
+                "Lodge Link: https://unnapp.page.link/lodges/${lodgeData.lodgeId}"
                     .trimIndent()
-
-        val uri =
-            "https://api.whatsapp.com/send?phone=+234$pNumber&text=$message"
+        val uri = "https://api.whatsapp.com/send?phone=+234$pNumber&text=$message"
 
         lifecycleScope.launch {
-            val imageUri = getImageUri()
-
+//            val imageUri = getImageUri()
             val intent = Intent().apply {
                 action = Intent.ACTION_VIEW
-                putExtra(Intent.EXTRA_STREAM, imageUri)
                 type = "image/*"
-
                 data = Uri.parse(uri)
             }
 
@@ -435,7 +436,7 @@ class LodgeDetail : Fragment() {
                         shareIntent.type = "image/*"
                         shareDynamicLink(shareIntent)
                     }
-                }.addOnFailureListener { e ->
+                }.addOnFailureListener {
                     swipeRefreshContainer.isRefreshing = false
                     Toast.makeText(
                         requireContext(),
@@ -466,9 +467,7 @@ class LodgeDetail : Fragment() {
             requireContext().contentResolver,
             bitmapImage,
             null, null
-        ).also {
-
-        }
+        )
     }
 
     private fun initializeAd() {
@@ -509,10 +508,13 @@ class LodgeDetail : Fragment() {
     //show dialog for calling realtor
     private fun callDialog() {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle("You are about to leave app to call Roar Escrow")
+            setTitle("You are about to leave app to call Roar Official")
+            val enuguPhone = sharedPref.getString("enugu_phone", "")
+            val nsukkaPhone = sharedPref.getString("nsukka_phone", "")
+
             setPositiveButton("Okay") { dialog, _ ->
                 dialog.dismiss()
-                dialPhoneNumber(lodgeData.agentPhone)
+                dialPhoneNumber(if (lodgeData.campus == "UNN") nsukkaPhone else enuguPhone)
             }
             setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
@@ -524,10 +526,13 @@ class LodgeDetail : Fragment() {
     //whats-App dialog
     private fun whatsAppDialog() {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle("You are about to leave app to chat with Roar Escrow")
+            val enuguPhone = sharedPref.getString("enugu_phone", "")
+            val nsukkaPhone = sharedPref.getString("nsukka_phone", "")
+
+            setTitle("You are about to leave app to chat with Roar Official")
             setPositiveButton("Okay") { dialog, _ ->
                 dialog.dismiss()
-                chatWhatsApp(lodgeData.agentPhone)
+                chatWhatsApp(if (lodgeData.campus == "UNN") nsukkaPhone else enuguPhone)
             }
 
             setNegativeButton("Cancel") { dialog, _ ->
@@ -600,8 +605,8 @@ class LodgeDetail : Fragment() {
             requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancel(LODGE_NOTIFICATION_ID)
     }
-
 }
+
 //class PhotosPager(private val photos: List<FirebaseLodgePhoto>, fragment: Fragment):
 //        FragmentStateAdapter(fragment) {
 //        override fun getItemCount(): Int  = photos.size

@@ -267,6 +267,7 @@ class RoarStore : Fragment() {
         val callBtn = bottomSheetLayout.findViewById<MaterialButton>(R.id.callBtn)
 
         shareBtn.setOnClickListener {
+            bottomSheetLayout.dismiss()
             if(checkPermissionApproved()) {
                 shareBtn.alpha = 0.5F
                 shareProduct(product)
@@ -276,12 +277,14 @@ class RoarStore : Fragment() {
         }
 
         whatsAppBtn?.setOnClickListener {
+            bottomSheetLayout.dismiss()
             //chatWhatsApp(product)
             whatsAppDialog(product)
         }
 
         callBtn?.setOnClickListener {
             //dialPhoneNumber(product.sellerNumber)
+            bottomSheetLayout.dismiss()
             callDialog(product)
         }
         bottomSheetLayout.show()
@@ -305,7 +308,7 @@ class RoarStore : Fragment() {
     }
 
     private fun shareProduct(product: FirebaseProperty) {
-
+        showProgress()
         val futureTarget = Glide.with(requireContext())
             .asBitmap()
             .load(product.cover)
@@ -356,12 +359,13 @@ class RoarStore : Fragment() {
         try {
             startActivity(Intent.createChooser(shareIntent, null))
             shareBtn.alpha = 1F
-
+           hideProgress()
         } catch (ex: android.content.ActivityNotFoundException) {
             Toast.makeText(
                 requireContext(), "Cannot Share item",
                 Toast.LENGTH_SHORT
             ).show()
+            hideProgress()
         }
     }
 

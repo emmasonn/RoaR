@@ -94,7 +94,6 @@ class RealtorFragment : Fragment() {
         }
     }
 
-
     private fun setUpQuery(accountType: String?) {
         when (accountType) {
             "Admin" -> {

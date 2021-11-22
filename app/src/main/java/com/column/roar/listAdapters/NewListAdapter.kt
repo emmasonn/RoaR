@@ -150,14 +150,21 @@ class NewListAdapter(
                     lodges.take(1).map { DataItem.LodgeItem(it) } +
                             listOf(DataItem.CampusBusinessHeader) +
                             properties.run {
-                                this.filter { it.type == "Ads" }.take(5).let {
+                                this.filter { it.type == "Ads" }.take(2).let {
                                     DataItem.BusinessAdsItem(it)
                                 }
                             } +
                             lodges.drop(1).take(3).map { DataItem.LodgeItem(it) } +
+                            listOf(DataItem.CampusBusinessHeader) +
+                            properties.run {
+                                this.filter { it.type == "Ads" }.drop(2).take(2).let {
+                                    DataItem.BusinessAdsItem(it)
+                                }
+                            } +
+                            lodges.drop(4).take(1).map { DataItem.LodgeItem(it) } +
                             listOf(DataItem.Header(catTitle)) +
                             randomProducts + //first items for sale
-                            lodges.drop(4).map { DataItem.LodgeItem(it) }
+                            lodges.drop(5).map { DataItem.LodgeItem(it) }
                 }
             }
             withContext(Dispatchers.Main) {

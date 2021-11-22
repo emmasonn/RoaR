@@ -417,18 +417,18 @@ class HomeFragment : Fragment() {
         val bottomSheetLayout = BottomSheetDialog(requireContext()).apply {
             setContentView(R.layout.home_dialog_full)
             val adImage = this.findViewById<ImageView>(R.id.adImage)
-            val productsRecycler = this.findViewById<RecyclerView>(R.id.productPager)
+//            val productsRecycler = this.findViewById<RecyclerView>(R.id.productPager)
             playerView = this.findViewById(R.id.videoCover)!!
             val noVideo = this.findViewById<TextView>(R.id.noVideo)
 
-            otherProductAdapter = UploadPhotosAdapter(ClickListener(
-                {}, {
-                    showImageDialog(it.image!!)
-                }
-            ))
-            productsRecycler?.adapter = otherProductAdapter
+//            otherProductAdapter = UploadPhotosAdapter(ClickListener(
+//                {}, {
+//                    showImageDialog(it.image!!)
+//                }
+//            ))
+//            productsRecycler?.adapter = otherProductAdapter
+//            fetchProduct(product.id!!)
 
-            fetchProduct(product.id!!)
             if (product.video != null) {
                 setUpExoPlayer(product.video)
             } else {
@@ -440,8 +440,8 @@ class HomeFragment : Fragment() {
                     .load(product.cover)
                     .apply(
                         RequestOptions()
-                            .placeholder(R.drawable.animated_gradient)
-                            .error(R.drawable.animated_gradient)
+                            .placeholder(R.drawable.loading_background)
+                            .error(R.drawable.loading_background)
                     ).into(adImage)
             }
         }
@@ -457,40 +457,40 @@ class HomeFragment : Fragment() {
     }
 
     //this function fetches the products of every business person
-    private fun fetchProduct(productId: String) {
-        swipeContainer.isRefreshing = true
-
-        val otherProductCollection = fireStore.collection(getString(R.string.firestore_products))
-            .document(productId).collection(getString(R.string.firestore_others))
-
-        otherProductCollection.get().addOnSuccessListener { snapShot ->
-            snapShot.documents.mapNotNull {
-                it.toObject(FirebasePhotoAd::class.java)
-            }.also { otherItems ->
-                otherItems.map {
-                    FirebaseLodgePhoto(
-                        id = it.id,
-                        image = it.image
-                    )
-                }.let { result ->
-                    lifecycleScope.launchWhenCreated {
-                        if (result.isNotEmpty()) {
-                            otherProductAdapter.submitList(result)
-                            swipeContainer.isRefreshing = false
-                            networkError?.visibility = View.GONE
-                            emptyList?.visibility = View.GONE
-                        } else {
-                            emptyList?.visibility = View.VISIBLE
-                        }
-                    }
-                }
-            }
-        }.addOnFailureListener {
-            swipeContainer.isRefreshing = false
-            networkError?.visibility = View.VISIBLE
-            emptyList?.visibility = View.GONE
-        }
-    }
+//    private fun fetchProduct(productId: String) {
+//        swipeContainer.isRefreshing = true
+//
+//        val otherProductCollection = fireStore.collection(getString(R.string.firestore_products))
+//            .document(productId).collection(getString(R.string.firestore_others))
+//
+//        otherProductCollection.get().addOnSuccessListener { snapShot ->
+//            snapShot.documents.mapNotNull {
+//                it.toObject(FirebasePhotoAd::class.java)
+//            }.also { otherItems ->
+//                otherItems.map {
+//                    FirebaseLodgePhoto(
+//                        id = it.id,
+//                        image = it.image
+//                    )
+//                }.let { result ->
+//                    lifecycleScope.launchWhenCreated {
+//                        if (result.isNotEmpty()) {
+//                            otherProductAdapter.submitList(result)
+//                            swipeContainer.isRefreshing = false
+//                            networkError?.visibility = View.GONE
+//                            emptyList?.visibility = View.GONE
+//                        } else {
+//                            emptyList?.visibility = View.VISIBLE
+//                        }
+//                    }
+//                }
+//            }
+//        }.addOnFailureListener {
+//            swipeContainer.isRefreshing = false
+//            networkError?.visibility = View.VISIBLE
+//            emptyList?.visibility = View.GONE
+//        }
+//    }
 
     //this function animates the location icon
 //    private fun animateWarning(icon: MaterialButton) {
