@@ -60,7 +60,7 @@ class VerifyNumber : Fragment() {
                if(value.documents.isNotEmpty()) {
                    value.documents.first().also {
                     val user =   it.toObject(FirebaseUser::class.java) as FirebaseUser
-                       storeUserId(user.clientId!!,user.clientImage)
+                       storeUserId(user.clientId!!, user.clientImage)
                        val bundle = bundleOf("verify" to user)
                        val action = R.id.action_verifyNumber_to_verifyPassword
                        findNavController().navigate(action, bundle)
