@@ -141,6 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:textStyle="bold"
                     android:text="Video Advert"
                     android:textAppearance="?attr/textAppearanceSubtitle1" />
             </LinearLayout>

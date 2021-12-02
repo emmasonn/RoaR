@@ -25,6 +25,8 @@ import com.column.roar.cloudModel.FirebaseUser
 import com.column.roar.database.AppDatabase
 import com.column.roar.util.ConnectivityChecker
 import com.google.android.gms.ads.*
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
@@ -49,6 +51,7 @@ class MainActivity : AppCompatActivity() {
     var isDataFetched = false
     private lateinit var isAddInitialized: String //we want to load ads once
     private lateinit var registration: ListenerRegistration
+    var mInterstitialAd: InterstitialAd? = null
 
     val homeScreenAd = MutableLiveData<NativeAd>()
     val storeScreenAd = MutableLiveData<NativeAd>()
@@ -73,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this)
         MobileAds.setRequestConfiguration(
             RequestConfiguration.Builder()
-                .setTestDeviceIds(listOf("1FDC32B9CBE3CDABBE6B40D81394FA10"))
+//                .setTestDeviceIds(listOf("1FDC32B9CBE3CDABBE6B40D81394FA10"))
                 .build())
 
         cancelBtn.setOnClickListener {
@@ -108,7 +111,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         connectivityChecker = connectivityChecker(this)
-
         connectivityChecker?.apply {
             lifecycle.addObserver(this)
             connectedStatus.observe(this@MainActivity, {
@@ -150,6 +152,7 @@ class MainActivity : AppCompatActivity() {
             connectedStatus.observe(this@MainActivity, {
                 if (it && !::isAddInitialized.isInitialized) {
                     loadBannerAd()
+                    loadInterstitialAd()
                     lifecycleScope.launch(Dispatchers.Default) {
                         smallAdvertNativeAd()
                         otherSmallNativeAds()
@@ -279,6 +282,20 @@ class MainActivity : AppCompatActivity() {
                 navController.handleDeepLink(intent)
             }
         }
+    }
+
+    fun loadInterstitialAd() {
+        val adRequest = AdRequest
+            .Builder().build()
+        InterstitialAd.load(this@MainActivity,"ca-app-pub-5438024144140054/9199623668",
+            adRequest,object : InterstitialAdLoadCallback(){
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    mInterstitialAd = null
+                }
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    mInterstitialAd = ad
+                }
+            })
     }
 
     private fun loadBannerAd() {

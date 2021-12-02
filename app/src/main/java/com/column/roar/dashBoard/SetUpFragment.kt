@@ -208,7 +208,7 @@ class SetUpFragment : Fragment() {
         Timber.i("Storing image on Storage")
         val storageRef: StorageReference =
             storage.reference.child(
-                "images/clients/${uid}/"
+                "images/profile/${uid}/"
             )
         //var imageUri: String? = null
         imageByte?.let { imageByteArray ->

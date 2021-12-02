@@ -33,13 +33,10 @@ import com.column.roar.cloudModel.FirebaseLodgePhoto
 import com.column.roar.database.FavModel
 import com.column.roar.database.FavModelDao
 import com.column.roar.databinding.FragmentLodgeDetailBinding
-import com.column.roar.listAdapters.ClickListener
-import com.column.roar.listAdapters.LodgeClickListener
-import com.column.roar.listAdapters.LodgesAdapter
-import com.column.roar.listAdapters.PhotosAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.column.roar.SplashActivity
+import com.column.roar.listAdapters.*
 import com.column.roar.notification.LODGE_NOTIFICATION_ID
 import com.column.roar.notification.PRODUCT_NOTIFICATION_ID
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -68,11 +65,12 @@ class LodgeDetail : Fragment() {
     private lateinit var photosAdapter: PhotosAdapter
     private lateinit var clientDocumentRef: DocumentReference
     private lateinit var lodgeCollection: Query
-    private lateinit var lodgesAdapter: LodgesAdapter
+    private lateinit var lodgesAdapter: SimilarLodgeAdapter
     private lateinit var photoListRecycler: RecyclerView
     private lateinit var binding: FragmentLodgeDetailBinding
     private lateinit var sharedPref: SharedPreferences
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
+    private lateinit var noItemfound: MaterialCardView
 
     private val enuguImg: String? by lazy {
         sharedPref.getString("enugu_img", "")
@@ -105,8 +103,12 @@ class LodgeDetail : Fragment() {
         photosReference = fireStore.collection(getString(R.string.firestore_lodges))
             .document(lodgeData.lodgeId!!).collection("lodgePhotos")
 
-        lodgeCollection = fireStore.collection(getString(R.string.firestore_lodges))
-            .whereNotEqualTo("lodgeId", lodgeData.lodgeId)
+        lodgeCollection = if (lodgeData.payment!! > 100000)
+            fireStore.collection(getString(R.string.firestore_lodges))
+                .whereGreaterThan("payment", 100000)
+        else fireStore.collection(getString(R.string.firestore_lodges))
+            .whereLessThan("payment", 100000)
+
         //replace lodgeId with agentId when it is not null
         clientDocumentRef = fireStore.collection("clients").document(lodgeData.agentId!!)
     }
@@ -129,6 +131,7 @@ class LodgeDetail : Fragment() {
         val favIcon = binding.favoriteBtn
         swipeRefreshContainer = binding.swipeContainer
         swipeRefreshContainer.isRefreshing = true
+        noItemfound = binding.emptyListView
 
         val accountType = sharedPref.getString("accountType", null)
         if (accountType != null && accountType == "Admin") {
@@ -137,10 +140,10 @@ class LodgeDetail : Fragment() {
             binding.titleText.text = lodgeData.hiddenName
         }
 
-        lodgesAdapter = LodgesAdapter(LodgeClickListener({
+        lodgesAdapter = SimilarLodgeAdapter(LodgeClickListener({
             val bundle = bundleOf("Lodge" to it)
             findNavController().navigate(R.id.lodgeDetail, bundle)
-        }, {}), this, false)
+        }, {}))
 
         favIcon.setOnClickListener {
             lifecycleScope.launch {
@@ -165,17 +168,16 @@ class LodgeDetail : Fragment() {
 
         lockLodge() //call this function to lock lodge
 
-
         binding.playBtn.setOnClickListener {
-            if (lodgeData.tour != null) {
-                val bundle = bundleOf("Lodge" to lodgeData)
-                findNavController().navigate(R.id.watchTour, bundle)
-            } else {
-                Toast.makeText(
-                    requireContext(), "Sorry, their is no tour video for this lodge",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+            val bundle = bundleOf("Lodge" to lodgeData)
+            findNavController().navigate(R.id.watchTour, bundle)
+
+            Toast.makeText(
+                requireContext(), "Sorry, their is no tour video for this lodge",
+                Toast.LENGTH_LONG
+            ).show()
+
+//            lodgeData.tour != null
         }
 
         favModelDao.getFavString().observe(viewLifecycleOwner, { favIds ->
@@ -262,20 +264,24 @@ class LodgeDetail : Fragment() {
                 }
             }
         }
-/*fetching similar lodge here*/
-//        lodgeCollection.get().addOnSuccessListener { values ->
-//            values.documents.mapNotNull {
-//                it.toObject(FirebaseLodge::class.java)
-//            }.also { lodges ->
-//                lifecycleScope.launchWhenCreated {
-//                    if (lodges.isNullOrEmpty()) {
-////                        lodgesAdapter.addLodgeAndProperty(lodges, true)
-////                        binding.othersRecycler.visibility = View.VISIBLE
-////                        binding.similarLodges.visibility = View.VISIBLE
-//                    }
-//                }
-//            }
-//        }
+
+        /*fetching similar lodge here*/
+        lodgeCollection.get(source).addOnSuccessListener { values ->
+            values.documents.mapNotNull {
+                it.toObject(FirebaseLodge::class.java)
+            }.also { lodges ->
+                lifecycleScope.launchWhenCreated {
+                    if (lodges.isNotEmpty()) {
+                        lodgesAdapter.submitList(lodges)
+                        binding.othersRecycler.visibility = View.VISIBLE
+                        binding.similarLodges.visibility = View.VISIBLE
+                        noItemfound.visibility = View.GONE
+                    } else {
+                        noItemfound.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
     }
 
     private fun lockLodge() {

@@ -163,7 +163,7 @@ class LodgeUploadImage : Fragment() {
         Timber.i("Storing image on Storage")
         val storageRef: StorageReference =
             storage.reference.child(
-                "images/houses/${uid}.jpg"
+                "images/houses/${pagerObject.lodgesData.hiddenName}/${uid}.jpg"
             )
         //var imageUri: String? = null
         imageByte?.let { imageByteArray ->
