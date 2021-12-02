@@ -109,7 +109,7 @@ class BroadCastLodge : Fragment() {
                      "Lodge",
                      firebaseLodge.coverImage
                  ),
-                 "/topics/${firebaseLodge.location}"
+                 "/topics/${firebaseLodge.campus}"
              )
              sendNotification(pushNotification)
          }
@@ -142,7 +142,7 @@ class BroadCastLodge : Fragment() {
             editBtn.setOnClickListener {
                 editDialog.dismiss()
                 val bundle = bundleOf("Lodge" to firebaseLodge )
-                findNavController().navigate(R.id.lodgeDetailUpload, bundle)
+                findNavController().navigate(R.id.editLodgePager, bundle)
             }
 
             notifyBtn.setOnClickListener {

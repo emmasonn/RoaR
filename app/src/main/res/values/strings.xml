@@ -60,7 +60,7 @@
     <string name="estate_pro">Professional</string>
     <string name="format_property_header">%s  for sale</string>
     <string name="tour_title">%s\tTour</string>
-    <string name="about_us">Roar is an escrow service platform, that provides you with the lodges with in the University of Nigeria campuses( UNN and UNEC). Students can as well sell their fairly used property or item on this platform. Roar aim is to ensure transparency and to also eradicate overCharging / overpricing of products and services with in the campuses.</string>
+    <string name="about_us">Roar is an initiative that brings to your smartphone a never-before, user-friendly, local property and lodge-finder. Roar was born out of the desire to ensure trade transparency, ease the burden of lodge finding and lessen product and service overcharge on student.</string>
     <string name="customer_rule1">Direct question pertaining to your personal temporary accommodation to our WhatsApp accommodation customer service and not in the WhatsApp group</string>
     <string name="customer_rule2">Members are not allowed to make calls to customer service anytime, please tell your questions and problems directly, they can identify and answer back as soon as possible</string>
     <string name="customer_rule3">The WhatsApp and Telegram group on this screen are the only groups which are officially authorized by RoaR, members should join at least one of the community groups to keep pace with other members.</string>
@@ -74,7 +74,6 @@
     <string name="term2">We can rely on you to provide us with the information regarding the lodges in your account.</string>
     <string name="term3">The prices that are been provide for the lodges in your account are not to be considered overcharged and should be fixed.</string>
     <string name="term4">Thank you for relying on us to engage our audience with your lodges information, we assure you a quality business cooperation.</string>
-
     <!-- TODO: Remove or change this placeholder text -->
 
     <string name="privacyAndTerms">
@@ -92,11 +91,11 @@
     </ul>
     <p><strong>Features that require your attention</strong></p>
     <ul>
-    <li>we implemented a<strong> notification</strong> feature in our Roar app which enables us to notify our users of available lodges and products.</li>
+    <li>we implemented a<strong> notification</strong> feature in Roar app to notify our users of available lodges and products.</li>
     <li>In other to make payment seamless, we integrated <strong>Flutterwave</strong> API in the Roar app. During the payment process, some of the user\'s personal and transaction details are required. The details provided by the users are not in any way stored, they are used only once. However, Flutterwave is one of the trusted payment gateways available in Africa. Please do well to try it out in our app.</li>
     </ul>
     <p><strong>You\’re in control </strong></p>
-    <p>Depending on your settings, we have given our users control over what kind of notifications to receive from us. You can enable or disable the notification in the settings section of the app<strong>. Note:</strong> the app displays ads from <strong>Google Admob</strong> at specific areas of the app. We are conscious of how we display ads, so as not to interrupt our user activities on the app. <strong>Thank you for trying out our services on Roar</strong>. Our user\’s satisfaction is what keeps us moving, you can as well reach us at <strong>roar.escrow.mailbox@gmail.com.</strong></p>
+    <p>Note:</strong> Roar displays ads from <strong>Google Admob</strong> at specific areas of the app. We are conscious of how we display ads, so as not to interrupt our user activities on the app. <strong>Thank you for trying out our services on Roar</strong>. Our user\’s satisfaction is what keeps us moving, you can as well reach us at <strong>roar.escrow.mailbox@gmail.com.</strong></p>
     </body>
      ]]>
     </string>

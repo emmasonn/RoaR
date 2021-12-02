@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -42,6 +43,8 @@ class AdminRealtorDetails : Fragment() {
     private val client: FirebaseUser by lazy {
         arguments?.get("client") as FirebaseUser
     }
+
+    private lateinit var alertDialog: AlertDialog
 
     private lateinit var fireStore: FirebaseFirestore
     private lateinit var manageListAdapter: ManageListAdapter
@@ -77,7 +80,9 @@ class AdminRealtorDetails : Fragment() {
             findNavController().popBackStack()
         }
 
-        manageListAdapter = ManageListAdapter(ManageAdapterListener({
+        manageListAdapter = ManageListAdapter(
+            ManageAdapterListener(
+                {
                  val bundle = bundleOf("Lodge" to it)
                  findNavController().navigate(R.id.editLodgePager, bundle)
         },{
@@ -111,6 +116,7 @@ class AdminRealtorDetails : Fragment() {
                     suspendAccount()
                     true
                 }
+
                 else -> {
                     true
                 }
@@ -151,6 +157,7 @@ class AdminRealtorDetails : Fragment() {
                     }
                 }
             }
+            show()
         }
     }
 
@@ -163,8 +170,10 @@ class AdminRealtorDetails : Fragment() {
                         Toast.makeText(requireContext(),"Account Approved",Toast.LENGTH_SHORT).show()
                         dialog.dismiss()
                     }
+
                 }
             }
+            show()
         }
     }
 
@@ -182,7 +191,7 @@ class AdminRealtorDetails : Fragment() {
                 "Lodge",
                 firebaseLodge.coverImage
             ),
-            "/topics/${firebaseLodge.location}"
+            "/topics/${firebaseLodge.campus}"
         )
         sendNotification(pushNotification)
     }
@@ -265,13 +274,14 @@ class AdminRealtorDetails : Fragment() {
     @SuppressLint("InflateParams")
     private fun activateAccount(lodge: FirebaseLodge) {
         val documentReference = fireStore.collection("lodges").document(lodge.lodgeId!!)
-        MaterialAlertDialogBuilder(requireContext()).apply {
+       alertDialog =  MaterialAlertDialogBuilder(requireContext()).apply {
             val inflater = LayoutInflater.from(requireContext())
             val view = inflater.inflate(R.layout.activate_spinner_layout, null)
             val switchBtn = view.findViewById<SwitchMaterial>(R.id.switchBtn)
             val broadCast = view.findViewById<MaterialButton>(R.id.broadCastBtn)
 
             broadCast.setOnClickListener {
+                alertDialog.dismiss()
                 notifySubscribers(lodge)
             }
 
@@ -290,7 +300,7 @@ class AdminRealtorDetails : Fragment() {
             }
             setView(view)
             show()
-        }
+        }.show()
     }
 
 }

@@ -15,7 +15,7 @@
     <dimen name="staggered_product_grid_margin_top_second">56dp</dimen>
     <dimen name="roar_product_grid_margin_top_third">50dp</dimen>
     <dimen name="staggered_product_grid_card_width_portrait">250dp</dimen>
-    <dimen name="staggered_product_grid_card_height_portrait">247dp</dimen>
+    <dimen name="staggered_product_grid_card_height_portrait">300dp</dimen>
     <dimen name="staggered_product_grid_card_width_landscape">200dp</dimen>
     <dimen name="staggered_product_grid_card_height_landscape">150dp</dimen>
 </resources>

@@ -121,12 +121,13 @@ class BroadCastProduct : Fragment() {
                     "Product",
                     firebaseProperty.cover
                 ),
-                "/topics/${firebaseProperty.type}"
+                "/topics/product"
             )
             sendNotification(pushNotification)
         }
     }
 
+    //function that sends notification
     private fun sendNotification(notification: PushNotification) =
         CoroutineScope(Dispatchers.IO).launch {
             try {

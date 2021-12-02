@@ -2,7 +2,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="250dp"
+    android:layout_width="300dp"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardBackgroundColor="@android:color/transparent"
@@ -77,7 +77,7 @@
 
                 <ImageView
                     android:id="@+id/imageView9"
-                    android:layout_width="110dp"
+                    android:layout_width="170dp"
                     android:layout_height="@dimen/staggered_product_grid_card_height_portrait"
                     android:scaleType="fitXY"
                     android:elevation="10dp"
@@ -88,7 +88,7 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/product_image"
-                    android:layout_width="200dp"
+                    android:layout_width="220dp"
                     android:layout_height="0dp"
                     android:scaleType="fitXY"
                     android:layout_marginTop="4dp"

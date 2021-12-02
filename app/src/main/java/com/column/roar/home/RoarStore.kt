@@ -1,5 +1,4 @@
 package com.column.roar.home
-
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.NotificationManager
@@ -19,7 +18,6 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.core.content.getSystemService
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -53,7 +51,6 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 class RoarStore : Fragment() {
 
@@ -244,8 +241,8 @@ class RoarStore : Fragment() {
 
             Glide.with(productImage!!.context)
                 .load(product.cover).apply(
-                    RequestOptions().placeholder(R.drawable.animated_gradient)
-                        .error(R.drawable.animated_gradient)
+                    RequestOptions().placeholder(R.drawable.loading_background)
+                        .error(R.drawable.loading_background)
                 ).into(productImage)
 
             otherProductAdapter = UploadPhotosAdapter(ClickListener(
@@ -269,7 +266,6 @@ class RoarStore : Fragment() {
         shareBtn.setOnClickListener {
             bottomSheetLayout.dismiss()
             if(checkPermissionApproved()) {
-                shareBtn.alpha = 0.5F
                 shareProduct(product)
             }else {
                 requestExternalStoragePermission()
@@ -358,7 +354,6 @@ class RoarStore : Fragment() {
     private fun shareDynamicLink(shareIntent: Intent) {
         try {
             startActivity(Intent.createChooser(shareIntent, null))
-            shareBtn.alpha = 1F
            hideProgress()
         } catch (ex: android.content.ActivityNotFoundException) {
             Toast.makeText(
@@ -452,7 +447,6 @@ class RoarStore : Fragment() {
     }
 
     private fun chatWhatsApp(product: FirebaseProperty) {
-
         val uri =
             "https://api.whatsapp.com/send?phone=+234${product.number}"
 
@@ -517,7 +511,7 @@ class RoarStore : Fragment() {
     //show dialog for calling realtor
     private fun callDialog(product: FirebaseProperty) {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle("You are about to leave app to make phone call")
+            setTitle("You are about to leave app to make phone call escrow official")
             setPositiveButton("Okay") {dialog, _ ->
                 dialog.dismiss()
                 dialPhoneNumber(product.number)
@@ -532,7 +526,7 @@ class RoarStore : Fragment() {
     //whats-App dialog
     private fun whatsAppDialog(product: FirebaseProperty) {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle("You are about to leave app to WhatsApp")
+            setTitle("You are about to leave app to WhatsApp escrow official")
             setPositiveButton("Okay") {dialog, _ ->
                 dialog.dismiss()
                 chatWhatsApp(product)

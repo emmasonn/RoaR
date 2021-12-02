@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
     private var initialLayoutComplete = false
     var isDataFetched = false
     private lateinit var isAddInitialized: String //we want to load ads once
-//    private lateinit var marqueeText: TextView
     private lateinit var registration: ListenerRegistration
 
     val homeScreenAd = MutableLiveData<NativeAd>()
@@ -70,14 +69,12 @@ class MainActivity : AppCompatActivity() {
 
         adViewParent = findViewById(R.id.ad_view_container)
         val cancelBtn = findViewById<ImageView>(R.id.cancelBtn)
-//        marqueeText = findViewById<TextView>(R.id.marqueeText)
 
         MobileAds.initialize(this)
         MobileAds.setRequestConfiguration(
             RequestConfiguration.Builder()
                 .setTestDeviceIds(listOf("1FDC32B9CBE3CDABBE6B40D81394FA10"))
                 .build())
-//        marqueeText.isSelected = true
 
         cancelBtn.setOnClickListener {
             adViewParent.visibility = View.GONE
@@ -90,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.mainNavHost)
 
         adView = AdView(this)
-        adView.adUnitId = "ca-app-pub-4621350369277741/4437657701"
+        adView.adUnitId = "ca-app-pub-5438024144140054/9743173865"
         adViewParent.addView(adView)
         adView.adSize = getScreenSize()
 
@@ -110,12 +107,19 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
-        lifecycleScope.launch(Dispatchers.Default) {
-            subscribeProductLodge(settingsPref)
-            subscribeUnecLodge(settingsPref)
-            subscribeUnnLodge(settingsPref)
-        }
         connectivityChecker = connectivityChecker(this)
+
+        connectivityChecker?.apply {
+            lifecycle.addObserver(this)
+            connectedStatus.observe(this@MainActivity, {
+                if(it) {
+                    lifecycleScope.launch(Dispatchers.Default) {
+                        subscribeProductLodge(settingsPref)
+                        subscribeToLodge(settingsPref)
+                    }
+                }
+            })
+        }
     }
 
     override fun onStart() {
@@ -297,34 +301,43 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun subscribeUnnLodge(sharedPreferences: SharedPreferences) {
+    private suspend fun subscribeToLodge(sharedPreferences: SharedPreferences) {
+        //we are subscribing to notification base  on lodge
         withContext(Dispatchers.Default) {
-            val unn = sharedPreferences.getStringSet("unn_topics", null)
-
-            unn?.forEach { myTopic ->
-                subscribeTopics("/topics/${myTopic}")
-            }
+            val campus = sharedPreferences.getString("campus", "UNN")
+            subscribeTopics("/topics/${campus}")
         }
-    }
-
-    private suspend fun subscribeUnecLodge(sharedPreferences: SharedPreferences) {
-        withContext(Dispatchers.Default) {
-            val unec = sharedPreferences.getStringSet("unec_topics", null)
-
-            unec?.forEach { myTopic ->
-                subscribeTopics("/topics/${myTopic}")
-            }
-        }
-    }
+    }//end of subscribeToLodge
 
     private suspend fun subscribeProductLodge(sharedPreferences: SharedPreferences) {
         withContext(Dispatchers.Default) {
-            val products = sharedPreferences.getStringSet("product_topics", null)
-             products?.forEach { myTopic ->
-                subscribeTopics("/topics/${myTopic}")
-             }
+//            val products = sharedPreferences.getStringSet("product_topics", null)
+            subscribeTopics("/topics/product")
         }
-    }
+    }//end of subscribeToProduct
+
+
+    //    private suspend fun subscribeUnnLodge(sharedPreferences: SharedPreferences) {
+//        withContext(Dispatchers.Default) {
+//            val unn = sharedPreferences.getStringSet("unn_topics", null)
+//
+//            unn?.forEach { myTopic ->
+//                subscribeTopics("/topics/${myTopic}")
+//            }
+//        }
+//    }
+
+//
+//    private suspend fun subscribeUnecLodge(sharedPreferences: SharedPreferences) {
+//        withContext(Dispatchers.Default) {
+//            val unec = sharedPreferences.getStringSet("unec_topics", null)
+//
+//            unec?.forEach { myTopic ->
+//                subscribeTopics("/topics/${myTopic}")
+//            }
+//        }
+//    }
+//
 
     private fun getScreenSize(): AdSize {
         val display = windowManager.defaultDisplay
@@ -346,7 +359,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun smallAdvertNativeAd() {
-        val adLoader = AdLoader.Builder(this, "ca-app-pub-4621350369277741/2666600409")
+        val adLoader = AdLoader.Builder(this, "ca-app-pub-5438024144140054/3543106330")
             .forNativeAd { ad: NativeAd ->
                 run {
                     lifecycleScope.launch(Dispatchers.Main){
@@ -363,7 +376,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun otherSmallNativeAds() {
-        val adLoader = AdLoader.Builder(this, "ca-app-pub-4621350369277741/4881700209")
+        val adLoader = AdLoader.Builder(this, "ca-app-pub-5438024144140054/3187883113")
             .forNativeAd { ad: NativeAd ->
                 run {
                     lifecycleScope.launch(Dispatchers.Main){
@@ -380,7 +393,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun mediumAdvertNativeAd() {
-        val adLoader = AdLoader.Builder(this, "ca-app-pub-4621350369277741/2802331770")
+        val adLoader = AdLoader.Builder(this, "ca-app-pub-5438024144140054/7669860085")
             .forNativeAd { ad: NativeAd ->
                 run {
                     lifecycleScope.launch(Dispatchers.Main){

@@ -10,8 +10,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.column.roar.MainActivity
 import com.column.roar.R
 import com.column.roar.cloudModel.FirebaseLodge
@@ -22,6 +24,7 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.*
+import kotlinx.coroutines.launch
 
 class CareerFragment : Fragment() {
     private lateinit var manageListAdapter: ManageListAdapter
@@ -32,6 +35,7 @@ class CareerFragment : Fragment() {
     private lateinit var registration: ListenerRegistration
     private lateinit var sharedPref: SharedPreferences
     private lateinit var noConnectionView: MaterialCardView
+    private lateinit var swipeRefresh: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,12 +58,14 @@ class CareerFragment : Fragment() {
         manageRecycler = view.findViewById<RecyclerView>(R.id.manageRecycler)
         val backBtn = view.findViewById<ImageView>(R.id.pagerBack)
         noConnectionView = view.findViewById(R.id.emptyListView)
+        swipeRefresh = view.findViewById(R.id.loadingRefresh)
 
         manageListAdapter = ManageListAdapter(
             ManageAdapterListener ({
         },{
             editRoomDialog(it)
         },{}),true)
+        swipeRefresh.isRefreshing = true
 
         manageRecycler.adapter = manageListAdapter
         backBtn.setOnClickListener {
@@ -81,9 +87,11 @@ class CareerFragment : Fragment() {
             }.also {
                 if (it.isNullOrEmpty()) {
                     noConnectionView.visibility = View.VISIBLE
+                    swipeRefresh.isRefreshing = false
                 }else {
                     noConnectionView.visibility = View.GONE
                     manageListAdapter.submitList(it)
+                    swipeRefresh.isRefreshing = false
                 }
             }
         }

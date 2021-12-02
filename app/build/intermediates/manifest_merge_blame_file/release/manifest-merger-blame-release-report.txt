@@ -3,8 +3,8 @@
 3    package="com.column.roar"
 4    android:installLocation="auto"
 5    android:requestLegacyExternalStorage="true"
-6    android:versionCode="7"
-7    android:versionName="1.0.0" >
+6    android:versionCode="8"
+7    android:versionName="1.0.1" >
 8
 9    <uses-sdk
 10        android:minSdkVersion="21"
@@ -18,53 +18,53 @@
 14    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 14-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:11:5-80
 14-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:11:22-77
-15    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-15-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:12:5-13:48
-15-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:12:22-78
-16    <uses-permission android:name="android.permission.INTERNET" />
-16-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:14:5-67
-16-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:14:22-64
-17    <uses-permission android:name="com.google.android.gms.permission.AD_ID" /> <!-- Android package visibility setting -->
-17-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:25:5-79
-17-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:25:22-76
-18    <queries>
-18-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:28:5-44:15
-19
-20        <!-- For browser content -->
-21        <intent>
-21-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:31:9-37:18
-22            <action android:name="android.intent.action.VIEW" />
-22-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:32:13-65
-22-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:32:21-62
-23
-24            <category android:name="android.intent.category.BROWSABLE" />
-24-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:34:13-74
-24-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:34:23-71
-25
-26            <data android:scheme="https" />
-26-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:36:13-44
-26-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:36:19-41
-27        </intent>
-28        <!-- End of browser content -->
-29        <!-- For CustomTabsService -->
-30        <intent>
-30-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:40:9-42:18
-31            <action android:name="android.support.customtabs.action.CustomTabsService" />
-31-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:41:13-90
-31-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:41:21-87
-32        </intent>
-33        <!-- End of CustomTabsService -->
-34        <intent>
-34-->[androidx.media:media:1.3.1] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\4a9e6c401e8c4a7ee040f2f364a267a4\media-1.3.1\AndroidManifest.xml:25:9-27:18
-35            <action android:name="android.media.browse.MediaBrowserService" />
-35-->[androidx.media:media:1.3.1] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\4a9e6c401e8c4a7ee040f2f364a267a4\media-1.3.1\AndroidManifest.xml:26:13-79
-35-->[androidx.media:media:1.3.1] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\4a9e6c401e8c4a7ee040f2f364a267a4\media-1.3.1\AndroidManifest.xml:26:21-76
-36        </intent>
-37    </queries>
-38
-39    <uses-permission android:name="android.permission.WAKE_LOCK" />
-39-->[androidx.work:work-runtime:2.1.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\5398c1a5c6c630ff488fa52f57a025c1\work-runtime-2.1.0\AndroidManifest.xml:25:5-68
-39-->[androidx.work:work-runtime:2.1.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\5398c1a5c6c630ff488fa52f57a025c1\work-runtime-2.1.0\AndroidManifest.xml:25:22-65
+15    <uses-permission android:name="android.permission.WAKE_LOCK" />
+15-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:12:5-68
+15-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:12:22-65
+16    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+16-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:13:5-14:48
+16-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:13:22-78
+17    <uses-permission android:name="android.permission.INTERNET" />
+17-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:15:5-67
+17-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:15:22-64
+18    <uses-permission android:name="com.google.android.gms.permission.AD_ID" /> <!-- Android package visibility setting -->
+18-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:25:5-79
+18-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:25:22-76
+19    <queries>
+19-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:28:5-44:15
+20
+21        <!-- For browser content -->
+22        <intent>
+22-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:31:9-37:18
+23            <action android:name="android.intent.action.VIEW" />
+23-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:32:13-65
+23-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:32:21-62
+24
+25            <category android:name="android.intent.category.BROWSABLE" />
+25-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:34:13-74
+25-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:34:23-71
+26
+27            <data android:scheme="https" />
+27-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:36:13-44
+27-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:36:19-41
+28        </intent>
+29        <!-- End of browser content -->
+30        <!-- For CustomTabsService -->
+31        <intent>
+31-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:40:9-42:18
+32            <action android:name="android.support.customtabs.action.CustomTabsService" />
+32-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:41:13-90
+32-->[com.google.android.gms:play-services-ads-lite:20.4.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\13f8ab8460176b6d6d55b3c2d48850b5\jetified-play-services-ads-lite-20.4.0\AndroidManifest.xml:41:21-87
+33        </intent>
+34        <!-- End of CustomTabsService -->
+35        <intent>
+35-->[androidx.media:media:1.3.1] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\4a9e6c401e8c4a7ee040f2f364a267a4\media-1.3.1\AndroidManifest.xml:25:9-27:18
+36            <action android:name="android.media.browse.MediaBrowserService" />
+36-->[androidx.media:media:1.3.1] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\4a9e6c401e8c4a7ee040f2f364a267a4\media-1.3.1\AndroidManifest.xml:26:13-79
+36-->[androidx.media:media:1.3.1] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\4a9e6c401e8c4a7ee040f2f364a267a4\media-1.3.1\AndroidManifest.xml:26:21-76
+37        </intent>
+38    </queries>
+39
 40    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- Required by older versions of Google Play services to create IID tokens -->
 40-->[androidx.work:work-runtime:2.1.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\5398c1a5c6c630ff488fa52f57a025c1\work-runtime-2.1.0\AndroidManifest.xml:27:5-81
 40-->[androidx.work:work-runtime:2.1.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\5398c1a5c6c630ff488fa52f57a025c1\work-runtime-2.1.0\AndroidManifest.xml:27:22-78
@@ -76,63 +76,63 @@
 42-->[com.google.android.gms:play-services-measurement:19.0.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\93aedda8910b5bce6a9a47904ae985ba\jetified-play-services-measurement-19.0.0\AndroidManifest.xml:26:22-107
 43
 44    <application
-44-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:16:5-77:19
+44-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:17:5-78:19
 45        android:name="com.column.roar.HousingApplication"
-45-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:17:9-58
+45-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:18:9-58
 46        android:allowBackup="true"
-46-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:18:9-35
+46-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:19:9-35
 47        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 47-->[androidx.core:core:1.6.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\6e3c0bf0ef2d7245391b3d4ee25b2f1e\core-1.6.0\AndroidManifest.xml:24:18-86
 48        android:icon="@drawable/roar_one"
-48-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:19:9-42
+48-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:20:9-42
 49        android:label="@string/app_name"
-49-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:20:9-41
+49-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:21:9-41
 50        android:roundIcon="@drawable/roar_one"
-50-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:21:9-47
+50-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:22:9-47
 51        android:supportsRtl="true"
-51-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:22:9-35
+51-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:23:9-35
 52        android:theme="@style/Theme.RoarHousing" >
-52-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:23:9-49
+52-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:24:9-49
 53        <meta-data
-53-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:26:9-28:70
+53-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:27:9-29:70
 54            android:name="com.google.android.gms.ads.APPLICATION_ID"
-54-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:27:13-69
-55            android:value="ca-app-pub-4621350369277741~3004740273" />
-55-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:28:13-67
+54-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:28:13-69
+55            android:value="ca-app-pub-5438024144140054~2526356371" />
+55-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:29:13-67
 56
 57        <activity
-57-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:30:9-37:20
+57-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:31:9-38:20
 58            android:name="com.column.roar.SplashActivity"
-58-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:31:13-58
+58-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:32:13-58
 59            android:screenOrientation="portrait" >
-59-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:32:13-49
+59-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:33:13-49
 60            <intent-filter>
-60-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:33:13-36:29
+60-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:34:13-37:29
 61                <action android:name="android.intent.action.MAIN" />
-61-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:34:17-69
-61-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:34:25-66
+61-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:35:17-69
+61-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:35:25-66
 62
 63                <category android:name="android.intent.category.LAUNCHER" />
-63-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:35:17-77
-63-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:35:27-74
+63-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:36:17-77
+63-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:36:27-74
 64            </intent-filter>
 65        </activity>
 66        <activity
-66-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:39:9-51:20
+66-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:40:9-52:20
 67            android:name="com.column.roar.MainActivity"
-67-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:40:13-56
+67-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:41:13-56
 68            android:launchMode="singleTask"
-68-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:41:13-44
+68-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:42:13-44
 69            android:screenOrientation="portrait" >
-69-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:42:13-49
+69-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:43:13-49
 70            <intent-filter>
-70-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:44:13-50:29
+70-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:45:13-51:29
 71                <action
-71-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:34:17-69
+71-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:35:17-69
 72                    android:name="android.intent.action.MAIN"
-72-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:34:25-66
+72-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:35:25-66
 73                    android:hardwareAccelerated="true" />
-73-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:47:21-55
+73-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:48:21-55
 74                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
 75            </intent-filter>
 76            <intent-filter android:autoVerify="true" >
@@ -210,43 +210,43 @@
 106        </activity>
 107
 108        <service
-108-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:53:9-59:19
+108-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:54:9-60:19
 109            android:name="com.column.roar.fcm.MyFirebaseMessagingService"
-109-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:54:13-74
+109-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:55:13-74
 110            android:exported="false" >
-110-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:55:13-37
+110-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:56:13-37
 111            <intent-filter>
-111-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:56:13-58:29
+111-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:57:13-59:29
 112                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-112-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:57:17-78
-112-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:57:25-75
+112-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:58:17-78
+112-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:58:25-75
 113            </intent-filter>
 114        </service>
 115
 116        <meta-data
-116-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:61:9-63:50
+116-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:62:9-64:50
 117            android:name="com.google.firebase.messaging.default_notification_color"
-117-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:62:13-84
+117-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:63:13-84
 118            android:resource="@color/blue_100" />
-118-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:63:13-47
+118-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:64:13-47
 119        <meta-data
-119-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:65:9-67:57
+119-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:66:9-68:57
 120            android:name="com.google.firebase.messaging.default_notification_icon"
-120-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:66:13-83
+120-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:67:13-83
 121            android:resource="@drawable/ic_emma_icon" />
-121-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:67:13-54
+121-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:68:13-54
 122        <meta-data
-122-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:69:9-71:70
+122-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:70:9-72:70
 123            android:name="com.google.firebase.messaging.default_notification_channel_id"
-123-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:70:13-89
+123-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:71:13-89
 124            android:value="@string/lodges_notification_channel_id" />
-124-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:71:13-67
+124-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:72:13-67
 125        <meta-data
-125-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:73:9-75:71
+125-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:74:9-76:71
 126            android:name="com.google.firebase.messaging.products_notification_channel"
-126-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:74:13-87
+126-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:75:13-87
 127            android:value="@string/product_notification_channel_id" />
-127-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:75:13-68
+127-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:76:13-68
 128
 129        <activity
 129-->[com.github.flutterwave.rave-android:rave_android:2.1.37] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\a8e706ba3acf851a7c01aedd3e7d3eee\jetified-rave_android-2.1.37\AndroidManifest.xml:15:9-19:55
@@ -611,10 +611,10 @@
 317            android:exported="false" >
 317-->[com.google.firebase:firebase-messaging:22.0.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\216891ade727145440c53c4151065a54\jetified-firebase-messaging-22.0.0\AndroidManifest.xml:44:13-37
 318            <intent-filter android:priority="-500" >
-318-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:56:13-58:29
+318-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:57:13-59:29
 319                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-319-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:57:17-78
-319-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:57:25-75
+319-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:58:17-78
+319-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:58:25-75
 320            </intent-filter>
 321        </service>
 322        <service

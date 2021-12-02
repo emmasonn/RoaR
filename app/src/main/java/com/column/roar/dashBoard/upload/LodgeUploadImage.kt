@@ -192,9 +192,10 @@ class LodgeUploadImage : Fragment() {
                         lodgeDocument.update("coverImage", imageUri).addOnSuccessListener {
                             Toast.makeText(requireContext(),"Cover Image Uploaded",Toast.LENGTH_SHORT).show()
                             hideLoadingBar()
-                            selectedImage.clear()
+                            selectedImage.invalidate()
                         }
                         pagerObject.moveBackward()
+
                     } else{
 
                         val lodgePhoto = FirebaseLodgePhoto(

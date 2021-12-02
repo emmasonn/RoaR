@@ -70,8 +70,9 @@ class EditLodgeFragment : Fragment() {
         }
 
         binding.pagerBack.setOnClickListener {
-            findNavController().popBackStack(R.id.lodgeDetailUpload,true)
+            findNavController().navigateUp()
         }
+
         setupListener()
         return binding.root
     }

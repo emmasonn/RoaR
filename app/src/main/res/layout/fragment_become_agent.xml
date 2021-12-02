@@ -8,7 +8,6 @@
     android:background="?attr/colorPrimary"
     tools:context=".authentication.BecomeAgent">
 
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/becomeBackBtn"
             android:layout_width="@dimen/back_arrow_height"
@@ -25,9 +24,10 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/becomeBackBtn">
 
@@ -40,10 +40,13 @@
                 android:id="@+id/materialCardView7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:elevation="3dp"
+                android:elevation="5dp"
+                android:layout_margin="4dp"
                 app:cardBackgroundColor="?attr/colorPrimary"
                 app:cardCornerRadius="0dp"
+                app:strokeColor="@color/blue_grey_100"
+                app:strokeWidth="0.5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -61,7 +64,6 @@
                         android:layout_marginTop="20dp"
                         android:text="Join to unlock full experience"
                         android:textAppearance="@style/Widget.Toolbar.title"
-
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,26 +76,29 @@
                         android:fontFamily="@font/montserrat_bold"
                         android:text="Sell an Item /\n partner with us"
                         android:textAllCaps="false"
-                        android:textStyle="bold"
                         android:textAppearance="?attr/textAppearanceSubtitle2"
                         android:textColor="@color/white"
+                        android:textStyle="bold"
                         app:cornerRadius="5dp"
-                        app:layout_constraintStart_toStartOf="@+id/textView38"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.2"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/signInBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="20dp"
                         android:fontFamily="@font/montserrat_bold"
                         android:text="Sign In"
-                        android:textStyle="bold"
                         android:textAllCaps="false"
                         android:textAppearance="?attr/textAppearanceSubtitle1"
                         android:textColor="?attr/colorAccent"
+                        android:textStyle="bold"
                         app:cornerRadius="5dp"
                         app:layout_constraintBottom_toBottomOf="@+id/joinBtn"
+                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/joinBtn"
                         app:layout_constraintTop_toTopOf="@+id/joinBtn"
                         app:strokeColor="?attr/colorAccent"
@@ -103,224 +108,213 @@
                         android:id="@+id/textView12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_margin="30dp"
                         android:text="We desire partnership"
                         android:textAppearance="?attr/textAppearanceSubtitle1"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/textView38"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textView38"
                         app:layout_constraintTop_toBottomOf="@+id/joinBtn" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:cardBackgroundColor="?attr/colorPrimary"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialCardView7">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/bottom_padding_ad">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/black_100"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="parent" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/accountBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="0dp">
-
-                        <ImageView
-                            android:id="@+id/account"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:src="@drawable/ic_account"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="?attr/colorOnSecondary"
-                            tools:ignore="ContentDescription" />
-
-                        <TextView
-                            android:id="@+id/textView16"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="40dp"
-                            android:layout_toEndOf="@+id/account"
-                            android:text="Account"
-                            android:textAppearance="@style/Widget.Roar.textHeadline"
-                            android:textColor="?attr/colorOnSecondary"
-                            app:layout_constraintBottom_toBottomOf="@+id/account"
-                            app:layout_constraintStart_toEndOf="@+id/account"
-                            app:layout_constraintTop_toTopOf="@+id/account" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/sellBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
-
-                        <ImageView
-                            android:id="@+id/setting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:src="@drawable/ic_career"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="?attr/colorOnSecondary"
-                            tools:ignore="ContentDescription" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginStart="40dp"
-                            android:layout_toEndOf="@+id/setting"
-                            android:text="Career"
-                            android:textAppearance="@style/Widget.Roar.textHeadline"
-                            android:textColor="?attr/colorOnSecondary"
-                            app:layout_constraintBottom_toBottomOf="@+id/setting"
-                            app:layout_constraintStart_toEndOf="@+id/setting"
-                            app:layout_constraintTop_toTopOf="@+id/setting" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/sellBt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
-
-                        <ImageView
-                            android:id="@+id/manage"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:src="@drawable/ic_offer"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="?attr/colorOnSecondary"
-                            tools:ignore="ContentDescription" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginStart="40dp"
-                            android:layout_toEndOf="@+id/manage"
-                            android:text="Sell Property"
-                            android:textAppearance="@style/Widget.Roar.textHeadline"
-                            android:textColor="?attr/colorOnSecondary"
-                            app:layout_constraintBottom_toBottomOf="@+id/manage"
-                            app:layout_constraintStart_toEndOf="@+id/manage"
-                            app:layout_constraintTop_toTopOf="@+id/manage" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/term"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
-
-                        <ImageView
-                            android:id="@+id/condition"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:src="@drawable/ic_terms_condition"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="?attr/colorOnSecondary"
-                            tools:ignore="ContentDescription" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginStart="40dp"
-                            android:layout_toEndOf="@+id/condition"
-                            android:text="Terms and condition"
-                            android:textAppearance="@style/Widget.Roar.textHeadline"
-                            android:textColor="?attr/colorOnSecondary"
-                            app:layout_constraintBottom_toBottomOf="@+id/condition"
-                            app:layout_constraintStart_toEndOf="@+id/condition"
-                            app:layout_constraintTop_toTopOf="@+id/condition" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/subscriptionBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="20dp">
-
-                        <ImageView
-                            android:id="@+id/subscription"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:src="@drawable/ic_payment"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="?attr/colorOnSecondary"
-                            tools:ignore="ContentDescription" />
-
-                        <TextView
-                            android:id="@+id/subscribe"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="40dp"
-                            android:layout_toEndOf="@+id/subscription"
-                            android:text="Subscription"
-                            android:textAppearance="@style/Widget.Roar.textHeadline"
-                            android:textColor="?attr/colorOnSecondary"
-                            app:layout_constraintBottom_toBottomOf="@+id/subscription"
-                            app:layout_constraintStart_toEndOf="@+id/subscription"
-                            app:layout_constraintTop_toTopOf="@+id/subscription" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:paddingBottom="@dimen/bottom_padding_ad">-->
+
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="1dp"-->
+<!--                        android:background="@color/black_100"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="parent" />-->
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:id="@+id/accountBtn"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="0dp">-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/account"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:layout_marginBottom="10dp"-->
+<!--                            android:src="@drawable/ic_account"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:tint="?attr/colorOnSecondary"-->
+<!--                            tools:ignore="ContentDescription" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView16"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="40dp"-->
+<!--                            android:layout_toEndOf="@+id/account"-->
+<!--                            android:text="Account"-->
+<!--                            android:textAppearance="@style/Widget.Roar.textHeadline"-->
+<!--                            android:textColor="?attr/colorOnSecondary"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/account"-->
+<!--                            app:layout_constraintStart_toEndOf="@+id/account"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/account" />-->
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:id="@+id/sellBtn"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp">-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/setting"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:layout_marginBottom="10dp"-->
+<!--                            android:src="@drawable/ic_career"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:tint="?attr/colorOnSecondary"-->
+<!--                            tools:ignore="ContentDescription" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentTop="true"-->
+<!--                            android:layout_marginStart="40dp"-->
+<!--                            android:layout_toEndOf="@+id/setting"-->
+<!--                            android:text="Career"-->
+<!--                            android:textAppearance="@style/Widget.Roar.textHeadline"-->
+<!--                            android:textColor="?attr/colorOnSecondary"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/setting"-->
+<!--                            app:layout_constraintStart_toEndOf="@+id/setting"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/setting" />-->
+
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:id="@+id/sellBt"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp">-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/manage"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentStart="true"-->
+<!--                            android:layout_alignParentTop="true"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:layout_marginBottom="10dp"-->
+<!--                            android:src="@drawable/ic_offer"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:tint="?attr/colorOnSecondary"-->
+<!--                            tools:ignore="ContentDescription" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentTop="true"-->
+<!--                            android:layout_marginStart="40dp"-->
+<!--                            android:layout_toEndOf="@+id/manage"-->
+<!--                            android:text="Sell Property"-->
+<!--                            android:textAppearance="@style/Widget.Roar.textHeadline"-->
+<!--                            android:textColor="?attr/colorOnSecondary"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/manage"-->
+<!--                            app:layout_constraintStart_toEndOf="@+id/manage"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/manage" />-->
+
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:id="@+id/term"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp">-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/condition"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentStart="true"-->
+<!--                            android:layout_alignParentTop="true"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:layout_marginBottom="10dp"-->
+<!--                            android:src="@drawable/ic_terms_condition"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:tint="?attr/colorOnSecondary"-->
+<!--                            tools:ignore="ContentDescription" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentTop="true"-->
+<!--                            android:layout_marginStart="40dp"-->
+<!--                            android:layout_toEndOf="@+id/condition"-->
+<!--                            android:text="Terms and condition"-->
+<!--                            android:textAppearance="@style/Widget.Roar.textHeadline"-->
+<!--                            android:textColor="?attr/colorOnSecondary"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/condition"-->
+<!--                            app:layout_constraintStart_toEndOf="@+id/condition"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/condition" />-->
+
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:id="@+id/subscriptionBtn"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:layout_marginBottom="20dp">-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/subscription"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:layout_marginBottom="10dp"-->
+<!--                            android:src="@drawable/ic_payment"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:tint="?attr/colorOnSecondary"-->
+<!--                            tools:ignore="ContentDescription" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/subscribe"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="40dp"-->
+<!--                            android:layout_toEndOf="@+id/subscription"-->
+<!--                            android:text="Subscription"-->
+<!--                            android:textAppearance="@style/Widget.Roar.textHeadline"-->
+<!--                            android:textColor="?attr/colorOnSecondary"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/subscription"-->
+<!--                            app:layout_constraintStart_toEndOf="@+id/subscription"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/subscription" />-->
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--                </LinearLayout>-->
+<!--            </com.google.android.material.card.MaterialCardView>-->
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--    </androidx.core.widget.NestedScrollView>-->
+

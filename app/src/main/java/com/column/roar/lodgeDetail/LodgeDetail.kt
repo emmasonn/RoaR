@@ -90,9 +90,10 @@ class LodgeDetail : Fragment() {
                     "Accept permission to share item",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else {
-                shareLodgeData()
             }
+//            else {
+//               shareLodgeData()
+//            }
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -156,7 +157,6 @@ class LodgeDetail : Fragment() {
 
         binding.shareBtn.setOnClickListener {
             if (checkPermissionApproved()) {
-                binding.shareBtn.alpha = 0.5F
                 shareLodgeData()
             } else {
                 requestExternalStoragePermission()
@@ -319,17 +319,14 @@ class LodgeDetail : Fragment() {
                 .apply(
                     RequestOptions().placeholder(R.drawable.loading_background)
                         .error(R.drawable.loading_background)
-                )
-                .into(coverImage)
-
+                ).into(coverImage)
 
             Glide.with(agentImage!!.context)
                 .load(if (lodgeData.campus == "UNN") nsukkaImage else enuguImg)
                 .apply(
                     RequestOptions().placeholder(R.drawable.ic_person)
                         .error(R.drawable.ic_person)
-                )
-                .into(agentImage)
+                ).into(agentImage)
         }
 
         val whatsAppBtn = bottomSheetLayout.findViewById<MaterialCardView>(R.id.whatsAppBtn)
@@ -349,42 +346,60 @@ class LodgeDetail : Fragment() {
 
         whatsAppBtn?.setOnClickListener {
             if (checkPermissionApproved()) {
-                whatsAppBtn.alpha = 0.5F
                 whatsAppDialog()
                 bottomSheetLayout.dismiss()
             } else {
-                whatsAppBtn.alpha = 1F
                 requestExternalStoragePermission()
             }
         }
         bottomSheetLayout.show()
     }
 
-
     //this function is used to directly check with the Roar agent
     private fun chatWhatsApp(pNumber: String?) {
 
-        val message = "Hello, am interested in ${lodgeData.hiddenName} \n\n" +
-                "Lodge Link: https://unnapp.page.link/lodges/${lodgeData.lodgeId}"
-                    .trimIndent()
-        val uri = "https://api.whatsapp.com/send?phone=+234$pNumber&text=$message"
+        Firebase.dynamicLinks.shortLinkAsync {
+            longLink = Uri.parse(
+                "https://unnapp.page.link/?link=https://unnapp.page.link/lodges?lodgeId%3D${lodgeData.lodgeId}" +
+                        "&apn=com.column.roar&st=Campus+Lodge&sd=Get+lodges+at+a+better+price+from+trusted+community" +
+                        "&si=${lodgeData.coverImage}"
+            )
+        }.addOnSuccessListener { shortLink ->
 
-        lifecycleScope.launch {
-//            val imageUri = getImageUri()
-            val intent = Intent().apply {
-                action = Intent.ACTION_VIEW
-                type = "image/*"
-                data = Uri.parse(uri)
-            }
+            lifecycleScope.launchWhenCreated {
 
-            try {
-                startActivity(intent)
-            } catch (ex: android.content.ActivityNotFoundException) {
-                Toast.makeText(
-                    requireContext(), "WhatsApp is not Found",
-                    Toast.LENGTH_SHORT
-                ).show()
+                val message = "*Hello, am interested in ${lodgeData.hiddenName}* \n\n" +
+                        "*Location: ${lodgeData.location}* \n\n" +
+                        "*Lodge Link: ${shortLink.shortLink}*"
+                            .trimIndent()
+                val uri = "https://api.whatsapp.com/send?phone=+234$pNumber&text=$message"
+
+                lifecycleScope.launch {
+
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_VIEW
+                        type = "image/*"
+                        data = Uri.parse(uri)
+                    }
+                    swipeRefreshContainer.isRefreshing = false
+
+                    try {
+                        startActivity(intent)
+                    } catch (ex: android.content.ActivityNotFoundException) {
+                        Toast.makeText(
+                            requireContext(), "WhatsApp is not Found",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             }
+        }.addOnFailureListener {
+            swipeRefreshContainer.isRefreshing = false
+            Toast.makeText(
+                requireContext(),
+                "Sharing failed, Network error",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -417,7 +432,7 @@ class LodgeDetail : Fragment() {
 
                     lifecycleScope.launchWhenCreated {
                         val message =
-                            "*Hi, checkout this lodge at Roar* " +
+                            "*Hi, checkout this lodge at Roar.* \n\n" +
                                     "*Location: ${lodgeData.location}* \n" +
                                     "*Rent: ${
                                         getString(
@@ -532,6 +547,7 @@ class LodgeDetail : Fragment() {
             setTitle("You are about to leave app to chat with Roar Official")
             setPositiveButton("Okay") { dialog, _ ->
                 dialog.dismiss()
+                swipeRefreshContainer.isRefreshing = true
                 chatWhatsApp(if (lodgeData.campus == "UNN") nsukkaPhone else enuguPhone)
             }
 
@@ -591,7 +607,7 @@ class LodgeDetail : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    shareLodgeData()
+//                    shareLodgeData()
                 }
                 return
             }

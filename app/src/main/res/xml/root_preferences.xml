@@ -14,41 +14,41 @@
         app:useSimpleSummaryProvider="true"
         />
 
-    <MultiSelectListPreference
-        app:defaultValue="@array/empty_list"
-        app:entries ="@array/unn_array"
-        app:entryValues="@array/unn_array"
-        app:key="unn_topics"
-        app:title="UNN lodges notification"
-        app:summary=" Pick interested areas"
-        app:iconSpaceReserved="false"
-        app:allowDividerBelow="true"
-        app:negativeButtonText="Close"
-        />
+<!--    <MultiSelectListPreference-->
+<!--        app:defaultValue="@array/empty_list"-->
+<!--        app:entries ="@array/unn_array"-->
+<!--        app:entryValues="@array/unn_array"-->
+<!--        app:key="unn_topics"-->
+<!--        app:title="UNN lodges notification"-->
+<!--        app:summary=" Select interested areas"-->
+<!--        app:iconSpaceReserved="false"-->
+<!--        app:allowDividerBelow="true"-->
+<!--        app:negativeButtonText="Close"-->
+<!--        />-->
 
-    <MultiSelectListPreference
-        app:defaultValue="@array/empty_list"
-        app:entries ="@array/unec_array"
-        app:entryValues="@array/unec_array"
-        app:key="unec_topics"
-        app:title="UNEC lodges notification"
-        app:summary=" Pick interested areas"
-        app:iconSpaceReserved="false"
-        app:allowDividerBelow="true"
-        app:positiveButtonText="Save"
-        android:positiveButtonText="Save"
-        app:negativeButtonText="Close"
-        />
+<!--    <MultiSelectListPreference-->
+<!--        app:defaultValue="@array/empty_list"-->
+<!--        app:entries ="@array/unec_array"-->
+<!--        app:entryValues="@array/unec_array"-->
+<!--        app:key="unec_topics"-->
+<!--        app:title="UNEC lodges notification"-->
+<!--        app:summary=" Select interested areas"-->
+<!--        app:iconSpaceReserved="false"-->
+<!--        app:allowDividerBelow="true"-->
+<!--        app:positiveButtonText="Save"-->
+<!--        android:positiveButtonText="Save"-->
+<!--        app:negativeButtonText="Close"-->
+<!--        />-->
 
-    <MultiSelectListPreference
-        app:defaultValue="@array/empty_list"
-        app:entries ="@array/product_type"
-        app:entryValues="@array/product_type"
-        app:key="product_topics"
-        app:iconSpaceReserved="false"
-        app:title="Turn on New product notification"
-        app:summary=" Pick interested categories"
-        />
+<!--    <MultiSelectListPreference-->
+<!--        app:defaultValue="@array/empty_list"-->
+<!--        app:entries ="@array/product_type"-->
+<!--        app:entryValues="@array/product_type"-->
+<!--        app:key="product_topics"-->
+<!--        app:iconSpaceReserved="false"-->
+<!--        app:title="Turn on New product notification"-->
+<!--        app:summary=" Pick interested categories"-->
+<!--        />-->
 
     <SwitchPreferenceCompat
         app:key="dark_theme"

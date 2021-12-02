@@ -10,13 +10,12 @@ plugins {
 
 android {
     compileSdkVersion 31
-
     defaultConfig {
         applicationId "com.column.roar"
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 7
-        versionName "1.0.0"
+        versionCode 8
+        versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

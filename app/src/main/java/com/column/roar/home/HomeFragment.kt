@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
     private lateinit var connectionView: MaterialCardView
     private lateinit var swipeContainer: SwipeRefreshLayout
     private lateinit var callback: OnBackPressedCallback
-    private lateinit var otherProductAdapter: UploadPhotosAdapter
+//    private lateinit var otherProductAdapter: UploadPhotosAdapter
     private var emptyList: MaterialCardView? = null
     private var networkError: MaterialCardView? = null
     private var player: SimpleExoPlayer? = null
@@ -128,7 +128,7 @@ class HomeFragment : Fragment() {
 
         setUpOnBackPressedCallback()
 
-        // resolve the implicit link
+   //      resolve the implicit link
         val argsNav: HomeFragmentArgs by navArgs()
         argsNav.lodgeId.let {
             if (it != "roar") {
@@ -391,10 +391,10 @@ class HomeFragment : Fragment() {
         swipeContainer.isRefreshing = true
         id?.let {
             fireStore.collection(getString(R.string.firestore_lodges)).document(id)
-                .get().addOnSuccessListener {
+                .get().addOnSuccessListener { snapShot ->
                     lifecycleScope.launch {   //this was launch when created
                         swipeContainer.isRefreshing = true
-                        it.toObject(FirebaseLodge::class.java).also { lodge ->
+                        snapShot.toObject(FirebaseLodge::class.java).also { lodge ->
                             val bundle = bundleOf("Lodge" to lodge)
                             findNavController().navigate(R.id.lodgeDetail, bundle)
                         }
@@ -450,8 +450,8 @@ class HomeFragment : Fragment() {
         networkError = bottomSheetLayout.findViewById(R.id.connectionView)
         emptyList = bottomSheetLayout.findViewById(R.id.emptyListView)
 
-        callBtn?.setOnClickListener { product.number?.let { it1 -> callDialog(it1) } }
-        whatsAppBtn?.setOnClickListener { product.number?.let { it1 -> whatsAppDialog(it1) } }
+        callBtn?.setOnClickListener { product.number?.let { it1 -> callDialog(it1,product.brand) } }
+        whatsAppBtn?.setOnClickListener { product.number?.let { it1 -> whatsAppDialog(it1,product.brand) } }
         bottomSheetLayout.show()
         swipeContainer.isRefreshing = false
     }
@@ -555,9 +555,9 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun callDialog(number: String) {
+    private fun callDialog(number: String, brand: String?) {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle("You are about to leave app to make call")
+            setTitle("You are about to leave app to make call $brand")
             setPositiveButton("Okay") { dialog, _ ->
                 dialog.dismiss()
                 dialPhoneNumber(number)
@@ -570,9 +570,9 @@ class HomeFragment : Fragment() {
     }
 
     //whats-App dialog
-    private fun whatsAppDialog(data: String) {
+    private fun whatsAppDialog(data: String, brand: String?) {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle("You are about to leave app to WhatsApp")
+            setTitle("You are about to leave app to chat with $brand ")
             setPositiveButton("Okay") { dialog, _ ->
                 dialog.dismiss()
                 chatWhatsApp(data)

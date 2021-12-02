@@ -54,7 +54,6 @@ class BecomeAgent : Fragment() {
         backBtn.setOnClickListener {
             findNavController().popBackStack(R.id.homeFragment, false)
         }
-
         return view
     }
 
@@ -79,7 +78,6 @@ class BecomeAgent : Fragment() {
                 val action = R.id.action_becomeAgent_to_adminFragment
                 findNavController().navigate(action)
             }
-
             "Business" -> {
                 val action = R.id.action_becomeAgent_to_marketProfile
                 findNavController().navigate(action)
