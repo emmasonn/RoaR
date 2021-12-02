@@ -5,8 +5,8 @@
 
     <ListPreference
         app:defaultValue="UNN"
-        app:entries="@array/campus_array"
-        app:entryValues="@array/campus_array"
+        app:entries="@array/campus_array_main"
+        app:entryValues="@array/campus_array_main"
         app:key="campus"
         app:iconSpaceReserved="false"
         app:title="Switch Campus"

@@ -7,6 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:cardBackgroundColor="@android:color/transparent"
     app:cardElevation="0dp"
+    android:paddingBottom="@dimen/bottom_padding_ad"
     app:cardPreventCornerOverlap="true"
     app:contentPaddingTop="@dimen/roar_product_grid_margin_top_third">
 
@@ -78,31 +79,32 @@
                 <ImageView
                     android:id="@+id/imageView9"
                     android:layout_width="170dp"
-                    android:layout_height="@dimen/staggered_product_grid_card_height_portrait"
-                    android:scaleType="fitXY"
+                    android:layout_height="310dp"
+                    android:layout_marginStart="138dp"
                     android:elevation="10dp"
+                    android:scaleType="fitXY"
                     android:src="@drawable/lodge_store"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/product_image"
+                    app:layout_constraintStart_toStartOf="@+id/product_image"
+                    app:layout_constraintTop_toTopOf="@+id/product_image"
                     tools:ignore="ContentDescription" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/product_image"
                     android:layout_width="220dp"
-                    android:layout_height="0dp"
+                    android:layout_height="300dp"
                     android:scaleType="fitXY"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="5dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView9"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
                     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius" />
 
                 <LinearLayout
+                    android:id="@+id/linearLayout6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:gravity="center"
+                    android:orientation="vertical"
                     android:padding="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

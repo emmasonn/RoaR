@@ -1,6 +1,7 @@
 package com.column.roar.lodgeDetail
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
@@ -38,11 +39,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.column.roar.SplashActivity
 import com.column.roar.listAdapters.*
 import com.column.roar.notification.LODGE_NOTIFICATION_ID
-import com.column.roar.notification.PRODUCT_NOTIFICATION_ID
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
 import com.google.firebase.firestore.*
@@ -50,7 +51,6 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 class LodgeDetail : Fragment() {
 
@@ -134,16 +134,25 @@ class LodgeDetail : Fragment() {
         noItemfound = binding.emptyListView
 
         val accountType = sharedPref.getString("accountType", null)
+
         if (accountType != null && accountType == "Admin") {
             binding.titleText.text = lodgeData.lodgeName
         } else {
             binding.titleText.text = lodgeData.hiddenName
         }
 
+        binding.title.setOnLongClickListener {
+            if(accountType != null && accountType == "Admin") {
+                editLodgesDescription(lodgeData)
+            }
+            true
+        }
+
         lodgesAdapter = SimilarLodgeAdapter(LodgeClickListener({
             val bundle = bundleOf("Lodge" to it)
             findNavController().navigate(R.id.lodgeDetail, bundle)
         }, {}))
+
 
         favIcon.setOnClickListener {
             lifecycleScope.launch {
@@ -176,8 +185,6 @@ class LodgeDetail : Fragment() {
                 requireContext(), "Sorry, their is no tour video for this lodge",
                 Toast.LENGTH_LONG
             ).show()
-
-//            lodgeData.tour != null
         }
 
         favModelDao.getFavString().observe(viewLifecycleOwner, { favIds ->
@@ -236,6 +243,41 @@ class LodgeDetail : Fragment() {
 
         clearNotification()
         return binding.root
+    }
+
+
+    @SuppressLint("InflateParams")
+    private fun editLodgesDescription(lodge: FirebaseLodge) {
+        val documentReference = fireStore.collection("lodges").document(lodge.lodgeId!!)
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setTitle("Update Lodge Description")
+            val inflater = LayoutInflater.from(requireContext())
+            val view = inflater.inflate(R.layout.edit_room_dialog, null)
+            val descField = view.findViewById<TextInputEditText>(R.id.roomNumber)
+            descField.hint = "Update Lodge Description"
+            descField.setText(lodge.description.toString())
+
+            setPositiveButton("Submit") { _, _ ->
+                val description = descField.text.toString()
+                documentReference.update("description", description)
+                    .addOnSuccessListener {
+                        Toast.makeText(
+                            requireContext(), "Update is Successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }.addOnFailureListener {
+                        Toast.makeText(
+                            requireContext(), "Failed to Update",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+            }
+            setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            setView(view)
+            show()
+        }
     }
 
 

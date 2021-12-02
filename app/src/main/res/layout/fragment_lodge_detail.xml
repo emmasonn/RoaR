@@ -289,7 +289,6 @@
                                 android:layout_margin="8dp"
                                 android:scaleType="centerCrop"
                                 android:visibility="gone"
-                                tools:src="@drawable/hiltop"
                                 android:contentDescription="Lodge Front view" />
 
                             <androidx.recyclerview.widget.RecyclerView

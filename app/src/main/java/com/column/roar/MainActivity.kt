@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this)
         MobileAds.setRequestConfiguration(
             RequestConfiguration.Builder()
-//                .setTestDeviceIds(listOf("1FDC32B9CBE3CDABBE6B40D81394FA10"))
+                .setTestDeviceIds(listOf("1FDC32B9CBE3CDABBE6B40D81394FA10"))
                 .build())
 
         cancelBtn.setOnClickListener {

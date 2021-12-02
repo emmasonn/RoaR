@@ -48,6 +48,11 @@
         <item>GLOBAL</item>
     </string-array>
 
+    <string-array name="campus_array_main">
+        <item>UNN</item>
+        <item>UNEC</item>
+    </string-array>
+
     <string-array name="empty_list" />
 
     <string-array name="super_account_array">

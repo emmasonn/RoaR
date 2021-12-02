@@ -4,8 +4,8 @@
     package="com.column.roar"
     android:installLocation="auto"
     android:requestLegacyExternalStorage="true"
-    android:versionCode="8"
-    android:versionName="1.0.1">
+    android:versionCode="10"
+    android:versionName="1.0.2">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
