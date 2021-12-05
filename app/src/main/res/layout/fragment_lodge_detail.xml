@@ -673,7 +673,7 @@
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent"
                                         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circle50"
-                                        app:strokeColor="@color/white"
+                                        app:strokeColor="@color/blue_500"
                                         app:strokeWidth="1dp"
                                         tools:ignore="ContentDescription" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>

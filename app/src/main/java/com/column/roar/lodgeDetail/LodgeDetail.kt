@@ -223,8 +223,7 @@ class LodgeDetail : Fragment() {
             .apply(
                 RequestOptions().placeholder(R.drawable.ic_person)
                     .error(R.drawable.ic_person)
-            )
-            .into(binding.agentImageCover)
+            ).into(binding.agentImageCover)
 
         binding.backBtn.setOnClickListener {
             findNavController().popBackStack()

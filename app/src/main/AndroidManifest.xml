@@ -4,8 +4,8 @@
     package="com.column.roar"
     android:installLocation="auto"
     android:requestLegacyExternalStorage="true"
-    android:versionCode="10"
-    android:versionName="1.0.2">
+    android:versionCode="11"
+    android:versionName="1.0.3">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -17,7 +17,7 @@
     <application
         android:name="com.column.roar.HousingApplication"
         android:allowBackup="true"
-        android:icon="@drawable/roar_one"
+        android:icon="@drawable/emma_playstore_christmas1"
         android:label="@string/app_name"
         android:roundIcon="@drawable/roar_one"
         android:supportsRtl="true"

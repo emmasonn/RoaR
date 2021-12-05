@@ -46,6 +46,8 @@ class LodgeViewHolder (val itemView: View):
         if(data.seen!=null &&
             data.seen == true) {
             newCard.visibility = View.GONE
+        }else {
+            newCard.visibility = View.VISIBLE
         }
 
         Glide.with(lodgeImage.context)

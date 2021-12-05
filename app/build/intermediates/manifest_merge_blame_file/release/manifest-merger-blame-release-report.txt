@@ -3,8 +3,8 @@
 3    package="com.column.roar"
 4    android:installLocation="auto"
 5    android:requestLegacyExternalStorage="true"
-6    android:versionCode="10"
-7    android:versionName="1.0.2" >
+6    android:versionCode="11"
+7    android:versionName="1.0.3" >
 8
 9    <uses-sdk
 10        android:minSdkVersion="21"
@@ -83,8 +83,8 @@
 46-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:19:9-35
 47        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 47-->[androidx.core:core:1.6.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\6e3c0bf0ef2d7245391b3d4ee25b2f1e\core-1.6.0\AndroidManifest.xml:24:18-86
-48        android:icon="@drawable/roar_one"
-48-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:20:9-42
+48        android:icon="@drawable/emma_playstore_christmas1"
+48-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:20:9-59
 49        android:label="@string/app_name"
 49-->C:\Users\WEYUP\Udacity\RoarHousing\app\src\main\AndroidManifest.xml:21:9-41
 50        android:roundIcon="@drawable/roar_one"
