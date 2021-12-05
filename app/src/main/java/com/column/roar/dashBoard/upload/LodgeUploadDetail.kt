@@ -26,9 +26,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
@@ -52,7 +50,6 @@ class LodgeUploadDetail : Fragment() {
     private lateinit var network: TextInputLayout
     private lateinit var surrounding: TextInputLayout
     private lateinit var water: TextInputLayout
-    private lateinit var clientDocument: DocumentReference
     private lateinit var sharedPref: SharedPreferences
     private var documentId: String? = null
     private var nameOfLodge: String? = null
@@ -60,13 +57,11 @@ class LodgeUploadDetail : Fragment() {
     private lateinit var landLordPhone: TextInputEditText
     private lateinit var landLordName: TextInputEditText
 
-    //private lateinit var lodgeIdentifier: TextInputEditText //commented out manuel inputting  lodgeIdentifier
+    //private late-init var lodgeIdentifier: TextInputEditText //commented out manuel inputting  lodgeIdentifier
     private lateinit var progressBar: ProgressBar
     private lateinit var nextBtn: MaterialButton
     private lateinit var bottomSheetLayout: BottomSheetDialog
-    private lateinit var admin: FirebaseUser
     private lateinit var clientCollection: CollectionReference
-
 
     private val lodge: FirebaseLodge? by lazy {
         arguments?.get("Lodge") as FirebaseLodge?
@@ -76,10 +71,7 @@ class LodgeUploadDetail : Fragment() {
         super.onCreate(savedInstanceState)
         firebase = Firebase.firestore
         sharedPref = (activity as MainActivity).sharedPref
-        val clientId = sharedPref.getString("user_id", "")
-
         lodgeCollection = firebase.collection("lodges")
-        clientDocument = firebase.collection("clients").document(clientId!!)
         clientCollection = firebase.collection("clients")
 
         documentId = if (lodge == null) {
@@ -269,20 +261,23 @@ class LodgeUploadDetail : Fragment() {
                 agentName = it.clientName
                 account = it.account
             }
-        }
-        lodgeCollection.document(documentId!!).set(lodge)
-            .addOnSuccessListener {
-                showDescTemplate("Lodge uploaded successfully")
-                hideProgress()
-                lifecycleScope.launchWhenCreated {
-                    val action = R.id.action_lodgeDetailUpload_to_editLodgePager
-                    val bundle = bundleOf("Lodge" to lodge)
-                    findNavController().navigate(action, bundle)
+
+            lodgeCollection.document(documentId!!).set(lodge)
+                .addOnSuccessListener {
+                    showDescTemplate("Lodge uploaded successfully")
+                    hideProgress()
+                    lifecycleScope.launchWhenCreated {
+                        val action = R.id.action_lodgeDetailUpload_to_editLodgePager
+                        val bundle = bundleOf("Lodge" to lodge)
+                        findNavController().navigate(action, bundle)
+                    }
+                }.addOnFailureListener {
+                    showDescTemplate("Unable to upload lodge")
+                    hideProgress()
                 }
-            }.addOnFailureListener {
-                showDescTemplate("Unable to upload lodge")
-                hideProgress()
-            }
+
+        } ?: Toast.makeText(requireContext(),"You have not selected an account",Toast.LENGTH_SHORT).show()
+
     }
 
     private fun generateLodgeId(): String =
@@ -308,7 +303,6 @@ class LodgeUploadDetail : Fragment() {
             val adminListAdapter =
                 AdminListAdapter(AdminListAdapter.AdminClickListener { adminUser ->
                     bottomSheetLayout.dismiss()
-                    admin = adminUser
                     finishSetUp(adminUser)
                 })
             adminRecycler?.adapter = adminListAdapter
