@@ -40,60 +40,81 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2c101df-15a0-4347-9345-fb8107d97ed9" name="Default Changelist" comment="commit after production release">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/emma_playstore.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/emma_playstore_christmas.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/emma_playstore_christmas1.jpg" afterDir="false" />
+    <list default="true" id="a2c101df-15a0-4347-9345-fb8107d97ed9" name="Default Changelist" comment="General commit after production release">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/column/roar/database/Lodge.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/column/roar/database/LodgeDao.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/column/roar/database/Photo.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/column/roar/database/PhotoDao.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_3_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_2_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_3_1_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_ktx_2_2_0_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_5_10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_5_10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/RoarHousing.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/RoarHousing.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/generated/source/buildConfig/release/com/column/roar/BuildConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/generated/source/buildConfig/release/com/column/roar/BuildConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/javac/release/classes/com/column/roar/BuildConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/javac/release/classes/com/column/roar/BuildConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/manifest_merge_blame_file/release/manifest-merger-blame-release-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/manifest_merge_blame_file/release/manifest-merger-blame-release-report.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/SplashActivity.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/SplashActivity.dex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/admin/AdminManageMarketers$onCreateView$2.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/admin/AdminManageMarketers$onCreateView$2.dex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/admin/BroadCastProduct.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/admin/BroadCastProduct.dex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/admin/BusinessFragment.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/admin/BusinessFragment.dex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/admin/ManageAds.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/admin/ManageAds.dex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/databinding/FragmentChangePasswordBindingImpl.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/databinding/FragmentChangePasswordBindingImpl.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/tmp/debug/zip-cache/javaResources0" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/tmp/debug/zip-cache/javaResources0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/javac/debug/classes/com/column/roar/database/AppDatabase_Impl.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/javac/debug/classes/com/column/roar/database/AppDatabase_Impl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/packaged_manifests/debug/output-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/packaged_manifests/debug/output-metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/MainActivity$otherSmallNativeAds$adLoader$1$1$1.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/MainActivity$otherSmallNativeAds$adLoader$1$1$1.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/dashBoard/upload/LodgeUploadDetail$hideProgress$1.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/dashBoard/upload/LodgeUploadDetail$hideProgress$1.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/dashBoard/upload/LodgeUploadDetail.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/dashBoard/upload/LodgeUploadDetail.dex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/databinding/FragmentEditLodgeBindingImpl.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/databinding/FragmentEditLodgeBindingImpl.dex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/listAdapters/AdminListAdapter$AdminListViewHolder.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/listAdapters/AdminListAdapter$AdminListViewHolder.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/home/FavoriteFragment$onCreateView$2$1.dex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/home/FilterFragment$fetchLiveData$1$2$1.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/home/FilterFragment$fetchLiveData$1$2$1.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/home/HomeFragment$fetchLodges$1$2$1$2$1.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/home/HomeFragment$fetchLodges$1$2$1$2$1.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/home/HomeFragment$fetchLodges$1$2$3$2$1.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/home/HomeFragment$fetchLodges$1$2$3$2$1.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/home/HomeFragment$resolveUrl$1$2$1.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/home/HomeFragment$resolveUrl$1$2$1.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/listAdapters/DataItem$EmptyCard.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/listAdapters/DataItem$EmptyCard.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/listAdapters/DataItem$MediumAd.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/listAdapters/DataItem$MediumAd.dex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/listAdapters/LodgeViewHolder.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/listAdapters/LodgeViewHolder.dex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/listAdapters/ManageListAdapter$ManageViewHolder.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/listAdapters/ManageListAdapter$ManageViewHolder.dex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/listAdapters/UploadPhotosAdapter$UploadPhotosViewHolder.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/listAdapters/UploadPhotosAdapter$UploadPhotosViewHolder.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/listAdapters/NewListAdapter.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/listAdapters/NewListAdapter.dex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/lodgeDetail/LodgeDetail$chatWhatsApp$1.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/lodgeDetail/LodgeDetail$chatWhatsApp$1.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/lodgeDetail/LodgeDetail$enuguImg$2.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/lodgeDetail/LodgeDetail$enuguImg$2.dex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/lodgeDetail/LodgeDetail$getImageUri$1.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/lodgeDetail/LodgeDetail$getImageUri$1.dex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/lodgeDetail/LodgeDetail$onCreateView$1.dex" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/lodgeDetail/LodgeDetail$storeFavId$2.dex" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/project_dex_archive/debug/out/com/column/roar/lodgeDetail/LodgeDetail$storeFavId$2.dex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileReleaseKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileReleaseKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileReleaseKotlin/caches-jvm/jvm/kotlin/subtypes.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileReleaseKotlin/caches-jvm/jvm/kotlin/subtypes.tab.values.at" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileReleaseKotlin/caches-jvm/lookups/counters.tab" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileReleaseKotlin/caches-jvm/lookups/counters.tab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileReleaseKotlin/caches-jvm/lookups/file-to-id.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileReleaseKotlin/caches-jvm/lookups/file-to-id.tab.values.at" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsReleaseKotlin/caches-jvm/jvm/kotlin/constants.tab" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsReleaseKotlin/caches-jvm/jvm/kotlin/constants.tab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsReleaseKotlin/caches-jvm/jvm/kotlin/proto.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsReleaseKotlin/caches-jvm/jvm/kotlin/proto.tab.values.at" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsReleaseKotlin/caches-jvm/lookups/id-to-file.tab" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsReleaseKotlin/caches-jvm/lookups/id-to-file.tab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsReleaseKotlin/caches-jvm/lookups/id-to-file.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsReleaseKotlin/caches-jvm/lookups/id-to-file.tab.values.at" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/outputs/mapping/release/resources.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/outputs/mapping/release/resources.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/lookups/file-to-id.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/lookups/file-to-id.tab.keystream" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/lookups/id-to-file.tab.keystream.len" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/lookups/id-to-file.tab.keystream.len" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsDebugKotlin/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsDebugKotlin/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsDebugKotlin/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsDebugKotlin/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsDebugKotlin/caches-jvm/jvm/kotlin/package-parts.tab" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsDebugKotlin/caches-jvm/jvm/kotlin/package-parts.tab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsDebugKotlin/caches-jvm/jvm/kotlin/package-parts.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsDebugKotlin/caches-jvm/jvm/kotlin/package-parts.tab.values.at" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsDebugKotlin/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream.len" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsDebugKotlin/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream.len" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsDebugKotlin/caches-jvm/jvm/kotlin/supertypes.tab" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/kaptGenerateStubsDebugKotlin/caches-jvm/jvm/kotlin/supertypes.tab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/tmp/kapt3/incrementalData/debug/com/column/roar/listAdapters/NewListAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kapt3/incrementalData/debug/com/column/roar/listAdapters/NewListAdapter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/tmp/kapt3/stubs/debug/com/column/roar/home/FilterFragment.kapt_metadata" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kapt3/stubs/debug/com/column/roar/home/FilterFragment.kapt_metadata" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/tmp/kapt3/stubs/debug/com/column/roar/listAdapters/HeaderViewHolder.kapt_metadata" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kapt3/stubs/debug/com/column/roar/listAdapters/HeaderViewHolder.kapt_metadata" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/MainActivity.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/MainActivity.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/admin/AddBusinessProduct.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/admin/AddBusinessProduct.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/admin/AdminFragment.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/admin/AdminFragment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/admin/BusinessFragment.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/admin/BusinessFragment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/authentication/BecomeAgent.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/authentication/BecomeAgent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/home/FavoriteFragment$fetchFavId$2$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/home/FavoriteFragment$fetchFavId$2$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/listAdapters/DataItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/listAdapters/DataItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/listAdapters/LodgeClickListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/listAdapters/LodgeClickListener.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/listAdapters/ManageListAdapter$ManageViewHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/listAdapters/ManageListAdapter$ManageViewHolder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/listAdapters/adViewHolders/MediumAdViewHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/listAdapters/adViewHolders/MediumAdViewHolder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/lodgeDetail/LodgeDetail$fetchLodgeAndPhotos$1$2$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/lodgeDetail/LodgeDetail$fetchLodgeAndPhotos$1$2$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/lodgeDetail/LodgeDetail$getImageUri$2$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/lodgeDetail/LodgeDetail$getImageUri$2$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/lodgeDetail/LodgeDetail$getImageUri$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/lodgeDetail/LodgeDetail$getImageUri$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/lodgeDetail/LodgeDetail$onCreateView$3$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/lodgeDetail/LodgeDetail$storeFavId$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/com/column/roar/lodgeDetail/LodgeDetail$storeFavId$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/release/com/column/roar/dashBoard/property/MarketProfile.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/release/com/column/roar/dashBoard/property/MarketProfile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/release/com/column/roar/dashBoard/upload/EditLodgeFragment.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/release/com/column/roar/dashBoard/upload/EditLodgeFragment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/release/com/column/roar/dashBoard/upload/LodgeUploadDetail.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/release/com/column/roar/dashBoard/upload/LodgeUploadDetail.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/release/com/column/roar/listAdapters/ClientListAdapter$ClientListViewHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/release/com/column/roar/listAdapters/ClientListAdapter$ClientListViewHolder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/release/com/column/roar/listAdapters/ManagePropertyListAdapter$ManagePropertyVieHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/release/com/column/roar/listAdapters/ManagePropertyListAdapter$ManagePropertyVieHolder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/release/com/column/roar/listAdapters/businessAds/AutoScrollListAdapter$AutoScrollListViewHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/release/com/column/roar/listAdapters/businessAds/AutoScrollListAdapter$AutoScrollListViewHolder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/column/roar/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/column/roar/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/column/roar/dashBoard/upload/EditLodgeFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/column/roar/dashBoard/upload/EditLodgeFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/column/roar/dashBoard/upload/UploadPropertyPager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/column/roar/dashBoard/upload/UploadPropertyPager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/column/roar/home/FavoriteFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/column/roar/home/FavoriteFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/column/roar/home/HomeFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/column/roar/home/HomeFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/column/roar/home/LodgesFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/column/roar/home/LodgesFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/column/roar/home/SearchFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/column/roar/home/SearchFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/column/roar/listAdapters/LodgeViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/column/roar/listAdapters/LodgeViewHolder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/column/roar/listAdapters/LodgesAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/column/roar/listAdapters/LodgesAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/column/roar/listAdapters/NewListAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/column/roar/listAdapters/NewListAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/column/roar/listAdapters/SimilarLodgeAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/column/roar/listAdapters/SimilarLodgeAdapter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/column/roar/lodgeDetail/LodgeDetail.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/column/roar/lodgeDetail/LodgeDetail.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_lodge_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_lodge_detail.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_broadcast_products.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_broadcast_products.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/home_dialog_full.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/home_dialog_full.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_property_edit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_property_edit.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,6 +143,31 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="RoarHousing" type="f1a62948:ProjectNode" />
               </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="RoarHousing" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="RoarHousing" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="RoarHousing" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="install" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="RoarHousing" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
             </expand>
             <select />
           </tree_state>
@@ -135,11 +181,11 @@
         <option value="Kotlin File" />
         <option value="navigationResourceFile" />
         <option value="Class" />
-        <option value="Kotlin Interface" />
         <option value="valueResourceFile" />
         <option value="layoutResourceFile" />
         <option value="resourceFile" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Interface" />
       </list>
     </option>
   </component>
@@ -624,7 +670,21 @@
       <option name="project" value="LOCAL" />
       <updated>1638462080379</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="General commit after production release">
+      <created>1638725804177</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1638725804177</updated>
+    </task>
+    <task id="LOCAL-00033" summary="General commit after production release">
+      <created>1638729263965</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1638729263965</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -642,7 +702,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="implemented some other feature like swipe to offor" />
     <MESSAGE value="implemented some other feature like swipe to refresh" />
     <MESSAGE value="half done, dne with business home" />
     <MESSAGE value="60%done," />
@@ -667,7 +726,8 @@
     <MESSAGE value="commit after production release" />
     <MESSAGE value="commit after interstitial ad." />
     <MESSAGE value="commit after production  refactor release" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit after production  refactor release" />
+    <MESSAGE value="General commit after production release" />
+    <option name="LAST_COMMIT_MESSAGE" value="General commit after production release" />
   </component>
   <component name="WindowStateProjectService">
     <state x="186" y="114" key="#Console" timestamp="1632729613702">
@@ -742,14 +802,14 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="263" y="73" key="AndroidThemeDialog/0.0.1366.738@0.0.1366.738" timestamp="1631039744411" />
-    <state x="140" y="0" key="CommitChangelistDialog2" timestamp="1638462019113">
+    <state x="140" y="0" key="CommitChangelistDialog2" timestamp="1638729419708">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="140" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1638462019113" />
-    <state x="258" y="112" key="DiffContextDialog" timestamp="1637597080183">
+    <state x="140" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1638729419708" />
+    <state x="258" y="112" key="DiffContextDialog" timestamp="1638729418780">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="258" y="112" key="DiffContextDialog/0.0.1366.738@0.0.1366.738" timestamp="1637597080183" />
+    <state x="258" y="112" key="DiffContextDialog/0.0.1366.738@0.0.1366.738" timestamp="1638729418780" />
     <state x="463" y="123" key="FileChooserDialogImpl" timestamp="1634418327047">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -766,22 +826,22 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="494" y="249" width="378" height="312" key="Github.ShareDialog/0.0.1366.738@0.0.1366.738" timestamp="1635343545052" />
-    <state width="1322" height="52" key="GridCell.Tab.0.bottom" timestamp="1638724263585">
+    <state width="1322" height="261" key="GridCell.Tab.0.bottom" timestamp="1639341639462">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1322" height="52" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1638724263585" />
-    <state width="1322" height="52" key="GridCell.Tab.0.center" timestamp="1638724263585">
+    <state width="1322" height="261" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1639341639462" />
+    <state width="1322" height="261" key="GridCell.Tab.0.center" timestamp="1639341639462">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1322" height="52" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1638724263585" />
-    <state width="1322" height="52" key="GridCell.Tab.0.left" timestamp="1638724263585">
+    <state width="1322" height="261" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1639341639462" />
+    <state width="1322" height="261" key="GridCell.Tab.0.left" timestamp="1639341639461">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1322" height="52" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1638724263585" />
-    <state width="1322" height="52" key="GridCell.Tab.0.right" timestamp="1638724263585">
+    <state width="1322" height="261" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1639341639461" />
+    <state width="1322" height="261" key="GridCell.Tab.0.right" timestamp="1639341639462">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1322" height="52" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1638724263585" />
+    <state width="1322" height="261" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1639341639462" />
     <state x="429" y="71" key="RollbackChangesDialog" timestamp="1637597008373">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -794,10 +854,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="446" y="73" key="VCS.ChangeListViewerDialog/0.0.1366.738@0.0.1366.738" timestamp="1635345676267" />
-    <state x="275" y="101" key="Vcs.Push.Dialog.v2" timestamp="1637597102303">
+    <state x="275" y="101" key="Vcs.Push.Dialog.v2" timestamp="1638729553028">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="101" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1637597102303" />
+    <state x="275" y="101" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1638729553028" />
     <state x="294" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1633808952008">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -826,10 +886,6 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="466" y="260" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1366.738@0.0.1366.738" timestamp="1635343450783" />
-    <state x="456" y="242" width="621" height="284" key="org.intellij.images.editor.actions.BackgroundImageDialog" timestamp="1630344432745">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state x="456" y="242" width="621" height="284" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1366.738@0.0.1366.738" timestamp="1630344432745" />
     <state x="406" y="140" key="refactoring.ChangeSignatureDialog" timestamp="1632775258554">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -838,9 +894,9 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="339" y="165" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1638000989419" />
-    <state x="346" y="59" width="672" height="160" key="search.everywhere.popup" timestamp="1637525136204">
+    <state x="346" y="59" width="672" height="160" key="search.everywhere.popup" timestamp="1639342584243">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="346" y="59" width="672" height="160" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1637525136204" />
+    <state x="346" y="59" width="672" height="160" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1639342584243" />
   </component>
 </project>

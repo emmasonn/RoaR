@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.column.roar.MainActivity
 import com.column.roar.R
 import com.column.roar.cloudModel.FirebaseLodge
+import com.column.roar.database.LodgeDao
 import com.column.roar.listAdapters.LodgeClickListener
 import com.column.roar.listAdapters.LodgesAdapter
 import com.google.android.material.card.MaterialCardView
@@ -38,11 +39,14 @@ class SearchFragment : Fragment() {
     private lateinit var noItemFound: MaterialCardView
     private lateinit var lodgesList: List<FirebaseLodge>
     private lateinit var progressBar: ProgressBar
+    private lateinit var lodgeDao: LodgeDao
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fireStore = FirebaseFirestore.getInstance()
         lodgesCollection = fireStore.collection("lodges")
+        lodgeDao = (activity as MainActivity).db.lodgeDao()
     }
 
     override fun onCreateView(
@@ -69,13 +73,19 @@ class SearchFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        lodgesAdapter = LodgesAdapter(LodgeClickListener({
-            val bundle = bundleOf("Lodge" to it)
-            val action = R.id.action_searchFragment_to_lodgeDetail
-            findNavController().navigate(action, bundle)
-        }, {}), this, false)
+        lodgeDao.getAllLodges().observe(viewLifecycleOwner, { lodges ->
+            val lodgesId: List<String?> = lodges.map { it.id }
 
-        recyclerView.adapter = lodgesAdapter
+            lodgesAdapter = LodgesAdapter(LodgeClickListener({
+                val bundle = bundleOf("Lodge" to it)
+                val action = R.id.action_searchFragment_to_lodgeDetail
+                findNavController().navigate(action, bundle)
+            }, {}), this, false, lodgesId)
+
+            recyclerView.adapter = lodgesAdapter
+
+        })
+
         initializeAd()
         return view
     }

@@ -63,13 +63,13 @@ class MainActivity : AppCompatActivity() {
     val sharedPref: SharedPreferences by lazy {
         this.getPreferences(Context.MODE_PRIVATE)
     }
-
     var chipState = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        db = AppDatabase.getInstance(applicationContext)
+
         FirebaseAnalytics.getInstance(this)
         setContentView(R.layout.activity_main)
-
         adViewParent = findViewById(R.id.ad_view_container)
         val cancelBtn = findViewById<ImageView>(R.id.cancelBtn)
 
@@ -86,7 +86,6 @@ class MainActivity : AppCompatActivity() {
 
         fireStore = FirebaseFirestore.getInstance()
         clientId = sharedPref.getString("user_id", null)
-        db = AppDatabase.getInstance(applicationContext)
         navController = findNavController(R.id.mainNavHost)
 
         adView = AdView(this)

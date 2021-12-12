@@ -30,6 +30,7 @@ import com.column.roar.listAdapters.storeAdapter.PropertyListAdapter.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.column.roar.cloudModel.*
+import com.column.roar.database.LodgeDao
 import com.column.roar.listAdapters.ClickListener
 import com.column.roar.listAdapters.UploadPhotosAdapter
 import com.google.android.exoplayer2.MediaItem
@@ -62,7 +63,6 @@ class HomeFragment : Fragment() {
     private lateinit var connectionView: MaterialCardView
     private lateinit var swipeContainer: SwipeRefreshLayout
     private lateinit var callback: OnBackPressedCallback
-//    private lateinit var otherProductAdapter: UploadPhotosAdapter
     private var emptyList: MaterialCardView? = null
     private var networkError: MaterialCardView? = null
     private var player: SimpleExoPlayer? = null
@@ -70,13 +70,13 @@ class HomeFragment : Fragment() {
     private var counter = 0
     private lateinit var retryBtn: MaterialButton
     private lateinit var sharedPref: SharedPreferences
+    private  lateinit var lodgeDao: LodgeDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fireStore = FirebaseFirestore.getInstance()
         propertiesQuery = fireStore.collection(getString(R.string.firestore_products))
             .whereEqualTo("certified", true)
-
         sharedPref = (activity as MainActivity).sharedPref
     }
 
@@ -102,6 +102,7 @@ class HomeFragment : Fragment() {
         val searchIcon = view.findViewById<ImageView>(R.id.searchIcon)
         retryBtn = view.findViewById(R.id.retryBtn)
         val marqueeText = view.findViewById<TextView>(R.id.marqueeText)
+        lodgeDao = (activity as MainActivity).db.lodgeDao()
 
         menuIcon = view.findViewById(R.id.menuNav)
         chipGroup = view.findViewById(R.id.chipGroup)
@@ -125,7 +126,6 @@ class HomeFragment : Fragment() {
         retryBtn.setOnClickListener {
             fetchLodges(chipsCategory[counter])
         }
-
         setUpOnBackPressedCallback()
 
    //      resolve the implicit link
@@ -137,7 +137,9 @@ class HomeFragment : Fragment() {
             }
         }
 
-        lifecycleScope.launch(Dispatchers.Main) {
+        lodgeDao.getAllLodges().observe(viewLifecycleOwner,{ lodges ->
+             val lodgesId: List<String?> = lodges.map { it.id }
+
             roarItemsAdapter = NewListAdapter(LodgeClickListener({ lodge ->
                 val bundle = bundleOf("Lodge" to lodge)
                 findNavController().navigate(R.id.lodgeDetail, bundle)
@@ -153,11 +155,10 @@ class HomeFragment : Fragment() {
                 },
                 {}, justClick = {
                     findNavController().navigate(R.id.productStore)
-                }), this@HomeFragment, resources
-            )
+                }), this@HomeFragment, resources,
+                lodgesId )
             homeRecycler.adapter = roarItemsAdapter
-        }
-//        connectionFailure(false) //this function calls the ads when internet is available
+        })
 
         swipeContainer.setOnRefreshListener {
             if (::chipsCategory.isInitialized) {
@@ -418,8 +419,8 @@ class HomeFragment : Fragment() {
             setContentView(R.layout.home_dialog_full)
             val adImage = this.findViewById<ImageView>(R.id.adImage)
 //            val productsRecycler = this.findViewById<RecyclerView>(R.id.productPager)
-            playerView = this.findViewById(R.id.videoCover)!!
-            val noVideo = this.findViewById<TextView>(R.id.noVideo)
+//            playerView = this.findViewById(R.id.videoCover)!!
+//            val noVideo = this.findViewById<TextView>(R.id.noVideo)
 
 //            otherProductAdapter = UploadPhotosAdapter(ClickListener(
 //                {}, {
@@ -429,11 +430,11 @@ class HomeFragment : Fragment() {
 //            productsRecycler?.adapter = otherProductAdapter
 //            fetchProduct(product.id!!)
 
-            if (product.video != null) {
-                setUpExoPlayer(product.video)
-            } else {
-                noVideo?.visibility = View.VISIBLE
-            }
+//            if (product.video != null) {
+//                setUpExoPlayer(product.video)
+//            } else {
+//                noVideo?.visibility = View.VISIBLE
+//            }
 
             adImage?.let {
                 Glide.with(adImage.context)

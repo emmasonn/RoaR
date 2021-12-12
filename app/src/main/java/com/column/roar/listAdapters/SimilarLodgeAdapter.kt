@@ -8,7 +8,7 @@ import com.column.roar.R
 import com.column.roar.cloudModel.FirebaseLodge
 
 class SimilarLodgeAdapter(
-    private val clickListener: LodgeClickListener,
+    private val clickListener: LodgeClickListener, private val lodgesId: List<String?>
     ): ListAdapter<FirebaseLodge, LodgeViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(
@@ -22,7 +22,7 @@ class SimilarLodgeAdapter(
 
     override fun onBindViewHolder(holder: LodgeViewHolder, position: Int) {
         val lodgeItem = getItem(position) as FirebaseLodge
-        holder.bind(lodgeItem, clickListener)
+        holder.bind(lodgeItem, clickListener, lodgesId)
     }
 
     companion object {

@@ -18,6 +18,7 @@ import com.column.roar.R
 import com.column.roar.cloudModel.FirebaseLodge
 import com.column.roar.database.FavModel
 import com.column.roar.database.FavModelDao
+import com.column.roar.database.LodgeDao
 import com.column.roar.listAdapters.LodgeClickListener
 import com.column.roar.listAdapters.LodgesAdapter
 import com.google.firebase.firestore.CollectionReference
@@ -30,6 +31,7 @@ class FavoriteFragment : Fragment() {
     private lateinit var lodgesQuery: CollectionReference
     private lateinit var lodgesAdapter: LodgesAdapter
     private lateinit var favModelDao: FavModelDao
+    private lateinit var lodgeDao: LodgeDao
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +39,7 @@ class FavoriteFragment : Fragment() {
         fireStore = FirebaseFirestore.getInstance()
         favModelDao = (activity as MainActivity).db.favModelDao()
         lodgesQuery = fireStore.collection(getString(R.string.firestore_lodges))
+        lodgeDao = (activity as MainActivity).db.lodgeDao()
     }
 
     override fun onCreateView(
@@ -50,21 +53,27 @@ class FavoriteFragment : Fragment() {
         swipeRefreshContainer = view.findViewById(R.id.swipeContainer)
         swipeRefreshContainer.isRefreshing = true
 
-        lodgesAdapter = LodgesAdapter(LodgeClickListener({
-            val bundle = bundleOf("Lodge" to it)
-            val action = R.id.action_favoriteFragment_to_lodgeDetail
-            findNavController().navigate(action, bundle)
-        }, { id ->
-            lifecycleScope.launch {
-                favModelDao.delete(FavModel(id))
-                fetchFavId(favModelDao.getFavOnce())
-            }
-        }), this, true)
+        lodgeDao.getAllLodges().observe(viewLifecycleOwner, { lodges ->
+            val lodgesId: List<String?> = lodges.map { it.id }
+
+            lodgesAdapter = LodgesAdapter(LodgeClickListener({
+                val bundle = bundleOf("Lodge" to it)
+                val action = R.id.action_favoriteFragment_to_lodgeDetail
+                findNavController().navigate(action, bundle)
+            }, { id ->
+                lifecycleScope.launch {
+                    favModelDao.delete(FavModel(id))
+                    fetchFavId(favModelDao.getFavOnce())
+                }
+            }), this, true, lodgesId)
+
+            lodgeRecycler.adapter = lodgesAdapter
+        })
 
         favBack.setOnClickListener {
             findNavController().popBackStack()
         }
-        lodgeRecycler.adapter = lodgesAdapter
+
         initialize()
         swipeRefreshContainer.setOnRefreshListener {
             lifecycleScope.launch {

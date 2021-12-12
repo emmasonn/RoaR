@@ -43,12 +43,12 @@ class LodgesFragment : Fragment() {
         binding = FragmentLodgesBinding.inflate(inflater, container, false)
         val lodgesRecycler = binding.lodgeList
 
-        lodgesAdapter = LodgesAdapter(LodgeClickListener({ data ->
-            val bundle = bundleOf("Lodge" to data)
-            findNavController().navigate(R.id.lodgeDetail, bundle)
-        },{}),this,true)
-
-        lodgesRecycler.adapter = lodgesAdapter
+//        lodgesAdapter = LodgesAdapter(LodgeClickListener({ data ->
+//            val bundle = bundleOf("Lodge" to data)
+//            findNavController().navigate(R.id.lodgeDetail, bundle)
+//        },{}),this,true)
+//
+//        lodgesRecycler.adapter = lodgesAdapter
         return binding.root
     }
 

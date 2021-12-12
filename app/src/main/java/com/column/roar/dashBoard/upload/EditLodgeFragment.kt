@@ -105,7 +105,6 @@ class EditLodgeFragment : Fragment() {
                     Glide.with(binding.coverImage.context)
                         .load(it?.coverImage).apply(
                             RequestOptions().placeholder(R.drawable.loading_background)
-                                .error(R.drawable.loading_background)
                         ).into(binding.coverImage)
                 }
             }
@@ -115,8 +114,6 @@ class EditLodgeFragment : Fragment() {
         super.onDestroy()
         lodgeFirebaseListener.remove()  //check if onDestroy best for removing listener
     }
-
-
 
     private fun getExt(uri: Uri): String? {
         val contentResolver = requireContext().contentResolver
@@ -181,17 +178,17 @@ class EditLodgeFragment : Fragment() {
     }
 
 
-    private fun showProgress() {
-        lifecycleScope.launch {
-            binding.playBtn.visibility = View.VISIBLE
-        }
-    }
-
-    private fun hideProgress() {
-        lifecycleScope.launch {
-            binding.playBtn.visibility = View.VISIBLE
-        }
-    }
+//    private fun showProgress() {
+//        lifecycleScope.launch {
+//            binding.playBtn.visibility = View.VISIBLE
+//        }
+//    }
+//
+//    private fun hideProgress() {
+//        lifecycleScope.launch {
+//            binding.playBtn.visibility = View.VISIBLE
+//        }
+//    }
 
     companion object {
         fun newInstance(_editLodgePager: EditLodgePager) =

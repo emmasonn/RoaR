@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.column.roar.R
 import com.column.roar.cloudModel.FirebaseLodge
 import com.column.roar.cloudModel.FirebaseProperty
+import com.column.roar.database.Lodge
 import com.column.roar.listAdapters.adViewHolders.MediumAdViewHolder
 import com.column.roar.listAdapters.storeAdapter.PropertyListAdapter.*
 import com.column.roar.listAdapters.adViewHolders.NativeAdViewHolder
@@ -40,7 +41,8 @@ class NewListAdapter(
     private val lodgeListener: LodgeClickListener,
     private val propertyListener: PropertyClickListener,
     private val lifeCycle: LifecycleOwner,
-    resource: Resources
+    resource: Resources,
+    private val lodgesId: List<String?>
 ) : ListAdapter<DataItem, RecyclerView.ViewHolder>(diffUtil) {
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
@@ -96,7 +98,7 @@ class NewListAdapter(
         when (holder) {
             is LodgeViewHolder -> {
                 val lodgeItem = getItem(position) as DataItem.LodgeItem
-                holder.bind(lodgeItem.lodge, lodgeListener)
+                holder.bind(lodgeItem.lodge, lodgeListener, lodgesId)
             }
             is PropertyViewHolder -> {
                 val propertyItem = getItem(position) as DataItem.PropertyItem

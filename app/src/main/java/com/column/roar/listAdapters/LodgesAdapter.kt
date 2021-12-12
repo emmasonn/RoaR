@@ -33,7 +33,8 @@ const val EMPTY = 3
 class LodgesAdapter(
     private val clickListener: LodgeClickListener,
     private val lifeCycle: LifecycleOwner,
-    private val fav: Boolean? = null
+    private val fav: Boolean? = null,
+    private val lodgeIds: List<String?>
 ) : ListAdapter<DataItem, RecyclerView.ViewHolder>(diffUtil) {
 
     private val adapterScope = CoroutineScope(Dispatchers.Default)
@@ -86,11 +87,11 @@ class LodgesAdapter(
         when (holder) {
             is LodgeViewHolder -> {
                 val lodgeItem = getItem(position) as LodgeItem
-                holder.bind(lodgeItem.lodge, clickListener)
+                holder.bind(lodgeItem.lodge, clickListener, lodgeIds)
             }
             is FavViewHolder -> {
                 val lodgeItem = getItem(position) as LodgeItem
-                holder.bind(lodgeItem.lodge, clickListener)
+                holder.bind(lodgeItem.lodge, clickListener, lodgeIds)
             }
             is NativeAdViewHolder -> {
                 holder.bind(mutableNativeAd1, lifeCycle)
@@ -183,13 +184,14 @@ class LodgesAdapter(
         private val newCard = itemView.findViewById<MaterialCardView>(R.id.newCard)
         private val resource = itemView.resources
 
-        fun bind(data: FirebaseLodge, listener: LodgeClickListener) {
+        fun bind(data: FirebaseLodge, listener: LodgeClickListener, seenLodges: List<String?>) {
 
             Glide.with(lodgeImage.context)
                 .load(data.coverImage).apply(
                     RequestOptions().placeholder(R.drawable.loading_background)).into(lodgeImage)
 
-            initialPrice.text = resource.getString(R.string.format_price_integer, data.payment)
+            val charge = data.payment?.times(8/100)
+            initialPrice.text = resource.getString(R.string.format_price_integer, data.payment?.plus(charge?:0))
             lodgeName.text = data.hiddenName
             location.text = data.location
             campus.text = data.campus
@@ -206,9 +208,10 @@ class LodgesAdapter(
                 }
             }
 
-            if(data.seen!=null &&
-                data.seen == true) {
+            if(seenLodges.contains(data.lodgeId)) {
                 newCard.visibility = View.GONE
+            }else {
+                newCard.visibility = View.VISIBLE
             }
 
             favBtn?.setOnClickListener {

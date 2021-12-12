@@ -25,8 +25,9 @@ class LodgeViewHolder (val itemView: View):
     private val newCard = itemView.findViewById<MaterialCardView>(R.id.newCard)
     private val resource = itemView.resources
 
-    fun bind(data: FirebaseLodge, listener: LodgeClickListener) {
-        initialPrice.text = resource.getString(R.string.format_price_integer, data.payment)
+    fun bind(data: FirebaseLodge, listener: LodgeClickListener, seenLodges: List<String?>) {
+        val charge = data.payment?.times(8/100)
+        initialPrice.text = resource.getString(R.string.format_price_integer, data.payment?.plus(charge?:0))
         lodgeTitle.text = data.hiddenName
         location.text = data.location
         campus.text = data.campus
@@ -43,8 +44,7 @@ class LodgeViewHolder (val itemView: View):
             }
         }
 
-        if(data.seen!=null &&
-            data.seen == true) {
+        if(seenLodges.contains(data.lodgeId)) {
             newCard.visibility = View.GONE
         }else {
             newCard.visibility = View.VISIBLE

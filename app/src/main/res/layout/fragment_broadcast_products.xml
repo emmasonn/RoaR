@@ -61,6 +61,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:paddingBottom="@dimen/bottom_padding_ad"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-            tools:listitem="@layout/item_property_edit" />
+            tools:listitem="@layout/item_property_edit"
+            />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

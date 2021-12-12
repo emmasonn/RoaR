@@ -31,12 +31,11 @@ import com.column.roar.MainActivity
 import com.column.roar.R
 import com.column.roar.cloudModel.FirebaseLodge
 import com.column.roar.cloudModel.FirebaseLodgePhoto
-import com.column.roar.database.FavModel
-import com.column.roar.database.FavModelDao
 import com.column.roar.databinding.FragmentLodgeDetailBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.column.roar.SplashActivity
+import com.column.roar.database.*
 import com.column.roar.listAdapters.*
 import com.column.roar.notification.LODGE_NOTIFICATION_ID
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -60,6 +59,8 @@ class LodgeDetail : Fragment() {
 
     private lateinit var bottomSheetLayout: BottomSheetDialog
     private lateinit var favModelDao: FavModelDao
+    private lateinit var lodgeDao: LodgeDao
+    private lateinit var photoDao: PhotoDao
     private lateinit var fireStore: FirebaseFirestore
     private lateinit var photosReference: CollectionReference
     private lateinit var photosAdapter: PhotosAdapter
@@ -98,6 +99,8 @@ class LodgeDetail : Fragment() {
         super.onCreate(savedInstanceState)
         sharedPref = (activity as MainActivity).sharedPref
         favModelDao = (activity as MainActivity).db.favModelDao()
+        lodgeDao = (activity as MainActivity).db.lodgeDao()
+        photoDao = (activity as MainActivity).db.photoDao()
 
         fireStore = FirebaseFirestore.getInstance()
         photosReference = fireStore.collection(getString(R.string.firestore_lodges))
@@ -111,11 +114,6 @@ class LodgeDetail : Fragment() {
 
         //replace lodgeId with agentId when it is not null
         clientDocumentRef = fireStore.collection("clients").document(lodgeData.agentId!!)
-    }
-
-    private fun updateSeen() {
-        fireStore.collection(getString(R.string.firestore_lodges)).document(lodgeData.lodgeId!!)
-            .update("seen", true)
     }
 
     override fun onCreateView(
@@ -148,23 +146,29 @@ class LodgeDetail : Fragment() {
             true
         }
 
-        lodgesAdapter = SimilarLodgeAdapter(LodgeClickListener({
-            val bundle = bundleOf("Lodge" to it)
-            findNavController().navigate(R.id.lodgeDetail, bundle)
-        }, {}))
+        lodgeDao.getAllLodges().observe(viewLifecycleOwner, { lodges ->
+            val lodgesId: List<String?> = lodges.map { it.id }
 
+            lodgesAdapter = SimilarLodgeAdapter(LodgeClickListener({
+                val bundle = bundleOf("Lodge" to it)
+                findNavController().navigate(R.id.lodgeDetail, bundle)
+            }, {}), lodgesId)
+
+            binding.othersRecycler.adapter = lodgesAdapter
+        })
+
+        lifecycleScope.launch {
+            val lodge = with(lodgeData) {
+                Lodge(id = lodgeId?:"", url = coverImage?:"", seen = true )
+            }
+            lodgeDao.insert(lodge)
+        }
 
         favIcon.setOnClickListener {
             lifecycleScope.launch {
                 favIcon.visibility = View.GONE
                 storeFavId(favModelDao.getFavOnce())
             }
-        }
-
-        if (lodgeData.seen == null) {
-            updateSeen()
-        } else if (!lodgeData.seen!!) {
-            updateSeen()
         }
 
         binding.shareBtn.setOnClickListener {
@@ -199,7 +203,6 @@ class LodgeDetail : Fragment() {
             favIcon.visibility = View.VISIBLE
         })
 
-        binding.othersRecycler.adapter = lodgesAdapter
         binding.bookBtn.setOnClickListener {
             showBottomSheet(lodgeData)
         }
@@ -234,7 +237,14 @@ class LodgeDetail : Fragment() {
             findNavController().navigate(R.id.viewLodge, bundle)
         }))
         photoListRecycler.adapter = photosAdapter
-        fetchLodgeAndPhotos()
+
+        lodgeDao.getLodgeAndPhoto(lodgeData.lodgeId?:"").observe(viewLifecycleOwner,{ lodgesAndPhotos ->
+            if(lodgesAndPhotos.photos.isNullOrEmpty()) {
+                fetchLodgeAndPhotos()
+            } else {
+                setPhotos(lodgesAndPhotos.photos.toFirebasePhotos())
+            }
+        })
 
         swipeRefreshContainer.setOnRefreshListener {
             fetchLodgeAndPhotos()
@@ -243,7 +253,6 @@ class LodgeDetail : Fragment() {
         clearNotification()
         return binding.root
     }
-
 
     @SuppressLint("InflateParams")
     private fun editLodgesDescription(lodge: FirebaseLodge) {
@@ -279,29 +288,15 @@ class LodgeDetail : Fragment() {
         }
     }
 
-
     private fun fetchLodgeAndPhotos() {
         val source = Source.DEFAULT
         photosReference.get(source).addOnSuccessListener { photosSnap ->
             photosSnap.documents.mapNotNull {
                 it.toObject(FirebaseLodgePhoto::class.java)
             }.also { photos ->
-                lifecycleScope.launchWhenStarted {
-                    if (photos.size == 1) {
-                        photoListRecycler.visibility = View.GONE
-                        binding.frontView.visibility = View.VISIBLE
-                    } else if (photos.size <= 3) {
-                        photoListRecycler.layoutManager = LinearLayoutManager(
-                            requireContext(), LinearLayoutManager.HORIZONTAL, false
-                        )
-                    } else {
-                        photoListRecycler.layoutManager = GridLayoutManager(
-                            requireContext(),
-                            2, GridLayoutManager.HORIZONTAL, false
-                        )
-                    }
-                    photosAdapter.submitList(photos)
-                    swipeRefreshContainer.isRefreshing = false
+                setPhotos(photos)
+                lifecycleScope.launch(Dispatchers.IO) {
+                  photoDao.insertPhotos(photos.toPhotos(lodgeData.lodgeId))
                 }
             }
         }
@@ -322,6 +317,26 @@ class LodgeDetail : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun setPhotos(photos: List<FirebaseLodgePhoto>) {
+        lifecycleScope.launchWhenStarted {
+            if (photos.size == 1) {
+                photoListRecycler.visibility = View.GONE
+                binding.frontView.visibility = View.VISIBLE
+            } else if (photos.size <= 3) {
+                photoListRecycler.layoutManager = LinearLayoutManager(
+                    requireContext(), LinearLayoutManager.HORIZONTAL, false
+                )
+            } else {
+                photoListRecycler.layoutManager = GridLayoutManager(
+                    requireContext(),
+                    2, GridLayoutManager.HORIZONTAL, false
+                )
+            }
+            photosAdapter.submitList(photos)
+            swipeRefreshContainer.isRefreshing = false
         }
     }
 

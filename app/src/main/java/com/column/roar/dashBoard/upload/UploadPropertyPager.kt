@@ -19,9 +19,7 @@ class UploadPropertyPager : Fragment() {
         return inflater.inflate(R.layout.fragment_upload_pager, container, false)
     }
 
-
-    class UploadPagerAdapter(fragment: Fragment,
-                           private val editLodgePager: EditLodgePager
+    class UploadPagerAdapter(fragment: Fragment, private val editLodgePager: EditLodgePager
     )
         : FragmentStateAdapter(fragment) {
         override fun getItemCount(): Int = 3
