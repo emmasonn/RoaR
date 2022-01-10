@@ -76,27 +76,15 @@
                         tools:text="Unn" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView9"
-                    android:layout_width="170dp"
-                    android:layout_height="310dp"
-                    android:layout_marginStart="138dp"
-                    android:elevation="10dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/lodge_store"
-                    app:layout_constraintBottom_toBottomOf="@+id/product_image"
-                    app:layout_constraintStart_toStartOf="@+id/product_image"
-                    app:layout_constraintTop_toTopOf="@+id/product_image"
-                    tools:ignore="ContentDescription" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/product_image"
-                    android:layout_width="220dp"
+                    android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:scaleType="fitXY"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
                     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius" />
 
                 <LinearLayout

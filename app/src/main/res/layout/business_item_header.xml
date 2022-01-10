@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/text1"
+        android:id="@+id/startTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -25,9 +25,9 @@
         android:layout_height="5dp"
         android:layout_marginStart="5dp"
         android:background="@drawable/circle_black_drawable"
-        app:layout_constraintBottom_toBottomOf="@+id/text1"
-        app:layout_constraintStart_toEndOf="@+id/text1"
-        app:layout_constraintTop_toTopOf="@+id/text1"
+        app:layout_constraintBottom_toBottomOf="@+id/startTitle"
+        app:layout_constraintStart_toEndOf="@+id/startTitle"
+        app:layout_constraintTop_toTopOf="@+id/startTitle"
         app:tint="?attr/colorOnPrimary" />
 
     <TextView
@@ -46,5 +46,20 @@
         app:layout_constraintStart_toEndOf="@+id/imageView19"
         app:layout_constraintTop_toTopOf="parent"
         />
+
+    <TextView
+        android:id="@+id/viewAll"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text=""
+        android:gravity="center"
+        android:layout_marginEnd="15dp"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        android:textColor="?attr/colorControlNormal"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/productType"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/productType" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

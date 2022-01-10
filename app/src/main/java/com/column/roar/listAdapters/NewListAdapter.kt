@@ -5,16 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.column.roar.R
+import com.column.roar.admin.FellowShipListAdapter
 import com.column.roar.cloudModel.FirebaseLodge
 import com.column.roar.cloudModel.FirebaseProperty
-import com.column.roar.database.Lodge
 import com.column.roar.listAdapters.adViewHolders.MediumAdViewHolder
 import com.column.roar.listAdapters.storeAdapter.PropertyListAdapter.*
 import com.column.roar.listAdapters.adViewHolders.NativeAdViewHolder
@@ -35,6 +34,8 @@ const val ITEM_MEDIUM_AD_VIEW = 4
 const val ITEM_EMPTY_LODGE = 5
 const val ITEM_AUTO_SCROLL_HEADER = 6
 const val ITEM_AUTO_SCROLL_ITEMS = 7
+const val ITEM_FELLOWSHIP_SCROLL_ITEMS = 8
+const val FELLOW_SHIP_SCROLL_BODY = 9
 
 //Adapter for main homeScreen for display both the lodges and product with headers
 class NewListAdapter(
@@ -65,8 +66,11 @@ class NewListAdapter(
         val propertyView = layoutInflater.inflate(R.layout.item_advert_property, parent, false)
         val itemHeader = layoutInflater.inflate(R.layout.item_advert_header, parent, false)
         val businessAdView = layoutInflater.inflate(R.layout.business_ads_layout, parent, false)
+
         val businessAdHeader =
-            layoutInflater.inflate(R.layout.business_item_header, parent, false) as ConstraintLayout
+            layoutInflater.inflate(R.layout.business_item_header, parent, false) //as ConstraintLayout
+
+        val fellowshipView = layoutInflater.inflate(R.layout.fellow_ship_layout, parent, false)
 
         val adView = layoutInflater.inflate(
             R.layout.native_small_advert_layout,
@@ -79,6 +83,7 @@ class NewListAdapter(
             parent,
             false
         )
+
         val emptyListLayout = layoutInflater.inflate(R.layout.item_empty_list_card, parent, false)
 
         return when (viewType) {
@@ -89,7 +94,10 @@ class NewListAdapter(
             ITEM_MEDIUM_AD_VIEW -> MediumAdViewHolder(mediumAdView)
             ITEM_EMPTY_LODGE -> EmptyViewHolder(emptyListLayout)
             ITEM_AUTO_SCROLL_HEADER -> BusinessHeaderViewHolder(businessAdHeader)
+            ITEM_FELLOWSHIP_SCROLL_ITEMS -> FellowShipHeaderViewHolder(businessAdHeader)
+            FELLOW_SHIP_SCROLL_BODY -> FellowshipViewHolder(fellowshipView)
             ITEM_AUTO_SCROLL_ITEMS -> BusinessAdsViewHolder(businessAdView)
+
             else -> throw ClassCastException("Unknown view type $viewType")
         }
     }
@@ -108,10 +116,25 @@ class NewListAdapter(
                 val businessItems = getItem(position) as DataItem.BusinessAdsItem
                 holder.bind(businessItems.property, propertyListener)
             }
+
+            is FellowshipViewHolder -> {
+                val fellowShipItems = getItem(position) as DataItem.FellowShipItem
+                holder.bind(fellowShipItems.property, propertyListener)
+            }
+
+            is BusinessHeaderViewHolder -> {
+                holder.bind("ads","Campus Top Sales", propertyListener)
+            }
+
+            is FellowShipHeaderViewHolder -> {
+                holder.bind(null,"Campus Fellowships", propertyListener)
+            }
+
             is HeaderViewHolder -> {
                 val item = getItem(position) as DataItem.Header
                 holder.bind(item.title, propertyListener)
             }
+
             is NativeAdViewHolder -> {
                 holder.bind(mutableNativeAd1, lifeCycle)
             }
@@ -150,6 +173,12 @@ class NewListAdapter(
                 }
                 else -> {
                     lodges.take(1).map { DataItem.LodgeItem(it) } +
+                            listOf(DataItem.FellowshipHeader) +
+                            properties.run {
+                                this.filter { it.type == "Fellowship" }.let {
+                                    DataItem.FellowShipItem(it)
+                                }
+                            } +
                             listOf(DataItem.CampusBusinessHeader) +
                             properties.run {
                                 this.filter { it.type == "Ads" }.take(2).let {
@@ -159,7 +188,7 @@ class NewListAdapter(
                             lodges.drop(1).take(3).map { DataItem.LodgeItem(it) } +
                             listOf(DataItem.CampusBusinessHeader) +
                             properties.run {
-                                this.filter { it.type == "Ads" }.drop(2).take(2).let {
+                                this.filter { it.type == "Ads" }.drop(2).let {
                                     DataItem.BusinessAdsItem(it)
                                 }
                             } +
@@ -191,7 +220,9 @@ class NewListAdapter(
             is DataItem.MediumAd -> ITEM_MEDIUM_AD_VIEW
             is DataItem.EmptyCard -> ITEM_EMPTY_LODGE
             is DataItem.CampusBusinessHeader -> ITEM_AUTO_SCROLL_HEADER
+            is DataItem.FellowshipHeader -> ITEM_FELLOWSHIP_SCROLL_ITEMS
             is DataItem.BusinessAdsItem -> ITEM_AUTO_SCROLL_ITEMS
+            is DataItem.FellowShipItem -> FELLOW_SHIP_SCROLL_BODY
         }
     }
 
@@ -227,7 +258,16 @@ sealed class DataItem {
             get() = Random.nextDouble().toString()
     }
 
+    data class FellowShipItem(val property: List<FirebaseProperty>) : DataItem() {
+        override val id: String = Random.nextDouble().toString()
+    }
+
     object AdHeader : DataItem() {
+        override val id: String
+            get() = Random.nextDouble().toString()
+    }
+
+    object FellowshipHeader : DataItem() {
         override val id: String
             get() = Random.nextDouble().toString()
     }
@@ -260,11 +300,54 @@ class HeaderViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(title: String, propertyListener: PropertyClickListener) {
         titleView.text = resource.getString(R.string.format_property_header, title)
         moreIcon.setOnClickListener {
-            propertyListener.onJustClick(null)
+            propertyListener.onJustClick(null,"more")
         }
     }
 }
 
-class BusinessHeaderViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView)
+class BusinessHeaderViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private val startTitle = itemView.findViewById<TextView>(R.id.startTitle)
+    private val productType = itemView.findViewById<TextView>(R.id.productType)
+//    private val viewAll = itemView.findViewById<TextView>(R.id.viewAll)
+
+    fun bind(title: String?, mainHeader: String, propertyListener: PropertyClickListener) {
+        startTitle.text = title
+        productType.text = mainHeader
+//        viewAll.setOnClickListener {
+//            propertyListener.onJustClick(null,"ads")
+//        }
+    }
+}
+
+class FellowShipHeaderViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private val startTitle = itemView.findViewById<TextView>(R.id.startTitle)
+    private val productType = itemView.findViewById<TextView>(R.id.productType)
+//    private val viewAll = itemView.findViewById<TextView>(R.id.viewAll)
+    fun bind(title: String?, mainHeader: String, propertyListener: PropertyClickListener) {
+        if(title==null){
+            startTitle.text = ""
+        }
+        productType.text = mainHeader
+//        viewAll.setOnClickListener {
+//            propertyListener.onJustClick(null,"fellowship")
+//        }
+    }
+}
+
+class FellowshipViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private val fellowShipRecycler = itemView.findViewById<RecyclerView>(R.id.fellowShipRecycler)
+    fun bind(
+        data: List<FirebaseProperty>,
+        propertyListener: PropertyClickListener
+    ) {
+        val adapter = FellowShipListAdapter (
+            PropertyClickListener({
+                propertyListener.onTab(it)
+            },{}))
+
+        fellowShipRecycler.adapter = adapter
+        adapter.submitList(data)
+    }
+}
 
 class EmptyViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView)

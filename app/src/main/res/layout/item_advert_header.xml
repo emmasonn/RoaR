@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     >
     <TextView
-        android:id="@+id/text1"
+        android:id="@+id/startTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -26,9 +26,9 @@
         android:layout_height="5dp"
         android:layout_marginStart="5dp"
         android:background="@drawable/circle_black_drawable"
-        app:layout_constraintBottom_toBottomOf="@+id/text1"
-        app:layout_constraintStart_toEndOf="@+id/text1"
-        app:layout_constraintTop_toTopOf="@+id/text1"
+        app:layout_constraintBottom_toBottomOf="@+id/startTitle"
+        app:layout_constraintStart_toEndOf="@+id/startTitle"
+        app:layout_constraintTop_toTopOf="@+id/startTitle"
         app:tint="?attr/colorOnPrimary" />
 
     <TextView

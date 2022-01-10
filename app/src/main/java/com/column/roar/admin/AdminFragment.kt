@@ -75,6 +75,11 @@ class AdminFragment : Fragment() {
                     true
                 }
 
+                R.id.manageFellowship -> {
+                    findNavController().navigate(R.id.manageFellowship)
+                    true
+                }
+
                 R.id.businessAd -> {
                     findNavController().navigate(R.id.manageAds)
                     true

@@ -72,6 +72,7 @@ class LodgeDetail : Fragment() {
     private lateinit var sharedPref: SharedPreferences
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
     private lateinit var noItemfound: MaterialCardView
+    private lateinit var initPrice: TextView
 
     private val enuguImg: String? by lazy {
         sharedPref.getString("enugu_img", "")
@@ -130,6 +131,7 @@ class LodgeDetail : Fragment() {
         swipeRefreshContainer = binding.swipeContainer
         swipeRefreshContainer.isRefreshing = true
         noItemfound = binding.emptyListView
+        initPrice = binding.intPrice
 
         val accountType = sharedPref.getString("accountType", null)
 
@@ -145,6 +147,21 @@ class LodgeDetail : Fragment() {
             }
             true
         }
+
+        binding.similarLodges.setOnClickListener {
+            fetchSimilarLodge()
+        }
+
+        val commission = lodgeData.payment?.times(0.08)?.toInt()
+        val rent = lodgeData.rent?.toInt()
+
+        initPrice.text = getString(R.string.format_price_integer, rent?.plus(commission?:10000))
+
+//        if(rent!=null && rent < 100000) {
+//            initPrice.text = getString(R.string.format_price_integer, lodgeData.payment?.plus(10000))
+//        } else {
+//            initPrice.text = getString(R.string.format_price_integer, lodgeData.payment?.plus(15000))
+//        }
 
         lodgeDao.getAllLodges().observe(viewLifecycleOwner, { lodges ->
             val lodgesId: List<String?> = lodges.map { it.id }
@@ -300,13 +317,17 @@ class LodgeDetail : Fragment() {
                 }
             }
         }
+    }
 
-        /*fetching similar lodge here*/
+    private fun fetchSimilarLodge() {
+        swipeRefreshContainer.isRefreshing = true
+        val source = Source.DEFAULT
         lodgeCollection.get(source).addOnSuccessListener { values ->
             values.documents.mapNotNull {
                 it.toObject(FirebaseLodge::class.java)
             }.also { lodges ->
                 lifecycleScope.launchWhenCreated {
+                    swipeRefreshContainer.isRefreshing = false
                     if (lodges.isNotEmpty()) {
                         lodgesAdapter.submitList(lodges)
                         binding.othersRecycler.visibility = View.VISIBLE

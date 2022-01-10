@@ -163,6 +163,7 @@
         <item>Accessory</item>
         <item>Others</item>
         <item>Ads</item>
+        <item>Fellowship</item>
     </string-array>
 
     <string-array name="product_type_filter">

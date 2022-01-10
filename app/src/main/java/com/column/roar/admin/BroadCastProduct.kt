@@ -68,7 +68,7 @@ class BroadCastProduct : Fragment() {
             PropertyClickListener(
                 {}, { product ->
                     editDialog(product)
-                }, { products ->
+                },{ products, _  ->
                     navigateToAddOthers(products!!)
                 })
         )

@@ -26,11 +26,13 @@ class LodgeViewHolder (val itemView: View):
     private val resource = itemView.resources
 
     fun bind(data: FirebaseLodge, listener: LodgeClickListener, seenLodges: List<String?>) {
-        val charge = data.payment?.times(8/100)
-        initialPrice.text = resource.getString(R.string.format_price_integer, data.payment?.plus(charge?:0))
+
+        initialPrice.text = resource.getString(R.string.format_price_integer, data.payment)
+
         lodgeTitle.text = data.hiddenName
         location.text = data.location
         campus.text = data.campus
+
         if(data.rooms == null) {
             lock.alpha = 1F
         }else {

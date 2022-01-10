@@ -24,21 +24,21 @@ import com.google.firebase.firestore.Query
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class ManageAds : Fragment() {
-
-    private lateinit var uploadPhotosAdapter: UploadPhotosAdapter
+class ManageFellowship : Fragment() {
     private lateinit var fireStore: FirebaseFirestore
-    private lateinit var productsRef: Query
     private lateinit var productCollection: CollectionReference
+    private lateinit var productsRef: Query
     private lateinit var swipeContainer: SwipeRefreshLayout
+    private lateinit var uploadPhotosAdapter: UploadPhotosAdapter
     private lateinit var lodgeCollection: CollectionReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fireStore = FirebaseFirestore.getInstance()
         productCollection = fireStore.collection("properties")
-        productsRef = productCollection.whereEqualTo("type","Ads")
+        productsRef = productCollection.whereEqualTo("type", "Fellowship")
             .orderBy("postDate", Query.Direction.DESCENDING)
+
         lodgeCollection = fireStore.collection("properties")
     }
 
@@ -47,77 +47,34 @@ class ManageAds : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_manage_ads, container, false)
+        val view = inflater.inflate(R.layout.fragment_manage_fellowship, container, false)
         val manageProductsRecycler = view.findViewById<RecyclerView>(R.id.manageProductsRecycler)
-        val backBtn = view.findViewById<ImageView>(R.id.businessBack)
-        val uploadBtn = view.findViewById<ImageView>(R.id.uploadImage)
         swipeContainer = view.findViewById(R.id.swipeContainer)
-        swipeContainer.isRefreshing = true
+        val backBtn = view.findViewById<ImageView>(R.id.businessBack)
 
         backBtn.setOnClickListener {
             findNavController().popBackStack()
         }
+        swipeContainer.isRefreshing = true
 
-        uploadBtn.setOnClickListener {
-            findNavController().navigate(R.id.uploadAds)
-        }
-
-        uploadPhotosAdapter = UploadPhotosAdapter(ClickListener ({
+        uploadPhotosAdapter = UploadPhotosAdapter(ClickListener({
             showDeleteDialog(it.id!!)
-        },{
+        }, {
             val bundle = bundleOf("property" to it)
             findNavController().navigate(R.id.addBusinessProduct, bundle)
-        }),true)
+        }), true)
 
         manageProductsRecycler.adapter = uploadPhotosAdapter
         swipeContainer.setOnRefreshListener {
             fetchProducts()
         }
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fetchProducts()
-    }
-
-    private fun deleteCard(id: String) {
-        val document = lodgeCollection.document(id)
-        document.delete().addOnSuccessListener {
-            Toast.makeText(requireContext(),"Deleted Successfully",Toast.LENGTH_SHORT).show()
-            lifecycleScope.launch {
-                swipeContainer.isRefreshing = true
-                fetchProducts()
-            }
-        }.addOnFailureListener {
-            Toast.makeText(requireContext(),"Failed to delete",Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun suspendCard(id: String) {
-        val document = lodgeCollection.document(id)
-        document.update("certified",false).addOnSuccessListener {
-            Toast.makeText(requireContext(),"suspended Successfully",Toast.LENGTH_SHORT).show()
-            lifecycleScope.launch {
-                swipeContainer.isRefreshing = true
-                fetchProducts()
-            }
-        }.addOnFailureListener {
-            Toast.makeText(requireContext(),"Failed to suspend",Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun approveCard(id: String) {
-        val document = lodgeCollection.document(id)
-        document.update("certified",true).addOnSuccessListener {
-            Toast.makeText(requireContext(),"Approved Successfully",Toast.LENGTH_SHORT).show()
-            lifecycleScope.launch {
-                swipeContainer.isRefreshing = true
-                fetchProducts()
-            }
-        }.addOnFailureListener {
-            Toast.makeText(requireContext(),"Failed to Approve",Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun fetchProducts() {
@@ -142,11 +99,49 @@ class ManageAds : Fragment() {
             }
         }.addOnFailureListener { e ->
             swipeContainer.isRefreshing = false
-            Timber.e(e,"Unable to fetch data")
-            Toast.makeText(requireContext(),"Cannot fetch data",Toast.LENGTH_SHORT).show()
+            Timber.e(e, "Unable to fetch data")
+            Toast.makeText(requireContext(), "Cannot fetch data", Toast.LENGTH_SHORT).show()
         }
     }
 
+    private fun approveCard(id: String) {
+        val document = lodgeCollection.document(id)
+        document.update("certified", true).addOnSuccessListener {
+            Toast.makeText(requireContext(), "Approved Successfully", Toast.LENGTH_SHORT).show()
+            lifecycleScope.launch {
+                swipeContainer.isRefreshing = true
+                fetchProducts()
+            }
+        }.addOnFailureListener {
+            Toast.makeText(requireContext(), "Failed to Approve", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun deleteCard(id: String) {
+        val document = lodgeCollection.document(id)
+        document.delete().addOnSuccessListener {
+            Toast.makeText(requireContext(), "Deleted Successfully", Toast.LENGTH_SHORT).show()
+            lifecycleScope.launch {
+                swipeContainer.isRefreshing = true
+                fetchProducts()
+            }
+        }.addOnFailureListener {
+            Toast.makeText(requireContext(), "Failed to delete", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun suspendCard(id: String) {
+        val document = lodgeCollection.document(id)
+        document.update("certified", false).addOnSuccessListener {
+            Toast.makeText(requireContext(), "suspended Successfully", Toast.LENGTH_SHORT).show()
+            lifecycleScope.launch {
+                swipeContainer.isRefreshing = true
+                fetchProducts()
+            }
+        }.addOnFailureListener {
+            Toast.makeText(requireContext(), "Failed to suspend", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private fun showDeleteDialog(stringId: String) {
         MaterialAlertDialogBuilder(requireContext()).apply {
@@ -156,14 +151,15 @@ class ManageAds : Fragment() {
                 deleteCard(stringId)
             }
 
-            setNeutralButton("Approve") { dialog,_ ->
+            setNeutralButton("Approve") { dialog, _ ->
                 dialog.dismiss()
                 approveCard(stringId)
             }
 
             setNegativeButton("Suspend") { dialog, _ ->
                 dialog.dismiss()
-                suspendCard(stringId)            }
+                suspendCard(stringId)
+            }
             show()
         }
     }

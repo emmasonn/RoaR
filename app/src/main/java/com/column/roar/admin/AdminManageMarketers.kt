@@ -77,13 +77,9 @@ class AdminManageMarketers : Fragment() {
              val bundle = bundleOf("property" to it)
                 findNavController().navigate(R.id.uploadProperty,bundle)
             },
-            {
-              //long click
-              activateAccount(it)
-            }, {}
-        ))
-        manageProductsRecycler.adapter = managePropertyAdapter
+            { activateAccount(it) },{_,_ -> }))
 
+        manageProductsRecycler.adapter = managePropertyAdapter
         swipeRefreshContainer.setOnRefreshListener {
             fetchProducts()
         }

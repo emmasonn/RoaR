@@ -68,6 +68,10 @@ class FavoriteFragment : Fragment() {
             }), this, true, lodgesId)
 
             lodgeRecycler.adapter = lodgesAdapter
+
+            lifecycleScope.launch {
+                fetchFavId(favModelDao.getFavOnce())
+            }
         })
 
         favBack.setOnClickListener {
@@ -75,14 +79,11 @@ class FavoriteFragment : Fragment() {
         }
 
         initialize()
+
         swipeRefreshContainer.setOnRefreshListener {
             lifecycleScope.launch {
                 fetchFavId(favModelDao.getFavOnce())
             }
-        }
-
-        lifecycleScope.launch {
-            fetchFavId(favModelDao.getFavOnce())
         }
         return view
     }
@@ -117,11 +118,11 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun initialize() {
-        (activity as MainActivity).storeScreenAd.observe(viewLifecycleOwner,{ ad ->
+        (activity as MainActivity).storeScreenAd.observe(viewLifecycleOwner, { ad ->
             lodgesAdapter.postAd1(ad)
         })
 
-        (activity as MainActivity).detailScreenMediumAd.observe(viewLifecycleOwner,{ ad ->
+        (activity as MainActivity).detailScreenMediumAd.observe(viewLifecycleOwner, { ad ->
             lodgesAdapter.postAd2(ad)
         })
     }

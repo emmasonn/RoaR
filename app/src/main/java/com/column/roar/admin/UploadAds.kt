@@ -49,6 +49,7 @@ class UploadAds : Fragment() {
     private lateinit var phoneNumber: TextInputEditText
     private lateinit var specialOffer: TextInputEditText
     private lateinit var campus: TextInputLayout
+    private lateinit var uploadType: TextInputLayout
 
     private var lodgeImage: Bitmap? = null
 
@@ -72,6 +73,7 @@ class UploadAds : Fragment() {
         brandName = view.findViewById(R.id.brandTitle)
         phoneNumber = view.findViewById(R.id.phoneNumber)
         campus = view.findViewById(R.id.viewSpinner)
+        uploadType = view.findViewById(R.id.uploadTypeSpinner)
         specialOffer = view.findViewById(R.id.specialTitle)
         val backBtn = view.findViewById<ImageView>(R.id.businessBack)
 
@@ -81,6 +83,13 @@ class UploadAds : Fragment() {
             android.R.layout.simple_spinner_dropdown_item
         )
         (campus.editText as AutoCompleteTextView).setAdapter(campusAdapter)
+
+        val uploadTypeAdapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.product_type_form,
+            android.R.layout.simple_spinner_dropdown_item
+        )
+        (uploadType.editText as AutoCompleteTextView).setAdapter(uploadTypeAdapter)
 
         backBtn.setOnClickListener {
             findNavController().popBackStack()
@@ -195,6 +204,7 @@ class UploadAds : Fragment() {
                     val campus = campus.editText?.text.toString()
                     val offer = specialOffer.text.toString()
                     val phone = phoneNumber.text.toString()
+                    val uploadItem = uploadType.editText?.text.toString()
 
                     val lodgePhoto = FirebaseProperty(
                         id = uid,
@@ -204,7 +214,7 @@ class UploadAds : Fragment() {
                         number = phone,
                         promo = offer,
                         certified = true,
-                        type = "Ads"
+                        type = uploadItem
                     )
                     businessPhotos.document(uid).set(lodgePhoto).addOnSuccessListener {
                         if(!isDetached){

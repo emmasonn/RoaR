@@ -38,7 +38,6 @@ class LodgesAdapter(
 ) : ListAdapter<DataItem, RecyclerView.ViewHolder>(diffUtil) {
 
     private val adapterScope = CoroutineScope(Dispatchers.Default)
-
     private val mutableNativeAd1 = MutableLiveData<NativeAd>()
     private val mutableNativeAd2 = MutableLiveData<NativeAd>()
 
@@ -190,11 +189,11 @@ class LodgesAdapter(
                 .load(data.coverImage).apply(
                     RequestOptions().placeholder(R.drawable.loading_background)).into(lodgeImage)
 
-            val charge = data.payment?.times(8/100)
-            initialPrice.text = resource.getString(R.string.format_price_integer, data.payment?.plus(charge?:0))
+            initialPrice.text = resource.getString(R.string.format_price_integer, data.payment)
             lodgeName.text = data.hiddenName
             location.text = data.location
             campus.text = data.campus
+
             if(data.rooms == null) {
                 lock.alpha = 1F
             }else {

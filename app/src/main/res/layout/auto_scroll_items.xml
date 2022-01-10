@@ -2,23 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView3"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="180dp"
         android:layout_marginBottom="15dp"
         android:layout_marginStart="20dp"
+        android:paddingStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         app:cardElevation="5dp"
         app:strokeWidth="0.5dp"
         app:strokeColor="?attr/colorOnSecondary"
         app:cardCornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -26,42 +26,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/light_black_background"
-                android:elevation="10dp"
-                android:visibility="gone"
-                android:layout_marginBottom="5dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/propertyImage"
-                app:layout_constraintStart_toStartOf="parent">
-                <ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="3dp"
-                    android:src="@drawable/ic_locate"
-                    app:tint="@color/white"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/campus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:paddingEnd="8dp"
-                    android:textAllCaps="false"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="@color/white"
-                    tools:ignore="RtlSymmetry"
-                    tools:text="Unn" />
-            </LinearLayout>
-
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/propertyImage"
-                android:layout_width="150dp"
+                android:layout_width="200dp"
                 android:layout_height="180dp"
                 android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"

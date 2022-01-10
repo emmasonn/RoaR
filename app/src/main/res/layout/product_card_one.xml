@@ -25,23 +25,15 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/product_image"
-                android:layout_width="160dp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/staggered_product_grid_card_height_landscape"
                 android:layout_margin="0.5dp"
                 android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.cornerRadius" />
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="160dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/lodge_store"
-                app:layout_constraintBottom_toBottomOf="@+id/product_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"

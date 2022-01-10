@@ -39,16 +39,16 @@ public final class PropertyListAdapter extends androidx.recyclerview.widget.List
         return 0;
     }
     
-    @kotlin.Metadata(mv = {1, 5, 1}, k = 1, d1 = {"\u0000\"\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u0002\n\u0002\b\b\u0018\u00002\u00020\u0001Bt\u0012!\u0010\u0002\u001a\u001d\u0012\u0013\u0012\u00110\u0004\u00a2\u0006\f\b\u0005\u0012\b\b\u0006\u0012\u0004\b\b(\u0007\u0012\u0004\u0012\u00020\b0\u0003\u0012!\u0010\t\u001a\u001d\u0012\u0013\u0012\u00110\u0004\u00a2\u0006\f\b\u0005\u0012\b\b\u0006\u0012\u0004\b\b(\u0007\u0012\u0004\u0012\u00020\b0\u0003\u0012\'\b\u0002\u0010\n\u001a!\u0012\u0015\u0012\u0013\u0018\u00010\u0004\u00a2\u0006\f\b\u0005\u0012\b\b\u0006\u0012\u0004\b\b(\u0007\u0012\u0004\u0012\u00020\b\u0018\u00010\u0003\u00a2\u0006\u0002\u0010\u000bJ\u000e\u0010\f\u001a\u00020\b2\u0006\u0010\u0007\u001a\u00020\u0004J\u0017\u0010\r\u001a\u0004\u0018\u00010\b2\b\u0010\u0007\u001a\u0004\u0018\u00010\u0004\u00a2\u0006\u0002\u0010\u000eJ\u000e\u0010\u000f\u001a\u00020\b2\u0006\u0010\u0007\u001a\u00020\u0004R-\u0010\n\u001a!\u0012\u0015\u0012\u0013\u0018\u00010\u0004\u00a2\u0006\f\b\u0005\u0012\b\b\u0006\u0012\u0004\b\b(\u0007\u0012\u0004\u0012\u00020\b\u0018\u00010\u0003X\u0082\u0004\u00a2\u0006\u0002\n\u0000R)\u0010\u0002\u001a\u001d\u0012\u0013\u0012\u00110\u0004\u00a2\u0006\f\b\u0005\u0012\b\b\u0006\u0012\u0004\b\b(\u0007\u0012\u0004\u0012\u00020\b0\u0003X\u0082\u0004\u00a2\u0006\u0002\n\u0000R)\u0010\t\u001a\u001d\u0012\u0013\u0012\u00110\u0004\u00a2\u0006\f\b\u0005\u0012\b\b\u0006\u0012\u0004\b\b(\u0007\u0012\u0004\u0012\u00020\b0\u0003X\u0082\u0004\u00a2\u0006\u0002\n\u0000\u00a8\u0006\u0010"}, d2 = {"Lcom/column/roar/listAdapters/storeAdapter/PropertyListAdapter$PropertyClickListener;", "", "listener", "Lkotlin/Function1;", "Lcom/column/roar/cloudModel/FirebaseProperty;", "Lkotlin/ParameterName;", "name", "data", "", "longClick", "justClick", "(Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V", "onAction", "onJustClick", "(Lcom/column/roar/cloudModel/FirebaseProperty;)Lkotlin/Unit;", "onLongClick", "app_debug"})
+    @kotlin.Metadata(mv = {1, 5, 1}, k = 1, d1 = {"\u0000.\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\u0010\u000e\n\u0002\b\u0007\u0018\u00002\u00020\u0001B\u0089\u0001\u0012!\u0010\u0002\u001a\u001d\u0012\u0013\u0012\u00110\u0004\u00a2\u0006\f\b\u0005\u0012\b\b\u0006\u0012\u0004\b\b(\u0007\u0012\u0004\u0012\u00020\b0\u0003\u0012!\u0010\t\u001a\u001d\u0012\u0013\u0012\u00110\u0004\u00a2\u0006\f\b\u0005\u0012\b\b\u0006\u0012\u0004\b\b(\u0007\u0012\u0004\u0012\u00020\b0\u0003\u0012<\b\u0002\u0010\n\u001a6\u0012\u0015\u0012\u0013\u0018\u00010\u0004\u00a2\u0006\f\b\u0005\u0012\b\b\u0006\u0012\u0004\b\b(\u0007\u0012\u0013\u0012\u00110\f\u00a2\u0006\f\b\u0005\u0012\b\b\u0006\u0012\u0004\b\b(\r\u0012\u0004\u0012\u00020\b\u0018\u00010\u000b\u00a2\u0006\u0002\u0010\u000eJ\u000e\u0010\u000f\u001a\u00020\b2\u0006\u0010\u0007\u001a\u00020\u0004J\u001f\u0010\u0010\u001a\u0004\u0018\u00010\b2\b\u0010\u0007\u001a\u0004\u0018\u00010\u00042\u0006\u0010\r\u001a\u00020\f\u00a2\u0006\u0002\u0010\u0011J\u000e\u0010\u0012\u001a\u00020\b2\u0006\u0010\u0007\u001a\u00020\u0004RB\u0010\n\u001a6\u0012\u0015\u0012\u0013\u0018\u00010\u0004\u00a2\u0006\f\b\u0005\u0012\b\b\u0006\u0012\u0004\b\b(\u0007\u0012\u0013\u0012\u00110\f\u00a2\u0006\f\b\u0005\u0012\b\b\u0006\u0012\u0004\b\b(\r\u0012\u0004\u0012\u00020\b\u0018\u00010\u000bX\u0082\u0004\u00a2\u0006\u0002\n\u0000R)\u0010\u0002\u001a\u001d\u0012\u0013\u0012\u00110\u0004\u00a2\u0006\f\b\u0005\u0012\b\b\u0006\u0012\u0004\b\b(\u0007\u0012\u0004\u0012\u00020\b0\u0003X\u0082\u0004\u00a2\u0006\u0002\n\u0000R)\u0010\t\u001a\u001d\u0012\u0013\u0012\u00110\u0004\u00a2\u0006\f\b\u0005\u0012\b\b\u0006\u0012\u0004\b\b(\u0007\u0012\u0004\u0012\u00020\b0\u0003X\u0082\u0004\u00a2\u0006\u0002\n\u0000\u00a8\u0006\u0013"}, d2 = {"Lcom/column/roar/listAdapters/storeAdapter/PropertyListAdapter$PropertyClickListener;", "", "listener", "Lkotlin/Function1;", "Lcom/column/roar/cloudModel/FirebaseProperty;", "Lkotlin/ParameterName;", "name", "data", "", "tabClick", "justClick", "Lkotlin/Function2;", "", "argument", "(Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V", "onAction", "onJustClick", "(Lcom/column/roar/cloudModel/FirebaseProperty;Ljava/lang/String;)Lkotlin/Unit;", "onTab", "app_debug"})
     public static final class PropertyClickListener {
         private final kotlin.jvm.functions.Function1<com.column.roar.cloudModel.FirebaseProperty, kotlin.Unit> listener = null;
-        private final kotlin.jvm.functions.Function1<com.column.roar.cloudModel.FirebaseProperty, kotlin.Unit> longClick = null;
-        private final kotlin.jvm.functions.Function1<com.column.roar.cloudModel.FirebaseProperty, kotlin.Unit> justClick = null;
+        private final kotlin.jvm.functions.Function1<com.column.roar.cloudModel.FirebaseProperty, kotlin.Unit> tabClick = null;
+        private final kotlin.jvm.functions.Function2<com.column.roar.cloudModel.FirebaseProperty, java.lang.String, kotlin.Unit> justClick = null;
         
         public PropertyClickListener(@org.jetbrains.annotations.NotNull
         kotlin.jvm.functions.Function1<? super com.column.roar.cloudModel.FirebaseProperty, kotlin.Unit> listener, @org.jetbrains.annotations.NotNull
-        kotlin.jvm.functions.Function1<? super com.column.roar.cloudModel.FirebaseProperty, kotlin.Unit> longClick, @org.jetbrains.annotations.Nullable
-        kotlin.jvm.functions.Function1<? super com.column.roar.cloudModel.FirebaseProperty, kotlin.Unit> justClick) {
+        kotlin.jvm.functions.Function1<? super com.column.roar.cloudModel.FirebaseProperty, kotlin.Unit> tabClick, @org.jetbrains.annotations.Nullable
+        kotlin.jvm.functions.Function2<? super com.column.roar.cloudModel.FirebaseProperty, ? super java.lang.String, kotlin.Unit> justClick) {
             super();
         }
         
@@ -56,13 +56,14 @@ public final class PropertyListAdapter extends androidx.recyclerview.widget.List
         com.column.roar.cloudModel.FirebaseProperty data) {
         }
         
-        public final void onLongClick(@org.jetbrains.annotations.NotNull
+        public final void onTab(@org.jetbrains.annotations.NotNull
         com.column.roar.cloudModel.FirebaseProperty data) {
         }
         
         @org.jetbrains.annotations.Nullable
         public final kotlin.Unit onJustClick(@org.jetbrains.annotations.Nullable
-        com.column.roar.cloudModel.FirebaseProperty data) {
+        com.column.roar.cloudModel.FirebaseProperty data, @org.jetbrains.annotations.NotNull
+        java.lang.String argument) {
             return null;
         }
     }

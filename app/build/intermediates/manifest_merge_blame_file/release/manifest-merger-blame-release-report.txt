@@ -3,7 +3,7 @@
 3    package="com.column.roar"
 4    android:installLocation="auto"
 5    android:requestLegacyExternalStorage="true"
-6    android:versionCode="11"
+6    android:versionCode="14"
 7    android:versionName="1.0.3" >
 8
 9    <uses-sdk
@@ -272,13 +272,13 @@
 139-->[com.github.flutterwave.rave-android:rave_utils:2.1.37] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\4bd6998bbcbdf6a4a4f339ddb47add22\jetified-rave_utils-2.1.37\AndroidManifest.xml:14:13-49
 140
 141        <provider
-141-->[com.squareup.picasso:picasso:2.71828] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\db4209b05133721d08b9faa178375fe5\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
+141-->[com.squareup.picasso:picasso:2.71828] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\ecdbb7e846439f5ba48dbfd6506d779b\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
 142            android:name="com.squareup.picasso.PicassoProvider"
-142-->[com.squareup.picasso:picasso:2.71828] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\db4209b05133721d08b9faa178375fe5\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
+142-->[com.squareup.picasso:picasso:2.71828] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\ecdbb7e846439f5ba48dbfd6506d779b\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
 143            android:authorities="com.column.roar.com.squareup.picasso"
-143-->[com.squareup.picasso:picasso:2.71828] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\db4209b05133721d08b9faa178375fe5\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
+143-->[com.squareup.picasso:picasso:2.71828] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\ecdbb7e846439f5ba48dbfd6506d779b\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
 144            android:exported="false" />
-144-->[com.squareup.picasso:picasso:2.71828] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\db4209b05133721d08b9faa178375fe5\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
+144-->[com.squareup.picasso:picasso:2.71828] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\ecdbb7e846439f5ba48dbfd6506d779b\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
 145
 146        <service
 146-->[com.google.firebase:firebase-storage-ktx:20.0.0] C:\Users\WEYUP\.gradle\caches\transforms-2\files-2.1\f4c78f9d44e0cb47bce89528ee8cea29\jetified-firebase-storage-ktx-20.0.0\AndroidManifest.xml:12:9-18:19

@@ -20,6 +20,10 @@
                     android:title="Add Account"
                     />
 
+                <item android:id="@+id/manageFellowship"
+                    android:title="Fellowships"
+                    />
+
                 <item android:id="@+id/businessAd"
                     android:title="BusinessAds" />
 

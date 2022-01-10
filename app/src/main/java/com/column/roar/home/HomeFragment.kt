@@ -143,8 +143,7 @@ class HomeFragment : Fragment() {
             roarItemsAdapter = NewListAdapter(LodgeClickListener({ lodge ->
                 val bundle = bundleOf("Lodge" to lodge)
                 findNavController().navigate(R.id.lodgeDetail, bundle)
-            }, {}), PropertyClickListener(
-                { data ->
+            }, {}), PropertyClickListener ({ data ->
                     swipeContainer.isRefreshing = true
                     if (data.type == "Ads") {
                         showAdDialog(data)
@@ -153,8 +152,16 @@ class HomeFragment : Fragment() {
                         findNavController().navigate(link)
                     }
                 },
-                {}, justClick = {
-                    findNavController().navigate(R.id.productStore)
+                { data ->
+                    showAdDialog(data)
+                }, justClick = { _ , _ ->
+                        swipeContainer.isRefreshing = true
+//                    if(argument == "ads") {
+                        findNavController().navigate(R.id.productStore)
+//                    }
+//                    else if (argument == "fellowship") {
+//                    }else {
+//                    }
                 }), this@HomeFragment, resources,
                 lodgesId )
             homeRecycler.adapter = roarItemsAdapter

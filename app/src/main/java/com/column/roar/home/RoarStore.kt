@@ -84,7 +84,7 @@ class RoarStore : Fragment() {
         productRef = fireStore.collection("properties")
         propertyCollection = fireStore.collection("properties")
             .whereEqualTo("certified",true)
-            .whereNotEqualTo("type","Ads")
+            .whereNotIn("type", listOf("Ads","Fellowship"))
     }
 
     override fun onCreateView(
@@ -141,7 +141,7 @@ class RoarStore : Fragment() {
         propertyRecycler.addItemDecoration(ProductGridItemDecoration(largePadding, smallPadding))
         propertyListAdapter = PropertyListAdapter(PropertyClickListener(
             listener = {
-            }, longClick = { showBottomSheet(it) }),
+            }, tabClick = { showBottomSheet(it) }),
             lifecycleOwner = this@RoarStore
         )
         propertyRecycler.adapter = propertyListAdapter
