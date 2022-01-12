@@ -71,6 +71,7 @@ class HomeFragment : Fragment() {
     private lateinit var retryBtn: MaterialButton
     private lateinit var sharedPref: SharedPreferences
     private  lateinit var lodgeDao: LodgeDao
+    private var isAdapterReady = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -156,22 +157,22 @@ class HomeFragment : Fragment() {
                     showAdDialog(data)
                 }, justClick = { _ , _ ->
                         swipeContainer.isRefreshing = true
-//                    if(argument == "ads") {
                         findNavController().navigate(R.id.productStore)
-//                    }
-//                    else if (argument == "fellowship") {
-//                    }else {
-//                    }
+
                 }), this@HomeFragment, resources,
                 lodgesId )
             homeRecycler.adapter = roarItemsAdapter
+            isAdapterReady = true
+            lifecycleScope.launch (Dispatchers.Main){
+                initializeHome()
+            }
         })
 
         swipeContainer.setOnRefreshListener {
             if (::chipsCategory.isInitialized) {
                 val position = (activity as MainActivity).chipState
                 roarItemsAdapter.clear()
-                fetchLodges(chipsCategory[position])
+                if(isAdapterReady) fetchLodges(chipsCategory[position])
             }
         }
 
@@ -237,7 +238,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch(Dispatchers.Main) {
-            initializeHome()
+//            initializeHome()
             (activity as MainActivity).homeScreenAd.observe(viewLifecycleOwner, { ad ->
                 roarItemsAdapter.postAd1(ad)
                 roarItemsAdapter.postAd2(ad)

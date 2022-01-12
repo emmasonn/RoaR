@@ -4,10 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b20d58cadd37574b6ca04b52dadd4a07/jetified-exoplayer-core-2.15.1/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/43c780ec581a54a802c8071a72d2672c/jetified-exoplayer-core-2.15.1/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b20d58cadd37574b6ca04b52dadd4a07/jetified-exoplayer-core-2.15.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b20d58cadd37574b6ca04b52dadd4a07/jetified-exoplayer-core-2.15.1/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b20d58cadd37574b6ca04b52dadd4a07/jetified-exoplayer-core-2.15.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b20d58cadd37574b6ca04b52dadd4a07/jetified-exoplayer-core-2.15.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

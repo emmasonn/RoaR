@@ -33,6 +33,7 @@ class FavoriteFragment : Fragment() {
     private lateinit var favModelDao: FavModelDao
     private lateinit var lodgeDao: LodgeDao
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
+    private var isAdapterReady  = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,17 +73,18 @@ class FavoriteFragment : Fragment() {
             lifecycleScope.launch {
                 fetchFavId(favModelDao.getFavOnce())
             }
+            isAdapterReady = true
+            initialize()
+
         })
 
         favBack.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        initialize()
-
         swipeRefreshContainer.setOnRefreshListener {
             lifecycleScope.launch {
-                fetchFavId(favModelDao.getFavOnce())
+                if(isAdapterReady) fetchFavId(favModelDao.getFavOnce())
             }
         }
         return view

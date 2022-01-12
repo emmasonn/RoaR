@@ -32,7 +32,6 @@ class FellowShipListAdapter(private val propertyListener: PropertyListAdapter.Pr
     }
 
     class FellowShipListViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val brandName = itemView.findViewById<TextView>(R.id.brandName)
         private val firstImage = itemView.findViewById<ImageView>(R.id.fellowImage)
 
         fun bind(
@@ -44,8 +43,6 @@ class FellowShipListAdapter(private val propertyListener: PropertyListAdapter.Pr
                 .load(data.cover).apply(
                     RequestOptions().placeholder(R.drawable.loading_background)
                 ).into(firstImage)
-
-            brandName.text =  data.brand
 
             itemView.setOnClickListener {
                 propertyListener.onAction(data)

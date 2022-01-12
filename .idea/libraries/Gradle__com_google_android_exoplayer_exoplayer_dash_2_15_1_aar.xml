@@ -4,10 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2c0316610644fbf3e81b254eb044b940/jetified-exoplayer-dash-2.15.1/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ab37f00d1be783d9e62ae6b5422b6c7f/jetified-exoplayer-dash-2.15.1/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2c0316610644fbf3e81b254eb044b940/jetified-exoplayer-dash-2.15.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2c0316610644fbf3e81b254eb044b940/jetified-exoplayer-dash-2.15.1/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2c0316610644fbf3e81b254eb044b940/jetified-exoplayer-dash-2.15.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2c0316610644fbf3e81b254eb044b940/jetified-exoplayer-dash-2.15.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

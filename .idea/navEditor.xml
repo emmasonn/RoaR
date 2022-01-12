@@ -542,6 +542,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="manageFellowship2">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1165" />
+                            <option name="y" value="59" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="manageProperty">
                     <value>
                       <LayoutPositions>
@@ -606,18 +618,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="paymentFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-401" />
-                            <option name="y" value="664" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="paymentPager">
                     <value>
                       <LayoutPositions>
@@ -626,6 +626,15 @@
                             <option name="x" value="-518" />
                             <option name="y" value="-1726" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="deepLink">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -836,18 +845,6 @@
                           <Point>
                             <option name="x" value="-273" />
                             <option name="y" value="180" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="viaAccount">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-695" />
-                            <option name="y" value="638" />
                           </Point>
                         </option>
                       </LayoutPositions>

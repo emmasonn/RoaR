@@ -176,20 +176,20 @@ class NewListAdapter(
                             listOf(DataItem.FellowshipHeader) +
                             properties.run {
                                 this.filter { it.type == "Fellowship" }.let {
-                                    DataItem.FellowShipItem(it)
+                                    DataItem.FellowShipItem(it.shuffled())
                                 }
                             } +
                             listOf(DataItem.CampusBusinessHeader) +
                             properties.run {
                                 this.filter { it.type == "Ads" }.take(2).let {
-                                    DataItem.BusinessAdsItem(it)
+                                    DataItem.BusinessAdsItem(it.shuffled())
                                 }
                             } +
                             lodges.drop(1).take(3).map { DataItem.LodgeItem(it) } +
                             listOf(DataItem.CampusBusinessHeader) +
                             properties.run {
                                 this.filter { it.type == "Ads" }.drop(2).let {
-                                    DataItem.BusinessAdsItem(it)
+                                    DataItem.BusinessAdsItem(it.shuffled())
                                 }
                             } +
                             lodges.drop(4).take(1).map { DataItem.LodgeItem(it) } +

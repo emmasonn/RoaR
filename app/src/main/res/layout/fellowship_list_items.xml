@@ -27,34 +27,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/fellowImage"
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription"
-        tools:src="@drawable/loading_background" />
-
-       <TextView
-           android:id="@+id/brandName"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_marginTop="5dp"
-           android:layout_marginBottom="5dp"
-           android:fontFamily="@font/montserrat_bold"
-           android:textAppearance="?attr/textAppearanceSubtitle2"
-           android:textColor="?attr/colorSecondaryVariant"
-           android:textStyle="bold"
+       <com.google.android.material.imageview.ShapeableImageView
+           android:id="@+id/fellowImage"
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           android:scaleType="fitXY"
            app:layout_constraintBottom_toBottomOf="parent"
-           app:layout_constraintEnd_toEndOf="@+id/fellowImage"
-           app:layout_constraintStart_toStartOf="@+id/fellowImage"
-           app:layout_constraintTop_toBottomOf="@+id/fellowImage"
-           tools:text="@string/format_brandName" />
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent"
+           tools:ignore="ContentDescription"
+           tools:src="@drawable/loading_background" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+   </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

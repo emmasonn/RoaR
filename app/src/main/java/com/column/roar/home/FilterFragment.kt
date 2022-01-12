@@ -36,6 +36,7 @@ class FilterFragment : Fragment() {
     private lateinit var connectionView: ConstraintLayout
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
     private  lateinit var lodgeDao: LodgeDao
+    private var isAdapterReady = false
 
     private val filter: String by lazy {
         arguments?.get("choice") as String
@@ -87,17 +88,20 @@ class FilterFragment : Fragment() {
             }, {}), this, false, lodgesId)
 
             filterRecycler.adapter = lodgesAdapter
+
+            initializeAd()
+            fetchLiveData()
+            isAdapterReady = true
+
         })
         //showProgress()
-        initializeAd()
-        fetchLiveData()
 
         filterBackBtn.setOnClickListener {
             findNavController().navigateUp()
         }
 
         swipeRefreshContainer.setOnRefreshListener {
-            fetchLiveData()
+            if(isAdapterReady) fetchLiveData()
         }
         return view
     }
