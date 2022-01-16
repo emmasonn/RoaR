@@ -28,6 +28,7 @@ data class FirebaseUser (
     @PropertyName("partner") var partner: String? = null,
     @PropertyName("slots") var slots: String? = null,
     @PropertyName("brand") var brand: String? = null,
+    @PropertyName("free") var free: String? = null,
     @PropertyName("password") var password: String? = null,
     @PropertyName("enuguImg") var enuguImg: String? = null,
     @PropertyName("nsukkaImg") var nsukkaImg: String? = null,

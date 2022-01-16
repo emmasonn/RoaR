@@ -206,6 +206,7 @@ class MainActivity : AppCompatActivity() {
                             roar.realtorComplaint,
                             roar.errand,
                             roar.marquee,
+                            roar.free,
                             roar.enuguPhone,
                             roar.nsukkaPhone,
                             roar.enuguImg,
@@ -230,6 +231,7 @@ class MainActivity : AppCompatActivity() {
         realtorComplaint: String?,
         errandComplaint: String?,
         marqueeInfo: String?,
+        free:String?,
         enuguPhone: String?,
         nsukkaPhone: String?,
         enuguImage: String?,
@@ -243,6 +245,7 @@ class MainActivity : AppCompatActivity() {
             putString("business_complaint",realtorComplaint)
             putString("errand_complaint",errandComplaint)
             putString("marquee_text", marqueeInfo)
+            putString("free",free) //free contains the free accommodation flier
             putString("nsukka_img",nsukkaImage)
             putString("enugu_img",enuguImage)
             putString("nsukka_phone",nsukkaPhone)

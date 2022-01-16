@@ -4,7 +4,7 @@
     package="com.column.roar"
     android:installLocation="auto"
     android:requestLegacyExternalStorage="true"
-    android:versionCode="15"
+    android:versionCode="16"
     android:versionName="1.0.4">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

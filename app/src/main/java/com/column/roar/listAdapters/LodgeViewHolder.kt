@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
+import java.text.DecimalFormat
 
 class LodgeViewHolder (val itemView: View):
     RecyclerView.ViewHolder(itemView) {
@@ -26,8 +27,9 @@ class LodgeViewHolder (val itemView: View):
     private val resource = itemView.resources
 
     fun bind(data: FirebaseLodge, listener: LodgeClickListener, seenLodges: List<String?>) {
+         val formatter = DecimalFormat()
 
-        initialPrice.text = resource.getString(R.string.format_price_integer, data.payment)
+        initialPrice.text = resource.getString(R.string.format_price_string, formatter.format(data.payment))
 
         lodgeTitle.text = data.hiddenName
         location.text = data.location

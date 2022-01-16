@@ -50,6 +50,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.DecimalFormat
 
 class LodgeDetail : Fragment() {
 
@@ -73,6 +74,8 @@ class LodgeDetail : Fragment() {
     private lateinit var swipeRefreshContainer: SwipeRefreshLayout
     private lateinit var noItemfound: MaterialCardView
     private lateinit var initPrice: TextView
+    private val formatter = DecimalFormat()
+
 
     private val enuguImg: String? by lazy {
         sharedPref.getString("enugu_img", "")
@@ -151,17 +154,28 @@ class LodgeDetail : Fragment() {
         binding.similarLodges.setOnClickListener {
             fetchSimilarLodge()
         }
+         var newPrice = 0;
+        val houseRent = lodgeData.payment ?: 0
+        val initialPay = lodgeData.rent?.toInt() ?: 0
 
-        val commission = lodgeData.payment?.times(0.08)?.toInt()
-        val rent = lodgeData.rent?.toInt()
+        when {
+            houseRent <= 50000 -> {
+                newPrice = 5000
+            }
+            houseRent in 50001..100000 -> {
+                newPrice = 10000
+            }
+            houseRent in 100001..200000 -> {
+                newPrice = 20000
+            }
+            houseRent > 20000 -> {
+                newPrice = 30000
+            }
+        }
+        val totalPayment = initialPay + newPrice
 
-        initPrice.text = getString(R.string.format_price_integer, rent?.plus(commission?:10000))
-
-//        if(rent!=null && rent < 100000) {
-//            initPrice.text = getString(R.string.format_price_integer, lodgeData.payment?.plus(10000))
-//        } else {
-//            initPrice.text = getString(R.string.format_price_integer, lodgeData.payment?.plus(15000))
-//        }
+        initPrice.text = getString(R.string.format_price_string, formatter.format(totalPayment))
+        binding.rent.text =  getString(R.string.format_price_string, formatter.format(houseRent))
 
         lodgeDao.getAllLodges().observe(viewLifecycleOwner, { lodges ->
             val lodgesId: List<String?> = lodges.map { it.id }
@@ -519,8 +533,8 @@ class LodgeDetail : Fragment() {
                                     "*Location: ${lodgeData.location}* \n" +
                                     "*Rent: ${
                                         getString(
-                                            R.string.format_price_integer,
-                                            lodgeData.payment
+                                            R.string.format_price_string,
+                                            formatter.format(lodgeData.payment)
                                         )
                                     }* \n\n " +
                                     "*Lodge Link: ${shortLink.shortLink}* \n\n"

@@ -340,10 +340,9 @@
                                         tools:ignore="TooDeepLayout" />
 
                                     <TextView
-                                        android:id="@+id/textP"
+                                        android:id="@+id/rent"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="@{@string/format_price_integer(lodgeDetail.payment)}"
                                         android:textAppearance="?attr/textAppearanceHeadline5"
                                         app:layout_constraintEnd_toStartOf="@+id/view"
                                         app:layout_constraintStart_toStartOf="parent"
@@ -354,7 +353,7 @@
                                         android:id="@+id/view"
                                         android:layout_width="2dp"
                                         android:layout_height="0dp"
-                                        app:layout_constraintBottom_toBottomOf="@+id/textP"
+                                        app:layout_constraintBottom_toBottomOf="@+id/rent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="@+id/rentTitle"
@@ -401,7 +400,7 @@
                                         app:layout_constraintEnd_toStartOf="@+id/view"
                                         app:layout_constraintHorizontal_bias="0.3"
                                         app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toBottomOf="@+id/textP" />
+                                        app:layout_constraintTop_toBottomOf="@+id/rent" />
 
                                     <TextView
                                         android:id="@+id/desc"

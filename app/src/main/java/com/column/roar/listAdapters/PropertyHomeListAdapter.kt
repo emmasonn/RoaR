@@ -14,6 +14,7 @@ import com.column.roar.listAdapters.PropertyHomeListAdapter.PropertyHomeListView
 import com.column.roar.listAdapters.storeAdapter.PropertyListAdapter.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import java.text.DecimalFormat
 
 
 //this adapter is for the list of items in the ads section of the homeScreen
@@ -40,7 +41,6 @@ class PropertyHomeListAdapter(private val propertyListener: PropertyClickListene
         private val campus = itemView.findViewById<TextView>(R.id.campus)
         private val resource = itemView.resources
         fun bind(data: FirebaseProperty, propertyListener: PropertyClickListener) {
-
             Glide.with(firstImage.context)
                 .load(data.cover).apply(
                     RequestOptions().placeholder(R.drawable.loading_background)

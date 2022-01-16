@@ -61,7 +61,7 @@
     <PreferenceCategory>
         <Preference
             app:title="©Roar2021"
-            app:summary="\tversion1.0.3"
+            app:summary="\tversion1.0.4"
             app:iconSpaceReserved="false"
             />
     </PreferenceCategory>

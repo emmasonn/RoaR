@@ -511,8 +511,8 @@ class RoarStore : Fragment() {
     //show dialog for calling realtor
     private fun callDialog(product: FirebaseProperty) {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle("You are about to leave app to make phone call escrow official")
-            setPositiveButton("Okay") {dialog, _ ->
+            setTitle("You are about to call the product agent")
+            setPositiveButton("Continue") {dialog, _ ->
                 dialog.dismiss()
                 dialPhoneNumber(product.number)
             }
@@ -526,8 +526,8 @@ class RoarStore : Fragment() {
     //whats-App dialog
     private fun whatsAppDialog(product: FirebaseProperty) {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle("You are about to leave app to WhatsApp escrow official")
-            setPositiveButton("Okay") {dialog, _ ->
+            setTitle("You are about to WhatsApp the product agent")
+            setPositiveButton("Continue") {dialog, _ ->
                 dialog.dismiss()
                 chatWhatsApp(product)
             }

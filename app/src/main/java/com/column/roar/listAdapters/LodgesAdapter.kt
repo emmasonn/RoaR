@@ -24,6 +24,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.DecimalFormat
 
 const val LODGE_VIEW = 0
 const val SMALL_AD = 1
@@ -184,12 +185,13 @@ class LodgesAdapter(
         private val resource = itemView.resources
 
         fun bind(data: FirebaseLodge, listener: LodgeClickListener, seenLodges: List<String?>) {
+            val formatter = DecimalFormat()
 
             Glide.with(lodgeImage.context)
                 .load(data.coverImage).apply(
                     RequestOptions().placeholder(R.drawable.loading_background)).into(lodgeImage)
 
-            initialPrice.text = resource.getString(R.string.format_price_integer, data.payment)
+            initialPrice.text = resource.getString(R.string.format_price_string, formatter.format(data.payment))
             lodgeName.text = data.hiddenName
             location.text = data.location
             campus.text = data.campus

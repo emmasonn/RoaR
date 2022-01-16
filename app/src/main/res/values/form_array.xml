@@ -5,6 +5,7 @@
         <item>Lodges</item>
         <item>Beach</item>
         <item>Behind-Flat</item>
+        <item>Vet-Mountain</item>
         <item>Boys-Quarters</item>
         <item>Odenigwe</item>
         <item>HillTop</item>
@@ -71,6 +72,7 @@
         <item>Beach</item>
         <item>Ebeno-Lane</item>
         <item>Behind-Flat</item>
+        <item>Vet-Mountain</item>
         <item>Boys-Quarters</item>
         <item>Corridor-Layout</item>
         <item>College-Road</item>
@@ -107,6 +109,7 @@
         <item>Beach</item>
         <item>Boys-Quarters</item>
         <item>Behind-Flat</item>
+        <item>Vet-Mountain</item>
         <item>Eze-Opi</item>
         <item>HillTop</item>
         <item>First-Gate</item>
@@ -163,6 +166,7 @@
         <item>Accessory</item>
         <item>Others</item>
         <item>Ads</item>
+
         <item>Fellowship</item>
     </string-array>
 
