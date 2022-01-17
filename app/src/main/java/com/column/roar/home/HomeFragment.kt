@@ -615,15 +615,12 @@ class HomeFragment : Fragment() {
 
             setNegativeButton("Close") { dialog,_ ->
                 dialog.dismiss()
+
             }
 
             Glide.with(imageView.context)
                 .load(imageUrl)
-                .apply(
-                    RequestOptions()
-                        .placeholder(R.drawable.animated_gradient)
-                        .error(R.drawable.animated_gradient)
-                ).into(imageView)
+                .into(imageView)
 
             setView(view)
         }.show()

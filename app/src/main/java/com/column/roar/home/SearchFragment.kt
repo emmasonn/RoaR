@@ -24,6 +24,7 @@ import com.column.roar.listAdapters.LodgesAdapter
 import com.google.android.material.card.MaterialCardView
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -33,7 +34,7 @@ class SearchFragment : Fragment() {
     private lateinit var searchView: SearchView
     private lateinit var queryTextListener: SearchView.OnQueryTextListener
     private lateinit var fireStore: FirebaseFirestore
-    private lateinit var lodgesCollection: CollectionReference
+    private lateinit var lodgesCollection: Query
     private lateinit var lodgesAdapter: LodgesAdapter
     private lateinit var connectionError: MaterialCardView
     private lateinit var noItemFound: MaterialCardView
@@ -45,7 +46,7 @@ class SearchFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fireStore = FirebaseFirestore.getInstance()
-        lodgesCollection = fireStore.collection("lodges")
+        lodgesCollection = fireStore.collection("lodges").orderBy("payment", Query.Direction.ASCENDING)
         lodgeDao = (activity as MainActivity).db.lodgeDao()
     }
 

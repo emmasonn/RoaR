@@ -181,14 +181,14 @@ class NewListAdapter(
                             } +
                             listOf(DataItem.CampusBusinessHeader) +
                             properties.run {
-                                this.filter { it.type == "Ads" }.take(2).let {
+                                this.filter { it.type == "Ads" }.take(4).let {
                                     DataItem.BusinessAdsItem(it.shuffled())
                                 }
                             } +
                             lodges.drop(1).take(3).map { DataItem.LodgeItem(it) } +
                             listOf(DataItem.CampusBusinessHeader) +
                             properties.run {
-                                this.filter { it.type == "Ads" }.drop(2).let {
+                                this.filter { it.type == "Ads" }.drop(4).let {
                                     DataItem.BusinessAdsItem(it.shuffled())
                                 }
                             } +
