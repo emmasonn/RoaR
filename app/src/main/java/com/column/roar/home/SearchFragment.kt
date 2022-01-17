@@ -66,7 +66,6 @@ class SearchFragment : Fragment() {
         initConnection()
         setUpQueryListener()
         setUpSearchView()
-        fetchLodges()
 
         backBtn.setOnClickListener {
             hideKeyBoard(requireView())
@@ -83,10 +82,11 @@ class SearchFragment : Fragment() {
             }, {}), this, false, lodgesId)
 
             recyclerView.adapter = lodgesAdapter
+            fetchLodges()
+            initializeAd()
 
         })
 
-        initializeAd()
         return view
     }
 
@@ -135,6 +135,7 @@ class SearchFragment : Fragment() {
 
     private fun setUpQueryListener() {
         queryTextListener = object : SearchView.OnQueryTextListener {
+
             override fun onQueryTextSubmit(query: String?): Boolean {
                 hideKeyBoard(requireView())
                 if(lodgesAdapter.currentList.isEmpty()) {
@@ -145,12 +146,11 @@ class SearchFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 hideEmptyList()
-                Timber.i("key $newText")
                 if(newText.isNullOrBlank()) {
                     lodgesAdapter.submitList(emptyList())
                 }else {
                     showProgressBar()
-                    lodgesList.filter { it.hiddenName!!.contains("$newText") }.also { result ->
+                    lodgesList.filter { newText.toInt() <= it.payment!! }.also { result ->
                         lodgesAdapter.addLodgeAndProperty(result, false).also {
                             hideProgressBar()
                         }

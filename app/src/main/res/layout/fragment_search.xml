@@ -38,7 +38,9 @@
             android:alpha="0.3"
             app:closeIcon="@drawable/ic_nav_close"
             app:goIcon="@drawable/ic_forward_fast"
-            app:queryHint="search eg. Lodge2345"
+            app:queryHint="search eg.amount"
+            android:inputType="number"
+            style="?attr/textAppearanceHeadline5"
             app:iconifiedByDefault="false"
             app:searchIcon="@drawable/ic_round_search"
             />

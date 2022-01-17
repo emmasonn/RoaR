@@ -78,13 +78,13 @@ public abstract class FragmentEditLodgeBinding extends ViewDataBinding {
   public final ProgressBar progressBar;
 
   @NonNull
+  public final TextView rent;
+
+  @NonNull
   public final TextView rentTitle;
 
   @NonNull
   public final TableLayout tableLayout;
-
-  @NonNull
-  public final TextView textP;
 
   @NonNull
   public final TextView textView18;
@@ -149,8 +149,8 @@ public abstract class FragmentEditLodgeBinding extends ViewDataBinding {
       ImageView imageView50, TextView in, TextView intPrice, TextView intTitle,
       MaterialCardView materialCardView, MaterialCardView materialCardView6,
       NestedScrollView nestedScrollView, ImageView pagerBack, ImageView playBtn,
-      ImageView playerView, ProgressBar progressBar, TextView rentTitle, TableLayout tableLayout,
-      TextView textP, TextView textView18, TextView textView2, TextView textView21,
+      ImageView playerView, ProgressBar progressBar, TextView rent, TextView rentTitle,
+      TableLayout tableLayout, TextView textView18, TextView textView2, TextView textView21,
       TextView textView22, TextView textView59, TextView textView6, TextView textView67,
       TextView textView8, TextView textView81, TextView title, TextView titleText,
       TextView uploadVideo, View view, View view0, View view2, View view4, View view5, View view8) {
@@ -173,9 +173,9 @@ public abstract class FragmentEditLodgeBinding extends ViewDataBinding {
     this.playBtn = playBtn;
     this.playerView = playerView;
     this.progressBar = progressBar;
+    this.rent = rent;
     this.rentTitle = rentTitle;
     this.tableLayout = tableLayout;
-    this.textP = textP;
     this.textView18 = textView18;
     this.textView2 = textView2;
     this.textView21 = textView21;

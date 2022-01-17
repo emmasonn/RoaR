@@ -572,7 +572,7 @@ class HomeFragment : Fragment() {
 
     private fun callDialog(number: String, brand: String?) {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle("You are about to leave app to make call $brand")
+            setTitle("You are about to leave app to call $brand ambassador")
             setPositiveButton("Okay") { dialog, _ ->
                 dialog.dismiss()
                 dialPhoneNumber(number)
@@ -606,8 +606,14 @@ class HomeFragment : Fragment() {
             val inflater = LayoutInflater.from(requireContext())
             val view = inflater.inflate(R.layout.dialog_view_product, null)
             val imageView = view.findViewById<ImageView>(R.id.fullImage)
+            val adminNumber =sharedPref.getString("nsukka_phone",null)
 
-            setNegativeButton("Okay") { dialog,_ ->
+            setPositiveButton("Call Now") { dialog, _ ->
+                dialog.dismiss()
+                dialPhoneNumber(adminNumber)
+            }
+
+            setNegativeButton("Close") { dialog,_ ->
                 dialog.dismiss()
             }
 
